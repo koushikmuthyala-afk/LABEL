@@ -30,16 +30,14 @@
 <!-- Favicon (emoji-based, works on all modern browsers) -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>"/>
 
-<!-- Google Analytics (replace G-XXXXXXXXXX with your actual ID) -->
-<!-- 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T58J68VG4K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'G-T58J68VG4K');
 </script>
--->
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -533,18 +531,23 @@
     <div class="search-tags">
       <span class="search-tag" onclick="quickSearch('Maggi Noodles')">Maggi Noodles</span>
       <span class="search-tag" onclick="quickSearch('Lay\'s Chips')">Lay's Chips</span>
-      <span class="search-tag" onclick="quickSearch('Britannia Biscuits')">Britannia Biscuits</span>
-      <span class="search-tag" onclick="quickSearch('Real Juice')">Real Juice</span>
+      <span class="search-tag" onclick="quickSearch('Kurkure Masala Munch')">Kurkure</span>
+      <span class="search-tag" onclick="quickSearch('Parle G')">Parle-G</span>
+      <span class="search-tag" onclick="quickSearch('Bournvita')">Bournvita</span>
+      <span class="search-tag" onclick="quickSearch('Frooti')">Frooti</span>
+      <span class="search-tag" onclick="quickSearch('Coca Cola')">Coca-Cola</span>
       <span class="search-tag" onclick="quickSearch('Amul Butter')">Amul Butter</span>
-      <span class="search-tag" onclick="quickSearch('Palm Oil')">Palm Oil</span>
+      <span class="search-tag" onclick="quickSearch('Quaker Oats')">Quaker Oats</span>
+      <span class="search-tag" onclick="quickSearch('Mother Dairy Curd')">Mother Dairy Curd</span>
       <span class="search-tag" onclick="quickSearch('TBHQ')">TBHQ</span>
+      <span class="search-tag" onclick="quickSearch('Palm Oil')">Palm Oil</span>
     </div>
   </div>
 </div>
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">500+</div><div class="stat-lbl">Indian products covered</div></div>
+  <div class="stat"><div class="stat-num">50+</div><div class="stat-lbl">Indian products covered</div></div>
   <div class="stat"><div class="stat-num">1,200+</div><div class="stat-lbl">Ingredients explained</div></div>
   <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
@@ -858,6 +861,291 @@ const products = {
     { dot: 'dot-caution', name: 'Palm Oil', desc: 'Saturated fat, LDL risk with daily consumption', safe: null },
     { dot: 'dot-safe', name: 'Potatoes', desc: 'Natural base ingredient — no concern', safe: true },
     { dot: 'dot-caution', name: 'Salt (excess)', desc: '170mg per 28g — adds to daily sodium load', safe: null },
+  ]},
+  'britannia marie gold': { name: 'Britannia Marie Gold Biscuits', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour (Maida)', desc: 'High GI flour — spikes blood sugar rapidly', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat raises LDL over long-term daily use', safe: false },
+    { dot: 'dot-caution', name: 'Added Sugar', desc: '4.5g sugar per 3 biscuits — adds up quickly', safe: null },
+    { dot: 'dot-caution', name: 'Ammonium Bicarbonate', desc: 'Leavening agent — generally safe in small amounts', safe: null },
+  ]},
+  'amul butter': { name: 'Amul Butter (Salted)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Pasteurised Cream', desc: 'Natural dairy fat — fine in moderation', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '95mg sodium per 10g serving — watch daily intake', safe: null },
+    { dot: 'dot-caution', name: 'Permitted Natural Colour (Annatto)', desc: 'Plant-derived yellow colour — generally safe', safe: null },
+  ]},
+  'real juice': { name: "Real Fruit Power Juice (Mixed Fruit)", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '22g sugar per 200ml — equivalent to 5.5 teaspoons', safe: false },
+    { dot: 'dot-caution', name: 'Fruit Concentrate', desc: 'Only ~10–15% actual fruit — not whole fruit juice', safe: null },
+    { dot: 'dot-avoid', name: 'Citric Acid (E330)', desc: 'Acidifier that erodes tooth enamel with regular use', safe: false },
+    { dot: 'dot-caution', name: 'Ascorbic Acid (Vit C)', desc: 'Added preservative — safe in food amounts', safe: null },
+  ]},
+  'kurkure masala munch': { name: 'Kurkure Masala Munch', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative — liver and immune risk', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat content', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Flavours', desc: 'Undisclosed chemical flavour compounds', safe: false },
+    { dot: 'dot-caution', name: 'MSG', desc: 'High sodium content, caution for hypertension', safe: null },
+    { dot: 'dot-avoid', name: 'Tartrazine (E102)', desc: 'Petroleum-derived yellow dye — hyperactivity risk in kids', safe: false },
+  ]},
+  'parle g': { name: 'Parle-G Original Glucose Biscuits', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'Ultra-refined — zero fibre, high GI', safe: false },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '11g sugar per 4 biscuits — very high', safe: false },
+    { dot: 'dot-caution', name: 'Vanaspati (Partially Hydrogenated Fat)', desc: 'May contain trans fats — major heart disease risk', safe: null },
+    { dot: 'dot-caution', name: 'Invert Syrup', desc: 'Liquid sugar — rapid blood glucose spike', safe: null },
+  ]},
+  'haldirams aloo bhujia': { name: "Haldiram's Aloo Bhujia", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat — cardiovascular risk', safe: false },
+    { dot: 'dot-caution', name: 'Salt', desc: 'Very high sodium — 480mg per 30g serving', safe: null },
+    { dot: 'dot-caution', name: 'Besan (Chickpea Flour)', desc: 'High protein base — nutritionally neutral', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Colours', desc: 'Sunset Yellow (E110) — linked to allergies', safe: false },
+  ]},
+  'hide and seek': { name: "Britannia Hide & Seek Chocolate Chip Cookies", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Primary fat used — high saturated fat content', safe: false },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '18g sugar per serving — very high', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Solids', desc: 'Small amount — low benefit at this quantity', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Vanilla Flavour', desc: 'Synthetic flavour — not real vanilla', safe: false },
+  ]},
+  'munch chocolate': { name: "Nestlé Munch Chocolate Bar", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '20g sugar per bar — 80% of recommended daily limit for kids', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — raises LDL with daily consumption', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Butter', desc: 'Natural fat — acceptable in moderation', safe: null },
+    { dot: 'dot-caution', name: 'Emulsifier Soy Lecithin', desc: 'Generally safe — may concern soy-allergic individuals', safe: null },
+  ]},
+  'good day biscuits': { name: "Britannia Good Day Butter Cookies", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'High GI — blood sugar spikes', safe: false },
+    { dot: 'dot-avoid', name: 'Sugar', desc: '14g sugar per 4 cookies', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — cardiovascular concern', safe: false },
+    { dot: 'dot-caution', name: 'Butter Flavour (Artificial)', desc: 'Synthetic diacetyl compound — not real butter', safe: null },
+  ]},
+  'top ramen noodles': { name: 'Top Ramen Curry Noodles', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative in the oil sachet', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat content', safe: false },
+    { dot: 'dot-caution', name: 'MSG', desc: 'High sodium — 850mg per serving', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Flavour', desc: 'Undisclosed chemical compounds for curry taste', safe: false },
+  ]},
+  'sunfeast dark fantasy': { name: 'Sunfeast Dark Fantasy Choco Fills', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat — major ingredient', safe: false },
+    { dot: 'dot-avoid', name: 'Sugar', desc: '16g per serving — very high', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Powder', desc: 'Small amount — some antioxidant benefit', safe: null },
+    { dot: 'dot-avoid', name: 'Emulsifier 322', desc: 'Soy lecithin — generally safe but undisclosed source', safe: false },
+  ]},
+  'bournvita': { name: 'Cadbury Bournvita', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '7.5g sugar per 20g serving — 37.5% sugar by weight', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Solids', desc: 'Some antioxidant benefit — outweighed by sugar content', safe: null },
+    { dot: 'dot-safe', name: 'Vitamins & Minerals', desc: 'B vitamins, calcium, iron — genuinely beneficial', safe: true },
+    { dot: 'dot-caution', name: 'Caramel Colour (E150)', desc: 'Artificial colouring — some forms linked to health concerns', safe: null },
+  ]},
+  'horlicks': { name: 'Horlicks Original Health Drink', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Malted Barley & Wheat', desc: 'Natural grain base — contains gluten', safe: null },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '5.4g sugar per 27g serving', safe: false },
+    { dot: 'dot-safe', name: 'Vitamins (23 nutrients)', desc: 'Genuinely fortified — good micronutrient profile', safe: true },
+    { dot: 'dot-caution', name: 'Skimmed Milk Powder', desc: 'Processed dairy — lower nutritional value than whole milk', safe: null },
+  ]},
+  'frooti': { name: 'Frooti Mango Drink', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '24g per 200ml — 6 teaspoons of sugar in one serving', safe: false },
+    { dot: 'dot-avoid', name: 'Mango Pulp (only 10%)', desc: 'Mostly water and sugar — not real mango juice', safe: false },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Acidifier that damages tooth enamel over time', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Mango Flavour', desc: 'Synthetic esters — not real fruit', safe: false },
+  ]},
+  'tropicana orange': { name: 'Tropicana 100% Orange Juice', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Orange Juice Concentrate', desc: 'Reconstituted — some nutrients lost in processing', safe: null },
+    { dot: 'dot-caution', name: 'Natural Sugar (Fructose)', desc: '21g per 250ml — high even though naturally occurring', safe: null },
+    { dot: 'dot-safe', name: 'Vitamin C (added)', desc: 'Beneficial fortification', safe: true },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Clean on this front — no TBHQ or synthetic additives', safe: true },
+  ]},
+  'amul taaza milk': { name: 'Amul Taaza Toned Milk (Tetra Pack)', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Pasteurised Toned Milk', desc: 'Natural dairy — good protein and calcium source', safe: true },
+    { dot: 'dot-safe', name: 'Vitamin A & D (fortified)', desc: 'Beneficial additions — especially Vitamin D for Indians', safe: true },
+    { dot: 'dot-caution', name: 'UHT Processing', desc: 'Ultra-high temp destroys some heat-sensitive nutrients', safe: null },
+  ]},
+  'dettol hand wash': { name: 'Dettol Original Hand Wash', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Chloroxylenol (PCMX)', desc: 'Active antimicrobial — effective but potential endocrine disruptor', safe: null },
+    { dot: 'dot-safe', name: 'Glycerin', desc: 'Moisturising agent — safe and beneficial', safe: true },
+    { dot: 'dot-caution', name: 'Parfum (Fragrance)', desc: 'Undisclosed chemical mix — potential allergen', safe: null },
+    { dot: 'dot-caution', name: 'Sodium Laureth Sulfate', desc: 'Foaming agent — mild irritant with frequent use', safe: null },
+  ]},
+  'close up toothpaste': { name: 'Close Up Red Hot Toothpaste', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Sodium Fluoride', desc: 'Proven cavity prevention — effective and safe at this dose', safe: true },
+    { dot: 'dot-caution', name: 'Sodium Lauryl Sulfate', desc: 'Foaming agent linked to mouth ulcers in sensitive users', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Red Colour', desc: 'Cosmetic only — potential allergen', safe: null },
+    { dot: 'dot-caution', name: 'Sorbitol', desc: 'Sugar alcohol sweetener — safe but GI upset in large amounts', safe: null },
+  ]},
+  'colgate strong teeth': { name: 'Colgate Strong Teeth Toothpaste', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Calcium Carbonate', desc: 'Natural mild abrasive — safe and effective', safe: true },
+    { dot: 'dot-safe', name: 'Sodium Monofluorophosphate', desc: 'Fluoride source — effective cavity prevention', safe: true },
+    { dot: 'dot-caution', name: 'Sodium Lauryl Sulfate', desc: 'Foaming agent — may irritate sensitive gums', safe: null },
+    { dot: 'dot-safe', name: 'Glycerin', desc: 'Moisturiser — safe', safe: true },
+  ]},
+  'lifebuoy soap': { name: 'Lifebuoy Total 10 Soap', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Triclosan', desc: 'Antimicrobial agent — WHO and FDA have raised concerns about overuse', safe: null },
+    { dot: 'dot-safe', name: 'Sodium Palmate', desc: 'Soap base from palm oil — effective cleanser', safe: true },
+    { dot: 'dot-caution', name: 'Parfum', desc: 'Fragrance mix — undisclosed chemicals, possible allergen', safe: null },
+  ]},
+  'lux soap': { name: 'Lux Soft Touch Beauty Soap', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Sodium Palmate / Palmitate', desc: 'Standard soap base — effective cleanser', safe: true },
+    { dot: 'dot-caution', name: 'Parfum', desc: 'Synthetic fragrance blend — potential skin sensitiser', safe: null },
+    { dot: 'dot-caution', name: 'Titanium Dioxide', desc: 'Whitening agent — safe topically but avoid inhaling', safe: null },
+    { dot: 'dot-safe', name: 'Glycerin', desc: 'Skin moisturiser — beneficial', safe: true },
+  ]},
+  'sunsilk shampoo': { name: 'Sunsilk Stunning Black Shine Shampoo', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Sodium Laureth Sulfate', desc: 'Harsh surfactant — strips natural oils with daily use', safe: null },
+    { dot: 'dot-caution', name: 'Dimethicone', desc: 'Silicone coating — builds up on scalp over time', safe: null },
+    { dot: 'dot-caution', name: 'Parfum', desc: 'Synthetic fragrance — potential allergen and hormone disruptor', safe: null },
+    { dot: 'dot-safe', name: 'Amla (Indian Gooseberry) Extract', desc: 'Traditional hair-strengthening ingredient', safe: true },
+  ]},
+  'pantene shampoo': { name: 'Pantene Pro-V Silky Smooth Shampoo', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Sodium Lauryl Sulfate', desc: 'Harsh foaming agent — can irritate scalp', safe: null },
+    { dot: 'dot-caution', name: 'Dimethicone', desc: 'Silicone — creates shine but may clog follicles', safe: null },
+    { dot: 'dot-caution', name: 'Panthenol (Pro-Vitamin B5)', desc: 'Genuinely beneficial — strengthens hair shaft', safe: null },
+    { dot: 'dot-avoid', name: 'Methylisothiazolinone', desc: 'Preservative — strong skin sensitiser, restricted in EU', safe: false },
+  ]},
+  'mtr masala oats': { name: 'MTR Masala Oats', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Rolled Oats', desc: 'Whole grain — excellent fibre and beta-glucan content', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '520mg sodium per serving — moderate concern', safe: null },
+    { dot: 'dot-caution', name: 'Maltodextrin', desc: 'High GI filler — spikes blood sugar faster than table sugar', safe: null },
+    { dot: 'dot-safe', name: 'Vegetable Powder', desc: 'Dehydrated vegetables — some nutritional benefit', safe: true },
+  ]},
+  'quaker oats': { name: 'Quaker Oats (Plain)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: '100% Whole Grain Oats', desc: 'Excellent source of beta-glucan fibre — lowers cholesterol', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Plain oats — no sweeteners added', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Clean label — nothing artificial', safe: true },
+  ]},
+  'yoga bar muesli': { name: 'Yoga Bar Oats & Berries Muesli', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Whole Grain Oats', desc: 'High fibre, low GI — excellent base', safe: true },
+    { dot: 'dot-safe', name: 'Dried Berries', desc: 'Natural antioxidants — beneficial', safe: true },
+    { dot: 'dot-caution', name: 'Honey', desc: 'Natural sweetener — still adds sugar calories', safe: null },
+    { dot: 'dot-safe', name: 'Seeds (Flax, Sunflower)', desc: 'Omega-3 and healthy fats — great addition', safe: true },
+  ]},
+  'kelloggs cornflakes': { name: "Kellogg's Corn Flakes", grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Milled Corn', desc: 'Refined grain — moderate GI, low fibre', safe: null },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '8g sugar per 30g serving — 27% sugar by weight', safe: false },
+    { dot: 'dot-safe', name: 'Iron & B Vitamins (fortified)', desc: 'Genuinely beneficial fortification', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '200mg sodium per serving — moderate', safe: null },
+  ]},
+  'maggi masala noodles': { name: 'Maggi Masala Noodles (Atta)', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Whole Wheat Flour (Atta)', desc: 'Better than maida — some fibre retained', safe: null },
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Still present even in the "healthier" atta variant', safe: false },
+    { dot: 'dot-caution', name: 'MSG', desc: 'High sodium masala — 840mg per serving', safe: null },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Lower quantity than original but still present', safe: null },
+  ]},
+  'pepsi': { name: 'Pepsi Cola (330ml Can)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '35g per can — nearly 9 teaspoons', safe: false },
+    { dot: 'dot-avoid', name: 'Phosphoric Acid', desc: 'Leaches calcium from bones — long-term osteoporosis risk', safe: false },
+    { dot: 'dot-avoid', name: 'Caramel Colour (E150d)', desc: '4-MEI compound — classified as possible carcinogen (IARC)', safe: false },
+    { dot: 'dot-caution', name: 'Caffeine', desc: '38mg per can — mild stimulant', safe: null },
+  ]},
+  'coca cola': { name: 'Coca-Cola (330ml Can)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '39g per can — nearly 10 teaspoons of sugar', safe: false },
+    { dot: 'dot-avoid', name: 'Phosphoric Acid', desc: 'Erodes tooth enamel and leaches bone calcium', safe: false },
+    { dot: 'dot-avoid', name: 'Caramel Colour (E150d)', desc: 'Contains 4-MEI — possible carcinogen', safe: false },
+    { dot: 'dot-caution', name: 'Caffeine', desc: '34mg per can — addictive stimulant', safe: null },
+  ]},
+  'sprite': { name: 'Sprite (330ml Can)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '33g per can — very high', safe: false },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Erodes enamel — worse than phosphoric in dental studies', safe: false },
+    { dot: 'dot-safe', name: 'No Caffeine', desc: 'Caffeine-free — better than cola in this regard', safe: true },
+    { dot: 'dot-caution', name: 'Natural Lemon-Lime Flavour', desc: 'Mostly synthetic despite "natural" label', safe: null },
+  ]},
+  'red bull': { name: 'Red Bull Energy Drink (250ml)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '27g per can — very high for a 250ml drink', safe: false },
+    { dot: 'dot-caution', name: 'Caffeine (80mg)', desc: 'High dose — equivalent to a strong coffee, not for kids', safe: null },
+    { dot: 'dot-caution', name: 'Taurine (1000mg)', desc: 'Amino acid — research on safety at high doses ongoing', safe: null },
+    { dot: 'dot-caution', name: 'B Vitamins (high dose)', desc: 'Niacin at 100% DV — harmless but not needed this way', safe: null },
+  ]},
+  'too yumm chips': { name: 'Too Yumm! Multigrain Chips', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Rice & Corn Flour', desc: 'Refined grains — moderate GI', safe: null },
+    { dot: 'dot-safe', name: 'No TBHQ', desc: 'Notably cleaner than Lay\'s and Kurkure on preservatives', safe: true },
+    { dot: 'dot-caution', name: 'Sunflower Oil', desc: 'Better fat profile than palm oil — still fried', safe: null },
+    { dot: 'dot-caution', name: 'Salt', desc: '220mg sodium per serving', safe: null },
+  ]},
+  'haldirams mixture': { name: "Haldiram's Premium Mixture", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Palm Oil / Vanaspati', desc: 'High saturated and possible trans fats', safe: false },
+    { dot: 'dot-caution', name: 'Salt', desc: 'Very high sodium — 520mg per 30g serving', safe: null },
+    { dot: 'dot-caution', name: 'Chickpea Flour (Besan)', desc: 'Natural protein source — fine', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Food Colour', desc: 'Multiple synthetic dyes for visual appeal', safe: false },
+  ]},
+  'digestive biscuits': { name: 'McVitie\'s Digestive Biscuits', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Wholemeal Wheat Flour', desc: 'Better than maida — some fibre benefit', safe: null },
+    { dot: 'dot-caution', name: 'Sugar', desc: '5g per 2 biscuits — moderate', safe: null },
+    { dot: 'dot-safe', name: 'Oatmeal', desc: 'Provides some soluble fibre', safe: true },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Saturated fat — present but in smaller quantity', safe: null },
+  ]},
+  'act ii popcorn': { name: 'ACT II Microwave Popcorn (Butter)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Artificial Butter Flavour (Diacetyl)', desc: 'Linked to "Popcorn Lung" (bronchiolitis obliterans) with heavy exposure', safe: false },
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Preservative in the oil coating', safe: false },
+    { dot: 'dot-caution', name: 'Salt', desc: 'High sodium — 430mg per serving', safe: null },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Saturated fat for popping', safe: null },
+  ]},
+  'amul cheese': { name: 'Amul Processed Cheese Slices', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Emulsifying Salts (Sodium Phosphate)', desc: 'Phosphate additives — concern for kidney function at high intake', safe: null },
+    { dot: 'dot-caution', name: 'Salt', desc: '320mg sodium per slice — adds up quickly', safe: null },
+    { dot: 'dot-safe', name: 'Milk Solids', desc: 'Good protein and calcium source', safe: true },
+    { dot: 'dot-caution', name: 'Permitted Preservative (Nisin)', desc: 'Natural antimicrobial — generally safe', safe: null },
+  ]},
+  'kissan jam': { name: 'Kissan Mixed Fruit Jam', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '12g per 20g serving — 60% sugar by weight', safe: false },
+    { dot: 'dot-caution', name: 'Fruit Pulp (25%)', desc: 'Mostly sugar with some real fruit', safe: null },
+    { dot: 'dot-avoid', name: 'Permitted Colour (Ponceau 4R, E124)', desc: 'Red synthetic dye — banned in USA, restricted in EU', safe: false },
+    { dot: 'dot-caution', name: 'Citric Acid', desc: 'Acidifier — enamel concern with daily use', safe: null },
+  ]},
+  'mother dairy curd': { name: 'Mother Dairy Set Dahi (Full Cream)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Pasteurised Full Cream Milk', desc: 'Natural dairy — excellent protein and probiotic source', safe: true },
+    { dot: 'dot-safe', name: 'Live Probiotic Cultures', desc: 'Lactobacillus — great for gut health', safe: true },
+    { dot: 'dot-safe', name: 'No Preservatives', desc: 'Clean label — nothing artificial added', safe: true },
+  ]},
+  'patanjali ghee': { name: 'Patanjali Desi Cow Ghee', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Pure Cow Milk Fat', desc: 'Natural saturated fat — beneficial in moderation, rich in fat-soluble vitamins', safe: true },
+    { dot: 'dot-safe', name: 'Conjugated Linoleic Acid (CLA)', desc: 'Beneficial fatty acid — anti-inflammatory properties', safe: true },
+    { dot: 'dot-caution', name: 'High Saturated Fat', desc: '8g per teaspoon — use in moderation for heart health', safe: null },
+  ]},
+  'fortune sunflower oil': { name: 'Fortune Sunflower Refined Oil', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Refined Sunflower Oil', desc: 'Refining removes natural nutrients and antioxidants', safe: null },
+    { dot: 'dot-caution', name: 'High Omega-6 Content', desc: 'Excessive omega-6 promotes inflammation — not ideal as sole cooking oil', safe: null },
+    { dot: 'dot-safe', name: 'No Trans Fats', desc: 'Properly refined — no hydrogenation', safe: true },
+    { dot: 'dot-caution', name: 'Chemical Refining Solvents', desc: 'Hexane used in extraction — trace amounts may remain', safe: null },
+  ]},
+  'saffola gold oil': { name: 'Saffola Gold Blended Oil', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Rice Bran Oil (70%)', desc: 'Good balance of mono and polyunsaturated fats — heart-healthy', safe: true },
+    { dot: 'dot-safe', name: 'Sunflower Oil (30%)', desc: 'Vitamin E source — fine in this blend ratio', safe: true },
+    { dot: 'dot-caution', name: 'Refined (not cold-pressed)', desc: 'Heat and chemical refining reduces nutrient value', safe: null },
+  ]},
+  'tata tea gold': { name: 'Tata Tea Gold (Loose Leaf)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Blended Black Tea', desc: 'Rich in antioxidants (theaflavins, catechins) — genuinely beneficial', safe: true },
+    { dot: 'dot-safe', name: 'No Artificial Additives', desc: 'Clean product — just tea', safe: true },
+    { dot: 'dot-caution', name: 'Caffeine (natural)', desc: '50mg per cup — moderate, avoid excess for anxiety or sleep issues', safe: null },
+  ]},
+  'nescafe classic': { name: "Nescafé Classic Instant Coffee", grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Spray-dried Coffee', desc: 'Real coffee — antioxidants and chlorogenic acids present', safe: true },
+    { dot: 'dot-caution', name: 'Caffeine (57mg/cup)', desc: 'Moderate — limit to 2–3 cups/day max', safe: null },
+    { dot: 'dot-safe', name: 'No Sugar Added', desc: 'Plain coffee — sweeteners up to consumer', safe: true },
+  ]},
+  'boost health drink': { name: 'Boost Chocolate Health Drink', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '8.4g per 22g serving — 38% sugar by weight', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Solids', desc: 'Some benefit but outweighed by sugar content', safe: null },
+    { dot: 'dot-safe', name: 'Vitamins & Minerals', desc: 'Fortified with iron, calcium, B vitamins — beneficial', safe: true },
+    { dot: 'dot-caution', name: 'Barley Malt Extract', desc: 'Natural sweetener — still adds to sugar load', safe: null },
+  ]},
+  'pepsodent toothpaste': { name: 'Pepsodent Germicheck Toothpaste', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Sodium Fluoride', desc: 'Effective cavity prevention — well-established safety', safe: true },
+    { dot: 'dot-caution', name: 'Triclosan', desc: 'Antibacterial agent — WHO concerned about antimicrobial resistance', safe: null },
+    { dot: 'dot-caution', name: 'Sodium Lauryl Sulfate', desc: 'Foaming agent — can trigger mouth ulcers', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Sweetener (Saccharin)', desc: 'Older sweetener with debated safety history', safe: null },
+  ]},
+  'vim dishwash': { name: 'Vim Dishwash Bar', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Sodium Carbonate', desc: 'Natural soda ash — effective and safe cleanser', safe: true },
+    { dot: 'dot-safe', name: 'Linear Alkylbenzene Sulphonate', desc: 'Biodegradable surfactant — low environmental concern', safe: true },
+    { dot: 'dot-caution', name: 'Parfum', desc: 'Fragrance added — potential skin sensitiser with prolonged contact', safe: null },
+  ]},
+  'surf excel': { name: 'Surf Excel Easy Wash Detergent', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Optical Brighteners', desc: 'Fluorescent whitening chemicals — remain on fabric, skin contact concern', safe: null },
+    { dot: 'dot-caution', name: 'Synthetic Surfactants', desc: 'Effective cleaners but slow to biodegrade', safe: null },
+    { dot: 'dot-caution', name: 'Parfum', desc: 'Fragrance residue on clothes — prolonged skin contact', safe: null },
+    { dot: 'dot-safe', name: 'Enzymes (Protease, Amylase)', desc: 'Biological stain removers — effective and safe', safe: true },
+  ]},
+  'tiger biscuits': { name: 'Britannia Tiger Krunch Biscuits', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'No fibre — high glycaemic index', safe: false },
+    { dot: 'dot-avoid', name: 'Sugar', desc: '10g per serving — high for a children\'s snack', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — concerning for kids with daily consumption', safe: false },
+    { dot: 'dot-safe', name: 'Iron & Vitamin B (fortified)', desc: 'Some nutritional addition — does not offset negatives', safe: true },
   ]},
 };
 
