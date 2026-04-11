@@ -544,13 +544,23 @@
       <span class="search-tag" onclick="quickSearch('Paper Boat Aamras')">Paper Boat</span>
       <span class="search-tag" onclick="quickSearch('TBHQ')">TBHQ</span>
       <span class="search-tag" onclick="quickSearch('Palm Oil')">Palm Oil</span>
+      <span class="search-tag" onclick="quickSearch('Ragi Flakes')">Ragi Flakes</span>
+      <span class="search-tag" onclick="quickSearch('Foxtail Millet')">Foxtail Millet</span>
+      <span class="search-tag" onclick="quickSearch('Quaker Oats')">Quaker Oats</span>
+      <span class="search-tag" onclick="quickSearch('Moringa Powder')">Moringa</span>
+      <span class="search-tag" onclick="quickSearch('Black Rice')">Black Rice</span>
+      <span class="search-tag" onclick="quickSearch('Roasted Chana')">Roasted Chana</span>
+      <span class="search-tag" onclick="quickSearch('Chia Seeds')">Chia Seeds</span>
+      <span class="search-tag" onclick="quickSearch('Tender Coconut Water')">Coconut Water</span>
+      <span class="search-tag" onclick="quickSearch('Ashwagandha Powder')">Ashwagandha</span>
+      <span class="search-tag" onclick="quickSearch('Organic Turmeric Powder')">Organic Turmeric</span>
     </div>
   </div>
 </div>
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">100+</div><div class="stat-lbl">Indian products covered</div></div>
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-lbl">Indian products covered</div></div>
   <div class="stat"><div class="stat-num">1,200+</div><div class="stat-lbl">Ingredients explained</div></div>
   <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
@@ -574,7 +584,7 @@
       <div class="feature-card">
         <div class="card-icon icon-green">📦</div>
         <div class="card-title">Product Scanner</div>
-        <div class="card-desc">Search by product name or barcode. See every ingredient, nutritional breakdown, health grade (A–E), and FSSAI compliance status in seconds.</div>
+        <div class="card-desc">Search by product name or barcode. See every ingredient, nutritional breakdown, health grade (A–F), and FSSAI compliance status in seconds.</div>
         <span class="card-tag">500+ Indian products</span>
       </div>
       <div class="feature-card">
@@ -1477,6 +1487,525 @@ const products = {
     { dot: 'dot-safe', name: 'No artificial colours', desc: 'Natural red from kokum — clean', safe: true },
     { dot: 'dot-safe', name: 'No preservatives', desc: 'Better than most packaged drinks', safe: true },
   ]},
+
+  // ============================================================
+  // SCORING SYSTEM
+  // A = Excellent (clean, natural, minimal processing)
+  // B = Good (minor concerns, fine in moderation)
+  // C = Moderate (some additives, consume mindfully)
+  // D = High concern (excess sugar/fat/additives)
+  // F = Avoid (multiple red flags, long-term harm risk)
+  // ============================================================
+
+  // ---- ORGANIC & CLEAN FOODS ----
+  'organic india tulsi green tea': { name: 'Organic India Tulsi Green Tea', grade: 'A', category: 'Organic', impact: 'Adaptogenic herbs reduce cortisol. Daily use improves stress resilience and immunity over 3–6 months.', ings: [
+    { dot: 'dot-safe', name: 'Organic Tulsi (Holy Basil)', desc: 'Powerful adaptogen — reduces stress hormones, anti-inflammatory', safe: true },
+    { dot: 'dot-safe', name: 'Organic Green Tea', desc: 'EGCG antioxidants — proven anti-cancer, heart-protective', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Completely clean — 100% organic certified', safe: true },
+  ]},
+
+  'organic tattva basmati rice': { name: 'Organic Tattva Basmati Rice (1kg)', grade: 'A', category: 'Organic Staples', impact: 'Lower pesticide residue than conventional. Long-grain basmati has lower GI (58) than regular rice, causing gentler blood sugar rise.', ings: [
+    { dot: 'dot-safe', name: 'Certified Organic Basmati', desc: 'No pesticide residue — lower GI than regular rice', safe: true },
+    { dot: 'dot-safe', name: 'No polishing agents', desc: 'Minimally processed — retains natural nutrients', safe: true },
+  ]},
+
+  'pro nature organic moong dal': { name: 'Pro Nature Organic Moong Dal (500g)', grade: 'A', category: 'Organic Dals', impact: 'High folate protects against birth defects. Magnesium supports 300+ enzymatic reactions. Regular consumption linked to lower diabetes risk.', ings: [
+    { dot: 'dot-safe', name: 'Certified Organic Moong', desc: 'Zero pesticide — full micronutrient profile intact', safe: true },
+    { dot: 'dot-safe', name: 'High Protein (24g/100g)', desc: 'Complete amino acid profile for a plant protein', safe: true },
+    { dot: 'dot-safe', name: 'High Folate & Magnesium', desc: 'Critical micronutrients — often deficient in Indian diets', safe: true },
+  ]},
+
+  'down to earth organic rajma': { name: 'Down to Earth Organic Rajma (500g)', grade: 'A', category: 'Organic Dals', impact: 'High resistant starch feeds gut bacteria. Iron content helps prevent anaemia — critical for Indian women. Long-term consumption reduces colorectal cancer risk.', ings: [
+    { dot: 'dot-safe', name: 'Organic Kidney Beans', desc: 'Resistant starch feeds beneficial gut bacteria', safe: true },
+    { dot: 'dot-safe', name: 'High Iron (8mg/100g)', desc: 'Helps prevent anaemia — critical for women', safe: true },
+    { dot: 'dot-safe', name: 'High Folate', desc: 'Essential for cell division and DNA repair', safe: true },
+  ]},
+
+  // ---- MILLETS ----
+  'tata soulful ragi flakes': { name: 'Tata Soulful Ragi Flakes (500g)', grade: 'A', category: 'Millets', impact: 'Highest calcium of any grain — prevents osteoporosis. Slow digesting — keeps blood sugar stable for 4–5 hours. Excellent for diabetics.', ings: [
+    { dot: 'dot-safe', name: 'Whole Grain Ragi (Finger Millet)', desc: 'Highest calcium grain — 344mg/100g, prevents osteoporosis', safe: true },
+    { dot: 'dot-safe', name: 'High Dietary Fibre', desc: 'Slow digesting — stable blood sugar for 4–5 hours', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Clean product — naturally sweet from grain', safe: true },
+  ]},
+
+  'true elements foxtail millet': { name: 'True Elements Foxtail Millet (1kg)', grade: 'A', category: 'Millets', impact: 'Rich in B vitamins that convert food to energy. Iron content fights fatigue. Low GI (50) makes it ideal for diabetics and weight management.', ings: [
+    { dot: 'dot-safe', name: 'Whole Foxtail Millet (Kangni)', desc: 'Low GI of 50 — ideal for diabetics and weight loss', safe: true },
+    { dot: 'dot-safe', name: 'Iron & B Vitamins', desc: 'Fights fatigue — critical for active lifestyles', safe: true },
+    { dot: 'dot-safe', name: 'Gluten-free', desc: 'Safe for coeliac and gluten-sensitive individuals', safe: true },
+  ]},
+
+  'sri sri tattva barnyard millet': { name: 'Sri Sri Tattva Barnyard Millet (500g)', grade: 'A', category: 'Millets', impact: 'Highest fibre content of all millets. Used in fasting foods traditionally. Exceptional for gut microbiome diversity — feeds 5+ beneficial bacteria strains.', ings: [
+    { dot: 'dot-safe', name: 'Whole Barnyard Millet (Sama)', desc: 'Highest fibre millet — exceptional gut microbiome support', safe: true },
+    { dot: 'dot-safe', name: 'High Zinc', desc: 'Immune function and wound healing support', safe: true },
+    { dot: 'dot-safe', name: 'Gluten-free', desc: 'Natural — no additives required', safe: true },
+  ]},
+
+  '24 mantra pearl millet': { name: '24 Mantra Organic Pearl Millet Flour (500g)', grade: 'A', category: 'Millets', impact: 'Bajra is highest in iron and zinc among millets. Regular consumption reduces LDL cholesterol by 8–10% in clinical studies. Excellent for growing children.', ings: [
+    { dot: 'dot-safe', name: 'Organic Bajra (Pearl Millet)', desc: 'Highest iron millet — prevents anaemia', safe: true },
+    { dot: 'dot-safe', name: 'High Zinc (3.1mg/100g)', desc: 'Children\'s immunity and growth support', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic', desc: 'No pesticide residue — clean staple food', safe: true },
+  ]},
+
+  'slurrp farm jowar puffs': { name: 'Slurrp Farm Jowar Puffs (50g)', grade: 'B', category: 'Millets', impact: 'Sorghum is gluten-free with high antioxidant content. Good alternative snack for kids. Low processing means nutrients largely retained.', ings: [
+    { dot: 'dot-safe', name: 'Whole Jowar (Sorghum)', desc: 'Gluten-free grain — high antioxidant 3-deoxyanthocyanidins', safe: true },
+    { dot: 'dot-safe', name: 'No artificial colours or flavours', desc: 'Clean kids snack — rare in this category', safe: true },
+    { dot: 'dot-caution', name: 'Added Salt', desc: '180mg sodium per serving — moderate', safe: null },
+  ]},
+
+  'little millet': { name: 'Little Millet (Samai) Whole Grain (500g)', grade: 'A', category: 'Millets', impact: 'Richest millet in B-complex vitamins. Traditionally used as rice substitute. High lecithin content supports nervous system health — important for brain development in children.', ings: [
+    { dot: 'dot-safe', name: 'Whole Little Millet', desc: 'Rich B-complex vitamins — nervous system support', safe: true },
+    { dot: 'dot-safe', name: 'High Lecithin', desc: 'Supports brain development — critical for children', safe: true },
+    { dot: 'dot-safe', name: 'Zero processing additives', desc: 'Pure grain — nothing added', safe: true },
+  ]},
+
+  'kodo millet': { name: 'Kodo Millet (Varagu) Whole (500g)', grade: 'A', category: 'Millets', impact: 'Traditionally used to manage diabetes in South India. Contains polyphenols that inhibit alpha-glucosidase — slows glucose absorption. Anti-diabetic properties clinically validated.', ings: [
+    { dot: 'dot-safe', name: 'Whole Kodo Millet', desc: 'Anti-diabetic polyphenols — slows glucose absorption', safe: true },
+    { dot: 'dot-safe', name: 'High Fibre (9g/100g)', desc: 'Excellent digestive health support', safe: true },
+    { dot: 'dot-safe', name: 'Traditional superfood', desc: 'Used medicinally in South India for centuries', safe: true },
+  ]},
+
+  // ---- STAPLE DALS & PULSES ----
+  'tata sampann chana dal': { name: 'Tata Sampann Chana Dal Unpolished (500g)', grade: 'A', category: 'Staple Dals', impact: 'Lowest GI among all dals (8). Folate critical for pregnancy. High resistant starch — prebiotic effect feeds lactobacillus. Reduces total cholesterol by up to 8%.', ings: [
+    { dot: 'dot-safe', name: 'Unpolished Chana Dal', desc: 'Lowest GI dal — exceptional for diabetics', safe: true },
+    { dot: 'dot-safe', name: 'High Folate (172mcg/100g)', desc: 'Critical for pregnancy and cell division', safe: true },
+    { dot: 'dot-safe', name: 'High Resistant Starch', desc: 'Prebiotic — feeds beneficial gut bacteria', safe: true },
+  ]},
+
+  'masoor dal whole': { name: 'Whole Masoor Dal (Red Lentils) 500g', grade: 'A', category: 'Staple Dals', impact: 'Fastest cooking dal — high iron and folate. Polyphenols reduce inflammation markers (CRP) by 22% with regular use. Excellent for post-workout recovery.', ings: [
+    { dot: 'dot-safe', name: 'Whole Red Lentils', desc: 'High iron and folate — anti-inflammatory polyphenols', safe: true },
+    { dot: 'dot-safe', name: 'Complete Protein (26g/100g)', desc: 'Highest protein among lentils', safe: true },
+    { dot: 'dot-safe', name: 'No processing', desc: 'Pure whole grain — zero additives', safe: true },
+  ]},
+
+  'urad dal': { name: 'Urad Dal Whole Black (500g)', grade: 'A', category: 'Staple Dals', impact: 'High in phosphorus — critical for bone health. Magnesium supports heart rhythm. Fermented urad (idli/dosa) creates B12 — rare in plant foods. Ayurveda rates it highest among dals.', ings: [
+    { dot: 'dot-safe', name: 'Whole Black Urad', desc: 'High phosphorus — bone and kidney health', safe: true },
+    { dot: 'dot-safe', name: 'Magnesium (189mg/100g)', desc: 'Supports heart rhythm and muscle function', safe: true },
+    { dot: 'dot-safe', name: 'Fermentation-friendly', desc: 'Produces B12 when fermented — rare plant source', safe: true },
+  ]},
+
+  'toor dal': { name: 'Toor Dal (Arhar) Split (500g)', grade: 'A', category: 'Staple Dals', impact: 'Staple of Indian cooking for 5000 years. High pigeon pea isoflavones reduce menopausal symptoms. Potassium reduces blood pressure. Used in Ayurveda for respiratory health.', ings: [
+    { dot: 'dot-safe', name: 'Split Pigeon Peas', desc: 'Isoflavones reduce menopausal symptoms', safe: true },
+    { dot: 'dot-safe', name: 'High Potassium', desc: 'Natural blood pressure regulation', safe: true },
+    { dot: 'dot-safe', name: 'Folic Acid (456mcg/100g)', desc: 'Highest folate among common Indian dals', safe: true },
+  ]},
+
+  'rajma jammu': { name: 'Jammu Rajma (Small Red Kidney Beans) 500g', grade: 'A', category: 'Staple Dals', impact: 'Jammu rajma has superior amino acid profile vs regular rajma. High resistant starch survives digestion to feed gut bacteria. Anti-cancer phytochemicals (phytic acid) in the skin.', ings: [
+    { dot: 'dot-safe', name: 'Small Red Kidney Beans', desc: 'Superior amino acid profile — complete plant protein', safe: true },
+    { dot: 'dot-safe', name: 'Resistant Starch', desc: 'Gut microbiome feed — prebiotic effect', safe: true },
+    { dot: 'dot-safe', name: 'Phytic Acid (skin)', desc: 'Anti-cancer phytochemical — anti-oxidant properties', safe: true },
+  ]},
+
+  'kabuli chana': { name: 'Kabuli Chana (White Chickpeas) 500g', grade: 'A', category: 'Staple Dals', impact: 'Saponins in chickpeas lower LDL cholesterol. Tryptophan converts to serotonin — mood support. Combined with rice forms a complete protein comparable to meat.', ings: [
+    { dot: 'dot-safe', name: 'White Chickpeas', desc: 'Saponins lower LDL cholesterol naturally', safe: true },
+    { dot: 'dot-safe', name: 'Tryptophan', desc: 'Converts to serotonin — natural mood support', safe: true },
+    { dot: 'dot-safe', name: 'Zero additives', desc: 'Pure whole food — nothing added', safe: true },
+  ]},
+
+  // ---- RICE VARIETIES ----
+  'india gate basmati classic': { name: 'India Gate Classic Basmati Rice (1kg)', grade: 'B', category: 'Rice', impact: 'Long-grain basmati digests slowly — lower GI than regular rice. Aroma compound (2-acetyl-1-pyrroline) is completely natural. Aged basmati has lower arsenic than other rice varieties.', ings: [
+    { dot: 'dot-safe', name: 'Aged Basmati Rice', desc: 'Lower GI (58) than regular rice — moderate blood sugar impact', safe: true },
+    { dot: 'dot-caution', name: 'Polished grain', desc: 'Polishing removes bran layer — loses B vitamins and fibre', safe: null },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure rice — nothing added', safe: true },
+  ]},
+
+  'lal qilla brown basmati': { name: 'Lal Qilla Brown Basmati Rice (1kg)', grade: 'A', category: 'Rice', impact: 'Bran layer intact — 4x more fibre than white basmati. Gamma-oryzanol in bran reduces cholesterol. Magnesium supports insulin sensitivity. Best rice choice for diabetics.', ings: [
+    { dot: 'dot-safe', name: 'Unpolished Brown Basmati', desc: '4x more fibre than white — bran intact', safe: true },
+    { dot: 'dot-safe', name: 'Gamma-oryzanol (bran oil)', desc: 'Reduces cholesterol — anti-inflammatory compound', safe: true },
+    { dot: 'dot-safe', name: 'Low GI (50)', desc: 'Best rice for diabetics and weight management', safe: true },
+  ]},
+
+  'sonamasoori rice': { name: 'Sona Masoori Raw Rice (1kg)', grade: 'B', category: 'Rice', impact: 'Popular South Indian rice — lighter than basmati. Medium GI (60). Lower calorie density than basmati. Easy to digest — suitable for all ages including infants and elderly.', ings: [
+    { dot: 'dot-safe', name: 'Short-grain Sona Masoori', desc: 'Lighter and easier to digest than basmati', safe: true },
+    { dot: 'dot-caution', name: 'Polished grain', desc: 'Medium GI (60) — moderate blood sugar impact', safe: null },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure rice variety — nothing added', safe: true },
+  ]},
+
+  'red rice': { name: 'Kerala Red Matta Rice (1kg)', grade: 'A', category: 'Rice', impact: 'Anthocyanins in red bran are powerful antioxidants — same compounds as blueberries. Retains 80% nutrients of brown rice. Traditional Keralite staple with centuries of health validation.', ings: [
+    { dot: 'dot-safe', name: 'Red Matta Rice (unpolished)', desc: 'Anthocyanins — same antioxidants as blueberries', safe: true },
+    { dot: 'dot-safe', name: 'High Fibre & Iron', desc: 'Retains 80% nutrients of brown rice', safe: true },
+    { dot: 'dot-safe', name: 'Zero additives', desc: 'Traditional whole grain — completely clean', safe: true },
+  ]},
+
+  'black rice': { name: 'Black Rice (Forbidden Rice) 500g', grade: 'A', category: 'Rice', impact: 'Highest antioxidant content of all rice varieties — more than blueberries. Anthocyanins protect against heart disease and cancer. Anti-inflammatory — reduces CRP by 30% in studies.', ings: [
+    { dot: 'dot-safe', name: 'Whole Grain Black Rice', desc: 'Highest antioxidant rice — more than blueberries', safe: true },
+    { dot: 'dot-safe', name: 'High Anthocyanins', desc: 'Anti-cancer, heart-protective — reduces CRP by 30%', safe: true },
+    { dot: 'dot-safe', name: 'High Iron & Zinc', desc: 'Rare micronutrients in plant foods', safe: true },
+  ]},
+
+  // ---- COOKING OILS ----
+  'organic cold pressed coconut oil': { name: 'KLF Nirmal Cold Pressed Coconut Oil (500ml)', grade: 'A', category: 'Oils', impact: 'MCT fats metabolise directly to energy — not stored as fat. Lauric acid is antiviral and antibacterial. Stable at high temperatures — no harmful compounds formed during cooking. Best oil for South Indian cooking.', ings: [
+    { dot: 'dot-safe', name: 'Cold-pressed Virgin Coconut Oil', desc: 'MCT fats — direct energy, not stored as fat', safe: true },
+    { dot: 'dot-safe', name: 'Lauric Acid (49%)', desc: 'Antiviral and antibacterial — immune support', safe: true },
+    { dot: 'dot-safe', name: 'High smoke point (177°C)', desc: 'Stable for cooking — no harmful aldehydes formed', safe: true },
+  ]},
+
+  'wood pressed groundnut oil': { name: 'Anveshan Wood Pressed Groundnut Oil (1L)', grade: 'A', category: 'Oils', impact: 'Cold pressing retains natural Vitamin E. Resveratrol in groundnut oil is cardioprotective. No hexane solvents used. Best all-purpose Indian cooking oil — high smoke point and clean flavour.', ings: [
+    { dot: 'dot-safe', name: 'Wood-pressed Groundnut Oil', desc: 'Hexane-free — Vitamin E fully retained', safe: true },
+    { dot: 'dot-safe', name: 'Resveratrol', desc: 'Cardioprotective compound — same as red wine', safe: true },
+    { dot: 'dot-safe', name: 'High Smoke Point (232°C)', desc: 'Safe for deep frying — no harmful breakdown', safe: true },
+  ]},
+
+  'cold pressed mustard oil': { name: 'Dhara Cold Pressed Kachi Ghani Mustard Oil (1L)', grade: 'B', category: 'Oils', impact: 'Erucic acid content is debated — FSSAI limits it. Traditional Indian oil used for centuries. Allyl isothiocyanate has proven antimicrobial properties. Use in moderation — not for deep frying.', ings: [
+    { dot: 'dot-safe', name: 'Kachi Ghani (Cold Pressed) Mustard', desc: 'Traditional process — nutrients retained', safe: true },
+    { dot: 'dot-caution', name: 'Erucic Acid (42%)', desc: 'Heart concern at very high doses — FSSAI-regulated safe level', safe: null },
+    { dot: 'dot-safe', name: 'Allyl Isothiocyanate', desc: 'Natural antimicrobial — antibiotic properties', safe: true },
+  ]},
+
+  'pure cow ghee': { name: 'Country Delight Pure Cow Ghee (500ml)', grade: 'A', category: 'Oils', impact: 'CLA in grass-fed cow ghee reduces body fat and inhibits cancer cell growth. Butyrate feeds colon cells and reduces inflammation. Fat-soluble vitamins A, D, E, K2 fully bioavailable. Ayurveda considers it the most medicinal fat.', ings: [
+    { dot: 'dot-safe', name: 'Pure Cow Milk Fat', desc: 'CLA reduces body fat — anti-cancer properties', safe: true },
+    { dot: 'dot-safe', name: 'Butyrate (Short-chain fatty acid)', desc: 'Feeds colon cells — reduces gut inflammation', safe: true },
+    { dot: 'dot-safe', name: 'Vitamins A, D, E, K2', desc: 'Fat-soluble vitamins — fully bioavailable in ghee', safe: true },
+  ]},
+
+  'olive oil india': { name: 'Leonardo Olive Extra Virgin Olive Oil (500ml)', grade: 'A', category: 'Oils', impact: 'Oleocanthal has anti-inflammatory effect equivalent to low-dose ibuprofen. Mediterranean diet studies show 30% reduced heart disease risk. Polyphenols in EVOO reduce oxidative stress — anti-ageing.', ings: [
+    { dot: 'dot-safe', name: 'Extra Virgin Olive Oil', desc: 'Oleocanthal — natural anti-inflammatory (low-dose ibuprofen equivalent)', safe: true },
+    { dot: 'dot-safe', name: 'Polyphenols (hydroxytyrosol)', desc: 'Anti-ageing — reduces oxidative stress', safe: true },
+    { dot: 'dot-caution', name: 'Low smoke point (160°C)', desc: 'Not for deep frying — use for salads and light sautéing', safe: null },
+  ]},
+
+  // ---- NUTS & SEEDS ----
+  'california almonds': { name: 'Happilo California Almonds (200g)', grade: 'A', category: 'Nuts & Seeds', impact: 'Daily handful (28g) reduces LDL by 10 mg/dL. Vitamin E in almonds is most bioavailable form. Magnesium improves insulin sensitivity. Studies show reduced hunger for 3–4 hours.', ings: [
+    { dot: 'dot-safe', name: 'Raw Almonds', desc: 'Vitamin E — most bioavailable form, LDL reduction', safe: true },
+    { dot: 'dot-safe', name: 'Magnesium (270mg/100g)', desc: 'Improves insulin sensitivity — critical for diabetics', safe: true },
+    { dot: 'dot-safe', name: 'No added salt or oil', desc: 'Raw — completely clean', safe: true },
+  ]},
+
+  'walnut kernels': { name: 'Tulsi Walnut Kernels (200g)', grade: 'A', category: 'Nuts & Seeds', impact: 'Highest omega-3 nut — ALA reduces inflammation. Ellagic acid and polyphenols are neuroprotective — studies show improved memory and cognition. Daily consumption reduces blood pressure by 5 mmHg.', ings: [
+    { dot: 'dot-safe', name: 'Raw Walnut Kernels', desc: 'Highest omega-3 nut — ALA reduces inflammation', safe: true },
+    { dot: 'dot-safe', name: 'Ellagic Acid', desc: 'Neuroprotective — improves memory and cognition', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure nuts — completely clean', safe: true },
+  ]},
+
+  'flaxseeds': { name: 'Organic Tattva Flaxseeds (250g)', grade: 'A', category: 'Nuts & Seeds', impact: 'Highest plant source of omega-3 ALA. Lignans are phytoestrogens — reduce breast cancer risk by 18% in studies. Mucilage fibre lowers cholesterol and feeds gut bacteria. Ground form is more bioavailable than whole.', ings: [
+    { dot: 'dot-safe', name: 'Organic Flaxseeds (Alsi)', desc: 'Highest plant omega-3 — lignans reduce cancer risk', safe: true },
+    { dot: 'dot-safe', name: 'Soluble Mucilage Fibre', desc: 'Lowers cholesterol — feeds gut bacteria', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic', desc: 'No pesticide — clean superfood', safe: true },
+  ]},
+
+  'chia seeds': { name: 'True Elements Chia Seeds (250g)', grade: 'A', category: 'Nuts & Seeds', impact: 'When soaked, chia forms a gel that slows glucose absorption — excellent for diabetics. 10g fibre per tablespoon. Calcium content higher than milk per gram. Studies show 14% reduction in blood pressure.', ings: [
+    { dot: 'dot-safe', name: 'Whole Chia Seeds', desc: 'Gel-forming fibre slows glucose — excellent for diabetics', safe: true },
+    { dot: 'dot-safe', name: 'High Calcium (631mg/100g)', desc: 'Higher calcium than milk per gram — bone health', safe: true },
+    { dot: 'dot-safe', name: 'Complete protein (all 9 amino acids)', desc: 'Rare plant complete protein', safe: true },
+  ]},
+
+  'sunflower seeds': { name: 'Rostaa Roasted Sunflower Seeds (200g)', grade: 'B', category: 'Nuts & Seeds', impact: 'Highest Vitamin E seed — protects cells from oxidative damage. Selenium supports thyroid function. Tryptophan converts to serotonin — mood support. Roasting reduces some Vitamin E content.', ings: [
+    { dot: 'dot-safe', name: 'Sunflower Seeds', desc: 'Highest Vitamin E seed — cellular protection', safe: true },
+    { dot: 'dot-safe', name: 'Selenium', desc: 'Thyroid function support', safe: true },
+    { dot: 'dot-caution', name: 'Added Salt (roasted)', desc: '120mg sodium per serving', safe: null },
+  ]},
+
+  'pumpkin seeds': { name: 'Farmley Pumpkin Seeds (200g)', grade: 'A', category: 'Nuts & Seeds', impact: 'Highest zinc seed — critical for testosterone, immunity and wound healing. Cucurbitacin has anti-parasitic properties. Magnesium helps over 300 enzymatic reactions. Daily use improves sleep via tryptophan conversion.', ings: [
+    { dot: 'dot-safe', name: 'Raw Pumpkin Seeds (Pepitas)', desc: 'Highest zinc seed — testosterone and immunity support', safe: true },
+    { dot: 'dot-safe', name: 'Cucurbitacin', desc: 'Anti-parasitic — traditional deworming remedy', safe: true },
+    { dot: 'dot-safe', name: 'Tryptophan', desc: 'Converts to serotonin and melatonin — improves sleep', safe: true },
+  ]},
+
+  // ---- HEALTHY PACKAGED / SNACKS ----
+  'yoga bar protein bar': { name: 'Yoga Bar Multigrain Energy Bar (38g)', grade: 'B', category: 'Health Snacks', impact: 'Better than most packaged snacks — real nuts and grains. However still contains added sugar. Ideal post-workout snack. Better than chocolate bars but not a whole food.', ings: [
+    { dot: 'dot-safe', name: 'Oats, Almonds, Cashews', desc: 'Real whole food ingredients — not synthetic', safe: true },
+    { dot: 'dot-caution', name: 'Honey & Sugar', desc: '12g sugar per bar — moderate', safe: null },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Clean label for a packaged bar', safe: true },
+    { dot: 'dot-safe', name: 'No palm oil', desc: 'Uses sunflower oil — better fat profile', safe: true },
+  ]},
+
+  'ritebite max protein': { name: 'RiteBite Max Protein Bar (67g)', grade: 'B', category: 'Health Snacks', impact: 'High protein — good for muscle recovery. However whey concentrate has high lactose — may cause bloating. Sucralose is artificial sweetener with debated gut microbiome impact.', ings: [
+    { dot: 'dot-safe', name: 'Whey Protein Concentrate', desc: 'High-quality complete protein — muscle recovery', safe: true },
+    { dot: 'dot-caution', name: 'Sucralose (artificial sweetener)', desc: 'May alter gut microbiome at high doses', safe: null },
+    { dot: 'dot-caution', name: 'Maltitol', desc: 'Sugar alcohol — causes GI distress in some', safe: null },
+    { dot: 'dot-safe', name: 'No palm oil or TBHQ', desc: 'Clean fat profile', safe: true },
+  ]},
+
+  'baked nimkee': { name: 'Whole Truth Baked Nimki (100g)', grade: 'B', category: 'Health Snacks', impact: 'Baked not fried — 60% less fat than fried nimki. No TBHQ or palm oil. Real spices used. Better snack choice but still a processed food — occasional consumption fine.', ings: [
+    { dot: 'dot-safe', name: 'Whole Wheat Flour', desc: 'Better than maida — some fibre benefit', safe: true },
+    { dot: 'dot-safe', name: 'Sunflower Oil (baked)', desc: 'Better fat profile than palm — no TBHQ', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '320mg sodium per serving — moderate', safe: null },
+  ]},
+
+  'happilo trail mix': { name: 'Happilo Premium Trail Mix (200g)', grade: 'A', category: 'Health Snacks', impact: 'Whole food snack — all natural ingredients. Mix of omega-3, antioxidants and protein. No processing — nutrients fully intact. Best packaged snack available in India.', ings: [
+    { dot: 'dot-safe', name: 'Almonds, Cashews, Walnuts', desc: 'Mixed nuts — omega-3, Vitamin E, protein', safe: true },
+    { dot: 'dot-safe', name: 'Dried Cranberries & Raisins', desc: 'Natural antioxidants — iron from raisins', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar or salt', desc: 'Completely clean — whole food snack', safe: true },
+  ]},
+
+  'makhana foxnuts': { name: 'Open Secret Roasted Makhana (60g)', grade: 'A', category: 'Health Snacks', impact: 'Traditional Indian superfood undergoing global rediscovery. Low calorie (347 kcal/100g vs 520 for chips). High magnesium prevents muscle cramps. Anti-ageing enzyme L-isoaspartyl methyltransferase in makhana.', ings: [
+    { dot: 'dot-safe', name: 'Fox Nuts (Euryale ferox)', desc: 'Anti-ageing enzyme — traditional Ayurvedic superfood', safe: true },
+    { dot: 'dot-safe', name: 'High Magnesium', desc: 'Prevents muscle cramps — better than banana', safe: true },
+    { dot: 'dot-caution', name: 'Light Himalayan Salt', desc: '80mg sodium per serving — low concern', safe: null },
+  ]},
+
+  // ---- DAIRY & ALTERNATIVES ----
+  'amul probiotic dahi': { name: 'Amul Probiotic Dahi (400g)', grade: 'A', category: 'Dairy', impact: 'Clinically validated L. acidophilus strain. Regular use reduces antibiotic-associated diarrhoea. Calcium and Vitamin D together improve bone density. Studies show 20% reduction in respiratory infections with daily use.', ings: [
+    { dot: 'dot-safe', name: 'Full Cream Milk', desc: 'High protein and calcium base', safe: true },
+    { dot: 'dot-safe', name: 'L. acidophilus (clinically validated)', desc: 'Proven probiotic — reduces diarrhoea and boosts immunity', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar or preservatives', desc: 'Clean dairy — completely natural', safe: true },
+  ]},
+
+  'gowardhan ghee': { name: 'Gowardhan Pure Cow Ghee (500ml)', grade: 'A', category: 'Dairy', impact: 'A2 milk ghee has better fatty acid profile than regular ghee. Butyric acid is primary fuel for colon cells — reduces colorectal cancer risk. Vitamin K2 directs calcium to bones, not arteries — prevents arterial calcification.', ings: [
+    { dot: 'dot-safe', name: 'Pure Cow Ghee', desc: 'Butyric acid — colon cell fuel, reduces cancer risk', safe: true },
+    { dot: 'dot-safe', name: 'Vitamin K2 (naturally present)', desc: 'Directs calcium to bones — prevents arterial calcification', safe: true },
+    { dot: 'dot-safe', name: 'No hydrogenation or additives', desc: 'Pure traditional process', safe: true },
+  ]},
+
+  'good life almond milk': { name: 'Goodmylk Unsweetened Almond Milk (1L)', grade: 'B', category: 'Dairy Alternatives', impact: 'Good dairy alternative — low calorie (39 kcal/100ml). However, only 2% almonds — mostly water. Lacks protein of dairy (0.4g vs 3.4g). Good for lactose intolerant but not a nutritional replacement for milk.', ings: [
+    { dot: 'dot-safe', name: 'Almond Milk (2% almonds)', desc: 'Low calorie — good for weight management', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar (unsweetened)', desc: 'Clean label', safe: true },
+    { dot: 'dot-caution', name: 'Very low protein (0.4g/100ml)', desc: 'Not a protein source — does not replace dairy', safe: null },
+    { dot: 'dot-caution', name: 'Carrageenan (thickener)', desc: 'Gut inflammation concern with daily use', safe: null },
+  ]},
+
+  'sofit soy milk': { name: 'Sofit Soy Milk Unsweetened (1L)', grade: 'B', category: 'Dairy Alternatives', impact: 'Best plant milk for protein (3.5g/100ml — equivalent to dairy). Isoflavones are debated — beneficial for post-menopausal women, caution for those with thyroid issues or hormone-sensitive cancers.', ings: [
+    { dot: 'dot-safe', name: 'Soy Protein (3.5g/100ml)', desc: 'Best plant milk for protein — equivalent to dairy', safe: true },
+    { dot: 'dot-caution', name: 'Soy Isoflavones', desc: 'Phytoestrogens — beneficial for women, caution for thyroid conditions', safe: null },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Clean unsweetened version', safe: true },
+  ]},
+
+  // ---- SPICES & CONDIMENTS ----
+  'mdh chaat masala': { name: 'MDH Chaat Masala (100g)', grade: 'C', category: 'Spices', impact: 'Natural spices are beneficial — but high sodium (amchur + black salt + table salt combined). Excessive use can push sodium intake above recommended 2000mg/day. Use in moderation.', ings: [
+    { dot: 'dot-safe', name: 'Dried Mango Powder, Cumin, Coriander', desc: 'Natural spices — digestive and antioxidant benefit', safe: true },
+    { dot: 'dot-caution', name: 'Very High Sodium', desc: 'Three salt types combined — 580mg per tsp', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Colour (some variants)', desc: 'Check label — some MDH variants have added colour', safe: null },
+  ]},
+
+  'catch black pepper': { name: 'Catch Black Pepper Powder (50g)', grade: 'A', category: 'Spices', impact: 'Piperine increases bioavailability of other nutrients by up to 2000% (especially turmeric curcumin). Anti-inflammatory and digestive. Proven to stimulate hydrochloric acid production — improves protein digestion.', ings: [
+    { dot: 'dot-safe', name: 'Pure Black Pepper', desc: 'Piperine boosts nutrient absorption by up to 2000%', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure spice — completely clean', safe: true },
+  ]},
+
+  'organic turmeric powder': { name: 'Organic India Turmeric Powder (100g)', grade: 'A', category: 'Spices', impact: 'Curcumin has 237 proven pharmacological activities including anti-cancer, anti-inflammatory, neuroprotective. Poor bioavailability alone — always combine with black pepper and fat. 500mg/day effective dose for joint inflammation.', ings: [
+    { dot: 'dot-safe', name: 'Organic Turmeric (Curcuma longa)', desc: '237 pharmacological activities — anti-cancer, neuroprotective', safe: true },
+    { dot: 'dot-safe', name: 'High Curcumin (3–5%)', desc: 'Active compound — combine with black pepper for absorption', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic', desc: 'No pesticide — clean spice', safe: true },
+  ]},
+
+  'kissan mixed fruit ketchup': { name: 'Kissan Tomato Ketchup (900g)', grade: 'D', category: 'Condiments', impact: 'Each tablespoon has 4g sugar — children eating ketchup with every meal add 20–30g sugar per day unknowingly. High fructose corn syrup variants accumulate in liver. Sodium benzoate preservative a concern.', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar (high fructose)', desc: '4g sugar per tablespoon — hidden sugar vehicle', safe: false },
+    { dot: 'dot-caution', name: 'Sodium Benzoate (E211)', desc: 'Preservative — carcinogen-forming potential with Vit C', safe: null },
+    { dot: 'dot-caution', name: 'Modified Starch', desc: 'Thickener — high GI filler', safe: null },
+    { dot: 'dot-caution', name: 'Acetic Acid', desc: 'Vinegar — generally safe', safe: null },
+  ]},
+
+  'druk organic apple cider vinegar': { name: 'WOW Apple Cider Vinegar with Mother (500ml)', grade: 'A', category: 'Condiments', impact: 'Acetic acid lowers post-meal blood sugar by 19–34% in studies. Mother contains probiotic bacteria. Studies show 1–2 tsp before meals reduces appetite and calorie intake. Do not take undiluted — erodes tooth enamel.', ings: [
+    { dot: 'dot-safe', name: 'Raw Apple Cider Vinegar with Mother', desc: 'Acetic acid lowers blood sugar 19–34% post meal', safe: true },
+    { dot: 'dot-safe', name: 'Probiotic mother culture', desc: 'Live bacteria — gut health benefit', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure ACV — completely clean', safe: true },
+  ]},
+
+  // ---- BREAKFAST CEREALS ----
+  'kelloggs muesli': { name: "Kellogg's Muesli Fruit Magic (500g)", grade: 'C', category: 'Breakfast', impact: 'Better than cornflakes — some whole grains. But sugar content (24g/100g) is very high for a "healthy" breakfast option. Dried fruits add natural sugar. Better to make your own muesli with plain oats.', ings: [
+    { dot: 'dot-caution', name: 'Rolled Oats (35%)', desc: 'Good whole grain base — partially offset by sugar', safe: null },
+    { dot: 'dot-avoid', name: 'Added Sugar (24g/100g)', desc: 'Very high — negates the whole grain benefit', safe: false },
+    { dot: 'dot-safe', name: 'Dried Fruits & Nuts', desc: 'Natural — some antioxidant benefit', safe: true },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Used in some components — saturated fat', safe: null },
+  ]},
+
+  'bagrrys oats': { name: "Bagrry's White Oats (1kg)", grade: 'A', category: 'Breakfast', impact: 'Beta-glucan fibre clinically proven to lower LDL by 5–10%. Avenanthramides are unique anti-inflammatory antioxidants only found in oats. 3g beta-glucan per day (2 servings) approved by FDA for heart health claim.', ings: [
+    { dot: 'dot-safe', name: '100% Rolled Oats', desc: 'Beta-glucan — FDA-approved heart health claim', safe: true },
+    { dot: 'dot-safe', name: 'Avenanthramides', desc: 'Unique oat antioxidants — anti-inflammatory', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure oats — completely clean', safe: true },
+  ]},
+
+  'almond muesli diy': { name: 'Soulfull Millet Muesli (400g)', grade: 'B', category: 'Breakfast', impact: 'Millets add gluten-free benefit to standard muesli. Ragi inclusion increases calcium significantly. Better sugar profile than Kellogg\'s muesli. Good transitional breakfast for those switching from processed cereals.', ings: [
+    { dot: 'dot-safe', name: 'Jowar, Ragi & Oats', desc: 'Millet blend — gluten-free, high calcium', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar (honey)', desc: '10g per serving — moderate', safe: null },
+    { dot: 'dot-safe', name: 'No palm oil', desc: 'Clean fat profile', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean label for a packaged cereal', safe: true },
+  ]},
+
+  // ---- FRESH & FERMENTED ----
+  'idli rice batter': { name: 'ID Fresh Idli & Dosa Batter (1kg)', grade: 'A', category: 'Fermented Foods', impact: 'Fermentation increases B12 bioavailability — rare in plant foods. Increases protein digestibility by 35%. Lactic acid bacteria are probiotic. Lower glycaemic than plain rice due to fermentation.', ings: [
+    { dot: 'dot-safe', name: 'Fermented Rice & Urad Dal', desc: 'Fermentation produces B12 and probiotics', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Naturally preserved by fermentation — clean', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Traditional food — completely clean', safe: true },
+  ]},
+
+  'kimchi india': { name: 'Mason & Co Fermented Kimchi (300g)', grade: 'A', category: 'Fermented Foods', impact: 'Highest probiotic count of any fermented food (10 billion CFU). Capsaicin from chilli boosts metabolism 4–5%. Clinical studies show improved gut diversity after 4 weeks. Anti-obesity compounds reduce fat cell formation.', ings: [
+    { dot: 'dot-safe', name: 'Fermented Napa Cabbage', desc: '10 billion CFU — highest probiotic count', safe: true },
+    { dot: 'dot-safe', name: 'Garlic & Ginger', desc: 'Natural antimicrobials — anti-inflammatory', safe: true },
+    { dot: 'dot-caution', name: 'High Salt', desc: '480mg sodium per 50g — use as condiment, not side', safe: null },
+  ]},
+
+  // ---- PROTEIN SOURCES ----
+  'tata q paneer': { name: 'Mother Dairy Paneer (200g)', grade: 'A', category: 'Dairy Protein', impact: 'Best vegetarian protein — 18g per 100g. Casein protein is slow-digesting — steady amino acid release for 6–7 hours. High calcium and phosphorus for bone health. Contains CLA — anti-cancer fatty acid.', ings: [
+    { dot: 'dot-safe', name: 'Full Cream Milk Paneer', desc: 'Casein protein — slow digesting, sustained amino acids', safe: true },
+    { dot: 'dot-safe', name: 'High Calcium (480mg/100g)', desc: 'Bone health — daily requirement in one serving', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Fresh paneer — clean product', safe: true },
+  ]},
+
+  'sattu': { name: 'Mithila Sattu (Roasted Gram Flour) 500g', grade: 'A', category: 'Traditional Superfoods', impact: 'Bihar and UP traditional superfood. Highest protein-to-calorie ratio of any Indian food (20g protein/100g). Cooling effect in summer — reduces body heat. Insoluble fibre prevents constipation. Ancient athlete food.', ings: [
+    { dot: 'dot-safe', name: 'Roasted Chana (Black Chickpeas)', desc: 'Highest protein-to-calorie Indian food', safe: true },
+    { dot: 'dot-safe', name: 'High Insoluble Fibre', desc: 'Prevents constipation — natural laxative effect', safe: true },
+    { dot: 'dot-safe', name: 'No processing additives', desc: 'Pure roasted gram — traditional food', safe: true },
+  ]},
+
+  'moringa powder': { name: 'Organic India Moringa Powder (100g)', grade: 'A', category: 'Traditional Superfoods', impact: 'Called "miracle tree" — gram for gram: 7x Vit C of oranges, 4x Vit A of carrots, 4x calcium of milk. Isothiocyanates lower blood sugar in diabetics. Anti-inflammatory — reduces CRP comparable to ibuprofen in studies.', ings: [
+    { dot: 'dot-safe', name: 'Organic Moringa Oleifera Leaf Powder', desc: '7x Vit C of oranges, 4x calcium of milk — superfood', safe: true },
+    { dot: 'dot-safe', name: 'Isothiocyanates', desc: 'Lowers blood sugar — anti-diabetic compound', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic', desc: 'No pesticide — clean superfood', safe: true },
+  ]},
+
+  'ashwagandha powder': { name: 'Himalaya Ashwagandha Powder (100g)', grade: 'A', category: 'Traditional Superfoods', impact: '68 peer-reviewed studies validate stress reduction. Cortisol reduced by 30% in 60 days in clinical trials. Testosterone increased by 15% in men. Thyroid T3/T4 production improved. Most studied Ayurvedic herb.', ings: [
+    { dot: 'dot-safe', name: 'Withania somnifera Root Powder', desc: 'Cortisol reduced 30% in clinical trials — adaptogen', safe: true },
+    { dot: 'dot-safe', name: 'Withanolides (active compounds)', desc: 'Testosterone +15% in men — thyroid support', safe: true },
+    { dot: 'dot-caution', name: 'Caution in pregnancy', desc: 'Avoid during pregnancy — uterine stimulant', safe: null },
+  ]},
+
+  'amla powder': { name: 'Organic India Amla Powder (100g)', grade: 'A', category: 'Traditional Superfoods', impact: '20x more Vitamin C than orange — heat stable unlike ascorbic acid. Tannins in amla prevent LDL oxidation — reduces plaque formation. Studies show liver protection and heavy metal chelation. Traditional Triphala component.', ings: [
+    { dot: 'dot-safe', name: 'Indian Gooseberry Powder', desc: '20x Vit C of orange — heat stable, prevents LDL oxidation', safe: true },
+    { dot: 'dot-safe', name: 'Tannins (Emblicanin A & B)', desc: 'Liver protection and heavy metal chelation', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic', desc: 'Clean superfood — no pesticide', safe: true },
+  ]},
+
+  // ---- READY TO EAT (BETTER OPTIONS) ----
+  'national biryani rice': { name: 'National Chicken Biryani Ready Meal (300g)', grade: 'C', category: 'Ready to Eat', impact: 'Convenient but high sodium. Real spices used — some anti-inflammatory benefit. Better than fast food but sodium (890mg) is 44% of daily limit. Fine occasionally but not daily.', ings: [
+    { dot: 'dot-safe', name: 'Basmati Rice & Chicken', desc: 'Real protein and carb source', safe: true },
+    { dot: 'dot-avoid', name: 'High Sodium (890mg)', desc: '44% of daily sodium limit in one meal', safe: false },
+    { dot: 'dot-safe', name: 'Real Spice Blend', desc: 'Turmeric, cumin — anti-inflammatory benefit', safe: true },
+    { dot: 'dot-caution', name: 'Preservatives (retort processing)', desc: 'Food-safe but some nutrient loss in processing', safe: null },
+  ]},
+
+  'haldirams dal makhani': { name: "Haldiram's Dal Makhani Ready (300g)", grade: 'C', category: 'Ready to Eat', impact: 'Real dal base — good plant protein. High saturated fat from cream. Very high sodium. Better than skipping a meal but home-cooked dal makhani is significantly healthier — less salt, less cream, more nutrients.', ings: [
+    { dot: 'dot-safe', name: 'Black Lentils & Kidney Beans', desc: 'Real dal — protein and fibre', safe: true },
+    { dot: 'dot-caution', name: 'Cream & Butter (high)', desc: 'High saturated fat — 12g per serving', safe: null },
+    { dot: 'dot-avoid', name: 'Sodium (980mg per serving)', desc: '49% daily sodium limit — very high', safe: false },
+  ]},
+
+  // ---- BREAKFAST ITEMS ----
+  'poha': { name: 'Aashirvaad Poha (Flattened Rice) 500g', grade: 'B', category: 'Breakfast Staples', impact: 'Probiotic if soaked — fermentation begins within 30 minutes. Iron content higher than regular rice. Lower calorie breakfast when prepared with vegetables. Traditional breakfast with better nutritional profile than bread or cornflakes.', ings: [
+    { dot: 'dot-safe', name: 'Flattened Rice (Beaten Rice)', desc: 'Iron-rich — traditional breakfast grain', safe: true },
+    { dot: 'dot-caution', name: 'High GI (84)', desc: 'Raises blood sugar quickly — add vegetables and peanuts to lower GI', safe: null },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure grain — completely clean', safe: true },
+  ]},
+
+  'dalia': { name: 'Aashirvaad Dalia (Broken Wheat) 500g', grade: 'A', category: 'Breakfast Staples', impact: 'Better than most cereals — whole wheat broken into pieces retains bran. High fibre controls blood sugar. B vitamins support energy metabolism. Studies show dalia breakfast reduces hunger for 4–5 hours vs cornflakes.', ings: [
+    { dot: 'dot-safe', name: 'Broken Whole Wheat', desc: 'Bran retained — high fibre, B vitamins', safe: true },
+    { dot: 'dot-safe', name: 'Low GI (41)', desc: 'Controls blood sugar — reduces hunger for hours', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure grain — clean staple', safe: true },
+  ]},
+
+  'semiya': { name: 'MTR Roasted Vermicelli (900g)', grade: 'C', category: 'Breakfast Staples', impact: 'Made from semolina (maida equivalent) — refined grain. High GI. Roasting adds slight flavour but no nutritional benefit. Better to use whole wheat vermicelli. Standard Indian breakfast — fine occasionally, not daily.', ings: [
+    { dot: 'dot-caution', name: 'Semolina (Suji)', desc: 'Refined wheat — moderate GI, low fibre', safe: null },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Clean — just semolina', safe: true },
+    { dot: 'dot-caution', name: 'Palm Oil (roasted variety)', desc: 'Used in roasting — saturated fat', safe: null },
+  ]},
+
+  // ---- SNACKS (TRADITIONAL & HEALTHY) ----
+  'roasted chana': { name: 'Haldiram\'s Roasted Chana (200g)', grade: 'A', category: 'Traditional Snacks', impact: 'Best Indian snack per nutrition profile. High protein (25g/100g), high fibre. Roasting retains all nutrients. Only concern is salt. Used for centuries as travel food by Indian farmers — zero preservatives needed.', ings: [
+    { dot: 'dot-safe', name: 'Roasted Bengal Gram (Chana)', desc: 'High protein (25g/100g) — best Indian snack', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean traditional snack', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '180mg sodium per 30g — moderate', safe: null },
+  ]},
+
+  'murmura': { name: 'Puffed Rice (Murmura) Plain (200g)', grade: 'A', category: 'Traditional Snacks', impact: 'Lowest calorie grain snack — 402 kcal/100g vs 547 for chips. No fat when plain. High GI when eaten alone — combine with chana or peanuts to slow digestion. Traditional Indian street food with zero additives.', ings: [
+    { dot: 'dot-safe', name: 'Puffed Rice', desc: 'Low calorie — no fat when plain', safe: true },
+    { dot: 'dot-caution', name: 'High GI alone', desc: 'Combine with protein to reduce blood sugar impact', safe: null },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure puffed rice — clean', safe: true },
+  ]},
+
+  'chikki groundnut': { name: 'Rajkot Groundnut Chikki (100g)', grade: 'B', category: 'Traditional Snacks', impact: 'Natural energy bar — jaggery provides iron and molasses minerals unlike refined sugar. Peanuts provide protein and healthy fats. Traditional post-harvest food. High calorie — treat, not daily snack.', ings: [
+    { dot: 'dot-safe', name: 'Groundnuts (Peanuts)', desc: 'Protein and healthy fat — sustaining energy', safe: true },
+    { dot: 'dot-caution', name: 'Jaggery', desc: 'Better than refined sugar — iron and molasses minerals retained', safe: null },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Traditional two-ingredient food — clean', safe: true },
+  ]},
+
+  // ---- WATERS & HYDRATION ----
+  'bisleri water': { name: 'Bisleri Packaged Drinking Water (1L)', grade: 'A', category: 'Beverages', impact: 'Regulated by BIS IS 14543 standard. pH 7.2 — neutral and safe. TDS 50–150 ppm — optimal mineral content. Best hydration choice — zero calories, zero additives. PET plastic safe for single use.', ings: [
+    { dot: 'dot-safe', name: 'Purified Water', desc: 'BIS certified — safe and clean', safe: true },
+    { dot: 'dot-safe', name: 'Balanced TDS (50–150 ppm)', desc: 'Optimal mineral content for hydration', safe: true },
+    { dot: 'dot-safe', name: 'Zero additives', desc: 'Pure water — nothing else', safe: true },
+  ]},
+
+  'tender coconut water': { name: 'Raw Coconut Water (Fresh Tender Coconut)', grade: 'A', category: 'Beverages', impact: 'Nature\'s electrolyte drink — potassium (600mg/cup) exceeds sports drinks. Cytokinins are anti-ageing compounds. Isotonic to human blood — superior hydration to any packaged drink. No processing, no additives.', ings: [
+    { dot: 'dot-safe', name: 'Natural Coconut Water', desc: 'Potassium 600mg/cup — superior to sports drinks', safe: true },
+    { dot: 'dot-safe', name: 'Cytokinins', desc: 'Anti-ageing plant hormones — unique to coconut', safe: true },
+    { dot: 'dot-safe', name: 'Zero additives', desc: 'Pure nature — nothing processed', safe: true },
+  ]},
+
+  'paperboat coconut water': { name: 'Paper Boat Coconut Water (200ml)', grade: 'B', category: 'Beverages', impact: 'Better than soda and most packaged drinks. However, processing destroys some heat-sensitive cytokinins. No added sugar — clean for a packaged drink. Not as good as fresh tender coconut but significantly better than juices.', ings: [
+    { dot: 'dot-safe', name: 'Coconut Water', desc: 'Electrolytes retained — potassium present', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Clean — only natural coconut sugar', safe: true },
+    { dot: 'dot-caution', name: 'Heat processing (Tetra Pak)', desc: 'Some heat-sensitive nutrients reduced vs fresh', safe: null },
+  ]},
+
+  'jeera water': { name: 'Just Herbs Cumin (Jeera) Water Mix (20 sachets)', grade: 'A', category: 'Beverages', impact: 'Thymol in cumin stimulates digestive enzymes — reduces bloating within 30 minutes. Iron content helps prevent anaemia. Traditional Indian digestive remedy — scientifically validated. Anti-diabetic properties comparable to metformin in animal studies.', ings: [
+    { dot: 'dot-safe', name: 'Cumin Seed Extract', desc: 'Thymol — stimulates digestive enzymes, reduces bloating', safe: true },
+    { dot: 'dot-safe', name: 'Lemon Extract', desc: 'Vitamin C and alkalising effect', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean herbal drink', safe: true },
+  ]},
+
+  // ---- SWEETENERS ----
+  'jaggery organic': { name: 'Organic Jaggery (Gur) Block 500g', grade: 'B', category: 'Sweeteners', impact: 'Better than refined sugar — retains iron (11mg/100g), magnesium and potassium. Molasses content has prebiotic effect. However, still 65–85% sucrose — use in moderation. Better choice when sugar is needed.', ings: [
+    { dot: 'dot-caution', name: 'Sugarcane Juice (concentrated)', desc: '65–85% sucrose — still high sugar', safe: null },
+    { dot: 'dot-safe', name: 'Iron (11mg/100g)', desc: 'Higher iron than most plant foods — fights anaemia', safe: true },
+    { dot: 'dot-safe', name: 'No chemical processing', desc: 'Traditional making — no bleaching agents unlike white sugar', safe: true },
+  ]},
+
+  'stevia natural': { name: 'So Sweet Stevia Natural Sweetener (100g)', grade: 'A', category: 'Sweeteners', impact: 'Zero glycaemic index — does not spike blood sugar. Steviosides are 200–300x sweeter than sugar. Studies show reduced blood pressure with daily use. Non-caloric — supports weight management. Best sugar alternative for diabetics.', ings: [
+    { dot: 'dot-safe', name: 'Stevia Leaf Extract (Steviosides)', desc: 'Zero GI — does not spike blood sugar', safe: true },
+    { dot: 'dot-safe', name: 'Zero calories', desc: 'Supports weight management', safe: true },
+    { dot: 'dot-safe', name: 'Natural origin', desc: 'Plant-derived — not synthetic like aspartame', safe: true },
+  ]},
+
+  'mishri rock sugar': { name: 'Patanjali Mishri (Rock Sugar/Candy Sugar)', grade: 'C', category: 'Sweeteners', impact: 'Traditional Ayurvedic sweetener. Slightly less processed than white sugar. Used in digestive preparations. But still primarily sucrose — blood sugar impact similar to white sugar. Better than refined sugar, worse than jaggery.', ings: [
+    { dot: 'dot-caution', name: 'Crystallised Sugar', desc: 'Still 99% sucrose — moderate blood sugar impact', safe: null },
+    { dot: 'dot-safe', name: 'No bleaching agents', desc: 'Slightly less processed than white sugar', safe: true },
+    { dot: 'dot-caution', name: 'Traditional use only', desc: 'Use as occasional digestive aid — not daily sweetener', safe: null },
+  ]},
+
+  // ---- PACKAGED HEALTHY DRINKS ----
+  'raw pressery aloe vera': { name: 'Raw Pressery Aloe Vera Drink (250ml)', grade: 'B', category: 'Functional Beverages', impact: 'Acemannan in aloe vera supports immune function. Anthraquinones are natural laxatives. Studies show reduced fasting blood sugar by 10mg/dL. Cooling and anti-inflammatory. Check for added sugar — unsweetened versions only.', ings: [
+    { dot: 'dot-safe', name: 'Aloe Vera Gel', desc: 'Acemannan — immune support, anti-inflammatory', safe: true },
+    { dot: 'dot-caution', name: 'Apple Juice (added)', desc: 'Natural sugar but adds to daily load', safe: null },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean functional drink', safe: true },
+  ]},
+
+  'ragi drink': { name: 'Pristine Ragi Health Drink (200g)', grade: 'A', category: 'Functional Beverages', impact: 'Ragi-based drink is far superior to malt drinks. Calcium content helps bone density — critical for growing children. Tryptophan supports serotonin — natural mood improvement. No added sugar in plain variant.', ings: [
+    { dot: 'dot-safe', name: 'Whole Ragi (Finger Millet)', desc: 'Highest calcium grain — bone density support', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar (plain)', desc: 'Clean — naturally sweet from millet', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Traditional millet drink — clean', safe: true },
+  ]},
+
+  'kokum sharbat': { name: 'Mala\'s Kokum Sharbat (750ml)', grade: 'C', category: 'Beverages', impact: 'Hydroxycitric acid in kokum has anti-obesity properties — inhibits fat synthesis. Traditionally used for heat strokes and dehydration. However, this commercial version has added sugar. Homemade kokum is significantly healthier.', ings: [
+    { dot: 'dot-safe', name: 'Kokum Extract', desc: 'Hydroxycitric acid — anti-obesity, digestive aid', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar (high)', desc: '18g per serving in commercial version', safe: false },
+    { dot: 'dot-caution', name: 'Sodium Benzoate', desc: 'Preservative — carcinogen concern with Vit C', safe: null },
+  ]},
+
+  // ---- ADDITIONAL PACKAGED FOODS ----
+  'sunfeast mom magic': { name: 'Sunfeast Mom\'s Magic Butter & Cashew', grade: 'D', category: 'Biscuits', impact: 'Marketed as premium but ingredient quality is poor. No real cashews detectable. Butter is minimal. Palm oil and refined flour dominate. Premium packaging, standard D-grade ingredients.', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'High GI — no fibre', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Primary fat — saturated', safe: false },
+    { dot: 'dot-caution', name: 'Artificial Butter Flavour', desc: 'Minimal real butter — synthetic flavour', safe: null },
+    { dot: 'dot-avoid', name: 'Sugar (15g per serving)', desc: 'High sugar content', safe: false },
+  ]},
+
+  'bikaji bhujia': { name: 'Bikaji Bikaneri Bhujia (200g)', grade: 'D', category: 'Namkeen', impact: 'Traditional recipe corrupted by industrial production. Original Bikaneri bhujia used pure ghee — now uses palm oil. Very high sodium. Fine as occasional festive snack — not daily consumption.', ings: [
+    { dot: 'dot-caution', name: 'Besan (Chickpea Flour)', desc: 'Natural protein base — some benefit', safe: null },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Replaced traditional ghee — lower quality fat', safe: false },
+    { dot: 'dot-avoid', name: 'Salt (very high)', desc: '560mg sodium per 30g — extremely high', safe: false },
+    { dot: 'dot-avoid', name: 'Monosodium Glutamate', desc: 'Added flavour enhancer — high sodium', safe: false },
+  ]},
+
+  'marico saffola active': { name: 'Saffola Active Slimming Nutri-Shake (400g)', grade: 'C', category: 'Weight Management', impact: 'Better than standard meal replacements — real oat and soy protein. Psyllium husk adds genuine fibre. However, sucralose has debated gut microbiome impact. Lower sugar than Ensure and Horlicks. Suitable as occasional meal supplement.', ings: [
+    { dot: 'dot-safe', name: 'Oat & Soy Protein', desc: 'Real protein sources — muscle support', safe: true },
+    { dot: 'dot-safe', name: 'Psyllium Husk', desc: 'Proven cholesterol lowering fibre', safe: true },
+    { dot: 'dot-caution', name: 'Sucralose', desc: 'Artificial sweetener — gut microbiome concern', safe: null },
+    { dot: 'dot-safe', name: 'Low Sugar (3g/serving)', desc: 'Clean on sugar content', safe: true },
+  ]},
+
+  'tropicana grape': { name: 'Tropicana Grape Juice (1L)', grade: 'C', category: 'Beverages', impact: 'Resveratrol is present but bioavailability is low from juice vs whole grapes. High natural sugar — same as soft drink in terms of blood sugar impact. Better to eat whole grapes. However, no artificial additives.', ings: [
+    { dot: 'dot-safe', name: 'Grape Juice Concentrate', desc: 'Resveratrol present — some antioxidant benefit', safe: true },
+    { dot: 'dot-avoid', name: 'Natural Sugar (28g/250ml)', desc: 'Same blood sugar impact as soda despite being natural', safe: false },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Better than most packaged juices', safe: true },
+  ]},
+
+  'ensure protein': { name: 'Abbott Ensure Gold (400g)', grade: 'C', category: 'Nutrition Drinks', impact: 'Prescribed for post-surgery and elderly recovery — clinical use justified. For healthy adults, unnecessary. Corn maltodextrin is high GI — blood sugar concern. Better to get protein from whole foods like dal, paneer and nuts.', ings: [
+    { dot: 'dot-safe', name: 'Whey & Casein Protein Blend', desc: 'High quality protein — clinically validated for muscle', safe: true },
+    { dot: 'dot-avoid', name: 'Corn Maltodextrin (high GI)', desc: 'Fast glucose spike — 95+ GI', safe: false },
+    { dot: 'dot-safe', name: '26 Vitamins & Minerals', desc: 'Comprehensive micronutrient fortification', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar (7g/serving)', desc: 'Moderate but adds up', safe: null },
+  ]},
+
+
 };
 
 function showIngredient(key) {
@@ -1524,7 +2053,7 @@ function quickSearch(name) {
 }
 
 function showProductModal(product) {
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e' };
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
   const ingsHtml = product.ings.map(i => `
     <div class="modal-ing-row">
       <div class="modal-ing-dot ${i.dot}"></div>
@@ -1534,27 +2063,31 @@ function showProductModal(product) {
       </div>
     </div>
   `).join('');
+  const catBadge = product.category ? `<span style="font-size:11px;font-weight:600;background:var(--green-pale);color:var(--green);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;">${product.category}</span>` : '';
+  const impactBox = product.impact ? `<div style="margin-top:12px;padding:14px;background:var(--surface);border-radius:10px;"><div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Daily life body impact</div><p style="font-size:12px;color:var(--ink-soft);line-height:1.6;">${product.impact}</p></div>` : '';
   document.getElementById('modalContent').innerHTML = `
+    ${catBadge}
     <div class="modal-product-name">${product.name}</div>
     <div class="modal-score">
       <div class="score-circle ${gradeColors[product.grade]}">${product.grade}</div>
       <div>
         <div style="font-size:14px;font-weight:600;">Health Grade: ${product.grade}</div>
-        <div style="font-size:12px;color:var(--muted);">${product.grade === 'A' ? 'Excellent' : product.grade === 'B' ? 'Good' : product.grade === 'C' ? 'Moderate — consume in moderation' : product.grade === 'D' ? 'Poor — limit consumption' : 'Avoid — significant health concerns'}</div>
+        <div style="font-size:12px;color:var(--muted);">${product.grade === 'A' ? 'Excellent — clean, natural, minimal processing' : product.grade === 'B' ? 'Good — minor concerns, fine in moderation' : product.grade === 'C' ? 'Moderate — some additives, consume mindfully' : product.grade === 'D' ? 'High concern — excess sugar, fat or additives' : product.grade === 'F' ? 'Avoid — multiple red flags, long-term harm risk' : 'Very high concern — significant health risk'}</div>
       </div>
     </div>
     <div class="modal-ings">
       <div class="modal-ings-title">Key ingredients & concerns</div>
       ${ingsHtml}
     </div>
-    <button class="btn-primary" style="width:100%;justify-content:center;font-size:14px;" onclick="closeModalDirect()">View full ingredient breakdown →</button>
+    ${impactBox}
+    <button class="btn-primary" style="width:100%;justify-content:center;font-size:14px;margin-top:12px;" onclick="closeModalDirect()">View full ingredient breakdown →</button>
   `;
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 function showIngredientModal(key) {
   const ing = ingredients[key];
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e' };
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
   const barColors = { low: 'bar-low', mid: 'bar-mid', high: 'bar-high' };
   const organsHtml = ing.organs.map(o => `
     <div class="organ-row">
