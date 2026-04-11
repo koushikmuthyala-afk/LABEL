@@ -532,13 +532,16 @@
       <span class="search-tag" onclick="quickSearch('Maggi Noodles')">Maggi Noodles</span>
       <span class="search-tag" onclick="quickSearch('Lay\'s Chips')">Lay's Chips</span>
       <span class="search-tag" onclick="quickSearch('Kurkure Masala Munch')">Kurkure</span>
-      <span class="search-tag" onclick="quickSearch('Parle G')">Parle-G</span>
-      <span class="search-tag" onclick="quickSearch('Bournvita')">Bournvita</span>
-      <span class="search-tag" onclick="quickSearch('Frooti')">Frooti</span>
       <span class="search-tag" onclick="quickSearch('Coca Cola')">Coca-Cola</span>
-      <span class="search-tag" onclick="quickSearch('Amul Butter')">Amul Butter</span>
-      <span class="search-tag" onclick="quickSearch('Quaker Oats')">Quaker Oats</span>
-      <span class="search-tag" onclick="quickSearch('Mother Dairy Curd')">Mother Dairy Curd</span>
+      <span class="search-tag" onclick="quickSearch('Frooti')">Frooti</span>
+      <span class="search-tag" onclick="quickSearch('Mountain Dew')">Mountain Dew</span>
+      <span class="search-tag" onclick="quickSearch('Bournvita')">Bournvita</span>
+      <span class="search-tag" onclick="quickSearch('Oreo')">Oreo</span>
+      <span class="search-tag" onclick="quickSearch('Dairy Milk')">Dairy Milk</span>
+      <span class="search-tag" onclick="quickSearch('Amul Dark Chocolate')">Amul Dark Choc</span>
+      <span class="search-tag" onclick="quickSearch('Lipton Green Tea')">Lipton Green Tea</span>
+      <span class="search-tag" onclick="quickSearch('Epigamia Greek Yogurt')">Epigamia Yogurt</span>
+      <span class="search-tag" onclick="quickSearch('Paper Boat Aamras')">Paper Boat</span>
       <span class="search-tag" onclick="quickSearch('TBHQ')">TBHQ</span>
       <span class="search-tag" onclick="quickSearch('Palm Oil')">Palm Oil</span>
     </div>
@@ -547,7 +550,7 @@
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">50+</div><div class="stat-lbl">Indian products covered</div></div>
+  <div class="stat"><div class="stat-num">100+</div><div class="stat-lbl">Indian products covered</div></div>
   <div class="stat"><div class="stat-num">1,200+</div><div class="stat-lbl">Ingredients explained</div></div>
   <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
@@ -1146,6 +1149,333 @@ const products = {
     { dot: 'dot-avoid', name: 'Sugar', desc: '10g per serving — high for a children\'s snack', safe: false },
     { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — concerning for kids with daily consumption', safe: false },
     { dot: 'dot-safe', name: 'Iron & Vitamin B (fortified)', desc: 'Some nutritional addition — does not offset negatives', safe: true },
+  ]},
+
+  '7up': { name: '7UP Lemon Lime Drink (330ml)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '32g per can — 8 teaspoons of sugar', safe: false },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Erodes tooth enamel with regular consumption', safe: false },
+    { dot: 'dot-caution', name: 'Sodium Benzoate (E211)', desc: 'Preservative — reacts with Vit C to form benzene (carcinogen)', safe: null },
+    { dot: 'dot-safe', name: 'No Caffeine', desc: 'Caffeine-free — less addictive than colas', safe: true },
+  ]},
+
+  'maaza': { name: 'Maaza Mango Drink (250ml)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '28g per 250ml — 7 teaspoons', safe: false },
+    { dot: 'dot-avoid', name: 'Mango Pulp (15%)', desc: 'Mostly sugar water with minimal real fruit', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Flavour', desc: 'Synthetic mango esters — not real fruit', safe: false },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Dental enamel erosion risk', safe: false },
+  ]},
+
+  'limca': { name: 'Limca Lemon Flavour Drink (330ml)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '34g per can — very high', safe: false },
+    { dot: 'dot-caution', name: 'Sodium Benzoate', desc: 'Preservative with carcinogen-forming potential', safe: null },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Erosive acid — damages teeth over time', safe: false },
+    { dot: 'dot-caution', name: 'Natural Lemon Flavour', desc: 'Mostly synthetic despite "natural" claim', safe: null },
+  ]},
+
+  'thums up': { name: 'Thums Up Strong Cola (330ml)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '38g per can — nearly 10 teaspoons', safe: false },
+    { dot: 'dot-avoid', name: 'Phosphoric Acid', desc: 'Leaches calcium from bones — osteoporosis risk', safe: false },
+    { dot: 'dot-avoid', name: 'Caramel Colour E150d', desc: '4-MEI compound — classified possible carcinogen', safe: false },
+    { dot: 'dot-caution', name: 'Caffeine (42mg)', desc: 'Higher than standard cola — more addictive', safe: null },
+  ]},
+
+  'mirinda': { name: 'Mirinda Orange (330ml)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '36g per can — 9 teaspoons', safe: false },
+    { dot: 'dot-avoid', name: 'Sunset Yellow (E110)', desc: 'Synthetic orange dye — linked to allergies and hyperactivity', safe: false },
+    { dot: 'dot-avoid', name: 'Sodium Benzoate', desc: 'Preservative — carcinogen-forming potential with Vit C', safe: false },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Enamel erosion with regular use', safe: false },
+  ]},
+
+  'mountain dew': { name: 'Mountain Dew (330ml)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '46g per can — highest of all popular sodas', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine E102', desc: 'Bright yellow petroleum dye — banned in several countries', safe: false },
+    { dot: 'dot-caution', name: 'Caffeine (54mg)', desc: 'Highest caffeine of mainstream sodas in India', safe: null },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Highly erosive — pH of 3.3, close to battery acid', safe: false },
+  ]},
+
+  'sting energy': { name: 'Sting Energy Drink (250ml)', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '27g per 250ml — very high', safe: false },
+    { dot: 'dot-avoid', name: 'Caffeine (80mg)', desc: 'High dose — not suitable for children or teens', safe: false },
+    { dot: 'dot-avoid', name: 'Taurine (400mg)', desc: 'Amino acid — combined with caffeine raises heart rate', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine E102', desc: 'Petroleum yellow dye — hyperactivity risk', safe: false },
+  ]},
+
+  'paper boat aamras': { name: 'Paper Boat Aamras (200ml)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Alphonso Mango Pulp (55%)', desc: 'Real fruit pulp — significantly higher than competitors', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar', desc: '18g per 200ml — still significant', safe: null },
+    { dot: 'dot-safe', name: 'No artificial colours', desc: 'Clean on artificial additives — uses natural colour', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Clean label — better than most competitors', safe: true },
+  ]},
+
+  'raw pressery juice': { name: "Raw Pressery Apple Juice (250ml)", grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Cold-pressed Apple Juice', desc: 'HPP processed — nutrients better retained than heat pasteurised', safe: true },
+    { dot: 'dot-caution', name: 'Natural Sugar (Fructose)', desc: '24g per 250ml — high even if natural', safe: null },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'All sugar from fruit — not added', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives or colours', desc: 'Very clean label', safe: true },
+  ]},
+
+  'b natural juice': { name: 'B Natural Mixed Fruit Juice (200ml)', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Fruit Concentrate (30%)', desc: 'Reconstituted — not fresh pressed', safe: null },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '16g per serving', safe: false },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Better than many competitors on this front', safe: true },
+    { dot: 'dot-caution', name: 'Citric Acid', desc: 'Acidifier — enamel concern daily use', safe: null },
+  ]},
+
+  'amul kool': { name: 'Amul Kool Flavoured Milk (200ml)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Toned Milk', desc: 'Good protein and calcium base', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '18g per 200ml — very high for a milk drink', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Powder / Flavour', desc: 'Small amount — flavour mostly from sugar', safe: null },
+    { dot: 'dot-caution', name: 'Carrageenan', desc: 'Thickener — gut inflammation concern', safe: null },
+  ]},
+
+  'complan': { name: 'Complan Chocolate Growth Drink', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '9g per 33g serving — 27% sugar', safe: false },
+    { dot: 'dot-safe', name: '34 Nutrients', desc: 'Comprehensive vitamin and mineral fortification', safe: true },
+    { dot: 'dot-caution', name: 'Skimmed Milk Powder', desc: 'Processed dairy — lower fat-soluble vitamin content', safe: null },
+    { dot: 'dot-caution', name: 'Vegetable Oil', desc: 'Unspecified oil source — could be palm oil', safe: null },
+  ]},
+
+  'nescafe cold coffee': { name: "Nescafé Ready-to-Drink Cold Coffee (180ml)", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '19g per 180ml — very high', safe: false },
+    { dot: 'dot-caution', name: 'Coffee Extract', desc: 'Real coffee — some benefit but low quantity', safe: null },
+    { dot: 'dot-caution', name: 'Carrageenan', desc: 'Thickener — gut lining concern', safe: null },
+    { dot: 'dot-caution', name: 'Caffeine (50mg)', desc: 'Moderate — equivalent to half an espresso', safe: null },
+  ]},
+
+  'glucon d': { name: 'Glucon-D Instant Energy Drink (400g)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Glucose (Dextrose)', desc: '95% pure glucose — extreme blood sugar spike', safe: false },
+    { dot: 'dot-safe', name: 'Vitamin C & D', desc: 'Some beneficial fortification', safe: true },
+    { dot: 'dot-avoid', name: 'Artificial Orange Flavour', desc: 'Synthetic flavouring compounds', safe: false },
+    { dot: 'dot-caution', name: 'Tartrazine E102', desc: 'Yellow dye — hyperactivity risk in children', safe: null },
+  ]},
+
+  'electral': { name: 'Electral ORS Powder (Sachet)', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Sodium Chloride', desc: 'Essential electrolyte for rehydration', safe: true },
+    { dot: 'dot-safe', name: 'Potassium Chloride', desc: 'Essential mineral — beneficial when dehydrated', safe: true },
+    { dot: 'dot-caution', name: 'Dextrose', desc: 'Glucose for energy — fine for rehydration use', safe: null },
+    { dot: 'dot-safe', name: 'WHO-formulated', desc: 'Clinically proven rehydration formula', safe: true },
+  ]},
+
+  'chaayos tea': { name: 'Chaayos Instant Masala Chai Mix', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Black Tea Extract', desc: 'Real tea — antioxidants present', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '12g per sachet — very high for tea', safe: false },
+    { dot: 'dot-safe', name: 'Ginger & Cardamom', desc: 'Natural spices — anti-inflammatory benefit', safe: true },
+    { dot: 'dot-caution', name: 'Dried Milk Solids', desc: 'Processed dairy creamer — low quality fat', safe: null },
+  ]},
+
+  'bru coffee': { name: 'Bru Instant Coffee', grade: 'B', ings: [
+    { dot: 'dot-caution', name: 'Coffee & Chicory Blend (70:30)', desc: 'Chicory is a filler — not pure coffee like Nescafé', safe: null },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean instant coffee — just coffee and chicory', safe: true },
+    { dot: 'dot-caution', name: 'Caffeine (40mg/cup)', desc: 'Moderate — lower than Nescafé due to chicory blend', safe: null },
+  ]},
+
+  'lipton green tea': { name: 'Lipton Green Tea (Bags)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Green Tea Leaves', desc: 'Rich in EGCG antioxidants — proven cancer-fighting properties', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Plain tea — completely clean', safe: true },
+    { dot: 'dot-caution', name: 'Caffeine (25mg/cup)', desc: 'Low caffeine — gentle stimulant', safe: null },
+    { dot: 'dot-safe', name: 'L-Theanine', desc: 'Natural amino acid — promotes calm focus', safe: true },
+  ]},
+
+  'hajmola': { name: 'Hajmola Regular Digestive Tablets', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Black Salt (Kala Namak)', desc: 'Traditional digestive — contains trace minerals', safe: true },
+    { dot: 'dot-safe', name: 'Ajwain (Carom Seeds)', desc: 'Proven digestive aid — reduces bloating', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar', desc: '2g per tablet — low but adds up if eating many', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Black Colour', desc: 'Cosmetic colouring — unnecessary additive', safe: null },
+  ]},
+
+  'dabur honey': { name: 'Dabur Honey (500g)', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Natural Honey', desc: 'Pure honey is beneficial — but still 17g sugar per tbsp', safe: null },
+    { dot: 'dot-caution', name: 'Pollen content', desc: 'Natural — good for immunity but allergenic for some', safe: null },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Honey is self-preserving — naturally antimicrobial', safe: true },
+  ]},
+
+  'saffola honey': { name: 'Saffola Honey with Tulsi (500g)', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Natural Honey', desc: 'Good base — but adulteration of Indian honey is a known concern', safe: null },
+    { dot: 'dot-safe', name: 'Tulsi Extract', desc: 'Traditional adaptogen — some immunity benefit', safe: true },
+    { dot: 'dot-caution', name: 'High Sugar Content', desc: '17g natural sugar per tablespoon — use in moderation', safe: null },
+  ]},
+
+  'maggi masala': { name: 'Maggi Masala-ae-Magic Seasoning', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'MSG (high quantity)', desc: 'Very high sodium — one sachet has 900mg sodium', safe: false },
+    { dot: 'dot-avoid', name: 'Hydrolysed Vegetable Protein', desc: 'Processed flavour enhancer — contains free glutamates', safe: false },
+    { dot: 'dot-caution', name: 'Spice Extracts', desc: 'Some natural spice — but overwhelmed by sodium', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Colour', desc: 'Synthetic colouring for visual appeal', safe: false },
+  ]},
+
+  'everest garam masala': { name: 'Everest Garam Masala (50g)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Whole Spice Blend', desc: 'Natural spices — anti-inflammatory, antioxidant rich', safe: true },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Pure spice blend — completely clean', safe: true },
+    { dot: 'dot-safe', name: 'No added salt or MSG', desc: 'Clean seasoning — just spices', safe: true },
+  ]},
+
+  'mtr breakfast mix': { name: 'MTR Instant Upma Mix', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Semolina (Rava)', desc: 'Refined wheat — moderate GI, low fibre', safe: null },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Used for pre-roasting — saturated fat', safe: null },
+    { dot: 'dot-safe', name: 'Mustard Seeds & Curry Leaves', desc: 'Natural flavouring — beneficial', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '480mg sodium per serving — moderate concern', safe: null },
+  ]},
+
+  'sunfeast yippee noodles': { name: 'Sunfeast Yippee Magic Masala Noodles', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative in the oil tastemaker', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat — cardiovascular concern', safe: false },
+    { dot: 'dot-caution', name: 'MSG', desc: '760mg sodium per serving — very high', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Masala Flavour', desc: 'Synthetic compounds — not real spices', safe: false },
+  ]},
+
+  'wai wai noodles': { name: 'Wai Wai Chicken Flavour Noodles', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative — liver & immune risk', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Very high saturated fat content', safe: false },
+    { dot: 'dot-avoid', name: 'MSG (very high)', desc: '1100mg sodium per serving — extremely high', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Chicken Flavour', desc: 'No real chicken — synthetic compounds', safe: false },
+  ]},
+
+  'pringles': { name: "Pringles Original (110g)", grade: 'D', ings: [
+    { dot: 'dot-caution', name: 'Dehydrated Potato (40%)', desc: 'Not whole potato — processed potato flakes', safe: null },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat cooking oil', safe: false },
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative — standard in Pringles globally', safe: false },
+    { dot: 'dot-caution', name: 'Corn Flour & Rice Flour', desc: 'Refined fillers — no nutritional benefit', safe: null },
+  ]},
+
+  'cheetos': { name: 'Cheetos Cheese Puffs', grade: 'E', ings: [
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Cheese Flavour', desc: 'No real cheese — synthetic flavour compounds', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine E102 & Sunset Yellow', desc: 'Multiple petroleum dyes — hyperactivity risk', safe: false },
+  ]},
+
+  'oreo': { name: 'Oreo Chocolate Sandwich Cookies', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '14g per 3 cookies — very high', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Primary fat — high saturated content', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Powder (alkali processed)', desc: 'Dutch-processed — some antioxidants lost', safe: null },
+    { dot: 'dot-caution', name: 'Soy Lecithin', desc: 'Emulsifier — generally safe', safe: null },
+  ]},
+
+  'kitkat': { name: 'KitKat 4-Finger (45g)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '22g per bar — very high', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — LDL raise risk', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Butter', desc: 'Natural fat — acceptable in moderation', safe: null },
+    { dot: 'dot-caution', name: 'TBHQ', desc: 'Present in some markets — check label', safe: null },
+  ]},
+
+  'dairy milk': { name: "Cadbury Dairy Milk Chocolate (40g)", grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '22g per 40g bar — 55% sugar by weight', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Butter & Mass', desc: 'Real chocolate components — some benefit', safe: null },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat filler', safe: false },
+    { dot: 'dot-caution', name: 'Emulsifier E476 (PGPR)', desc: 'Cheap lecithin substitute — replaces cocoa butter', safe: null },
+  ]},
+
+  '5star chocolate': { name: 'Cadbury 5 Star Chocolate (40g)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Glucose Syrup', desc: 'High GI sweetener — rapid blood sugar spike', safe: false },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '20g per bar', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — cardiovascular concern', safe: false },
+    { dot: 'dot-caution', name: 'Caramel', desc: 'Natural — but adds to sugar load', safe: null },
+  ]},
+
+  'amul dark chocolate': { name: 'Amul Dark Chocolate 55% (150g)', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Cocoa Mass (55%)', desc: 'High cocoa — rich in flavanols, antioxidants', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar', desc: '10g per 30g serving — moderate', safe: null },
+    { dot: 'dot-safe', name: 'Cocoa Butter', desc: 'Natural fat — stearic acid does not raise LDL', safe: true },
+    { dot: 'dot-safe', name: 'No Palm Oil', desc: 'Clean fat profile — uses only cocoa butter', safe: true },
+  ]},
+
+  'fortune chakki atta': { name: 'Fortune Chakki Fresh Atta (5kg)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: '100% Whole Wheat', desc: 'Complete grain — high fibre, B vitamins, minerals', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Clean label — just wheat', safe: true },
+    { dot: 'dot-safe', name: 'High Fibre (12g per 100g)', desc: 'Excellent for gut health and blood sugar control', safe: true },
+  ]},
+
+  'aashirvaad atta': { name: 'Aashirvaad Select Sharbati Atta (5kg)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Sharbati Wheat (whole grain)', desc: 'Premium wheat variety — high protein content', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure whole wheat — nothing else added', safe: true },
+    { dot: 'dot-caution', name: 'Naturally high gluten', desc: 'Sharbati is high-gluten — avoid if gluten sensitive', safe: null },
+  ]},
+
+  'tata sampann dal': { name: 'Tata Sampann Unpolished Moong Dal (500g)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Whole Moong Dal (unpolished)', desc: 'Retains husk — maximum fibre and micronutrients', safe: true },
+    { dot: 'dot-safe', name: 'No polishing agents', desc: 'Unpolished preserves B vitamins lost in regular dal', safe: true },
+    { dot: 'dot-safe', name: 'High Protein (24g per 100g)', desc: 'Excellent plant protein source', safe: true },
+  ]},
+
+  'kitchens of india': { name: "Kitchen of India Dal Makhani (285g)", grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Whole Black Lentils & Kidney Beans', desc: 'Good protein and fibre base', safe: true },
+    { dot: 'dot-caution', name: 'Cream & Butter', desc: 'High saturated fat in ready-to-eat format', safe: null },
+    { dot: 'dot-caution', name: 'Salt', desc: '680mg sodium per serving — high', safe: null },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Retort processed — clean preservation method', safe: true },
+  ]},
+
+  'mccain fries': { name: 'McCain Smiles Potato Snacks (420g)', grade: 'D', ings: [
+    { dot: 'dot-caution', name: 'Potatoes', desc: 'Natural base — nutritional value reduced by frying', safe: null },
+    { dot: 'dot-avoid', name: 'Refined Vegetable Oil', desc: 'Partially hydrogenated — possible trans fat traces', safe: false },
+    { dot: 'dot-caution', name: 'Modified Starch', desc: 'Processed thickener — high GI filler', safe: null },
+    { dot: 'dot-caution', name: 'Salt', desc: '310mg sodium per serving', safe: null },
+  ]},
+
+  'mother dairy mishti doi': { name: 'Mother Dairy Mishti Doi (400g)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Whole Milk', desc: 'Good protein and calcium base', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '18g per 100g — very high for a yoghurt', safe: false },
+    { dot: 'dot-safe', name: 'Live Probiotic Cultures', desc: 'Beneficial for gut — partially offset by sugar', safe: true },
+    { dot: 'dot-caution', name: 'Caramel (for colour)', desc: 'Natural browning — minor concern', safe: null },
+  ]},
+
+  'yakult': { name: 'Yakult Probiotic Drink (65ml)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'L. casei Shirota (6.5 billion)', desc: 'Clinically proven probiotic strain — genuine gut benefit', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '11g in just 65ml — very high concentration', safe: false },
+    { dot: 'dot-caution', name: 'Skimmed Milk Powder', desc: 'Probiotic carrier — fine', safe: null },
+  ]},
+
+  'epigamia greek yogurt': { name: 'Epigamia Greek Yogurt Plain (85g)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: 'Whole Milk', desc: 'Full fat — better micronutrient absorption', safe: true },
+    { dot: 'dot-safe', name: 'Live Cultures (S. thermophilus, L. bulgaricus)', desc: 'Genuine probiotic — well-studied strains', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar (plain)', desc: 'Clean product — no sweeteners', safe: true },
+    { dot: 'dot-safe', name: 'High Protein (10g per 85g)', desc: 'Excellent protein density — twice regular curd', safe: true },
+  ]},
+
+  'saffola oats': { name: 'Saffola Oats (1kg)', grade: 'A', ings: [
+    { dot: 'dot-safe', name: '100% Whole Grain Oats', desc: 'High beta-glucan fibre — clinically proven cholesterol reduction', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Plain oats — completely clean', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives or additives', desc: 'One ingredient product — as clean as it gets', safe: true },
+  ]},
+
+  'britannia nutrichoice': { name: 'Britannia NutriChoice 5 Grain Biscuits', grade: 'C', ings: [
+    { dot: 'dot-caution', name: 'Multi-grain Flour', desc: 'Better than maida — some fibre benefit', safe: null },
+    { dot: 'dot-caution', name: 'Sugar', desc: '6g per serving — moderate', safe: null },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Still present despite "healthy" positioning', safe: null },
+    { dot: 'dot-safe', name: 'Oats & Ragi', desc: 'Some whole grain benefit — better than standard biscuits', safe: true },
+  ]},
+
+  'bourbon biscuits': { name: 'Britannia Bourbon Chocolate Biscuits', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'No fibre — high GI', safe: false },
+    { dot: 'dot-avoid', name: 'Sugar', desc: '16g per 4 biscuits — very high', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Primary fat — saturated fat concern', safe: false },
+    { dot: 'dot-caution', name: 'Cocoa Powder (2%)', desc: 'Minimal — just enough for colour and flavour', safe: null },
+  ]},
+
+  'dr fixit': { name: 'Ensure Nutrition Drink (400g)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: '26 Vitamins & Minerals', desc: 'Comprehensive micronutrient fortification', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '8g per 55g serving — 14% sugar content', safe: false },
+    { dot: 'dot-caution', name: 'Corn Maltodextrin', desc: 'High GI carbohydrate — fast glucose release', safe: null },
+    { dot: 'dot-safe', name: 'Whey Protein', desc: 'High quality complete protein source', safe: true },
+  ]},
+
+  'milo': { name: 'Nestlé Milo Activ-Go (400g)', grade: 'D', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '7.8g per 20g serving — 39% sugar by weight', safe: false },
+    { dot: 'dot-caution', name: 'Malted Barley', desc: 'Natural grain base — some nutrition', safe: null },
+    { dot: 'dot-safe', name: 'Cocoa Extract', desc: 'Some antioxidant benefit', safe: true },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Saturated fat in a drink marketed for kids', safe: null },
+  ]},
+
+  'amul lassi': { name: 'Amul Mango Lassi (200ml)', grade: 'C', ings: [
+    { dot: 'dot-safe', name: 'Dahi (Yoghurt)', desc: 'Probiotic base — gut health benefit', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: '22g per 200ml — very high', safe: false },
+    { dot: 'dot-caution', name: 'Mango Flavour', desc: 'Artificial mango — not real mango pulp', safe: null },
+    { dot: 'dot-caution', name: 'Permitted Stabiliser (E1442)', desc: 'Modified starch — generally safe', safe: null },
+  ]},
+
+  'paperboat kokum': { name: 'Paper Boat Kokum Sharbat (200ml)', grade: 'B', ings: [
+    { dot: 'dot-safe', name: 'Kokum Extract', desc: 'Traditional Indian fruit — anti-inflammatory, digestive aid', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar', desc: '14g per 200ml — moderate', safe: null },
+    { dot: 'dot-safe', name: 'No artificial colours', desc: 'Natural red from kokum — clean', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives', desc: 'Better than most packaged drinks', safe: true },
   ]},
 };
 
