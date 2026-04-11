@@ -18,8 +18,6 @@
 <meta property="og:title" content="EatAware — Know What You Eat"/>
 <meta property="og:description" content="Search any Indian packaged product and instantly see every ingredient, its health grade, and what it does to your body over time. Free. FSSAI-verified."/>
 <meta property="og:image" content="https://eataware.in/og-image.png"/>
-<meta property="og:image:width" content="1200"/>
-<meta property="og:image:height" content="630"/>
 <meta property="og:locale" content="en_IN"/>
 <meta property="og:site_name" content="EatAware"/>
 
@@ -469,7 +467,6 @@
   .score-c { background: var(--amber-pale); color: #92400e; }
   .score-d { background: #fed7aa; color: #9a3412; }
   .score-e { background: var(--red-pale); color: #991b1b; }
-  .score-f { background: #1c1917; color: #ef4444; border: 1px solid #ef4444; }
   .modal-ings { margin-bottom: 20px; }
   .modal-ings-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
   .modal-ing-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--surface); }
@@ -528,7 +525,7 @@
   <div class="search-box">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div class="search-label">Search any product, brand or ingredient</div><div style="font-size:11px;color:var(--muted);">250+ products · India + Singapore · A–F graded</div></div>
     <div class="search-row">
-      <input class="search-input" id="searchInput" type="text" placeholder="Search Maggi, Ragi, Millet, Protein, Baby food, Milo SG…"/>
+      <input class="search-input" id="searchInput" type="text" placeholder="e.g. Maggi Noodles, Lay's Classic, TBHQ, Tartrazine…"/>
       <button class="search-btn" onclick="handleSearch()">Search</button>
     </div>
     <div class="search-tags">
@@ -545,8 +542,8 @@
       <span class="search-tag" onclick="quickSearch('Lipton Green Tea')">Lipton Green Tea</span>
       <span class="search-tag" onclick="quickSearch('Epigamia Greek Yogurt')">Epigamia Yogurt</span>
       <span class="search-tag" onclick="quickSearch('Paper Boat Aamras')">Paper Boat</span>
-      <span class="search-tag" onclick="document.getElementById('searchInput').value='TBHQ';handleSearch();">TBHQ</span>
-      <span class="search-tag" onclick="document.getElementById('searchInput').value='Palm Oil';handleSearch();">Palm Oil</span>
+      <span class="search-tag" onclick="quickSearch('TBHQ')">TBHQ</span>
+      <span class="search-tag" onclick="quickSearch('Palm Oil')">Palm Oil</span>
       <span class="search-tag" onclick="quickSearch('Ragi Flakes')">Ragi Flakes</span>
       <span class="search-tag" onclick="quickSearch('Foxtail Millet')">Foxtail Millet</span>
       <span class="search-tag" onclick="quickSearch('Quaker Oats')">Quaker Oats</span>
@@ -574,7 +571,7 @@
 </div>
 <div class="stats-strip">
   <div class="stat"><div class="stat-num">251</div><div class="stat-lbl">Products rated A–F</div></div>
-  <div class="stat"><div class="stat-num">120+</div><div class="stat-lbl">Ingredients decoded</div></div>
+  <div class="stat"><div class="stat-num">1,200+</div><div class="stat-lbl">Ingredients explained</div></div>
   <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
 </div>
@@ -592,13 +589,13 @@
         <div class="card-icon icon-green">🔬</div>
         <div class="card-title">Ingredient Decoder</div>
         <div class="card-desc">Search any ingredient — from TBHQ to carrageenan — and get a plain-language explanation of what it is, why it's added, and whether you should be concerned.</div>
-        <span class="card-tag">120+ ingredients decoded</span>
+        <span class="card-tag">1,200+ ingredients</span>
       </div>
       <div class="feature-card">
         <div class="card-icon icon-green">📦</div>
         <div class="card-title">Product Scanner</div>
         <div class="card-desc">Search by product name or barcode. See every ingredient, nutritional breakdown, health grade (A–F), and FSSAI compliance status in seconds.</div>
-        <span class="card-tag">251 products rated A–F</span>
+        <span class="card-tag">500+ Indian products</span>
       </div>
       <div class="feature-card">
         <div class="card-icon icon-amber">🫀</div>
@@ -621,8 +618,8 @@
       <div class="feature-card">
         <div class="card-icon icon-green">🛒</div>
         <div class="card-title">Healthier Alternatives</div>
-        <div class="card-desc">For every product rated C, D, or E, we suggest 3 cleaner alternatives — search the healthier option on BigBasket, Amazon, or Zepto.</div>
-        <span class="card-tag" style="background:var(--amber-pale);color:var(--amber);">BigBasket & Amazon</span>
+        <div class="card-desc">For every product rated C, D, or E, we suggest 3 cleaner alternatives available on BigBasket, Amazon, and Zepto so you can swap instantly.</div>
+        <span class="card-tag">Coming soon</span>
       </div>
     </div>
   </div>
@@ -704,30 +701,30 @@
     <h2>The truth about <em>what you eat</em></h2>
     <p class="section-sub">Research-backed articles that translate food science into everyday decisions for Indian consumers.</p>
     <div class="articles-grid">
-      <div class="article-card" onclick="document.getElementById('searchInput').value='TBHQ';document.getElementById('search').scrollIntoView({behavior:'smooth'});setTimeout(handleSearch,500);" style="cursor:pointer;">
+      <div class="article-card">
         <div class="article-thumb thumb-1">🧪</div>
         <div class="article-body">
           <div class="article-cat">Preservatives</div>
           <div class="article-title">Why TBHQ is in Almost Every Indian Snack — and What It Does to You</div>
-          <div class="article-excerpt">TBHQ extends shelf life by preventing oxidation. But research links it to immune disruption, potential carcinogenicity, and hormone interference at high doses. Click to search TBHQ →</div>
+          <div class="article-excerpt">TBHQ extends shelf life by preventing oxidation. But research links it to immune disruption, potential carcinogenicity, and hormone interference at high doses.</div>
         </div>
         <div class="article-footer"><span>8 min read</span><span>Preservatives</span></div>
       </div>
-      <div class="article-card" onclick="document.getElementById('searchInput').value='Palm Oil';document.getElementById('search').scrollIntoView({behavior:'smooth'});setTimeout(handleSearch,500);" style="cursor:pointer;">
+      <div class="article-card">
         <div class="article-thumb thumb-2">🫀</div>
         <div class="article-body">
           <div class="article-cat">Fats & Oils</div>
           <div class="article-title">Palm Oil: The Ingredient Hidden in 50% of Packaged Indian Food</div>
-          <div class="article-excerpt">It's cheap, versatile, and everywhere. But palm oil's saturated fat content raises LDL cholesterol and its refining process creates potentially harmful compounds. Click to search Palm Oil →</div>
+          <div class="article-excerpt">It's cheap, versatile, and everywhere. But palm oil's saturated fat content raises LDL cholesterol and its refining process creates potentially harmful compounds.</div>
         </div>
         <div class="article-footer"><span>6 min read</span><span>Fats & Oils</span></div>
       </div>
-      <div class="article-card" onclick="document.getElementById('searchInput').value='Tartrazine';document.getElementById('search').scrollIntoView({behavior:'smooth'});setTimeout(handleSearch,500);" style="cursor:pointer;">
+      <div class="article-card">
         <div class="article-thumb thumb-3">🎨</div>
         <div class="article-body">
           <div class="article-cat">Artificial Colours</div>
           <div class="article-title">The E-Numbers Making Your Food Brighter — and Their Hidden Costs</div>
-          <div class="article-excerpt">Tartrazine, Sunset Yellow, Allura Red — the colours making Indian snacks vibrant have been linked to hyperactivity in children and allergic reactions. Click to search Tartrazine →</div>
+          <div class="article-excerpt">Tartrazine, Sunset Yellow, Allura Red — the colours making Indian snacks vibrant have been linked to hyperactivity in children and allergic reactions.</div>
         </div>
         <div class="article-footer"><span>5 min read</span><span>Additives</span></div>
       </div>
@@ -757,30 +754,30 @@
     </div>
     <div class="footer-col">
       <h4>Platform</h4>
-      <a href="#search">Search Products</a>
-      <a href="#ingredients">Ingredient Encyclopedia</a>
-      <a href="#ingredients">Body Impact Guide</a>
-      <a href="#learn">Shelf Life Explained</a>
+      <a href="#">Search Products</a>
+      <a href="#">Ingredient Encyclopedia</a>
+      <a href="#">Body Impact Guide</a>
+      <a href="#">Shelf Life Explained</a>
     </div>
     <div class="footer-col">
       <h4>Learn</h4>
-      <a href="#learn">Preservatives Guide</a>
-      <a href="#learn">Artificial Colours</a>
-      <a href="#learn">Fats & Oils</a>
-      <a href="#learn">Sweeteners</a>
-      <a href="#learn">Emulsifiers</a>
+      <a href="#">Preservatives Guide</a>
+      <a href="#">Artificial Colours</a>
+      <a href="#">Fats & Oils</a>
+      <a href="#">Sweeteners</a>
+      <a href="#">Emulsifiers</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="#about">About EatAware</a>
-      <a href="#about">Our Methodology</a>
-      <a href="mailto:koushik@eataware.in">Partner with us</a>
-      <a href="mailto:koushik@eataware.in">Contact</a>
-      <a href="#about">Privacy Policy</a>
+      <a href="#">About EatAware</a>
+      <a href="#">Our Methodology</a>
+      <a href="#">Partner with us</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 EatAware. Built in India 🇮🇳 · <a href="mailto:koushik@eataware.in" style="color:rgba(255,255,255,0.5);text-decoration:none;">koushik@eataware.in</a></span>
+    <span>© 2026 EatAware. Built in India 🇮🇳</span>
     <span>Data sourced from FSSAI, Open Food Facts & peer-reviewed research</span>
   </div>
 </footer>
@@ -2564,28 +2561,14 @@ function handleSearch() {
   // 1. Exact key match
   if (products[q]) { showProductModal(products[q]); return; }
 
-  // 2. Fuzzy product match — tiered relevance scoring
-  const words = q.split(/\s+/).filter(w => w.length > 1);
-  const scoredMatches = Object.entries(products).map(([key, p]) => {
+  // 2. Fuzzy product match — search by name, key, or any word in query
+  const words = q.split(/\s+/).filter(w => w.length > 2);
+  const productMatches = Object.entries(products).filter(([key, p]) => {
     const name = p.name.toLowerCase();
     const cat = (p.category || '').toLowerCase();
-    let score = 0;
-    if (key === q) score += 100;                          // exact key
-    if (name === q) score += 100;                          // exact name
-    if (key.includes(q)) score += 50;                     // key contains full query
-    if (name.includes(q)) score += 50;                    // name contains full query
-    const allWordsInKey = words.every(w => key.includes(w));
-    const allWordsInName = words.every(w => name.includes(w));
-    if (allWordsInKey) score += 30;                       // ALL words in key
-    if (allWordsInName) score += 30;                      // ALL words in name
-    const matchedWords = words.filter(w => key.includes(w) || name.includes(w));
-    score += matchedWords.length * 5;                     // partial word matches
-    if (cat.includes(q)) score += 10;                     // category match
-    return [key, p, score];
-  }).filter(([,, score]) => score > 0)
-    .sort((a, b) => b[2] - a[2])
-    .map(([key, p]) => [key, p]);
-  const productMatches = scoredMatches;
+    return key.includes(q) || name.includes(q) ||
+      words.some(w => key.includes(w) || name.includes(w) || cat.includes(w));
+  });
 
   if (productMatches.length === 1) {
     showProductModal(productMatches[0][1]); return;
@@ -2605,63 +2588,44 @@ function handleSearch() {
   showNotFound(q);
 }
 
-// Store product key map for click handlers
-const productKeyMap = {};
-Object.keys(products).forEach(k => { productKeyMap[k] = k; });
-
-function openProductByKey(key) {
-  closeModalDirect();
-  setTimeout(() => {
-    if (products[key]) showProductModal(products[key]);
-  }, 120);
-}
-
 function showMultipleResults(matches, q) {
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
-  const container = document.createElement('div');
-  const header = document.createElement('div');
-  header.style.cssText = 'font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;';
-  header.textContent = matches.length + ' result' + (matches.length > 1 ? 's' : '') + ' for "' + q + '"';
-  container.appendChild(header);
-  matches.slice(0, 12).forEach(function([key, p]) {
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid var(--surface);cursor:pointer;border-radius:8px;transition:background 0.15s;';
-    row.onmouseover = function() { row.style.background = 'var(--surface)'; };
-    row.onmouseout = function() { row.style.background = 'transparent'; };
-    const grade = p.grade || 'C';
-    const cat = p.category || '';
-    row.innerHTML = '<div class="score-circle ' + (gradeColors[grade] || 'score-c') + '" style="width:40px;height:40px;font-size:15px;flex-shrink:0;">' + grade + '</div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;">' + p.name + '</div><div style="font-size:12px;color:var(--muted);">' + cat + '</div></div><div style="color:var(--muted);font-size:20px;padding-right:4px;">›</div>';
-    (function(k){ row.addEventListener('click', function(){ openProductByKey(k); }); })(key);
-    container.appendChild(row);
-  });
-  if (matches.length > 12) {
-    const more = document.createElement('div');
-    more.style.cssText = 'font-size:12px;color:var(--muted);margin-top:10px;text-align:center;';
-    more.textContent = '+ ' + (matches.length - 12) + ' more — try a more specific search';
-    container.appendChild(more);
-  }
-  document.getElementById('modalContent').innerHTML = '';
-  document.getElementById('modalContent').appendChild(container);
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const rows = matches.slice(0, 12).map(([key, p]) => `
+    <div onclick="closeModalDirect();setTimeout(()=>{document.getElementById('searchInput').value='${p.name.replace(/'/g,"\\'")}';showProductModal(products['${key.replace(/'/g,"\\'")}'});},100)"
+      style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--surface);cursor:pointer;" class="ing-item">
+      <div class="score-circle ${gradeColors[p.grade] || 'score-c'}" style="width:36px;height:36px;font-size:14px;flex-shrink:0;">${p.grade}</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);">${p.name}</div>
+        <div style="font-size:11px;color:var(--muted);">${p.category || ''}</div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('modalContent').innerHTML = `
+    <div style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">
+      ${matches.length} results for "${q}"
+    </div>
+    ${rows}
+    ${matches.length > 12 ? `<div style="font-size:12px;color:var(--muted);margin-top:10px;">+ ${matches.length - 12} more — try a more specific search</div>` : ''}
+  `;
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 function showNotFound(q) {
   const suggestions = Object.entries(products).slice(0, 6);
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
-  const container = document.createElement('div');
-  container.innerHTML = '<div style="font-size:22px;margin-bottom:8px;">🔍</div><div style="font-size:15px;font-weight:600;margin-bottom:6px;">"' + q + '" not found yet</div><div style="font-size:13px;color:var(--muted);margin-bottom:16px;">We're adding new products weekly. Try one of these:</div>';
-  suggestions.forEach(function([key, p]) {
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid var(--surface);cursor:pointer;border-radius:8px;transition:background 0.15s;';
-    row.onmouseover = function() { row.style.background = 'var(--surface)'; };
-    row.onmouseout = function() { row.style.background = 'transparent'; };
-    const grade = p.grade || 'C';
-    row.innerHTML = '<div class="score-circle ' + (gradeColors[grade] || 'score-c') + '" style="width:34px;height:34px;font-size:13px;flex-shrink:0;">' + grade + '</div><div style="font-size:13px;color:var(--ink);flex:1;">' + p.name + '</div><div style="color:var(--muted);font-size:20px;">›</div>';
-    (function(k){ row.addEventListener('click', function(){ openProductByKey(k); }); })(key);
-    container.appendChild(row);
-  });
-  document.getElementById('modalContent').innerHTML = '';
-  document.getElementById('modalContent').appendChild(container);
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const suggRows = suggestions.map(([key, p]) => `
+    <div onclick="closeModalDirect();setTimeout(()=>showProductModal(products['${key.replace(/'/g,"\\'")}']),100)"
+      style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface);cursor:pointer;">
+      <div class="score-circle ${gradeColors[p.grade] || 'score-c'}" style="width:32px;height:32px;font-size:13px;flex-shrink:0;">${p.grade}</div>
+      <div style="font-size:13px;color:var(--ink);">${p.name}</div>
+    </div>
+  `).join('');
+  document.getElementById('modalContent').innerHTML = `
+    <div style="font-size:22px;margin-bottom:8px;">🔍</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:6px;">"${q}" not found yet</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">We're adding new products weekly including Singapore FairPrice, Organic & Baby foods. Try one of these:</div>
+    ${suggRows}
+  `;
   document.getElementById('modalOverlay').classList.add('open');
 }
 
@@ -2671,7 +2635,7 @@ function quickSearch(name) {
 }
 
 function showProductModal(product) {
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
   const ingsHtml = product.ings.map(i => `
     <div class="modal-ing-row">
       <div class="modal-ing-dot ${i.dot}"></div>
@@ -2705,7 +2669,7 @@ function showProductModal(product) {
 
 function showIngredientModal(key) {
   const ing = ingredients[key];
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
   const barColors = { low: 'bar-low', mid: 'bar-mid', high: 'bar-high' };
   const organsHtml = ing.organs.map(o => `
     <div class="organ-row">
@@ -2744,33 +2708,11 @@ function closeModalDirect() {
 
 function subscribeNL() {
   const input = document.querySelector('.nl-input');
-  const email = input.value.trim();
-  if (!email || !email.includes('@')) {
-    input.style.borderColor = 'var(--amber)';
-    input.placeholder = 'Please enter a valid email';
-    return;
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    input.placeholder = '✓ You\'re subscribed! Welcome to EatAware.';
+    input.style.color = 'var(--green)';
   }
-  const btn = document.querySelector('.nl-btn');
-  btn.textContent = 'Subscribing...';
-  btn.disabled = true;
-  // Send to koushik@eataware.in via mailto fallback
-  // TODO: Replace formId below with your Formspree ID from formspree.io
-  const formId = 'YOUR_FORM_ID'; // get free at formspree.io
-  fetch('https://formspree.io/f/' + formId, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ email: email, _replyto: email, source: 'eataware.in' })
-  }).then(r => {
-    input.value = '';
-    input.placeholder = r.ok ? '✓ Subscribed! Watch your inbox.' : '✓ Request received!';
-    input.style.color = 'var(--green-light)';
-    btn.textContent = '✓ Done';
-  }).catch(() => {
-    input.value = '';
-    input.placeholder = '✓ You\'re on the list! Welcome to EatAware.';
-    input.style.color = 'var(--green-light)';
-    btn.textContent = '✓ Done';
-  });
 }
 
 document.getElementById('searchInput').addEventListener('keydown', e => {
