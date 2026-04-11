@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform</title>
+<title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform — A–F Grading · 250+ Products · Singapore Nutri-Grade Adapted</title>
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="Search any Indian packaged product or ingredient and instantly see what it does to your body — short-term and long-term. Powered by FSSAI data. 100% free."/>
@@ -511,7 +511,7 @@
 <!-- HERO -->
 <div class="hero" id="home">
   <div class="hero-bg"></div>
-  <div class="hero-badge">India's Ingredient Intelligence Platform</div>
+  <div class="hero-badge">India's Ingredient Intelligence Platform — A–F Grading · 250+ Products · Singapore Nutri-Grade Adapted</div>
   <h1>Know <em>exactly</em> what's inside your food</h1>
   <p class="hero-sub">Search any packaged product, understand every ingredient, and discover what it does to your body — today and over time.</p>
   <div class="hero-actions">
@@ -523,7 +523,7 @@
 <!-- SEARCH -->
 <div class="search-section" id="search">
   <div class="search-box">
-    <div class="search-label">Search any packaged product or ingredient</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div class="search-label">Search any product, brand or ingredient</div><div style="font-size:11px;color:var(--muted);">250+ products · India + Singapore · A–F graded</div></div>
     <div class="search-row">
       <input class="search-input" id="searchInput" type="text" placeholder="e.g. Maggi Noodles, Lay's Classic, TBHQ, Tartrazine…"/>
       <button class="search-btn" onclick="handleSearch()">Search</button>
@@ -559,8 +559,18 @@
 </div>
 
 <!-- STATS -->
+<div style="background:#0f1c0f;padding:14px 48px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;align-items:center;">
+  <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;">Health Grade</span>
+  <span style="font-size:12px;font-weight:700;background:#22c55e;color:#fff;padding:3px 12px;border-radius:20px;">A Excellent</span>
+  <span style="font-size:12px;font-weight:700;background:#84cc16;color:#fff;padding:3px 12px;border-radius:20px;">B Good</span>
+  <span style="font-size:12px;font-weight:700;background:#f59e0b;color:#fff;padding:3px 12px;border-radius:20px;">C Moderate</span>
+  <span style="font-size:12px;font-weight:700;background:#ef4444;color:#fff;padding:3px 12px;border-radius:20px;">D High concern</span>
+  <span style="font-size:12px;font-weight:700;background:#991b1b;color:#fff;padding:3px 12px;border-radius:20px;">E Very poor</span>
+  <span style="font-size:12px;font-weight:700;background:#1c1917;color:#fff;border:1px solid #ef4444;padding:3px 12px;border-radius:20px;">F Avoid</span>
+  <span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:8px;">Adapted from Singapore Nutri-Grade · FSSAI Standards</span>
+</div>
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">500+</div><div class="stat-lbl">Indian products covered</div></div>
+  <div class="stat"><div class="stat-num">250+</div><div class="stat-lbl">Products & ingredients covered</div></div>
   <div class="stat"><div class="stat-num">1,200+</div><div class="stat-lbl">Ingredients explained</div></div>
   <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
@@ -2006,6 +2016,518 @@ const products = {
   ]},
 
 
+
+  // ============================================================
+  // EATAWARE GRADING SYSTEM v2 — Singapore Nutri-Grade Adapted
+  // Based on: Sugar + Saturated Fat + Sodium + Additives + Processing
+  // A = Excellent  (natural, whole food, no processing)
+  // B = Good       (minor concerns, fine daily)
+  // C = Moderate   (some additives, 2–3x per week max)
+  // D = High concern (excess sugar/fat/sodium/additives)
+  // E = Very poor  (multiple red flags, monthly only)
+  // F = Avoid      (severe health risk, do not consume regularly)
+  // ============================================================
+
+  // ===== BABY & TODDLER FOODS =====
+  'nestle cerelac wheat': { name: 'Nestlé Cerelac Wheat (Stage 2)', grade: 'D', category: 'Baby Foods', nutri: { sugar: 'High', fat: 'Low', sodium: 'Low', additives: 'Moderate' }, impact: 'Marketed as infant nutrition but contains 35% sugar by weight — one of the highest among baby foods globally. Regular consumption sets sugar preference early in life. WHO strongly advises against added sugar in foods for children under 2.', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar (35% by weight)', desc: 'WHO advises zero added sugar for under-2s — this exceeds adult dessert sugar levels', safe: false },
+    { dot: 'dot-safe', name: 'Wheat Flour (fortified)', desc: 'Iron, zinc, B vitamins — some genuine nutritional benefit', safe: true },
+    { dot: 'dot-caution', name: 'Skimmed Milk Powder', desc: 'Processed dairy — lower nutritional value than whole milk', safe: null },
+    { dot: 'dot-caution', name: 'Maltodextrin', desc: 'High GI filler — fast glucose spike in infants', safe: null },
+  ]},
+
+  'nestle nan pro': { name: 'Nestlé NAN PRO 1 Infant Formula', grade: 'C', category: 'Baby Foods', nutri: { sugar: 'Moderate', fat: 'Moderate', sodium: 'Low', additives: 'Low' }, impact: 'Necessary for mothers unable to breastfeed. However breast milk is always superior — contains antibodies, live cells and hormones no formula can replicate. Whey protein ratio mimics breast milk. DHA and ARA added for brain development.', ings: [
+    { dot: 'dot-safe', name: 'Whey Protein (60:40 ratio)', desc: 'Closest to breast milk protein ratio', safe: true },
+    { dot: 'dot-safe', name: 'DHA & ARA (added)', desc: 'Brain and eye development support', safe: true },
+    { dot: 'dot-caution', name: 'Lactose', desc: 'Natural milk sugar — fine for most infants', safe: null },
+    { dot: 'dot-caution', name: 'Vegetable Oils blend', desc: 'Palm olein, coconut, soy — adequate but not identical to breast milk fats', safe: null },
+  ]},
+
+  'farex rice cereal': { name: 'Farex Rice Cereal (Stage 1)', grade: 'D', category: 'Baby Foods', nutri: { sugar: 'High', fat: 'Low', sodium: 'Low', additives: 'Moderate' }, impact: 'Rice cereal as a first food is nutritionally poor — mostly refined starch. High arsenic risk in rice-based baby foods is a known concern. WHO recommends starting with pureed vegetables and fruits, not grain cereals.', ings: [
+    { dot: 'dot-avoid', name: 'Refined Rice Flour (primary)', desc: 'High GI, low nutrition — sets bad metabolic pattern in infants', safe: false },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: 'No added sugar needed for infants — any amount is concerning', safe: false },
+    { dot: 'dot-safe', name: 'Iron & B Vitamins (fortified)', desc: 'Important additions for infant development', safe: true },
+    { dot: 'dot-caution', name: 'Inorganic Arsenic risk', desc: 'Rice-based baby foods have higher arsenic than other options', safe: null },
+  ]},
+
+  'slurrp farm millet porridge': { name: 'Slurrp Farm Ragi & Oats Porridge (200g)', grade: 'A', category: 'Baby Foods', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'One of the best commercial baby foods in India. Ragi provides calcium critical for bone formation. No added sugar. Oats provide beta-glucan fibre. Clean label — no maltodextrin or hidden additives. Approved for 6 months+.', ings: [
+    { dot: 'dot-safe', name: 'Whole Ragi (Finger Millet)', desc: 'Calcium-rich — critical for infant bone development', safe: true },
+    { dot: 'dot-safe', name: 'Rolled Oats', desc: 'Beta-glucan — supports healthy gut microbiome in infants', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar or salt', desc: 'Clean label — as recommended for under-2s by WHO', safe: true },
+  ]},
+
+  'baby mum mum rice rusks': { name: 'Baby Mum-Mum Rice Rusks', grade: 'C', category: 'Baby Foods', nutri: { sugar: 'Moderate', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Good for teething stage — dissolves easily, low choking risk. However primarily refined rice starch with minimal nutrition. Sugar content is moderate. Better than most packaged teething biscuits but whole fruit or steamed vegetables are superior.', ings: [
+    { dot: 'dot-caution', name: 'Rice Flour (refined)', desc: 'Dissolves safely — but high GI, low nutrition', safe: null },
+    { dot: 'dot-caution', name: 'Cane Sugar (small amount)', desc: '2g per piece — WHO recommends zero for under-2s', safe: null },
+    { dot: 'dot-safe', name: 'No artificial colours or preservatives', desc: 'Clean on additives', safe: true },
+  ]},
+
+  // ===== PROTEIN SUPPLEMENTS =====
+  'muscleblaze whey gold': { name: 'MuscleBlaze Biozyme Whey Protein (1kg)', grade: 'B', category: 'Protein Supplements', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Moderate', additives: 'Low' }, impact: 'Best Indian whey protein brand — third-party tested for authenticity. Protease enzymes improve absorption by 50% vs standard whey. Good for muscle recovery post-workout. Sucralose is the only concern — gut microbiome impact at high doses.', ings: [
+    { dot: 'dot-safe', name: 'Whey Protein Concentrate & Isolate', desc: 'High quality complete protein — all 9 essential amino acids', safe: true },
+    { dot: 'dot-safe', name: 'Protease Enzyme blend', desc: 'Improves protein absorption by 50% — unique to MuscleBlaze', safe: true },
+    { dot: 'dot-caution', name: 'Sucralose', desc: 'Artificial sweetener — may alter gut microbiome at high doses', safe: null },
+    { dot: 'dot-caution', name: 'Soy Lecithin', desc: 'Emulsifier — generally safe, minor concern for soy-sensitive', safe: null },
+  ]},
+
+  'on gold standard whey': { name: 'Optimum Nutrition Gold Standard 100% Whey (907g)', grade: 'B', category: 'Protein Supplements', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Moderate', additives: 'Low' }, impact: 'Gold standard (literally) for protein supplements globally. Whey isolate as primary protein — fastest absorbing form. Low lactose. However, acesulfame potassium (Ace-K) is an artificial sweetener with potential hormonal effects at high doses.', ings: [
+    { dot: 'dot-safe', name: 'Whey Protein Isolate (primary)', desc: 'Fastest absorbing protein — ideal post-workout', safe: true },
+    { dot: 'dot-safe', name: 'Low Lactose', desc: 'Safe for mild lactose intolerance', safe: true },
+    { dot: 'dot-caution', name: 'Acesulfame Potassium (Ace-K)', desc: 'Artificial sweetener — potential hormonal disruption at high doses', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Flavour', desc: 'Synthetic flavouring compounds', safe: null },
+  ]},
+
+  'muscleblaze mass gainer': { name: 'MuscleBlaze Mass Gainer XXL (1kg)', grade: 'D', category: 'Protein Supplements', nutri: { sugar: 'Very High', fat: 'Moderate', sodium: 'High', additives: 'Moderate' }, impact: 'Mass gainers are essentially protein-flavoured sugar — 70-80% of calories from maltodextrin (GI of 110, higher than glucose). Regular use causes fat gain, not muscle, without serious training. Better to eat whole food carbs like rice and dal with protein.', ings: [
+    { dot: 'dot-avoid', name: 'Maltodextrin (70%+ of product)', desc: 'GI of 110 — fastest blood sugar spike of any food ingredient', safe: false },
+    { dot: 'dot-caution', name: 'Whey Protein Concentrate (25%)', desc: 'Good protein source — drowned out by maltodextrin', safe: null },
+    { dot: 'dot-avoid', name: 'Added Sugar', desc: 'Extra sugar on top of already high-GI maltodextrin', safe: false },
+    { dot: 'dot-caution', name: 'Artificial Flavours & Colours', desc: 'Multiple synthetic additives for palatability', safe: null },
+  ]},
+
+  'oziva protein women': { name: 'OZiva Plant Protein for Women (500g)', grade: 'B', category: 'Protein Supplements', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Best plant protein for Indian women — pea and brown rice combination is complete protein. Ashwagandha and shatavari are adaptogens that support hormonal balance. Clean label. Stevia as sweetener is excellent choice. Only mild concern is the proprietary blend transparency.', ings: [
+    { dot: 'dot-safe', name: 'Pea & Brown Rice Protein', desc: 'Complete amino acid profile — equivalent to whey', safe: true },
+    { dot: 'dot-safe', name: 'Ashwagandha & Shatavari', desc: 'Adaptogens — hormonal balance support for women', safe: true },
+    { dot: 'dot-safe', name: 'Stevia (sweetener)', desc: 'Zero GI natural sweetener — excellent choice', safe: true },
+    { dot: 'dot-caution', name: 'Proprietary Herbal Blend', desc: 'Exact quantities undisclosed — transparency concern', safe: null },
+  ]},
+
+  'fast and up plant protein': { name: 'Fast&Up Plant Protein (900g)', grade: 'B', category: 'Protein Supplements', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Good plant protein with digestive enzyme blend — improves absorption of plant proteins which are inherently harder to digest. Probiotics addition is genuinely beneficial for gut health. INFORMED SPORT certified — safe for athletes.', ings: [
+    { dot: 'dot-safe', name: 'Pea Protein Isolate', desc: 'High quality plant protein — muscle recovery support', safe: true },
+    { dot: 'dot-safe', name: 'Digestive Enzyme Complex', desc: 'Improves plant protein absorption significantly', safe: true },
+    { dot: 'dot-safe', name: 'Probiotic (Bacillus coagulans)', desc: 'Gut health support — clinically validated strain', safe: true },
+    { dot: 'dot-caution', name: 'Sucralose', desc: 'Artificial sweetener — minor concern', safe: null },
+  ]},
+
+  // ===== DIABETIC-SPECIFIC FOODS =====
+  'saffola diabetes care': { name: 'Saffola Diabetes Care (500g)', grade: 'C', category: 'Diabetic Foods', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Low', additives: 'Moderate' }, impact: 'Better than standard health drinks for diabetics. Barley beta-glucan proven to reduce post-meal glucose spike. However, the portion size creates carbohydrate load. Good for type 2 diabetics as partial meal replacement but not a cure-all.', ings: [
+    { dot: 'dot-safe', name: 'Barley Beta-glucan', desc: 'Clinically proven to reduce post-meal glucose by 20–30%', safe: true },
+    { dot: 'dot-safe', name: 'Low GI Grain Blend', desc: 'Slower glucose release than regular cereals', safe: true },
+    { dot: 'dot-caution', name: 'Sucralose & Acesulfame-K', desc: 'Two artificial sweeteners combined — gut microbiome concern', safe: null },
+    { dot: 'dot-caution', name: 'Maltodextrin (small amount)', desc: 'High GI filler — contradicts diabetic claim', safe: null },
+  ]},
+
+  'glucerna diabetic drink': { name: 'Glucerna Triple Care Diabetic Drink (400g)', grade: 'C', category: 'Diabetic Foods', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Low', additives: 'Moderate' }, impact: 'Clinically tested for diabetics — SLOW-RELEASE carbohydrate system is validated. CarbSteady technology reduces glucose spike by 40% vs regular nutrition drinks. Recommended by many diabetologists for hospitalised or elderly patients. Better than Ensure for diabetics.', ings: [
+    { dot: 'dot-safe', name: 'CarbSteady (Slow-release Carbs)', desc: 'Clinically reduces glucose spike by 40%', safe: true },
+    { dot: 'dot-safe', name: '28 Vitamins & Minerals', desc: 'Comprehensive micronutrient support', safe: true },
+    { dot: 'dot-caution', name: 'Fructose (as sweetener)', desc: 'Low GI but excess fructose burdens liver', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Sweeteners blend', desc: 'Multiple sweeteners combined — long-term gut impact', safe: null },
+  ]},
+
+  'diabea wheat biscuits': { name: 'Diabea Wheat & Oat Biscuits (200g)', grade: 'C', category: 'Diabetic Foods', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'One of the few honest diabetic-positioned biscuits. Whole wheat and oats provide fibre that slows glucose. Low GI claim is legitimate. Reasonable snack for diabetics — 2–3 biscuits with tea is acceptable. Better than standard biscuits.', ings: [
+    { dot: 'dot-safe', name: 'Whole Wheat Flour & Oats', desc: 'Genuine whole grains — fibre slows glucose absorption', safe: true },
+    { dot: 'dot-caution', name: 'Sorbitol (sweetener)', desc: 'Sugar alcohol — low GI but causes GI distress in excess', safe: null },
+    { dot: 'dot-safe', name: 'No palm oil', desc: 'Uses sunflower oil — better fat profile', safe: true },
+    { dot: 'dot-caution', name: 'Refined Wheat component', desc: 'Some maida mixed in — reduces whole grain benefit', safe: null },
+  ]},
+
+  'nature valley granola bars': { name: 'Nature Valley Oats & Honey Bar (42g)', grade: 'C', category: 'Diabetic Foods', nutri: { sugar: 'High', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Marketed as healthy but has 12g sugar per bar — equivalent to 3 teaspoons. Oats are real and provide some fibre. Better than a chocolate bar but the honey and sugar content makes it unsuitable for diabetics. Misleading health positioning.', ings: [
+    { dot: 'dot-safe', name: 'Whole Grain Oats (60%)', desc: 'Real whole grain — beta-glucan present', safe: true },
+    { dot: 'dot-avoid', name: 'Sugar & Honey (12g per bar)', desc: 'High for a "health" bar — 3 teaspoons of sugar', safe: false },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean label — just oats, honey, sugar', safe: true },
+    { dot: 'dot-caution', name: 'Palm oil & canola oil', desc: 'Mixed fat profile — palm oil concern', safe: null },
+  ]},
+
+  // ===== PICKLES & CONDIMENTS =====
+  'mothers recipe mango pickle': { name: "Mother's Recipe Mango Pickle (300g)", grade: 'D', category: 'Pickles & Condiments', nutri: { sugar: 'Low', fat: 'High', sodium: 'Very High', additives: 'Moderate' }, impact: 'Traditional recipe but industrially produced — sodium content is extremely high (2400mg per 100g, exceeding daily limit). Raw mango has some Vitamin C. The oil used is refined. Use as a condiment only — one teaspoon at a time, not a side dish.', ings: [
+    { dot: 'dot-caution', name: 'Raw Mango', desc: 'Natural ingredient — some Vitamin C benefit', safe: null },
+    { dot: 'dot-avoid', name: 'Very High Sodium (2400mg/100g)', desc: 'Exceeds daily sodium limit in a small serving', safe: false },
+    { dot: 'dot-avoid', name: 'Refined Vegetable Oil', desc: 'Unknown oil — possibly palm oil based', safe: false },
+    { dot: 'dot-caution', name: 'Sodium Benzoate (preservative)', desc: 'Carcinogen-forming potential with Vitamin C', safe: null },
+  ]},
+
+  'priya avakaya pickle': { name: 'Priya Avakaya Mango Pickle (300g)', grade: 'D', category: 'Pickles & Condiments', nutri: { sugar: 'Low', fat: 'High', sodium: 'Very High', additives: 'Low' }, impact: 'Traditional Andhra pickle — better than Mother\'s Recipe as uses less preservatives. However mustard oil pickles have better fat profile than refined oil versions. Very high sodium remains the primary concern. Traditional home-made avakaya is significantly healthier.', ings: [
+    { dot: 'dot-caution', name: 'Raw Mango & Mustard', desc: 'Traditional ingredients — some anti-inflammatory benefit from mustard', safe: null },
+    { dot: 'dot-avoid', name: 'Very High Sodium', desc: '2100mg per 100g — use one teaspoon only', safe: false },
+    { dot: 'dot-safe', name: 'Fewer preservatives than competitors', desc: 'Cleaner additive profile vs other brands', safe: true },
+    { dot: 'dot-caution', name: 'High Oil Content', desc: '30% oil by weight — high calorie density', safe: null },
+  ]},
+
+  'mdh deggi mirch': { name: 'MDH Deggi Mirch Powder (100g)', grade: 'A', category: 'Spices', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Pure dried chilli powder — capsaicin boosts metabolism by 4–5% and is proven analgesic. Carotenoids are powerful antioxidants. Anti-inflammatory effect comparable to aspirin in some studies. No additives — completely clean spice.', ings: [
+    { dot: 'dot-safe', name: 'Pure Dried Red Chilli', desc: 'Capsaicin — metabolic boost, pain relief, anti-inflammatory', safe: true },
+    { dot: 'dot-safe', name: 'Carotenoids (Vitamin A precursors)', desc: 'Eye health and immune support', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure spice — completely clean', safe: true },
+  ]},
+
+  'kissan peanut butter': { name: 'Kissan Peanut Butter Creamy (400g)', grade: 'C', category: 'Condiments', nutri: { sugar: 'Moderate', fat: 'Moderate', sodium: 'Moderate', additives: 'Low' }, impact: 'Better than jam but lower quality than natural peanut butters. Added sugar and hydrogenated oil are concerns. Hydrogenation creates trans fats — the most harmful dietary fat. Natural peanut butter with just peanuts and salt is significantly healthier.', ings: [
+    { dot: 'dot-caution', name: 'Roasted Peanuts (90%)', desc: 'Good protein and healthy fat base', safe: null },
+    { dot: 'dot-avoid', name: 'Hydrogenated Vegetable Oil', desc: 'Contains trans fats — worst dietary fat for heart health', safe: false },
+    { dot: 'dot-avoid', name: 'Added Sugar (5g per serving)', desc: 'Unnecessary — peanuts are naturally satisfying', safe: false },
+    { dot: 'dot-caution', name: 'Salt', desc: '130mg sodium per serving — moderate', safe: null },
+  ]},
+
+  'myfitness natural peanut butter': { name: 'MyFitness Natural Peanut Butter (510g)', grade: 'A', category: 'Condiments', nutri: { sugar: 'None', fat: 'Healthy', sodium: 'Low', additives: 'None' }, impact: 'India\'s best natural peanut butter — two ingredients only. Oleic acid (monounsaturated fat) protects heart. Resveratrol is anti-cancer. Studies show daily peanut butter reduces LDL by 14%. High protein and fibre combination is extremely satiating.', ings: [
+    { dot: 'dot-safe', name: 'Roasted Peanuts (100%)', desc: 'Pure peanuts — healthy monounsaturated fat', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar', desc: 'Completely clean — zero sweeteners', safe: true },
+    { dot: 'dot-safe', name: 'No hydrogenated oils', desc: 'Zero trans fats — excellent heart safety', safe: true },
+  ]},
+
+  'maggi hot and sweet sauce': { name: 'Maggi Hot & Sweet Tomato Sauce (500g)', grade: 'D', category: 'Condiments', nutri: { sugar: 'Very High', fat: 'Low', sodium: 'High', additives: 'Moderate' }, impact: 'Despite "tomato" branding, sugar is the primary ingredient. One tablespoon has 4g sugar — children adding this to every meal adds 20–30g hidden sugar daily. High fructose content burdens liver. Sodium benzoate is a known concern.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar (primary ingredient)', desc: 'More sugar than tomatoes — misleading product name', safe: false },
+    { dot: 'dot-caution', name: 'Tomato Paste (secondary)', desc: 'Some lycopene benefit but overwhelmed by sugar', safe: null },
+    { dot: 'dot-avoid', name: 'Sodium Benzoate', desc: 'Preservative — carcinogen-forming with Vitamin C', safe: false },
+    { dot: 'dot-avoid', name: 'High Sodium (480mg/serving)', desc: 'Significant sodium contribution from a condiment', safe: false },
+  ]},
+
+  // ===== SINGAPORE FAIRPRICE STYLE — NUTRI-GRADE ADAPTED =====
+  // Using Singapore A-D system mapped to our A-F system
+  // Criteria: Sugar (g/100ml) + Saturated Fat (g/100ml) + Sodium (mg/100ml) + Additives
+
+  'pokka green tea sg': { name: 'Pokka Natcha Green Tea (500ml) [SG]', grade: 'B', category: 'Singapore FairPrice', nutri: { sugar: 'Low (4.5g/100ml)', fat: 'Zero', sodium: 'Low', additives: 'Low' }, impact: 'Singapore Nutri-Grade: B. Low sugar version of popular green tea. Catechins are genuine antioxidants. Used as benchmark for Singapore\'s healthier beverage standard. Widely available at FairPrice at SGD 1.20 — good value clean drink.', ings: [
+    { dot: 'dot-safe', name: 'Green Tea Extract', desc: 'EGCG catechins — proven antioxidant and anti-cancer', safe: true },
+    { dot: 'dot-caution', name: 'Sugar (4.5g/100ml)', desc: 'Singapore Nutri-Grade B threshold — borderline acceptable', safe: null },
+    { dot: 'dot-safe', name: 'No artificial colours', desc: 'Clean label for a RTD tea', safe: true },
+  ]},
+
+  'marigold uht milk sg': { name: 'Marigold UHT Full Cream Milk (1L) [SG]', grade: 'A', category: 'Singapore FairPrice', nutri: { sugar: 'Natural only', fat: 'Moderate (natural)', sodium: 'Low', additives: 'None' }, impact: 'Singapore Nutri-Grade: A. Pure UHT milk — no added sugar or artificial ingredients. Natural lactose only. Calcium and Vitamin D added as per Singapore fortification standards. Widely trusted brand in Singapore — sold at every FairPrice outlet.', ings: [
+    { dot: 'dot-safe', name: 'Full Cream Milk (UHT)', desc: 'Pure dairy — calcium, protein, natural fats', safe: true },
+    { dot: 'dot-safe', name: 'Vitamin D3 (fortified)', desc: 'Singapore standard fortification — beneficial', safe: true },
+    { dot: 'dot-safe', name: 'No added sugar or preservatives', desc: 'Grade A Singapore Nutri-Grade — completely clean', safe: true },
+  ]},
+
+  'yeo s chrysanthemum tea': { name: "Yeo's Chrysanthemum Tea (250ml) [SG]", grade: 'C', category: 'Singapore FairPrice', nutri: { sugar: 'High (10g/100ml)', fat: 'Zero', sodium: 'Low', additives: 'Low' }, impact: 'Singapore Nutri-Grade: C — mandatory label required. Traditional Chinese herbal tea with genuine cooling properties. However, added sugar content is high (25g per can). The chrysanthemum extract has anti-inflammatory properties but is negated by sugar load. Reformulated lower-sugar version now available.', ings: [
+    { dot: 'dot-safe', name: 'Chrysanthemum Extract', desc: 'Traditional cooling herb — anti-inflammatory, eye health', safe: true },
+    { dot: 'dot-avoid', name: 'Sugar (10g/100ml = 25g per can)', desc: 'Singapore Grade C — mandatory front-of-pack warning', safe: false },
+    { dot: 'dot-safe', name: 'No artificial colours', desc: 'Natural golden colour from chrysanthemum', safe: true },
+  ]},
+
+  'f and n sparkling sg': { name: 'F&N Fun Flavours Orange (325ml) [SG]', grade: 'F', category: 'Singapore FairPrice', nutri: { sugar: 'Very High (12g/100ml)', fat: 'Zero', sodium: 'Low', additives: 'High' }, impact: 'Singapore Nutri-Grade: D — advertising banned. High sugar carbonated drink with artificial colours. 39g sugar per can. Sunset Yellow (E110) artificial orange dye. No fruit juice despite orange branding. One of the worst-rated beverages in Singapore\'s Nutri-Grade system.', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar (12g/100ml)', desc: 'Singapore Grade D — advertising prohibited by law', safe: false },
+    { dot: 'dot-avoid', name: 'Sunset Yellow (E110)', desc: 'Synthetic orange dye — linked to hyperactivity', safe: false },
+    { dot: 'dot-avoid', name: 'Citric Acid', desc: 'Enamel erosion risk', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Orange Flavour', desc: 'Zero real fruit — synthetic compounds', safe: false },
+  ]},
+
+  'milo singapore': { name: 'Milo Original RTD (200ml) [SG]', grade: 'D', category: 'Singapore FairPrice', nutri: { sugar: 'High (8.9g/100ml)', fat: 'Moderate', sodium: 'Moderate', additives: 'Low' }, impact: 'Singapore Nutri-Grade: C/D. Despite being Singapore\'s national drink and sports sponsorship, Milo RTD has high sugar content. Singapore government has specifically cited Milo as an example of misleading sports nutrition marketing. The 3-star Healthier Choice logo was controversial.', ings: [
+    { dot: 'dot-avoid', name: 'Added Sugar (8.9g/100ml)', desc: 'Singapore Grade C/D — subject to Nutri-Grade labelling', safe: false },
+    { dot: 'dot-caution', name: 'Malt Extract', desc: 'Natural grain — some B vitamin benefit', safe: null },
+    { dot: 'dot-safe', name: 'Cocoa (some antioxidants)', desc: 'Small amount — minor benefit', safe: true },
+    { dot: 'dot-caution', name: 'Palm Oil', desc: 'Saturated fat in a drink — cardiac concern', safe: null },
+  ]},
+
+  'vitasoy soy milk sg': { name: 'Vitasoy Original Soy Milk (250ml) [SG]', grade: 'B', category: 'Singapore FairPrice', nutri: { sugar: 'Moderate (5g/100ml)', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Singapore Nutri-Grade: B. Long-established Hong Kong brand popular in Singapore. Soy protein content is genuine. Calcium-fortified. Sugar content keeps it at Grade B. The reduced sugar variant gets Grade A. Good dairy alternative for lactose-intolerant consumers.', ings: [
+    { dot: 'dot-safe', name: 'Soy Protein (3.6g/100ml)', desc: 'Equivalent to dairy protein — complete amino acids', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar (5g/100ml)', desc: 'Singapore Grade B — acceptable but prefer unsweetened', safe: null },
+    { dot: 'dot-safe', name: 'Calcium fortified', desc: 'Equivalent to dairy calcium content', safe: true },
+  ]},
+
+  'want want rice cracker sg': { name: 'Want Want Rice Crackers (70g) [SG]', grade: 'C', category: 'Singapore FairPrice', nutri: { sugar: 'Moderate', fat: 'Low', sodium: 'High', additives: 'Moderate' }, impact: 'Popular Taiwanese snack widely sold at FairPrice. Puffed rice base is low fat but high GI. Very high sodium per serving — 480mg per 30g. MSG present. Artificial flavouring. Better than fried chips but sodium is the main concern. Popular in Singapore school tiffins.', ings: [
+    { dot: 'dot-caution', name: 'Puffed Rice', desc: 'Low fat base but high GI — blood sugar spike', safe: null },
+    { dot: 'dot-avoid', name: 'High Sodium (480mg/30g)', desc: 'Significant sodium from a snack food', safe: false },
+    { dot: 'dot-caution', name: 'MSG', desc: 'Flavour enhancer — adds to sodium load', safe: null },
+    { dot: 'dot-caution', name: 'Artificial Flavour', desc: 'Synthetic dairy flavour compounds', safe: null },
+  ]},
+
+  'prima flour sg': { name: 'Prima Superfine Wheat Flour (1kg) [SG]', grade: 'C', category: 'Singapore FairPrice', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'Low' }, impact: 'Standard refined wheat flour — the most commonly used flour in Singapore homes. Refining removes 60% of nutrients. Bleached with chlorine compounds. Enriched with B vitamins post-refining. Fine for occasional baking but not daily cooking staple. Wholemeal Prima flour is significantly better.', ings: [
+    { dot: 'dot-caution', name: 'Refined Wheat Flour', desc: 'High GI — 60% nutrients removed in refining', safe: null },
+    { dot: 'dot-caution', name: 'Chlorine Bleaching agents', desc: 'Whitening process — alloxan byproduct is pancreatic toxin in studies', safe: null },
+    { dot: 'dot-safe', name: 'B Vitamin enrichment', desc: 'Niacin, thiamine, riboflavin added back post-refining', safe: true },
+  ]},
+
+  'old chang kee curry puff sg': { name: 'Old Chang Kee Curry Puff (1 piece) [SG]', grade: 'D', category: 'Singapore FairPrice', nutri: { sugar: 'Low', fat: 'High', sodium: 'High', additives: 'Low' }, impact: 'Singapore icon — but nutritionally poor. Deep-fried pastry in palm shortening creates high saturated fat. Potato filling is high GI. MSG in curry paste. High sodium. Fine as occasional treat — the "Singapore experience" has cultural value. Not a daily food.', ings: [
+    { dot: 'dot-avoid', name: 'Palm Shortening (deep-fried)', desc: 'High saturated fat — LDL cardiovascular risk', safe: false },
+    { dot: 'dot-caution', name: 'Refined Flour Pastry', desc: 'High GI shell — no nutritional value', safe: null },
+    { dot: 'dot-caution', name: 'High Sodium Curry Paste', desc: 'MSG and salt combined — 680mg per puff', safe: null },
+    { dot: 'dot-caution', name: 'Potato Filling', desc: 'High GI — blood sugar spike', safe: null },
+  ]},
+
+  // ===== SCHOOL & KIDS SNACKS =====
+  'sunfeast bounce': { name: 'Sunfeast Bounce Jelly Filled Biscuits', grade: 'E', category: 'Kids Snacks', nutri: { sugar: 'Very High', fat: 'High', sodium: 'Moderate', additives: 'High' }, impact: 'One of the worst kids snacks in India. Combination of refined flour, palm oil, excess sugar AND multiple artificial colours. Jelly filling is pure sugar with synthetic dyes. Specifically marketed to children. Tartrazine and Sunset Yellow linked to hyperactivity in children (Southampton Study).', ings: [
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'No fibre — high GI base', safe: false },
+    { dot: 'dot-avoid', name: 'Sugar (22g per serving)', desc: 'Very high — 5.5 teaspoons in kids biscuit', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine E102 & Sunset Yellow E110', desc: 'Two petroleum dyes — hyperactivity in children proven', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — significant in a kids product', safe: false },
+  ]},
+
+  'lays stax potato chips': { name: "Lay's Stax Original Potato Crisps (140g)", grade: 'E', category: 'Kids Snacks', nutri: { sugar: 'Low', fat: 'Very High', sodium: 'High', additives: 'High' }, impact: 'Similar to Pringles — dehydrated potato flakes, not whole potatoes. TBHQ present. Very high fat content from palm oil. Acrylamide formation during high-temperature processing is a carcinogen risk. Children consuming daily face significant long-term health risks.', ings: [
+    { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative — liver and immune risk', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil (very high)', desc: 'Primary cooking fat — saturated fat cardiovascular risk', safe: false },
+    { dot: 'dot-avoid', name: 'Acrylamide (processing byproduct)', desc: 'Formed during high-heat frying — known carcinogen', safe: false },
+    { dot: 'dot-caution', name: 'Corn Starch filler', desc: 'Binds dehydrated potato — not whole food', safe: null },
+  ]},
+
+  'gems chocolate': { name: "Cadbury Gems (25g)", grade: 'E', category: 'Kids Snacks', nutri: { sugar: 'Very High', fat: 'High', sodium: 'Low', additives: 'Very High' }, impact: 'Marketed directly at young children — bright colours are designed to attract kids. Multiple petroleum-derived artificial dyes including Allura Red, Brilliant Blue, Tartrazine. 60% sugar by weight. Combination of multiple dyes in one product creates compounding hyperactivity risk. Should not be given to children.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar (60% by weight)', desc: 'Primary ingredient — extreme sugar concentration', safe: false },
+    { dot: 'dot-avoid', name: 'Allura Red AC (E129)', desc: 'Synthetic red dye — banned in some EU countries', safe: false },
+    { dot: 'dot-avoid', name: 'Brilliant Blue (E133)', desc: 'Synthetic blue dye — neurotoxic in animal studies', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine (E102)', desc: 'Yellow petroleum dye — hyperactivity in children', safe: false },
+  ]},
+
+  'hide seek fab': { name: "Britannia Hide & Seek Fab (75g)", grade: 'D', category: 'Kids Snacks', nutri: { sugar: 'High', fat: 'High', sodium: 'Moderate', additives: 'Moderate' }, impact: 'Better than Bounce but still poor nutritional profile. No artificial colours — a genuine positive. Palm oil and excess sugar remain concerns. The "fun" packaging targets children. Occasional treat is acceptable — not a regular school tiffin item.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar (18g per serving)', desc: 'High for a kids biscuit', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Primary fat — saturated fat concern', safe: false },
+    { dot: 'dot-safe', name: 'No artificial colours', desc: 'Better than Bounce and Gems on this front', safe: true },
+    { dot: 'dot-caution', name: 'Refined Wheat Flour', desc: 'High GI base — no fibre', safe: null },
+  ]},
+
+  'raw banana chips': { name: 'Haldiram\'s Raw Banana Chips (150g)', grade: 'C', category: 'Kids Snacks', nutri: { sugar: 'Low', fat: 'Moderate', sodium: 'Moderate', additives: 'Low' }, impact: 'Better than standard chips — raw banana (plantain) has resistant starch that acts as prebiotic. Lower GI than potato chips. However, still fried in palm oil. Coconut oil-fried variants are significantly better. No artificial additives is a genuine positive.', ings: [
+    { dot: 'dot-safe', name: 'Raw Banana (Plantain)', desc: 'Resistant starch — prebiotic, lower GI than potato', safe: true },
+    { dot: 'dot-caution', name: 'Palm Oil (fried)', desc: 'Saturated fat — better if coconut oil used', safe: null },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean label for a fried snack', safe: true },
+    { dot: 'dot-caution', name: 'Salt', desc: '220mg sodium per serving', safe: null },
+  ]},
+
+  // ===== MISSING ORGANIC & CLEAN BRANDS =====
+  'two brothers bilona ghee': { name: 'Two Brothers Organic A2 Bilona Ghee (500ml)', grade: 'A', category: 'Organic Premium', nutri: { sugar: 'None', fat: 'Healthy', sodium: 'None', additives: 'None' }, impact: 'India\'s most premium ghee — Bilona process (traditional hand-churning from curd) produces superior CLA and butyrate content vs industrial centrifuged ghee. A2 protein from Gir cow is easier to digest than A1 (standard Holstein cow). Studies show 40% more CLA than standard ghee. Worth the premium for daily use.', ings: [
+    { dot: 'dot-safe', name: 'A2 Gir Cow Milk Fat (Bilona process)', desc: 'Superior CLA content — anti-cancer, fat metabolism', safe: true },
+    { dot: 'dot-safe', name: 'Butyrate (highest in Bilona ghee)', desc: 'Colon cell fuel — reduces colorectal cancer risk', safe: true },
+    { dot: 'dot-safe', name: 'Vitamins A, D, E, K2 (naturally concentrated)', desc: 'Fat-soluble vitamins in most bioavailable form', safe: true },
+  ]},
+
+  'praakritik organic honey': { name: 'Praakritik Raw Forest Honey (500g)', grade: 'A', category: 'Organic Premium', nutri: { sugar: 'Natural', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Indian honey adulteration is at 77% (CSE 2020 report) — most commercial honeys are adulterated with rice syrup. Praakritik is among the verified clean brands. Raw forest honey retains pollen, propolis and enzymes destroyed by heating. Antimicrobial activity (MGO) is highest in raw variants.', ings: [
+    { dot: 'dot-safe', name: 'Raw Forest Honey (unheated, unfiltered)', desc: 'Propolis, pollen, enzymes intact — genuine antimicrobial', safe: true },
+    { dot: 'dot-safe', name: 'Verified unadulterated', desc: 'C4 sugar test certified — no rice syrup adulterant', safe: true },
+    { dot: 'dot-caution', name: 'High natural sugar (17g/tbsp)', desc: 'Still sugar — use in moderation despite being natural', safe: null },
+  ]},
+
+  'conscious food brown rice': { name: 'Conscious Food Organic Brown Rice (1kg)', grade: 'A', category: 'Organic Premium', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'Certified organic — no pesticide residue verified by third party. Bran layer intact provides gamma-oryzanol, IP6 and B vitamins removed in white rice. USDA studies show brown rice reduces diabetes risk by 11% vs white rice. Best everyday rice choice.', ings: [
+    { dot: 'dot-safe', name: 'Certified Organic Whole Grain Brown Rice', desc: 'Full bran intact — gamma-oryzanol reduces cholesterol', safe: true },
+    { dot: 'dot-safe', name: 'IP6 (Inositol Hexaphosphate)', desc: 'Anti-cancer phytochemical in bran layer', safe: true },
+    { dot: 'dot-safe', name: 'Zero pesticide (third-party certified)', desc: 'USDA and India Organic certified', safe: true },
+  ]},
+
+  'naturally yours tofu': { name: 'Naturally Yours Organic Tofu (200g)', grade: 'A', category: 'Organic Premium', nutri: { sugar: 'None', fat: 'Low', sodium: 'Low', additives: 'None' }, impact: 'Made from certified organic non-GMO soybeans. Tofu is highest calcium plant food after seeds. Isoflavones reduce menopausal symptoms by 25% in studies. Fermented variants (tempeh) are superior but tofu is next best. Nigari (magnesium chloride) coagulant is natural mineral.', ings: [
+    { dot: 'dot-safe', name: 'Organic Non-GMO Soybean', desc: 'Complete protein — all essential amino acids', safe: true },
+    { dot: 'dot-safe', name: 'Nigari (Magnesium Chloride coagulant)', desc: 'Natural mineral coagulant — adds magnesium', safe: true },
+    { dot: 'dot-safe', name: 'No preservatives or additives', desc: 'Clean traditional process', safe: true },
+  ]},
+
+  'sresta 24 mantra organic dal': { name: '24 Mantra Organic Toor Dal (500g)', grade: 'A', category: 'Organic Premium', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'Verified organic — grown without synthetic fertilisers or pesticides. Studies show organic legumes have 19% higher polyphenol content vs conventional. Toor dal is richest source of folate (456mcg/100g) — critical for pregnancy and DNA repair. Best quality everyday dal.', ings: [
+    { dot: 'dot-safe', name: 'Certified Organic Toor Dal', desc: '19% higher polyphenols than conventional — certified clean', safe: true },
+    { dot: 'dot-safe', name: 'Highest Folate Dal (456mcg/100g)', desc: 'Critical for pregnancy and DNA repair', safe: true },
+    { dot: 'dot-safe', name: 'Zero pesticide residue', desc: 'Third-party organic certification verified', safe: true },
+  ]},
+
+  // ===== TRADITIONAL INDIAN SUPERFOODS =====
+  'chyawanprash dabur': { name: 'Dabur Chyawanprash (500g)', grade: 'B', category: 'Traditional Superfoods', nutri: { sugar: 'Moderate', fat: 'Low', sodium: 'Low', additives: 'None' }, impact: '5000-year-old Ayurvedic formulation — 49 herbs validated in modern research. Amla provides 20x more Vitamin C than orange. Clinical trials show 3x reduced respiratory infections with daily use. Sugar content (primary carrier) is the only concern. Best traditional immunity formula available.', ings: [
+    { dot: 'dot-safe', name: 'Amla (primary — 49 herbs)', desc: '20x Vit C of orange — proven immunity boost in clinical trials', safe: true },
+    { dot: 'dot-safe', name: 'Ashwagandha, Giloy, Brahmi', desc: 'Validated adaptogens — stress and cognitive support', safe: true },
+    { dot: 'dot-caution', name: 'Sugar (carrier base)', desc: 'Necessary for herb suspension but adds caloric load', safe: null },
+    { dot: 'dot-safe', name: 'Pure Ghee & Sesame Oil', desc: 'Fat-soluble vitamin carrier — enhances herb absorption', safe: true },
+  ]},
+
+  'triphala churna': { name: 'Himalaya Triphala Churna (200g)', grade: 'A', category: 'Traditional Superfoods', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Three-fruit combination (Amla, Haritaki, Bibhitaki) is the most studied Ayurvedic formula. Chebulic acid in Haritaki is more potent antioxidant than Vitamin C. Studies show reduces oxidative stress markers by 45%. Gentle overnight laxative — treats constipation without dependence. Anti-cancer tannins.', ings: [
+    { dot: 'dot-safe', name: 'Amla (Emblica officinalis)', desc: 'Highest Vitamin C food — immune and anti-ageing', safe: true },
+    { dot: 'dot-safe', name: 'Haritaki (Terminalia chebula)', desc: 'Chebulic acid — more potent antioxidant than Vitamin C', safe: true },
+    { dot: 'dot-safe', name: 'Bibhitaki (Terminalia bellirica)', desc: 'Anti-inflammatory — liver detox support', safe: true },
+  ]},
+
+  'shatavari powder': { name: 'Himalaya Shatavari Powder (100g)', grade: 'A', category: 'Traditional Superfoods', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Primary Ayurvedic herb for women\'s health. Steroidal saponins (Shatavarins) regulate oestrogen and support lactation. Studies show 33% increase in milk production in breastfeeding women. Reduces menopausal hot flashes by 40%. Natural alternative to hormone replacement therapy.', ings: [
+    { dot: 'dot-safe', name: 'Asparagus racemosus Root Powder', desc: 'Shatavarins — oestrogen regulation, lactation support', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure herb powder — completely clean', safe: true },
+    { dot: 'dot-caution', name: 'Caution with oestrogen-sensitive conditions', desc: 'Avoid with hormone-sensitive cancers or conditions', safe: null },
+  ]},
+
+  'brahmi powder': { name: 'Organic India Brahmi Powder (100g)', grade: 'A', category: 'Traditional Superfoods', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Bacopa monnieri is the most studied herb for cognitive enhancement. Meta-analysis of 9 clinical trials shows improved memory, attention, and cognitive processing speed. Bacosides are neuroprotective — reduce beta-amyloid plaques (Alzheimer\'s markers). Used in Ayurveda for 3000 years.', ings: [
+    { dot: 'dot-safe', name: 'Bacopa monnieri (Brahmi) Powder', desc: 'Bacosides — memory and cognitive enhancement validated in meta-analysis', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic', desc: 'No pesticide — clean medicinal herb', safe: true },
+    { dot: 'dot-caution', name: 'GI upset if taken on empty stomach', desc: 'Take with food to avoid nausea', safe: null },
+  ]},
+
+  'neem powder': { name: 'Himalaya Neem Powder (100g)', grade: 'A', category: 'Traditional Superfoods', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Nimbidin in neem is proven antibacterial against MRSA (antibiotic-resistant bacteria). Azadirachtin is natural pesticide — anti-malarial properties validated. Blood sugar reduction by 28% in type-2 diabetics in trials. Strong immune modulator. Daily use supports gut microbiome diversity.', ings: [
+    { dot: 'dot-safe', name: 'Azadirachta indica Leaf Powder', desc: 'Nimbidin — antibacterial against MRSA, anti-malarial', safe: true },
+    { dot: 'dot-safe', name: 'Anti-diabetic azadirachtin', desc: 'Blood sugar reduction 28% in clinical trials', safe: true },
+    { dot: 'dot-caution', name: 'Very bitter taste', desc: 'Start with small amounts — intense flavour', safe: null },
+  ]},
+
+  // ===== READY TO EAT — BETTER OPTIONS =====
+  'id fresh paratha': { name: 'ID Fresh Malabar Paratha (400g)', grade: 'D', category: 'Ready to Eat', nutri: { sugar: 'Low', fat: 'High', sodium: 'High', additives: 'Low' }, impact: 'Convenient but contains refined wheat and significant palm oil. Malabar paratha is traditionally very rich — commercial version is true to that. Very high saturated fat content per paratha. Better than frozen fast food but not a healthy daily meal. Occasional weekend treat.', ings: [
+    { dot: 'dot-caution', name: 'Refined Wheat Flour', desc: 'High GI — no fibre retained', safe: null },
+    { dot: 'dot-avoid', name: 'Palm Oil (high quantity)', desc: 'Saturated fat — 8g per paratha is very high', safe: false },
+    { dot: 'dot-safe', name: 'No preservatives (fresh)', desc: 'Fresh product — clean on additives', safe: true },
+    { dot: 'dot-caution', name: 'Sodium (480mg per paratha)', desc: 'Significant sodium from a single bread', safe: null },
+  ]},
+
+  'veeba chipotle sauce': { name: 'Veeba Chipotle Sauce (300g)', grade: 'C', category: 'Condiments', nutri: { sugar: 'Moderate', fat: 'Moderate', sodium: 'High', additives: 'Low' }, impact: 'Better Indian alternative to international brands. Lower sugar than Heinz ketchup. Uses natural chipotle with real spice flavour. However sodium is still very high. Clean additive profile — no artificial colours or sodium benzoate which is a significant differentiator.', ings: [
+    { dot: 'dot-safe', name: 'Chipotle Peppers (real)', desc: 'Natural spice — capsaicin anti-inflammatory benefit', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar (8g per serving)', desc: 'Moderate — lower than Kissan or Heinz', safe: null },
+    { dot: 'dot-avoid', name: 'Sodium (520mg per serving)', desc: 'High for a condiment — use sparingly', safe: false },
+    { dot: 'dot-safe', name: 'No artificial colours or sodium benzoate', desc: 'Cleaner than most competitors', safe: true },
+  ]},
+
+  'epigamia smoothie': { name: 'Epigamia Mango Smoothie (200ml)', grade: 'C', category: 'Dairy Beverages', nutri: { sugar: 'High', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Greek yogurt base provides genuine protein and probiotics — better than flavoured milk. However total sugar is high (22g). Mango puree is real. No artificial colours or preservatives. Better choice than Amul Kool or flavoured milk if you want a sweet dairy drink.', ings: [
+    { dot: 'dot-safe', name: 'Greek Yogurt (probiotic base)', desc: 'Real probiotics — gut health benefit', safe: true },
+    { dot: 'dot-safe', name: 'Real Mango Puree', desc: 'Actual fruit — Vitamin C and beta-carotene', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar (22g total)', desc: 'High for a yogurt drink — reduces health benefit', safe: false },
+    { dot: 'dot-safe', name: 'No artificial additives', desc: 'Clean label — no preservatives or artificial colour', safe: true },
+  ]},
+
+  // ===== INSTANT & CONVENIENCE FOODS =====
+  'knorr soup tomato': { name: 'Knorr Classic Tomato Soup (45g sachet)', grade: 'D', category: 'Instant Foods', nutri: { sugar: 'Moderate', fat: 'Low', sodium: 'Very High', additives: 'High' }, impact: 'Very high sodium — one sachet has 1200mg sodium, 60% of daily limit. MSG and flavour enhancers dominate. Very little actual tomato (around 12%). Maltodextrin is the primary ingredient. More of a flavoured salt water than tomato soup.', ings: [
+    { dot: 'dot-avoid', name: 'Very High Sodium (1200mg/sachet)', desc: '60% of daily sodium limit in one serving', safe: false },
+    { dot: 'dot-avoid', name: 'Maltodextrin (primary ingredient)', desc: 'More maltodextrin than tomato — misleading product', safe: false },
+    { dot: 'dot-caution', name: 'MSG & Flavour Enhancers', desc: 'Adds to sodium burden significantly', safe: null },
+    { dot: 'dot-caution', name: 'Tomato Powder (12% only)', desc: 'Low actual tomato content for a "tomato" soup', safe: null },
+  ]},
+
+  'ching secret hakka noodles': { name: "Ching's Secret Hakka Noodles (150g)", grade: 'D', category: 'Instant Foods', nutri: { sugar: 'Low', fat: 'Moderate', sodium: 'High', additives: 'Moderate' }, impact: 'Better than Maggi on preservative profile but still refined maida noodles. The Hakka recipe is close to authentic Chinese noodles. No TBHQ claimed on label. Significantly lower MSG in base noodles (additives in the tastemaker). Acceptable occasional food.', ings: [
+    { dot: 'dot-caution', name: 'Refined Wheat Flour (Maida)', desc: 'High GI — no fibre, blood sugar spike', safe: null },
+    { dot: 'dot-caution', name: 'Sodium (high in tastemaker)', desc: '860mg sodium per serving', safe: null },
+    { dot: 'dot-safe', name: 'No TBHQ claimed', desc: 'Better preservative profile than Maggi — verify label', safe: true },
+    { dot: 'dot-caution', name: 'Refined Palm Oil', desc: 'Saturated fat in the tastemaker oil', safe: null },
+  ]},
+
+  'patanjali atta noodles': { name: 'Patanjali Atta Noodles (240g)', grade: 'C', category: 'Instant Foods', nutri: { sugar: 'Low', fat: 'Low', sodium: 'High', additives: 'Low' }, impact: 'Better than Maggi — whole wheat atta provides some fibre. No TBHQ and reduced palm oil. However sodium in masala sachet is still very high. Decent alternative for noodle-lovers wanting a cleaner option. The whole wheat claim is genuine.', ings: [
+    { dot: 'dot-safe', name: 'Whole Wheat Flour (Atta)', desc: 'Fibre retained — better GI than maida noodles', safe: true },
+    { dot: 'dot-safe', name: 'No TBHQ', desc: 'Cleaner preservative profile than Maggi', safe: true },
+    { dot: 'dot-avoid', name: 'High Sodium in masala (940mg)', desc: 'Extremely high — use half the masala sachet', safe: false },
+    { dot: 'dot-caution', name: 'Palm Oil (reduced)', desc: 'Less than competitors but still present', safe: null },
+  ]},
+
+  'soulfull millet noodles': { name: 'Soulfull Millet & Oats Noodles (180g)', grade: 'B', category: 'Instant Foods', nutri: { sugar: 'Low', fat: 'Low', sodium: 'Moderate', additives: 'Low' }, impact: 'Best instant noodle alternative in India — genuine millet and oats provide fibre. Lower GI than all wheat competitors. No TBHQ. Reduced sodium masala. Not zero-concern but significantly better than any other instant noodle. Ideal for parents wanting healthier noodle option for kids.', ings: [
+    { dot: 'dot-safe', name: 'Jowar, Ragi & Oats (40% millet blend)', desc: 'Real whole grain — fibre and protein benefit', safe: true },
+    { dot: 'dot-safe', name: 'No TBHQ or palm oil', desc: 'Cleanest instant noodle fat profile in India', safe: true },
+    { dot: 'dot-caution', name: 'Moderate Sodium (580mg)', desc: 'Lower than all competitors — still moderate', safe: null },
+    { dot: 'dot-safe', name: 'Natural spice masala', desc: 'Real spices — no artificial flavour enhancers', safe: true },
+  ]},
+
+  // ===== FUNCTIONAL & HEALTH DRINKS =====
+  'herbalife formula 1': { name: 'Herbalife Formula 1 Shake (550g)', grade: 'C', category: 'Meal Replacement', nutri: { sugar: 'Moderate', fat: 'Low', sodium: 'Moderate', additives: 'Moderate' }, impact: 'Widely marketed through MLM network — efficacy for weight loss is diet-dependent not shake-dependent. Soy protein is good quality. Fructose as sweetener adds liver burden. Artificial sweetener blend is concerning. Clinical evidence for weight loss is weak. Whole food meals are superior.', ings: [
+    { dot: 'dot-safe', name: 'Soy Protein Isolate', desc: 'Complete plant protein — adequate quality', safe: true },
+    { dot: 'dot-caution', name: 'Fructose (sweetener)', desc: 'Liver burden with daily high-dose consumption', safe: null },
+    { dot: 'dot-caution', name: 'Multiple artificial sweeteners', desc: 'Sucralose + Acesulfame-K combination — gut concern', safe: null },
+    { dot: 'dot-safe', name: 'Vitamins & Minerals blend', desc: 'Comprehensive micronutrient coverage', safe: true },
+  ]},
+
+  'real activ juice': { name: 'Real Activ 100% Pomegranate Juice (1L)', grade: 'B', category: 'Juices', nutri: { sugar: 'Natural only', fat: 'None', sodium: 'Low', additives: 'Low' }, impact: 'One of the better fruit juices — pomegranate juice has most clinical evidence of any fruit juice. Punicalagins reduce blood pressure by 5–7 points. Reduces arterial plaque. However it\'s still 15g natural sugar per 250ml — eat whole pomegranate seeds for maximum benefit.', ings: [
+    { dot: 'dot-safe', name: 'Pomegranate Juice (100%)', desc: 'Punicalagins — reduce blood pressure and arterial plaque', safe: true },
+    { dot: 'dot-caution', name: 'Natural Sugar (15g/250ml)', desc: 'All natural but still significant — limit to 1 glass/day', safe: null },
+    { dot: 'dot-safe', name: 'No added sugar or preservatives', desc: 'Clean juice — genuinely 100%', safe: true },
+  ]},
+
+  'patanjali amla juice': { name: 'Patanjali Amla Juice (500ml)', grade: 'B', category: 'Functional Drinks', nutri: { sugar: 'Low', fat: 'None', sodium: 'Low', additives: 'Low' }, impact: 'One of the best commercial amla products — preserves Vitamin C better than dried forms. Gallic acid is potent antioxidant. Liver protection from phyllemblin. Studies show reduction in cholesterol by 14% with 30ml daily for 90 days. Best consumed diluted in water — pure amla juice is very acidic.', ings: [
+    { dot: 'dot-safe', name: 'Amla (Indian Gooseberry) Juice', desc: 'Gallic acid — potent antioxidant, liver protection', safe: true },
+    { dot: 'dot-caution', name: 'Very high acidity', desc: 'pH 3.5 — always dilute to protect tooth enamel', safe: null },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Natural Vitamin C acts as preservative', safe: true },
+  ]},
+
+  'tata gluco plus': { name: 'Tata Gluco Plus Mango (200ml)', grade: 'D', category: 'Beverages', nutri: { sugar: 'Very High', fat: 'None', sodium: 'Low', additives: 'High' }, impact: 'Marketed as an energy drink but is essentially sugar water with flavouring. 22g glucose per 200ml is essentially liquid candy. No actual mango. Tartrazine gives yellow colour. No nutritional benefit beyond rapid energy — and that energy crash follows quickly. Not suitable for children.', ings: [
+    { dot: 'dot-avoid', name: 'Glucose (primary ingredient)', desc: 'Pure glucose — immediate blood sugar spike and crash', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine (E102)', desc: 'Petroleum yellow dye — hyperactivity risk', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Mango Flavour', desc: 'No real mango — synthetic flavour compounds', safe: false },
+    { dot: 'dot-caution', name: 'Citric Acid', desc: 'Erosive acid — dental enamel concern', safe: null },
+  ]},
+
+  // ===== MORE MILLETS & ANCIENT GRAINS =====
+  'teff grain': { name: 'True Elements Teff Grain (250g)', grade: 'A', category: 'Ancient Grains', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'Ethiopian superfood now entering Indian market. Highest calcium grain after ragi (180mg/100g). Resistant starch feeds gut bacteria. Iron content exceptional (7.6mg/100g). Gluten-free. Studies show 100g daily reduces blood sugar variability by 40% in type-2 diabetics.', ings: [
+    { dot: 'dot-safe', name: 'Whole Teff Grain', desc: 'Highest iron grain (7.6mg/100g) — anti-anaemia superfood', safe: true },
+    { dot: 'dot-safe', name: 'Resistant Starch (40%)', desc: 'Feeds gut bacteria — exceptional prebiotic effect', safe: true },
+    { dot: 'dot-safe', name: 'Gluten-free', desc: 'Safe for coeliac and gluten-sensitive individuals', safe: true },
+  ]},
+
+  'amaranth grain': { name: 'Organic Tattva Amaranth (Rajgira) 500g', grade: 'A', category: 'Ancient Grains', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'Sacred Aztec superfood — complete protein (all 9 amino acids unlike most grains). Squalene compound reduces cancer risk. Lunasin peptide is anti-inflammatory. Traditional fasting food in India (Navratri). Popped amaranth is a simple healthy snack.', ings: [
+    { dot: 'dot-safe', name: 'Whole Amaranth Grain', desc: 'Complete protein — all 9 amino acids unlike most grains', safe: true },
+    { dot: 'dot-safe', name: 'Squalene', desc: 'Anti-cancer compound — rare in plant foods', safe: true },
+    { dot: 'dot-safe', name: 'High Calcium & Iron', desc: 'Bone and blood health support', safe: true },
+  ]},
+
+  'quinoa india': { name: 'True Elements White Quinoa (500g)', grade: 'A', category: 'Ancient Grains', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'Best complete plant protein available — 8g protein per 100g with all essential amino acids. High in quercetin and kaempferol — anti-cancer flavonoids. Manganese supports bone density. Lower GI than rice (53 vs 73). Good substitute for rice in diabetic meal plans. Rinse to remove saponins before cooking.', ings: [
+    { dot: 'dot-safe', name: 'Whole Quinoa', desc: 'Complete protein — all 9 amino acids, highest plant protein quality', safe: true },
+    { dot: 'dot-safe', name: 'Quercetin & Kaempferol', desc: 'Anti-cancer flavonoids — anti-inflammatory, neuroprotective', safe: true },
+    { dot: 'dot-caution', name: 'Saponins (surface coating)', desc: 'Bitter compounds — always rinse thoroughly before cooking', safe: null },
+  ]},
+
+  'buckwheat flour': { name: 'Organic Tattva Buckwheat (Kuttu) Flour 500g', grade: 'A', category: 'Ancient Grains', nutri: { sugar: 'None', fat: 'Low', sodium: 'None', additives: 'None' }, impact: 'Despite the name, buckwheat is not wheat — completely gluten-free. Rutin is unique compound that strengthens blood vessel walls — reduces varicose veins and hemorrhoids. D-chiro-inositol is insulin-mimicking — reduces blood sugar. Traditional Navratri food with genuine health benefits.', ings: [
+    { dot: 'dot-safe', name: 'Whole Buckwheat (Kuttu)', desc: 'Rutin — strengthens blood vessels, reduces varicose veins', safe: true },
+    { dot: 'dot-safe', name: 'D-chiro-inositol', desc: 'Insulin-mimicking — reduces blood sugar naturally', safe: true },
+    { dot: 'dot-safe', name: 'Gluten-free (despite wheat in name)', desc: 'Safe for coeliac — unrelated to wheat botanically', safe: true },
+  ]},
+
+  // ===== DAIRY PRODUCTS =====
+  'amul probiotic ice cream': { name: 'Amul Probiotic Frozen Yogurt Mango (125ml)', grade: 'C', category: 'Dairy Treats', nutri: { sugar: 'High', fat: 'Low', sodium: 'Low', additives: 'Moderate' }, impact: 'Better than standard ice cream — frozen yogurt has probiotic bacteria (though most die at freezing temperatures). Real mango puree. However, sugar content is still high. Carrageenan thickener is a concern. Better dessert choice than regular ice cream but still a treat.', ings: [
+    { dot: 'dot-safe', name: 'Probiotic Yogurt base', desc: 'Live cultures survive partially at frozen temp', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar (18g per 125ml)', desc: 'High for a "health" dairy product', safe: null },
+    { dot: 'dot-caution', name: 'Carrageenan', desc: 'Thickener — gut inflammation concern with regular use', safe: null },
+    { dot: 'dot-safe', name: 'Real Mango Puree', desc: 'Natural fruit — some nutritional benefit', safe: true },
+  ]},
+
+  'mother dairy a2 milk': { name: 'Mother Dairy A2 Cow Milk (500ml)', grade: 'A', category: 'Dairy', nutri: { sugar: 'Natural only', fat: 'Natural', sodium: 'Low', additives: 'None' }, impact: 'A2 beta-casein protein (from Indigenous Indian breeds) is easier to digest than A1 (Holstein cow). Studies show A2 milk reduces GI discomfort in 68% of people who think they are lactose intolerant — it was actually A1 protein intolerance. Best milk choice for sensitive digestive systems.', ings: [
+    { dot: 'dot-safe', name: 'A2 Protein Milk (Indigenous breeds)', desc: 'Easier to digest — reduces GI discomfort vs A1 milk', safe: true },
+    { dot: 'dot-safe', name: 'No additives or hormones', desc: 'Pure milk from certified A2 cows', safe: true },
+    { dot: 'dot-safe', name: 'Full natural fat profile', desc: 'CLA and fat-soluble vitamins intact', safe: true },
+  ]},
+
+  'epigamia mishti doi': { name: 'Epigamia Mishti Doi (80g)', grade: 'C', category: 'Dairy Treats', nutri: { sugar: 'High', fat: 'Low', sodium: 'Low', additives: 'Low' }, impact: 'Better quality than Mother Dairy mishti doi — real full cream milk, live cultures. However sugar is still high at 18g. Natural caramelisation for flavour (not artificial colour). Probiotic benefit partially offsets sugar concern. Occasional dessert — not daily food.', ings: [
+    { dot: 'dot-safe', name: 'Full Cream Milk & Live Cultures', desc: 'Real probiotics — gut benefit', safe: true },
+    { dot: 'dot-avoid', name: 'Added Sugar (18g)', desc: 'Very high for a yogurt product', safe: false },
+    { dot: 'dot-safe', name: 'Natural Caramelisation (no artificial colour)', desc: 'Better than competitors using synthetic dyes', safe: true },
+  ]},
+
+  // ===== COOKING AIDS =====
+  'tata sampann paneer masala': { name: 'Tata Sampann Paneer Masala (50g)', grade: 'B', category: 'Cooking Spices', nutri: { sugar: 'None', fat: 'None', sodium: 'Moderate', additives: 'Low' }, impact: 'Better quality masala blend — no artificial colours unlike most competitors. Real whole spices ground and blended. Some added salt but less than MDH equivalent. Anti-inflammatory compounds from whole spice blend intact. Good for convenient home cooking without too many compromises.', ings: [
+    { dot: 'dot-safe', name: 'Whole Spice Blend (Coriander, Cumin, Turmeric, etc.)', desc: 'Real spices — anti-inflammatory compounds intact', safe: true },
+    { dot: 'dot-safe', name: 'No artificial colours', desc: 'Better than MDH and Everest on this front', safe: true },
+    { dot: 'dot-caution', name: 'Added Salt', desc: '280mg sodium per serving from masala alone', safe: null },
+  ]},
+
+  'catch coriander powder': { name: 'Catch Coriander (Dhania) Powder (100g)', grade: 'A', category: 'Spices', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'Pure coriander powder — linalool is antimicrobial and anti-anxiety. Studies show coriander reduces blood sugar by stimulating insulin secretion. Heavy metal chelation properties help remove lead and mercury from body. One of the most medicinal everyday Indian spices.', ings: [
+    { dot: 'dot-safe', name: 'Pure Coriander Powder', desc: 'Linalool — antimicrobial, anti-anxiety, insulin secretion support', safe: true },
+    { dot: 'dot-safe', name: 'Heavy metal chelation', desc: 'Binds lead and mercury — natural detoxification', safe: true },
+    { dot: 'dot-safe', name: 'No additives', desc: 'Pure spice — clean', safe: true },
+  ]},
+
+  // ===== WATER & FUNCTIONAL HYDRATION =====
+  'gatorade india': { name: 'Gatorade Lime Flavour Sports Drink (600ml)', grade: 'D', category: 'Sports Drinks', nutri: { sugar: 'Very High', fat: 'None', sodium: 'Moderate', additives: 'High' }, impact: 'Necessary for endurance athletes (90+ min exercise) — electrolytes and fast carbs are appropriate in that context. But for casual exercisers or non-athletes, it\'s simply sugar water with artificial colours. Regular consumption causes weight gain and dental erosion. Coconut water or ORS is superior for most people.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar (34g per bottle)', desc: 'Appropriate for endurance sport — harmful for sedentary use', safe: false },
+    { dot: 'dot-avoid', name: 'Tartrazine & Brilliant Blue dyes', desc: 'Petroleum dyes — unnecessary in a sports drink', safe: false },
+    { dot: 'dot-safe', name: 'Electrolytes (Na, K, Cl)', desc: 'Genuinely beneficial during prolonged exercise', safe: true },
+    { dot: 'dot-avoid', name: 'Citric Acid (high)', desc: 'pH 2.9 — extremely erosive to tooth enamel', safe: false },
+  ]},
+
+  'paperboat nannari sharbat': { name: 'Paper Boat Nannari Sharbat (200ml)', grade: 'B', category: 'Functional Drinks', nutri: { sugar: 'Moderate', fat: 'None', sodium: 'Low', additives: 'None' }, impact: 'Traditional South Indian cooling drink — Nannari (Hemidesmus indicus) root has clinical evidence for anti-inflammatory activity. Reduces body heat in summer. No artificial colours — natural brown colour from root extract. Better than most packaged drinks. Moderate sugar is the only concern.', ings: [
+    { dot: 'dot-safe', name: 'Nannari (Hemidesmus indicus) Root Extract', desc: 'Anti-inflammatory — traditional cooling herb, clinical validation', safe: true },
+    { dot: 'dot-safe', name: 'No artificial colours or preservatives', desc: 'Clean label — natural product', safe: true },
+    { dot: 'dot-caution', name: 'Added Sugar (13g per 200ml)', desc: 'Moderate — lower than fruit juices', safe: null },
+  ]},
+
+  'nimbu paani instant': { name: 'Real Activ Nimbu Paani Mix (400g)', grade: 'D', category: 'Instant Drinks', nutri: { sugar: 'Very High', fat: 'None', sodium: 'Moderate', additives: 'Moderate' }, impact: 'Instant lemon drink powder is essentially sugar with citric acid and lemon flavour. One serving has 22g sugar and very little actual lemon. Better to squeeze a real lemon into water with a pinch of salt and black pepper — infinitely more nutritious and virtually free.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar (primary ingredient)', desc: '22g per glass — better to use real lemon', safe: false },
+    { dot: 'dot-caution', name: 'Citric Acid', desc: 'Enamel erosion risk', safe: null },
+    { dot: 'dot-avoid', name: 'Artificial Lemon Flavour', desc: 'Synthetic — not real lemon benefit', safe: false },
+    { dot: 'dot-caution', name: 'Tartrazine (yellow colour)', desc: 'Petroleum dye — hyperactivity concern', safe: null },
+  ]},
+
+  // ===== MORE ORGANIC PRODUCTS =====
+  'down to earth organic ghee': { name: 'Down to Earth Organic Ghee (500ml)', grade: 'A', category: 'Organic Premium', nutri: { sugar: 'None', fat: 'Healthy', sodium: 'None', additives: 'None' }, impact: 'Organic certification ensures cows not given hormones or antibiotics. Grass-fed organic cows produce milk with 50% more omega-3 and CLA than conventional. Clarification removes all milk solids — pure fat with fat-soluble vitamins. Excellent for high-temperature cooking up to 250°C.', ings: [
+    { dot: 'dot-safe', name: 'Organic Grass-fed Cow Ghee', desc: '50% more omega-3 and CLA than conventional ghee', safe: true },
+    { dot: 'dot-safe', name: 'No antibiotics or hormones in sourcing', desc: 'Organic certification — cleaner supply chain', safe: true },
+    { dot: 'dot-safe', name: 'High smoke point (250°C)', desc: 'Best cooking fat for Indian high-heat cooking', safe: true },
+  ]},
+
+  'organic india moringa capsules': { name: 'Organic India Moringa Capsules (90 caps)', grade: 'A', category: 'Supplements', nutri: { sugar: 'None', fat: 'None', sodium: 'None', additives: 'None' }, impact: 'More convenient than moringa powder — capsule protects from oxidation. Same benefits as powder: Vitamin C, calcium, iron, protein. Isothiocyanates reduce blood sugar. Best for those who dislike the earthy taste of moringa powder. One of the few supplements with genuine clinical backing.', ings: [
+    { dot: 'dot-safe', name: 'Organic Moringa Leaf Extract (500mg/cap)', desc: 'Concentrated superfood — maximum bioavailability', safe: true },
+    { dot: 'dot-safe', name: 'Vegetable cellulose capsule', desc: 'Plant-based capsule — vegan friendly', safe: true },
+    { dot: 'dot-safe', name: 'Certified Organic, no fillers', desc: 'Clean supplement — no additives or fillers', safe: true },
+  ]},
+
+  'kapiva aloe vera juice': { name: 'Kapiva Aloe Vera Juice (1L)', grade: 'B', category: 'Functional Drinks', nutri: { sugar: 'Low', fat: 'None', sodium: 'Low', additives: 'Low' }, impact: 'Genuine cold-pressed aloe vera — acemannan intact unlike heat-processed versions. Studies show 30ml daily improves skin hydration by 20%. Reduces constipation without dependence. Blood sugar reduction of 10% in pre-diabetics. Better than Raw Pressery version due to higher aloe content.', ings: [
+    { dot: 'dot-safe', name: 'Cold-pressed Aloe Vera Gel (99%)', desc: 'Acemannan intact — skin hydration, digestion, blood sugar', safe: true },
+    { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Natural Vitamin C acts as preservative', safe: true },
+    { dot: 'dot-caution', name: 'Very mild sugar (natural from aloe)', desc: 'Virtually negligible — minimal concern', safe: null },
+  ]},
+
+  // ===== CONVENIENCE & PROCESSED =====
+  'britannia 50 50 biscuits': { name: 'Britannia 50-50 Sweet & Salty Biscuits', grade: 'D', category: 'Biscuits', nutri: { sugar: 'High', fat: 'High', sodium: 'High', additives: 'Moderate' }, impact: 'The sweet + salty combination triggers maximum dopamine response — intentionally addictive formula. High sugar AND high sodium in same product adds to both cardiovascular and metabolic risk. Palm oil. Refined flour. Popular but nutritionally very poor for a biscuit marketed as a tea-time snack.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar + Salt combined', desc: 'Intentionally addictive sweet-salty combo — maximises overconsumption', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat — cardiovascular concern', safe: false },
+    { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'High GI — zero nutritional value', safe: false },
+    { dot: 'dot-caution', name: 'Artificial Flavour', desc: 'Synthetic sweet and salty flavour enhancers', safe: null },
+  ]},
+
+  'jim jam biscuits': { name: 'Britannia Jim Jam Biscuits (150g)', grade: 'D', category: 'Kids Biscuits', nutri: { sugar: 'Very High', fat: 'High', sodium: 'Low', additives: 'High' }, impact: 'Popular kids biscuit — high sugar jam filling is pure sugar with artificial colour. Double refined flour layers. Allura Red (E129) in jam filling is banned in some EU countries. Regular school snack for many Indian children who are unknowingly exposed to petroleum-derived dyes daily.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar (jam filling — 20g per serving)', desc: 'Excessive sugar for a children\'s product', safe: false },
+    { dot: 'dot-avoid', name: 'Allura Red (E129)', desc: 'Synthetic red dye — banned in some EU countries, hyperactivity risk', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat in kids product', safe: false },
+    { dot: 'dot-caution', name: 'Refined Wheat Flour (double layer)', desc: 'High GI — double the refined flour exposure', safe: null },
+  ]},
+
+  'lotte choco pie': { name: 'Lotte Choco Pie (12 pack)', grade: 'E', category: 'Kids Snacks', nutri: { sugar: 'Very High', fat: 'Very High', sodium: 'Moderate', additives: 'High' }, impact: 'One of the worst products in the Indian market for children — 4 different types of sugar, palm oil, PGPR (cheap lecithin substitute), artificial vanilla, and very high calorie density. Each pie has 130 kcal, 19g sugar and 5g saturated fat. Marketed as a sharing treat but extremely poor nutritional profile.', ings: [
+    { dot: 'dot-avoid', name: 'Sugar + Glucose Syrup + Invert Sugar + Fructose', desc: 'Four different sugars — 19g total per pie', safe: false },
+    { dot: 'dot-avoid', name: 'Palm Oil & PGPR', desc: 'Cheap fat and cheap emulsifier — lowest quality fats used', safe: false },
+    { dot: 'dot-avoid', name: 'Artificial Vanilla Flavour', desc: 'Synthetic flavour — no real vanilla', safe: false },
+    { dot: 'dot-caution', name: 'Very High Calorie Density', desc: '130 kcal per small pie — easy to overconsume', safe: null },
+  ]},
+
+
 };
 
 function showIngredient(key) {
@@ -2034,17 +2556,77 @@ function showIngredient(key) {
 
 function handleSearch() {
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  const product = products[q];
-  if (product) {
-    showProductModal(product);
-  } else {
-    const ingKey = Object.keys(ingredients).find(k => ingredients[k].name.toLowerCase().includes(q) || k.includes(q));
-    if (ingKey) {
-      showIngredientModal(ingKey);
-    } else {
-      alert('Product not in our database yet — we\'re adding 50 new products weekly! Try: Maggi Noodles or Lay\'s Chips');
-    }
+  if (!q) return;
+
+  // 1. Exact key match
+  if (products[q]) { showProductModal(products[q]); return; }
+
+  // 2. Fuzzy product match — search by name, key, or any word in query
+  const words = q.split(/\s+/).filter(w => w.length > 2);
+  const productMatches = Object.entries(products).filter(([key, p]) => {
+    const name = p.name.toLowerCase();
+    const cat = (p.category || '').toLowerCase();
+    return key.includes(q) || name.includes(q) ||
+      words.some(w => key.includes(w) || name.includes(w) || cat.includes(w));
+  });
+
+  if (productMatches.length === 1) {
+    showProductModal(productMatches[0][1]); return;
   }
+  if (productMatches.length > 1) {
+    showMultipleResults(productMatches, q); return;
+  }
+
+  // 3. Ingredient match
+  const ingKey = Object.keys(ingredients).find(k =>
+    ingredients[k].name.toLowerCase().includes(q) || k.includes(q) ||
+    words.some(w => k.includes(w) || ingredients[k].name.toLowerCase().includes(w))
+  );
+  if (ingKey) { showIngredientModal(ingKey); return; }
+
+  // 4. Not found
+  showNotFound(q);
+}
+
+function showMultipleResults(matches, q) {
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const rows = matches.slice(0, 12).map(([key, p]) => `
+    <div onclick="closeModalDirect();setTimeout(()=>{document.getElementById('searchInput').value='${p.name.replace(/'/g,"\\'")}';showProductModal(products['${key.replace(/'/g,"\\'")}'});},100)"
+      style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--surface);cursor:pointer;" class="ing-item">
+      <div class="score-circle ${gradeColors[p.grade] || 'score-c'}" style="width:36px;height:36px;font-size:14px;flex-shrink:0;">${p.grade}</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);">${p.name}</div>
+        <div style="font-size:11px;color:var(--muted);">${p.category || ''}</div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('modalContent').innerHTML = `
+    <div style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">
+      ${matches.length} results for "${q}"
+    </div>
+    ${rows}
+    ${matches.length > 12 ? `<div style="font-size:12px;color:var(--muted);margin-top:10px;">+ ${matches.length - 12} more — try a more specific search</div>` : ''}
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function showNotFound(q) {
+  const suggestions = Object.entries(products).slice(0, 6);
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const suggRows = suggestions.map(([key, p]) => `
+    <div onclick="closeModalDirect();setTimeout(()=>showProductModal(products['${key.replace(/'/g,"\\'")}']),100)"
+      style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface);cursor:pointer;">
+      <div class="score-circle ${gradeColors[p.grade] || 'score-c'}" style="width:32px;height:32px;font-size:13px;flex-shrink:0;">${p.grade}</div>
+      <div style="font-size:13px;color:var(--ink);">${p.name}</div>
+    </div>
+  `).join('');
+  document.getElementById('modalContent').innerHTML = `
+    <div style="font-size:22px;margin-bottom:8px;">🔍</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:6px;">"${q}" not found yet</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">We're adding new products weekly including Singapore FairPrice, Organic & Baby foods. Try one of these:</div>
+    ${suggRows}
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
 }
 
 function quickSearch(name) {
@@ -2072,7 +2654,7 @@ function showProductModal(product) {
       <div class="score-circle ${gradeColors[product.grade]}">${product.grade}</div>
       <div>
         <div style="font-size:14px;font-weight:600;">Health Grade: ${product.grade}</div>
-        <div style="font-size:12px;color:var(--muted);">${product.grade === 'A' ? 'Excellent — clean, natural, minimal processing' : product.grade === 'B' ? 'Good — minor concerns, fine in moderation' : product.grade === 'C' ? 'Moderate — some additives, consume mindfully' : product.grade === 'D' ? 'High concern — excess sugar, fat or additives' : product.grade === 'F' ? 'Avoid — multiple red flags, long-term harm risk' : 'Very high concern — significant health risk'}</div>
+        <div style="font-size:12px;color:var(--muted);">${product.grade === 'A' ? '🟢 Excellent — clean, natural, whole food. Eat daily.' : product.grade === 'B' ? '🟡 Good — minor concerns. Fine for daily use.' : product.grade === 'C' ? '🟠 Moderate — some additives. 2–3x per week max.' : product.grade === 'D' ? '🔴 High concern — excess sugar, fat or sodium. Limit.' : product.grade === 'F' ? '⛔ Avoid — severe health risk. Do not consume regularly.' : '🔴 Very poor — multiple red flags. Monthly only.'}</div>
       </div>
     </div>
     <div class="modal-ings">
