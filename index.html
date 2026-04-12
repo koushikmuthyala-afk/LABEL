@@ -4154,7 +4154,11 @@ function handleSearch() {
   }
   scored.sort(function(a, b) { return b.score - a.score; });
   if (scored.length === 0) { showNotFound(q); return; }
-  if (scored.length === 1) { showProductModal(scored[0].product); return; }
+  if (scored.length === 1) { 
+    showProductModal(scored[0].product); 
+    saveScan(scored[0].product.name, scored[0].product.grade);
+    return; 
+  }
 
   // Check ingredient match
   var ingKeys = Object.keys(ingredients);
@@ -4165,64 +4169,74 @@ function handleSearch() {
     }
   }
 
-  showResultsList(scored.map(function(s){ return [s.key, s.product]; }), q);
+  showResultsList(scored, q);
 }
 
 
-function showResultsList(scored, q) {
-  var gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
+function showResultsList(items, q) {
+  var gradeColors = { A:'score-a', B:'score-b', C:'score-c', D:'score-d', E:'score-e', F:'score-f' };
   var container = document.createElement('div');
 
   var header = document.createElement('div');
   header.style.cssText = 'font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;';
-  header.textContent = scored.length + ' result' + (scored.length !== 1 ? 's' : '') + ' for ' + q;
+  header.textContent = items.length + ' result' + (items.length !== 1 ? 's' : '') + ' for ' + q;
   container.appendChild(header);
 
-  var shown = scored.slice(0, 12);
-  for (var i = 0; i < shown.length; i++) {
-    (function(item) {
-      var row = document.createElement('div');
-      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid var(--surface);cursor:pointer;border-radius:8px;';
-      row.onmouseover = function() { this.style.background = 'var(--surface)'; };
-      row.onmouseout = function() { this.style.background = 'transparent'; };
+  items.slice(0, 12).forEach(function(item) {
+    // Handle both {key,product,score} objects AND [key,product] arrays
+    var p = item.product || (Array.isArray(item) ? item[1] : item);
+    var key = item.key || (Array.isArray(item) ? item[0] : '');
+    if (!p || !p.grade) return;
 
-      var grade = item.product.grade || 'C';
-      var gradeEl = document.createElement('div');
-      gradeEl.className = 'score-circle ' + (gradeColors[grade] || 'score-c');
-      gradeEl.style.cssText = 'width:40px;height:40px;font-size:15px;flex-shrink:0;';
-      gradeEl.textContent = grade;
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid var(--surface);cursor:pointer;border-radius:8px;';
+    row.onmouseover = function() { this.style.background = 'var(--surface)'; };
+    row.onmouseout = function() { this.style.background = 'transparent'; };
 
-      var info = document.createElement('div');
-      info.style.cssText = 'flex:1;';
-      var nameEl = document.createElement('div');
-      nameEl.style.cssText = 'font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;';
-      nameEl.textContent = item.product.name;
-      var catEl = document.createElement('div');
-      catEl.style.cssText = 'font-size:12px;color:var(--muted);';
-      catEl.textContent = item.product.category || '';
-      info.appendChild(nameEl);
-      info.appendChild(catEl);
+    var gradeEl = document.createElement('div');
+    gradeEl.className = 'score-circle ' + (gradeColors[p.grade] || 'score-c');
+    gradeEl.style.cssText = 'width:40px;height:40px;font-size:15px;flex-shrink:0;';
+    gradeEl.textContent = p.grade;
 
-      var arrow = document.createElement('div');
-      arrow.style.cssText = 'color:var(--muted);font-size:20px;padding-right:4px;';
-      arrow.textContent = '›';
+    var info = document.createElement('div');
+    info.style.flex = '1';
 
-      row.appendChild(gradeEl);
-      row.appendChild(info);
-      row.appendChild(arrow);
+    var nameEl = document.createElement('div');
+    nameEl.style.cssText = 'font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;';
+    nameEl.textContent = p.name || '';
 
-      row.onclick = function() {
+    var catEl = document.createElement('div');
+    catEl.style.cssText = 'font-size:12px;color:var(--muted);';
+    catEl.textContent = p.category || '';
+
+    info.appendChild(nameEl);
+    info.appendChild(catEl);
+
+    var arrow = document.createElement('div');
+    arrow.style.cssText = 'color:var(--muted);font-size:20px;padding-right:4px;';
+    arrow.textContent = String.fromCharCode(8250);
+
+    row.appendChild(gradeEl);
+    row.appendChild(info);
+    row.appendChild(arrow);
+
+    row.onclick = (function(prod) {
+      return function() {
         document.getElementById('modalOverlay').classList.remove('open');
-        setTimeout(function() { showProductModal(item.product); }, 120);
+        setTimeout(function() {
+          showProductModal(prod);
+          saveScan(prod.name, prod.grade);
+        }, 120);
       };
-      container.appendChild(row);
-    })(shown[i]);
-  }
+    })(p);
 
-  if (scored.length > 12) {
+    container.appendChild(row);
+  });
+
+  if (items.length > 12) {
     var more = document.createElement('div');
     more.style.cssText = 'font-size:12px;color:var(--muted);margin-top:10px;text-align:center;';
-    more.textContent = '+ ' + (scored.length - 12) + ' more. Try a more specific search.';
+    more.textContent = '+ ' + (items.length - 12) + ' more. Try a more specific search.';
     container.appendChild(more);
   }
 
@@ -4230,6 +4244,7 @@ function showResultsList(scored, q) {
   document.getElementById('modalContent').appendChild(container);
   document.getElementById('modalOverlay').classList.add('open');
 }
+
 
 function showNotFound(q) {
   var gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
