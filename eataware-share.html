@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EatAware — You're Invited</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #1a4a2e;
+  --green-mid: #2d6a4f;
+  --green-light: #52b788;
+  --green-pale: #f0f7f2;
+  --amber: #d4852a;
+  --amber-pale: #fef3e2;
+  --ink: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e2ebe5;
+  --white: #ffffff;
+  --red: #dc2626;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--green-pale);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--green);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo { font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
+.logo span { color: var(--amber); }
+.header-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 7px 16px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+.header-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--green);
+  padding: 56px 24px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(ellipse at 20% 30%, rgba(82,183,136,0.12) 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 70%, rgba(212,133,42,0.08) 0%, transparent 50%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(82,183,136,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(82,183,136,0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 48px;
+  background: var(--green-pale);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.hero-inner { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(82,183,136,0.15);
+  border: 1px solid rgba(82,183,136,0.3);
+  color: var(--green-light);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 7px 18px; border-radius: 30px; margin-bottom: 24px;
+}
+.hero-badge::before { content: '●'; font-size: 7px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 6vw, 52px);
+  color: #fff; line-height: 1.1; font-weight: 900;
+  margin-bottom: 16px;
+}
+.hero h1 em { color: var(--green-light); font-style: italic; }
+.hero p { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 420px; margin: 0 auto; }
+
+/* ===== MAIN ===== */
+.main { max-width: 680px; margin: 0 auto; padding: 40px 16px 80px; }
+
+/* ===== STEP CARDS ===== */
+.step {
+  background: var(--white);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.step-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 24px; border-bottom: 1px solid var(--border);
+}
+.step-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; flex-shrink: 0;
+}
+.step-num-1 { background: var(--green); color: #fff; }
+.step-num-2 { background: var(--amber); color: #fff; }
+.step-num-3 { background: #7c3aed; color: #fff; }
+.step-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+.step-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.step-body { padding: 24px; }
+
+/* ===== INSTAGRAM POST PREVIEW ===== */
+.ig-post {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0f1f14;
+  position: relative;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+.ig-noise {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(ellipse at 20% 20%, rgba(82,183,136,0.18) 0%, transparent 55%),
+                    radial-gradient(ellipse at 80% 80%, rgba(212,133,42,0.1) 0%, transparent 50%);
+}
+.ig-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(82,183,136,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(82,183,136,0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.ig-badge {
+  position: absolute; top: 28px; left: 28px;
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(82,183,136,0.15); border: 1px solid rgba(82,183,136,0.3);
+  border-radius: 30px; padding: 6px 14px;
+}
+.ig-badge-dot { width: 6px; height: 6px; background: var(--green-light); border-radius: 50%; }
+.ig-badge-text { font-size: 10px; font-weight: 700; color: var(--green-light); letter-spacing: 0.08em; text-transform: uppercase; }
+.ig-logo-post { position: absolute; top: 28px; right: 28px; font-size: 16px; font-weight: 700; color: #fff; }
+.ig-logo-post span { color: var(--amber); }
+.ig-main { position: absolute; left: 28px; right: 28px; top: 50%; transform: translateY(-50%); }
+.ig-eyebrow { font-size: 10px; font-weight: 600; color: rgba(82,183,136,0.8); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+.ig-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 8vw, 52px);
+  line-height: 1.05; color: #fff; font-weight: 900; margin-bottom: 16px;
+}
+.ig-headline em { color: var(--green-light); font-style: italic; }
+.ig-sub { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; margin-bottom: 22px; }
+.ig-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green-light); color: #0f1f14;
+  font-size: 12px; font-weight: 700; padding: 11px 20px; border-radius: 30px;
+}
+.ig-stats {
+  position: absolute; bottom: 28px; left: 28px; right: 28px;
+  display: flex; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 16px;
+}
+.ig-stat { flex: 1; }
+.ig-stat-num { font-size: 20px; font-weight: 700; color: #fff; }
+.ig-stat-lbl { font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+.ig-url-post { position: absolute; bottom: 34px; right: 28px; font-size: 10px; color: rgba(255,255,255,0.2); font-family: monospace; }
+
+/* Download instruction */
+.dl-instruction {
+  background: var(--green-pale);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; color: var(--muted);
+}
+.dl-instruction strong { color: var(--ink); }
+.dl-icon { font-size: 20px; flex-shrink: 0; }
+.dl-btn {
+  margin-left: auto;
+  background: var(--green);
+  color: #fff;
+  font-size: 12px; font-weight: 600;
+  border: none; border-radius: 8px;
+  padding: 8px 16px; cursor: pointer;
+  flex-shrink: 0;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* ===== CAPTION BOX ===== */
+.caption-box {
+  background: #f8faf9;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink);
+  position: relative;
+  margin-bottom: 14px;
+  white-space: pre-wrap;
+  font-family: 'DM Sans', sans-serif;
+}
+.copy-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--green); color: #fff;
+  font-size: 13px; font-weight: 600;
+  border: none; border-radius: 10px;
+  padding: 11px 20px; cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+.copy-btn:hover { background: var(--green-mid); }
+.copy-btn.copied { background: #16a34a; }
+
+/* ===== HASHTAGS ===== */
+.hashtag-box {
+  background: #f0f7f2;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--green-mid);
+  line-height: 2;
+  margin-bottom: 14px;
+}
+.copy-hash {
+  display: flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--green);
+  font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 10px 20px;
+  cursor: pointer; transition: all 0.2s;
+  width: 100%; justify-content: center;
+}
+.copy-hash:hover { background: var(--green-pale); }
+
+/* ===== FEEDBACK STEP ===== */
+.feedback-preview {
+  background: var(--green-pale);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.fb-preview-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.fb-preview-sub { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.fb-questions { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.fb-q {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 14px;
+  font-size: 13px; color: var(--ink);
+}
+.fb-q-num { font-size: 11px; color: var(--muted); font-weight: 600; flex-shrink: 0; width: 20px; }
+.fb-open-btn {
+  display: block;
+  background: var(--green);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px; font-weight: 700;
+  padding: 15px; border-radius: 14px;
+  transition: background 0.2s;
+}
+.fb-open-btn:hover { background: var(--green-mid); }
+.fb-open-btn span { font-size: 12px; font-weight: 400; opacity: 0.7; display: block; margin-top: 2px; }
+
+/* ===== SHARE SECTION ===== */
+.share-box {
+  background: var(--green);
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.share-box h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.share-box p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 20px; line-height: 1.6; }
+.share-links { display: flex; flex-direction: column; gap: 10px; }
+.share-link {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px; padding: 14px 16px;
+  color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 600;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.share-link:hover { background: rgba(255,255,255,0.18); }
+.share-link-icon { font-size: 20px; flex-shrink: 0; }
+.share-link-text { text-align: left; }
+.share-link-label { font-size: 14px; font-weight: 600; }
+.share-link-sub { font-size: 11px; opacity: 0.5; margin-top: 1px; }
+.share-link-arrow { margin-left: auto; opacity: 0.5; }
+.copy-link-btn {
+  background: var(--green-light); color: var(--green);
+  border: none; font-weight: 700; font-size: 14px;
+}
+.copy-link-btn:hover { background: #6fcf97; }
+
+/* ===== TIPS ===== */
+.tips {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+}
+.tips-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.tip { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.5; }
+.tip:last-child { border-bottom: none; }
+.tip-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+.tip strong { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="logo" href="https://eataware.in" target="_blank">Eat<span>Aware</span></a>
+  <a class="header-link" href="https://eataware.in" target="_blank">Visit Site →</a>
+</div>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span>●</span> Share with friends</div>
+    <h1>Here's everything<br/>you need to <em>share</em><br/>EatAware today.</h1>
+    <p>Instagram post, caption, hashtags and the feedback form — all in one place.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- STEP 1 — INSTAGRAM POST -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num step-num-1">1</div>
+      <div>
+        <div class="step-title">Post this on Instagram</div>
+        <div class="step-subtitle">Screenshot the image below → post on your feed</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <!-- The actual Instagram post -->
+      <div class="ig-post" id="igPost">
+        <div class="ig-noise"></div>
+        <div class="ig-grid"></div>
+        <div class="ig-badge"><div class="ig-badge-dot"></div><div class="ig-badge-text">Now Live in India</div></div>
+        <div class="ig-logo-post">Eat<span>Aware</span></div>
+        <div class="ig-main">
+          <div class="ig-eyebrow">India's ingredient intelligence platform</div>
+          <div class="ig-headline">Know <em>exactly</em><br/>what's in<br/>your food.</div>
+          <div class="ig-sub">351 Indian products. A–F health grades.<br/>Every ingredient decoded — free.</div>
+          <div class="ig-btn">Search any product →</div>
+        </div>
+        <div class="ig-stats">
+          <div class="ig-stat"><div class="ig-stat-num">351</div><div class="ig-stat-lbl">Products rated</div></div>
+          <div class="ig-stat"><div class="ig-stat-num">120+</div><div class="ig-stat-lbl">Ingredients decoded</div></div>
+          <div class="ig-stat"><div class="ig-stat-num">100%</div><div class="ig-stat-lbl">Free forever</div></div>
+        </div>
+        <div class="ig-url-post">eataware.in</div>
+      </div>
+
+      <div class="dl-instruction">
+        <span class="dl-icon">📸</span>
+        <div><strong>How to save this image:</strong> Long press on mobile → Save Image. On desktop → Right click → Save image as.</div>
+      </div>
+
+      <div style="height:24px;"></div>
+
+      <!-- Caption -->
+      <div style="font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;">Caption to copy</div>
+      <div class="caption-box" id="captionText">We built this because we were tired of reading food labels that made no sense.
+
+TBHQ. Hydrolysed vegetable protein. Sodium stearoyl-2-lactylate.
+
+What does any of that actually mean? And what does it do to your body after eating it every single day?
+
+EatAware answers that. In plain language. For free.
+
+→ Search Maggi, Bournvita, Kurkure or any product
+→ See its A–F health grade and every ingredient decoded
+→ 351 Indian products. Growing every week.
+
+Link in bio 🌿 eataware.in</div>
+      <button class="copy-btn" id="copyCaption" onclick="copyText('captionText','copyCaption')">
+        📋 Copy Caption
+      </button>
+
+      <div style="height:16px;"></div>
+
+      <!-- Hashtags -->
+      <div style="font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;">Hashtags to copy</div>
+      <div class="hashtag-box" id="hashtagText">#EatAware #KnowYourFood #FoodIntelligence #IndianFood #FoodFacts #CleanEating #FSSAI #FoodLabel #HealthyIndia #TBHQ #FoodAdditives #IndiaHealth #NutritionFacts #FoodScience #IngredientCheck #PackagedFood #HealthyEating #FoodSafety #IndianFoodBlogger #WhatYouEat</div>
+      <button class="copy-hash" id="copyHash" onclick="copyText('hashtagText','copyHash')">
+        # Copy Hashtags
+      </button>
+
+    </div>
+  </div>
+
+  <!-- STEP 2 — FEEDBACK FORM -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num step-num-2">2</div>
+      <div>
+        <div class="step-title">Send them the feedback form</div>
+        <div class="step-subtitle">10 questions · 3 minutes · results go to koushik@eataware.in</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="feedback-preview">
+        <div class="fb-preview-title">EatAware Beta Feedback Form</div>
+        <div class="fb-preview-sub">After they try the site, ask them to fill this. Takes 3 minutes. Their answers tell you exactly what to build in V10.</div>
+        <div class="fb-questions">
+          <div class="fb-q"><span class="fb-q-num">01</span> Overall rating (stars)</div>
+          <div class="fb-q"><span class="fb-q-num">02</span> First reaction when they opened the site</div>
+          <div class="fb-q"><span class="fb-q-num">03</span> Search experience + what they searched</div>
+          <div class="fb-q"><span class="fb-q-num">04</span> Did the A–F grade system make sense?</div>
+          <div class="fb-q"><span class="fb-q-num">05</span> Which features were most useful?</div>
+          <div class="fb-q"><span class="fb-q-num">06</span> Products they expected but couldn't find</div>
+          <div class="fb-q"><span class="fb-q-num">07</span> NPS — would they recommend it? (0–10)</div>
+          <div class="fb-q"><span class="fb-q-num">08</span> What one feature would bring them back?</div>
+          <div class="fb-q"><span class="fb-q-num">09</span> Open honest feedback</div>
+          <div class="fb-q"><span class="fb-q-num">10</span> Who they are</div>
+        </div>
+        <a class="fb-open-btn" href="https://eataware.in/feedback.html" target="_blank">
+          Open Feedback Form
+          <span>eataware.in/feedback.html</span>
+        </a>
+      </div>
+
+      <!-- WhatsApp message to share -->
+      <div style="font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;">WhatsApp message to send friends</div>
+      <div class="caption-box" id="waText">Hey! I built something — India's first ingredient intelligence platform. You can search any packaged food (Maggi, Bournvita, Kurkure etc.) and see its A–F health grade and exactly what each ingredient does to your body.
+
+Try it here: eataware.in
+
+Takes 2 mins. Would love to know what you think! Once you've tried it, can you fill this quick feedback form?
+
+eataware.in/feedback.html
+
+Thanks 🙏</div>
+      <button class="copy-btn" id="copyWA" onclick="copyText('waText','copyWA')">
+        💬 Copy WhatsApp Message
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 3 — SHARE LINKS -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num step-num-3">3</div>
+      <div>
+        <div class="step-title">Share these links</div>
+        <div class="step-subtitle">Tap to copy and paste anywhere</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div class="share-link" onclick="copyLinkFn('https://eataware.in', this)">
+          <span class="share-link-icon">🌿</span>
+          <div class="share-link-text">
+            <div class="share-link-label">EatAware — Main site</div>
+            <div class="share-link-sub">eataware.in</div>
+          </div>
+          <span class="share-link-arrow">Copy →</span>
+        </div>
+
+        <div class="share-link" onclick="copyLinkFn('https://eataware.in/feedback.html', this)">
+          <span class="share-link-icon">📝</span>
+          <div class="share-link-text">
+            <div class="share-link-label">Feedback Form</div>
+            <div class="share-link-sub">eataware.in/feedback.html</div>
+          </div>
+          <span class="share-link-arrow">Copy →</span>
+        </div>
+
+        <a class="share-link" href="https://wa.me/?text=Try%20EatAware%20%E2%80%94%20India%27s%20ingredient%20intelligence%20platform.%20Search%20any%20packaged%20food%20and%20see%20its%20A%E2%80%93F%20health%20grade%3A%20https%3A%2F%2Feataware.in" target="_blank">
+          <span class="share-link-icon">💚</span>
+          <div class="share-link-text">
+            <div class="share-link-label">Share on WhatsApp</div>
+            <div class="share-link-sub">Opens WhatsApp with message pre-filled</div>
+          </div>
+          <span class="share-link-arrow">→</span>
+        </a>
+
+        <a class="share-link" href="https://twitter.com/intent/tweet?text=Just%20found%20this%20%E2%80%94%20EatAware%20grades%20every%20Indian%20packaged%20food%20A%20to%20F%20and%20decodes%20every%20ingredient%20in%20plain%20language.%20Completely%20free.%20eataware.in%20%F0%9F%8C%BF%20%23EatAware%20%23KnowYourFood" target="_blank">
+          <span class="share-link-icon">🐦</span>
+          <div class="share-link-text">
+            <div class="share-link-label">Share on Twitter / X</div>
+            <div class="share-link-sub">Tweet pre-filled and ready to post</div>
+          </div>
+          <span class="share-link-arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips">
+    <div class="tips-title">💡 Tips for sharing with friends</div>
+    <div class="tip"><span class="tip-icon">1️⃣</span><div><strong>Post on Instagram first</strong> — then send the WhatsApp message linking to both the site and feedback form.</div></div>
+    <div class="tip"><span class="tip-icon">2️⃣</span><div><strong>Tell them exactly what to search</strong> — "Search Bournvita" or "Search Maggi" gives them an instant wow moment.</div></div>
+    <div class="tip"><span class="tip-icon">3️⃣</span><div><strong>Ask for honest feedback</strong> — the form has an "open feedback" question specifically for brutal honest opinions.</div></div>
+    <div class="tip"><span class="tip-icon">4️⃣</span><div><strong>Check responses in Formspree</strong> — go to formspree.io → EatAware Feedback → Submissions to see all answers in one place.</div></div>
+  </div>
+
+</div>
+
+<script>
+function copyText(sourceId, btnId) {
+  var text = document.getElementById(sourceId).innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById(btnId);
+    var original = btn.innerHTML;
+    btn.innerHTML = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.innerHTML = original;
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+function copyLinkFn(url, el) {
+  navigator.clipboard.writeText(url).then(function() {
+    var arrow = el.querySelector('.share-link-arrow');
+    var orig = arrow.textContent;
+    arrow.textContent = '✓ Copied!';
+    setTimeout(function() { arrow.textContent = orig; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
