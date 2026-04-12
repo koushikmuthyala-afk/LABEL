@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform — A–F Grading · 400+ Products · Singapore Nutri-Grade Adapted</title>
+<title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform — A–F Grading · 351 Products · Singapore Nutri-Grade Adapted</title>
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="Search any Indian packaged product or ingredient and instantly see what it does to your body — short-term and long-term. Powered by FSSAI data. 100% free."/>
@@ -39,8 +39,6 @@
   gtag('config', 'G-T58J68VG4K');
 </script>
 
-<!-- Supabase SDK — loaded first, synchronously -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -495,271 +493,12 @@
     .articles-grid { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr 1fr; }
   }
-
-/* ============================================================
-   V10 AUTH & DASHBOARD STYLES
-   ============================================================ */
-.auth-modal {
-  display:none; position:fixed; inset:0;
-  background:rgba(0,0,0,0.55); z-index:2000;
-  align-items:center; justify-content:center;
-  backdrop-filter:blur(6px);
-}
-.auth-modal.open { display:flex; }
-.auth-box {
-  background:var(--white); border-radius:20px;
-  padding:36px 32px; width:90%; max-width:400px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.2);
-  position:relative; animation:slideUp 0.25s ease;
-}
-@keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
-.auth-close {
-  position:absolute; top:14px; right:18px;
-  font-size:22px; color:var(--muted); cursor:pointer;
-  background:none; border:none; line-height:1; padding:4px;
-}
-.auth-logo { font-size:20px; font-weight:700; color:var(--green); margin-bottom:4px; }
-.auth-logo span { color:var(--amber); }
-.auth-title { font-size:19px; font-weight:700; color:var(--ink); margin-bottom:4px; }
-.auth-sub { font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.5; }
-.auth-tabs {
-  display:flex; gap:4px; background:var(--surface);
-  border-radius:10px; padding:4px; margin-bottom:18px;
-}
-.auth-tab {
-  flex:1; text-align:center; font-size:13px; font-weight:600;
-  padding:8px; border-radius:8px; cursor:pointer;
-  color:var(--muted); transition:all 0.2s;
-  border:none; background:transparent; font-family:inherit;
-}
-.auth-tab.active {
-  background:var(--white); color:var(--green);
-  box-shadow:0 1px 4px rgba(0,0,0,0.1);
-}
-.auth-input {
-  width:100%; font-family:inherit; font-size:14px;
-  color:var(--ink); background:var(--surface);
-  border:1.5px solid var(--border); border-radius:10px;
-  padding:12px 14px; margin-bottom:11px; outline:none;
-  transition:border-color 0.2s; box-sizing:border-box;
-}
-.auth-input:focus { border-color:var(--green-light); background:var(--white); }
-.auth-btn {
-  width:100%; background:var(--green); color:var(--white);
-  font-family:inherit; font-size:14px; font-weight:700;
-  border:none; border-radius:10px; padding:13px;
-  cursor:pointer; transition:background 0.2s; margin-bottom:11px;
-}
-.auth-btn:hover { background:var(--green-mid); }
-.auth-btn:disabled { background:var(--muted); cursor:not-allowed; }
-.auth-google {
-  width:100%; background:var(--white); color:var(--ink);
-  font-family:inherit; font-size:14px; font-weight:600;
-  border:1.5px solid var(--border); border-radius:10px;
-  padding:12px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  gap:10px; transition:background 0.2s;
-}
-.auth-google:hover { background:var(--surface); }
-.auth-error {
-  font-size:12px; color:#dc2626;
-  margin-bottom:10px; display:none;
-  padding:8px 12px; background:#fef2f2;
-  border-radius:8px; border:1px solid #fecaca;
-}
-.auth-success {
-  font-size:12px; color:#16a34a;
-  margin-bottom:10px; display:none;
-  padding:8px 12px; background:#f0fdf4;
-  border-radius:8px; border:1px solid #bbf7d0;
-}
-.auth-divider {
-  text-align:center; font-size:12px; color:var(--muted);
-  margin:12px 0; position:relative;
-}
-.auth-divider::before,.auth-divider::after {
-  content:''; position:absolute; top:50%;
-  width:42%; height:1px; background:var(--border);
-}
-.auth-divider::before{left:0} .auth-divider::after{right:0}
-.nav-auth-wrap {
-  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
-}
-.nav-signin-btn {
-  font-size: 13px; font-weight: 700; padding: 9px 20px;
-  background: #1a4a2e;
-  border: 2px solid #1a4a2e;
-  color: #ffffff;
-  border-radius: 20px; cursor: pointer;
-  font-family: inherit; transition: all 0.2s;
-  display: inline-block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-.nav-signin-btn:hover { background: #2d6a4f; border-color: #2d6a4f; }
-.nav-avatar-btn {
-  width:34px; height:34px; border-radius:50%;
-  background:var(--green-light); color:var(--green);
-  font-size:13px; font-weight:700; border:none;
-  cursor:pointer; display:flex; align-items:center;
-  justify-content:center; position:relative;
-  font-family:inherit;
-}
-.nav-dropdown {
-  display:none; position:absolute; top:42px; right:0;
-  background:var(--white); border:1px solid var(--border);
-  border-radius:14px; padding:6px; min-width:190px;
-  box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:500;
-}
-.nav-dropdown.open { display:block; }
-.nav-drop-item {
-  display:block; padding:10px 14px; font-size:13px;
-  color:var(--ink); border-radius:8px; cursor:pointer;
-  border:none; background:none; width:100%; text-align:left;
-  font-family:inherit; transition:background 0.15s;
-}
-.nav-drop-item:hover { background:var(--surface); }
-.nav-drop-item.danger { color:#dc2626; }
-.dash-modal {
-  display:none; position:fixed; inset:0;
-  background:rgba(0,0,0,0.5); z-index:2000;
-  align-items:flex-end; justify-content:center;
-  backdrop-filter:blur(4px);
-}
-.dash-modal.open { display:flex; }
-.dash-box {
-  background:var(--white); border-radius:24px 24px 0 0;
-  padding:24px 24px 48px; width:100%; max-width:600px;
-  max-height:85vh; overflow-y:auto;
-  animation:slideUp 0.25s ease;
-}
-.dash-header {
-  display:flex; align-items:center;
-  justify-content:space-between; margin-bottom:20px;
-}
-.dash-title { font-size:19px; font-weight:700; color:var(--ink); }
-.dash-close {
-  font-size:24px; color:var(--muted);
-  cursor:pointer; background:none; border:none; line-height:1;
-}
-.dash-grid {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:10px; margin-bottom:24px;
-}
-.dash-stat {
-  background:var(--green-pale); border-radius:12px;
-  padding:14px 10px; text-align:center;
-}
-.dash-stat-num {
-  font-size:26px; font-weight:700; color:var(--green);
-}
-.dash-stat-lbl {
-  font-size:10px; color:var(--muted);
-  text-transform:uppercase; letter-spacing:0.05em; margin-top:2px;
-}
-.dash-sec-title {
-  font-size:12px; font-weight:600; color:var(--muted);
-  letter-spacing:0.07em; text-transform:uppercase; margin-bottom:12px;
-}
-.scan-row {
-  display:flex; align-items:center; gap:12px;
-  padding:12px 0; border-bottom:1px solid var(--border);
-}
-.scan-row:last-child { border-bottom:none; }
-.scan-grade-dot {
-  width:38px; height:38px; border-radius:10px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px; font-weight:800; color:#fff; flex-shrink:0;
-}
-.scan-info { flex:1; }
-.scan-name { font-size:14px; font-weight:600; color:var(--ink); }
-.scan-time { font-size:11px; color:var(--muted); margin-top:2px; }
-.empty-state {
-  text-align:center; padding:32px;
-  color:var(--muted); font-size:14px; line-height:1.6;
-}
-.loading-bar {
-  position:fixed; top:0; left:0; right:0; height:3px;
-  background:var(--green-light); z-index:9999;
-  transform:scaleX(0); transform-origin:left;
-  transition:transform 0.3s ease; display:none;
-}
-.loading-bar.active { display:block; animation:loadBar 1.5s ease infinite; }
-@keyframes loadBar {
-  0%{transform:scaleX(0)} 50%{transform:scaleX(0.7)} 100%{transform:scaleX(1)}
-}
-
 </style>
 </head>
 <body>
 
-<!-- Loading bar -->
-<div class="loading-bar" id="loadingBar"></div>
-
-<!-- Auth Modal -->
-<div class="auth-modal" id="authModal">
-  <div class="auth-box">
-    <button class="auth-close" onclick="closeAuth()">&#x2715;</button>
-    <div class="auth-logo">Eat<span>Aware</span></div>
-    <div class="auth-title" id="authTitle">Welcome back</div>
-    <div class="auth-sub">Sign in to save your scan history and get personalised grades.</div>
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
-      <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Register</button>
-    </div>
-    <div class="auth-error" id="authError"></div>
-    <div class="auth-success" id="authSuccess"></div>
-    <input type="text" class="auth-input" id="authName" placeholder="Your name" style="display:none;"/>
-    <input type="email" class="auth-input" id="authEmail" placeholder="Email address"/>
-    <input type="password" class="auth-input" id="authPassword" placeholder="Password (min 6 characters)"/>
-    <button class="auth-btn" id="authSubmitBtn" onclick="doAuth()">Sign In</button>
-    <div class="auth-divider">or</div>
-    <button class="auth-google" onclick="doGoogleAuth()">
-      <svg width="18" height="18" viewBox="0 0 24 24">
-        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-      </svg>
-      Continue with Google
-    </button>
-    <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5;">
-      Your data is private and never sold.
-    </p>
-  </div>
-</div>
-
-<!-- Dashboard Modal -->
-<div class="dash-modal" id="dashModal">
-  <div class="dash-box">
-    <div class="dash-header">
-      <div class="dash-title">My EatAware</div>
-      <button class="dash-close" onclick="closeDash()">&#x2715;</button>
-    </div>
-    <div class="dash-grid">
-      <div class="dash-stat">
-        <div class="dash-stat-num" id="dStatTotal">0</div>
-        <div class="dash-stat-lbl">Scanned</div>
-      </div>
-      <div class="dash-stat">
-        <div class="dash-stat-num" id="dStatGood">0</div>
-        <div class="dash-stat-lbl">Grade A or B</div>
-      </div>
-      <div class="dash-stat">
-        <div class="dash-stat-num" id="dStatBad">0</div>
-        <div class="dash-stat-lbl">Grade D or E</div>
-      </div>
-    </div>
-    <div class="dash-sec-title">Recent Scans</div>
-    <div id="dashScanList">
-      <div class="empty-state">Search any product to start tracking your history.</div>
-    </div>
-  </div>
-</div>
-
-
 <!-- NAV -->
-<nav style="display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;">
+<nav>
   <div class="nav-logo">Eat<span>Aware</span></div>
   <div class="nav-links">
     <a href="#ingredients">Ingredients</a>
@@ -767,18 +506,13 @@
     <a href="#learn">Learn</a>
     <a href="#about">About</a>
   </div>
-  <div class="nav-auth-wrap">
-    <div id="navAuthArea">
-      <button class="nav-signin-btn" onclick="openAuth()">Sign In</button>
-    </div>
-    <a href="#search" class="nav-cta">Search a Product</a>
-  </div>
+  <a href="#search" class="nav-cta">Search a Product</a>
 </nav>
 
 <!-- HERO -->
 <div class="hero" id="home">
   <div class="hero-bg"></div>
-  <div class="hero-badge">India's Ingredient Intelligence Platform — A–F Grading · 400+ Products · Singapore Nutri-Grade Adapted</div>
+  <div class="hero-badge">India's Ingredient Intelligence Platform — A–F Grading · 351 Products · Singapore Nutri-Grade Adapted</div>
   <h1>Know <em>exactly</em> what's inside your food</h1>
   <p class="hero-sub">Search any packaged product, understand every ingredient, and discover what it does to your body — today and over time.</p>
   <div class="hero-actions">
@@ -853,7 +587,7 @@
   <span style="font-size:11px;color:rgba(255,255,255,0.4);">Adapted from Singapore Nutri-Grade · FSSAI Standards</span>
 </div>
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">400+</div><div class="stat-lbl">Products rated A–F</div></div>
+  <div class="stat"><div class="stat-num">351</div><div class="stat-lbl">Products rated A–F</div></div>
   <div class="stat"><div class="stat-num">120+</div><div class="stat-lbl">Ingredients decoded</div></div>
   <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
@@ -3658,435 +3392,6 @@ const products = {
     ]},
 
 
-
-  // ============================================================
-  // MEGA BATCH — 650+ NEW PRODUCTS
-  // FSSAI-referenced Indian packaged foods
-  // ALL with full impact text and ingredients
-  // ============================================================
-
-  // ===== BREAKFAST CEREALS =====
-  'kelloggs corn flakes original': { name: "Kellogg's Corn Flakes Original (475g)", grade: 'C', category: 'Breakfast Cereals',
-    impact: 'GI of 82 — one of the highest breakfast foods available. Fortified with B vitamins which partially compensate for the refining process. Without milk the blood sugar spike is severe and rapid. With full-fat milk and no added sugar, the meal GI drops to around 57. Never eat dry or with sugar added. The iron fortification is meaningful for Indian children with anaemia.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Milled Corn (refined)', desc: 'High GI 82 — faster blood sugar spike than table sugar', safe: false },
-      { dot: 'dot-safe', name: 'B Vitamins (niacin, B6, B12, folic acid)', desc: 'Fortification adds genuine nutritional value', safe: true },
-      { dot: 'dot-caution', name: 'Added Sugar (7g per 30g serving)', desc: 'Significant for a breakfast cereal', safe: null },
-      { dot: 'dot-safe', name: 'Iron Fortification', desc: 'Important for India where iron deficiency is widespread', safe: true },
-    ]},
-
-  'kelloggs chocos': { name: "Kellogg's Chocos (375g)", grade: 'D', category: 'Breakfast Cereals',
-    impact: 'Marketed to children as a healthy breakfast but 36% sugar content makes this closer to dessert. The chocolate coating adds cocoa flavour with negligible cocoa benefit. Children eating Chocos daily are conditioning their palate to extreme sweetness making real food taste bland. Whole milk used with it reduces the glycaemic spike somewhat but the total sugar remains very high.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Sugar (36% of product)', desc: 'Primary ingredient after corn — this is candy', safe: false },
-      { dot: 'dot-avoid', name: 'Chocolate Flavoured Coating', desc: 'Artificial chocolate flavour with minimal cocoa', safe: false },
-      { dot: 'dot-caution', name: 'Refined Corn (Maize)', desc: 'High GI base — rapid blood sugar spike', safe: null },
-      { dot: 'dot-safe', name: 'Iron and B Vitamin fortification', desc: 'Some nutritional addition to a poor base', safe: true },
-    ]},
-
-  'kelloggs muesli fruit nut': { name: "Kellogg's Muesli Fruit & Nut (750g)", grade: 'C', category: 'Breakfast Cereals',
-    impact: 'Better than Chocos but 24g sugar per 100g is high for a product marketed as healthy. The dried fruit component adds natural sugar but also iron and fibre. Real oats provide beta-glucan. Almonds add healthy fat. However the overall sugar content limits the health benefit. Better to make your own muesli with plain oats, raw nuts and fresh fruit — same nutrition at 30% of the cost with 60% less sugar.',
-    ings: [
-      { dot: 'dot-safe', name: 'Whole Grain Oats (primary)', desc: 'Beta-glucan fibre — cholesterol and blood sugar benefit', safe: true },
-      { dot: 'dot-caution', name: 'Dried Fruit (sugar-coated)', desc: 'Natural but sugar-dense — raises total sugar significantly', safe: null },
-      { dot: 'dot-safe', name: 'Almonds and Cashews', desc: 'Healthy fat and protein — genuine nutrition', safe: true },
-      { dot: 'dot-caution', name: 'Added Sugar (24g per 100g)', desc: 'High — reduces the health profile of otherwise good ingredients', safe: null },
-    ]},
-
-  'nestles milo cereal': { name: "Nestlé Milo Cereal (250g)", grade: 'D', category: 'Breakfast Cereals',
-    impact: 'The Milo cereal extends the same sugar-heavy formula to a breakfast format. 31g sugar per 100g — almost a third by weight is sugar. The malted barley provides some B vitamins. Cocoa is present in meaningful amounts. But the overall sugar load makes this a poor daily breakfast choice for children who are the primary target demographic.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Sugar (31g per 100g)', desc: 'Primary concern — very high for a breakfast cereal', safe: false },
-      { dot: 'dot-caution', name: 'Malted Barley', desc: 'Some B vitamins — positive element in an otherwise poor product', safe: null },
-      { dot: 'dot-caution', name: 'Cocoa Powder', desc: 'Genuine cocoa with antioxidants — partially offsets concerns', safe: null },
-      { dot: 'dot-safe', name: 'B Vitamins and Iron', desc: 'Fortification provides real nutritional value', safe: true },
-    ]},
-
-  'oats quaker masala': { name: 'Quaker Masala Oats (39g sachet)', grade: 'C', category: 'Breakfast Cereals',
-    impact: 'Convenient savoury oats format — better than sweet variants because it avoids added sugar trap. Real oats provide genuine beta-glucan. However sodium content is high (480mg per sachet) and it contains artificial masala flavour. A good compromise for people who want quick oats without going sweet. Better than any biscuit or bread breakfast. Cook with water, add real vegetables for a complete meal.',
-    ings: [
-      { dot: 'dot-safe', name: 'Whole Grain Rolled Oats', desc: 'Beta-glucan — proven cholesterol and satiety benefit', safe: true },
-      { dot: 'dot-avoid', name: 'High Sodium (480mg per sachet)', desc: '24% daily sodium limit in one small breakfast', safe: false },
-      { dot: 'dot-caution', name: 'Artificial Masala Flavour', desc: 'Synthetic spice compounds — no real spice benefit', safe: null },
-    ]},
-
-  'cornflakes mtr': { name: 'MTR Cornflakes Upma (70g)', grade: 'C', category: 'Breakfast Cereals',
-    impact: 'Traditional upma format with corn semolina base. MTR uses real spices rather than artificial masala which is an improvement over Western cereal brands. Moderate GI due to semolina base. High sodium from seasoning packet. Better than sweet cereals for everyday use. Add vegetables from your kitchen to significantly improve the nutritional profile.',
-    ings: [
-      { dot: 'dot-caution', name: 'Corn Semolina', desc: 'Moderate GI — better than refined corn flakes', safe: null },
-      { dot: 'dot-safe', name: 'Real Spices (Mustard, Curry Leaf)', desc: 'Genuine anti-inflammatory benefit vs artificial flavour', safe: true },
-      { dot: 'dot-caution', name: 'Sodium (520mg per serving)', desc: 'High for a breakfast product', safe: null },
-    ]},
-
-  // ===== DAIRY =====
-  'amul taaza milk 500': { name: 'Amul Taaza Toned Milk Tetra (500ml)', grade: 'B', category: 'Dairy',
-    impact: 'UHT processing at 140C preserves protein and calcium but reduces some heat-sensitive vitamins. Fat content of 3% provides fat-soluble vitamin absorption. Calcium is bioavailable and critical for Indian bone health. The convenience of tetra pack format means consistent quality. Better than flavoured milk or plant-based alternatives for nutritional density. Drink plain — do not add sugar or Bournvita.',
-    ings: [
-      { dot: 'dot-safe', name: 'Toned Milk (standardised)', desc: 'Real dairy — calcium and complete protein profile', safe: true },
-      { dot: 'dot-caution', name: 'UHT heat processing', desc: 'Some Vitamin C and B12 loss vs fresh pasteurised milk', safe: null },
-    ]},
-
-  'amul gold full cream': { name: 'Amul Gold Full Cream Milk (500ml)', grade: 'A', category: 'Dairy',
-    impact: 'Full fat milk retains all fat-soluble vitamins — A, D, E and K2. Conjugated linoleic acid in dairy fat has anti-cancer properties. Children under 5 should always drink full-fat milk for brain development. The saturated fat in dairy does not raise heart disease risk the same way as trans fats or processed food saturated fat. Most nutritious everyday beverage available in India at this price.',
-    ings: [
-      { dot: 'dot-safe', name: 'Full Cream Pasteurised Milk', desc: 'Complete nutrition — all vitamins and protein intact', safe: true },
-      { dot: 'dot-safe', name: 'Vitamins A, D, K2 (natural)', desc: 'Fat-soluble vitamins in most bioavailable form', safe: true },
-    ]},
-
-  'nestle a plus milk': { name: 'Nestlé A+ Toned Milk (1L)', grade: 'B', category: 'Dairy',
-    impact: 'Nestlé adds extra protein and calcium beyond standard toning — a genuine nutritional improvement. Fortified with vitamins D and A addressing common Indian deficiencies. Good everyday milk for families with growing children. The fortification claims are backed by meaningful quantities. Slightly better nutritional profile than standard toned milk at comparable price.',
-    ings: [
-      { dot: 'dot-safe', name: 'Toned Milk with Extra Protein', desc: 'Protein content boosted beyond standard toned milk', safe: true },
-      { dot: 'dot-safe', name: 'Vitamins D and A fortification', desc: 'Addressing real deficiencies in Indian population', safe: true },
-    ]},
-
-  'mother dairy full cream': { name: 'Mother Dairy Full Cream Milk (500ml)', grade: 'A', category: 'Dairy',
-    impact: 'Delhi cooperative dairy with strong cold chain management. Fresh pasteurised — not UHT — means vitamin profile is better preserved. Full fat means complete nutritional value. Mother Dairy has a strong track record of quality and safety. One of the best value dairy products in North India. Always check the date code and refrigerate immediately.',
-    ings: [
-      { dot: 'dot-safe', name: 'Fresh Pasteurised Full Cream Milk', desc: 'Better than UHT for vitamin retention', safe: true },
-      { dot: 'dot-safe', name: 'Natural Fat Vitamins', desc: 'A, D, E, K2 all present in bioavailable form', safe: true },
-    ]},
-
-  'amul paneer 200g': { name: 'Amul Paneer (200g)', grade: 'A', category: 'Dairy',
-    impact: 'Traditional Indian cheese — high protein (18g per 100g), high calcium, no additives. Casein protein digests slower than whey providing sustained satiety. A genuinely nutritious and filling food. Critical protein source for India vegetarian population. The fat content is high but dairy fat does not carry the same cardiovascular risk as processed food fat. Cook with minimal oil — paneer already contains substantial fat.',
-    ings: [
-      { dot: 'dot-safe', name: 'Full Cream Milk Solids', desc: 'Complete dairy protein — casein and whey', safe: true },
-      { dot: 'dot-safe', name: 'Citric Acid / Lemon Juice (coagulant)', desc: 'Natural coagulant — safe and traditional', safe: true },
-      { dot: 'dot-safe', name: 'No preservatives', desc: 'Clean label — refrigerate and consume within 3 days', safe: true },
-    ]},
-
-  'amul mozzarella cheese': { name: 'Amul Mozzarella Cheese (200g)', grade: 'B', category: 'Dairy',
-    impact: 'Real mozzarella with genuine dairy nutrition. Calcium content is high. Used primarily on pizzas and in cooking. The main concern is sodium (400mg per 30g slice) and saturated fat. But as real cheese it provides protein, calcium and fat-soluble vitamins that processed cheese spreads do not. Better than Amul cheese slices which contain emulsifying salts. Use in moderation — 30g is a serving.',
-    ings: [
-      { dot: 'dot-safe', name: 'Pasteurised Milk', desc: 'Real cheese — genuine nutrition', safe: true },
-      { dot: 'dot-caution', name: 'Salt (sodium 400mg per slice)', desc: 'Significant — account for in daily sodium budget', safe: null },
-      { dot: 'dot-safe', name: 'No emulsifying salts', desc: 'Better than processed cheese — no phosphate concern', safe: true },
-    ]},
-
-  'amul ice cream real strawberry': { name: 'Amul Real Ice Cream Strawberry (500ml)', grade: 'C', category: 'Dairy',
-    impact: 'Genuine ice cream using real dairy cream. Strawberry flavour likely artificial in most commercial batches despite branding. Sugar content is high (22g per 100g) but expected for a dessert. The use of real cream rather than vegetable fat makes this significantly better than frozen dessert competitors. Carrageenan thickener is the only concern. Occasional treat — not daily consumption.',
-    ings: [
-      { dot: 'dot-safe', name: 'Full Cream Milk and Cream', desc: 'Real ice cream — genuine dairy nutrition', safe: true },
-      { dot: 'dot-avoid', name: 'Sugar (22g per 100g)', desc: 'High — this is a dessert, treat accordingly', safe: false },
-      { dot: 'dot-caution', name: 'Carrageenan', desc: 'Seaweed thickener — gut inflammation with daily use', safe: null },
-      { dot: 'dot-caution', name: 'Artificial Strawberry Flavour', desc: 'Synthetic — no real fruit benefit', safe: null },
-    ]},
-
-  // ===== BISCUITS (more brands) =====
-  'parle monaco salted': { name: 'Parle Monaco Salted Biscuits (200g)', grade: 'D', category: 'Biscuits',
-    impact: 'Crispy salted biscuit beloved across India — but extremely high sodium at 280mg per 4 biscuits. Refined maida base with palm oil. The TBHQ antioxidant is present. Eaten by the packet during tea time the sodium accumulation is significant. Better alternative: roasted murmura with salt, or khakhra which has whole wheat base.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'High GI maida base — no fibre', safe: false },
-      { dot: 'dot-avoid', name: 'High Sodium (280mg per 4 biscuits)', desc: 'Excessive for a snack biscuit', safe: false },
-      { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative in fats', safe: false },
-      { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat frying medium', safe: false },
-    ]},
-
-  'britannia good day cashew': { name: 'Britannia Good Day Cashew Cookies (75g)', grade: 'D', category: 'Biscuits',
-    impact: 'Real cashew pieces present — a positive. But the base is refined maida, sugar and palm oil. The cashew content is small enough that the nutritional benefit is minimal. The name implies cashew is primary — it is not. 8g sugar per 25g serving is high for something eaten as a snack. Better than plain butter cookies but still a D-grade product.',
-    ings: [
-      { dot: 'dot-safe', name: 'Cashew Pieces (some)', desc: 'Real nuts present — small amount provides some benefit', safe: true },
-      { dot: 'dot-avoid', name: 'Refined Wheat Flour (primary)', desc: 'Maida base — the cookie is mostly this', safe: false },
-      { dot: 'dot-avoid', name: 'Sugar (8g per 25g)', desc: 'Very high sugar density', safe: false },
-      { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Saturated fat in biscuit', safe: false },
-    ]},
-
-  'sunfeast yippee magic masala': { name: 'Sunfeast Yippee Magic Masala (70g)', grade: 'D', category: 'Instant Noodles',
-    impact: 'ITC variant of instant noodles — similar concerns to Maggi but slightly lower sodium (780mg vs 840mg). TBHQ present in tastemaker oil. Refined maida. However the masala blend claims more real spice content than Maggi. Fine as an occasional meal for adults — not for daily child consumption. The round noodle format cooks faster which does not change the nutritional profile.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Refined Wheat Flour', desc: 'Maida base — high GI, no fibre', safe: false },
-      { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative in oil sachet', safe: false },
-      { dot: 'dot-caution', name: 'Sodium (780mg per pack)', desc: 'Slightly lower than Maggi but still very high', safe: null },
-    ]},
-
-  'patanjali noodles': { name: 'Patanjali Atta Noodles (240g)', grade: 'C', category: 'Instant Noodles',
-    impact: 'Whole wheat atta base is a genuine improvement over maida noodles — lower GI, more fibre. Sodium is still significant at 720mg. No TBHQ claimed — uses natural antioxidants instead. The Patanjali brand authentically uses atta rather than mixing maida. A better everyday noodle choice for families who eat instant noodles regularly. Still processed food but the best of the instant noodle category.',
-    ings: [
-      { dot: 'dot-safe', name: 'Whole Wheat Atta (primary)', desc: 'Lower GI than maida — real fibre improvement', safe: true },
-      { dot: 'dot-caution', name: 'Sodium (720mg per pack)', desc: 'Still high but lower than most competitors', safe: null },
-      { dot: 'dot-safe', name: 'No TBHQ claimed', desc: 'Better preservative profile than most instant noodles', safe: true },
-    ]},
-
-  // ===== SAUCES & CONDIMENTS =====
-  'kissan tomato ketchup': { name: 'Kissan Tomato Ketchup (500g)', grade: 'C', category: 'Sauces & Condiments',
-    impact: 'India most loved ketchup — 28g sugar per 100g from tomato concentrate and added sugar combined. Sodium benzoate preservative has mixed safety evidence. Lycopene from tomatoes is an anti-cancer carotenoid that actually increases with cooking and processing. One tablespoon (17g) is reasonable — the bottle goes fast with children and the sugar adds up. Use sparingly.',
-    ings: [
-      { dot: 'dot-safe', name: 'Tomato Concentrate', desc: 'Lycopene increases with processing — anti-cancer', safe: true },
-      { dot: 'dot-avoid', name: 'Added Sugar (28g per 100g)', desc: 'Very high — ketchup is essentially tomato jam', safe: false },
-      { dot: 'dot-caution', name: 'Sodium Benzoate', desc: 'Preservative — mixed evidence, concern with Vitamin C reaction', safe: null },
-      { dot: 'dot-caution', name: 'Acetic Acid (vinegar)', desc: 'Preservative and flavour — generally safe', safe: null },
-    ]},
-
-  'maggi hot sweet sauce': { name: 'Maggi Hot & Sweet Tomato Sauce (500g)', grade: 'D', category: 'Sauces & Condiments',
-    impact: 'Sweeter and saltier than Kissan with artificial colour added for visual appeal. The chilli content is genuine but the sweetness comes primarily from sugar rather than tomato. Allura Red artificial colour serves no nutritional purpose. The MSG-level flavour intensity conditions the palate to expect extreme taste from condiments. Better to make chutney with real tomatoes and green chilli at home.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Added Sugar (primary concern)', desc: 'Higher sugar than Kissan — this is the sweetest ketchup category', safe: false },
-      { dot: 'dot-avoid', name: 'Allura Red (E129)', desc: 'Synthetic colour — no purpose except visual', safe: false },
-      { dot: 'dot-caution', name: 'Tomato Paste', desc: 'Real tomato — lycopene benefit', safe: null },
-    ]},
-
-  'knorr chinese sauces': { name: 'Knorr Schezwan Sauce (250g)', grade: 'D', category: 'Sauces & Condiments',
-    impact: 'Used extensively in Indian Chinese cooking but extremely high sodium at 620mg per tablespoon. Combined MSG and hydrolysed vegetable protein creates intense umami hit. Sodium benzoate preservative. Regular use in cooking adds significant hidden sodium to what appears to be a home-cooked meal. Replace with homemade garlic-chilli sauce using dried red chillies, garlic and minimal salt.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Very High Sodium (620mg per tbsp)', desc: 'One tablespoon uses 31% of daily sodium limit', safe: false },
-      { dot: 'dot-avoid', name: 'MSG and Hydrolysed Protein', desc: 'Double glutamate hit — highly addictive flavour', safe: false },
-      { dot: 'dot-caution', name: 'Sodium Benzoate', desc: 'Preservative — avoid combining with Vitamin C foods', safe: null },
-    ]},
-
-  'veeba mayonnaise eggless': { name: 'Veeba Eggless Mayo (300g)', grade: 'C', category: 'Sauces & Condiments',
-    impact: 'Eggless mayonnaise uses starch and gums to replace egg emulsification. Lower cholesterol than real mayo but also lower nutritional value — eggs in real mayo provide choline and fat-soluble vitamins. Canola oil base is heart-healthy. Sugar content is low. TBHQ may be present as fat preservative. Better fat profile than traditional mayo but not a health food — use as a condiment not a spread.',
-    ings: [
-      { dot: 'dot-caution', name: 'Canola Oil (primary)', desc: 'Better fatty acid profile than soybean-based competitors', safe: null },
-      { dot: 'dot-safe', name: 'No Egg (eggless)', desc: 'Good for vegetarians — lower cholesterol vs real mayo', safe: true },
-      { dot: 'dot-caution', name: 'Modified Starch and Gums', desc: 'Replace egg function — generally safe thickeners', safe: null },
-    ]},
-
-  'dr oetker fun foods pizza sauce': { name: 'Dr. Oetker Fun Foods Pizza Sauce (325g)', grade: 'D', category: 'Sauces & Condiments',
-    impact: 'Convenience pizza sauce used extensively in home and small restaurant cooking. 23g sugar per 100g. Multiple artificial flavours listed. Sodium is high. The tomato content provides lycopene but is offset by sugar and sodium load. The convenience factor comes at a nutritional cost. Make a simple pizza sauce by blending canned tomatoes with garlic and olive oil at 20% of the sodium and zero artificial additives.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Sugar (23g per 100g)', desc: 'High — makes the sauce sweet rather than tomato-forward', safe: false },
-      { dot: 'dot-caution', name: 'Artificial Flavour', desc: 'Synthetic pizza herb flavour compounds', safe: null },
-      { dot: 'dot-caution', name: 'High Sodium', desc: 'Compounds with cheese and processed meats on pizza', safe: null },
-    ]},
-
-  'cremica burger sauce': { name: 'Cremica Burger Sauce (300g)', grade: 'D', category: 'Sauces & Condiments',
-    impact: 'Restaurant-style burger sauce now available retail. Extreme sodium content designed for commercial use now entering home kitchens. TBHQ present. Multiple artificial flavours. This product is formulated for professional kitchen dilution — using it at home-cooking quantities multiplies the intended sodium dose. Avoid completely for children.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Very High Sodium', desc: 'Formulated for commercial use — too concentrated for home', safe: false },
-      { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative in oil component', safe: false },
-      { dot: 'dot-avoid', name: 'Multiple Artificial Flavours', desc: 'Several synthetic compounds combined', safe: false },
-    ]},
-
-  // ===== CHOCOLATES & SWEETS =====
-  'cadbury dairy milk 40g': { name: 'Cadbury Dairy Milk Original (40g)', grade: 'C', category: 'Chocolate & Candy',
-    impact: 'India most popular chocolate — real cocoa provides flavonoids with cardiovascular benefit. But 24g sugar per 40g bar means 60% of the product is sugar. Palm oil and PGPR emulsifier reduce cocoa butter content. The occasional bar (once a week) is fine and the cocoa benefit is genuine. The concern is daily consumption — which happens with children — and the PGPR replacing nutritious cocoa butter with industrial emulsifier.',
-    ings: [
-      { dot: 'dot-safe', name: 'Cocoa Solids (minimum 25%)', desc: 'Flavonoids provide genuine cardiovascular benefit', safe: true },
-      { dot: 'dot-avoid', name: 'Sugar (24g per 40g)', desc: '60% of product is sugar', safe: false },
-      { dot: 'dot-avoid', name: 'PGPR Emulsifier', desc: 'Replaces cocoa butter with castor oil derivative — reduces quality', safe: false },
-    ]},
-
-  'cadbury dairy milk silk': { name: 'Cadbury Dairy Milk Silk (60g)', grade: 'C', category: 'Chocolate & Candy',
-    impact: 'Premium format with higher cocoa butter ratio than standard Dairy Milk — the creaminess comes from real cocoa butter rather than PGPR. Flavonoid content is higher. Sugar is still high (34g per 60g bar) but the quality of chocolate is genuinely better. The premium price reflects better ingredients. If choosing between Dairy Milk and Silk — Silk is the better choice despite similar grades.',
-    ings: [
-      { dot: 'dot-safe', name: 'Higher Cocoa Butter (real)', desc: 'Less PGPR — closer to real chocolate composition', safe: true },
-      { dot: 'dot-avoid', name: 'Sugar (34g per 60g bar)', desc: 'Still very high — treat category', safe: false },
-      { dot: 'dot-caution', name: 'PGPR (reduced vs standard DM)', desc: 'Lower amount than regular Dairy Milk', safe: null },
-    ]},
-
-  'amul dark chocolate 55': { name: 'Amul Dark Chocolate 55% (150g)', grade: 'B', category: 'Chocolate & Candy',
-    impact: 'Best value dark chocolate in India. 55% cocoa provides significant flavonoid content. Lower sugar than milk chocolate (32g per 100g vs 55g). No PGPR — real cocoa butter. Clinical evidence shows 30g dark chocolate daily reduces blood pressure by 3-4 mmHg. Amul dark is genuine chocolate without the expensive import premium. 2-3 squares daily is the therapeutic dose.',
-    ings: [
-      { dot: 'dot-safe', name: 'Cocoa Mass (55%)', desc: 'High flavonoid content — blood pressure and heart benefit', safe: true },
-      { dot: 'dot-safe', name: 'Real Cocoa Butter (no PGPR)', desc: 'Genuine chocolate fat — not industrial substitute', safe: true },
-      { dot: 'dot-caution', name: 'Sugar (32g per 100g)', desc: 'Lower than milk chocolate but still significant', safe: null },
-    ]},
-
-  'cadbury gems': { name: 'Cadbury Gems (12.5g pack)', grade: 'E', category: 'Chocolate & Candy',
-    impact: 'Shell-coated chocolate buttons sold specifically to children with bright packaging. Multiple petroleum-based food dyes: Allura Red (E129), Tartrazine (E102), Brilliant Blue (E133), Sunset Yellow (E110). The Southampton Study showed this exact combination of dyes causes hyperactivity in children. Given daily to millions of Indian children who do not need a single one of these synthetic colours. Completely avoidable.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Tartrazine (E102)', desc: 'Yellow petroleum dye — banned in Norway, hyperactivity in children', safe: false },
-      { dot: 'dot-avoid', name: 'Allura Red (E129)', desc: 'Red petroleum dye — Southampton Study hyperactivity link', safe: false },
-      { dot: 'dot-avoid', name: 'Sunset Yellow (E110)', desc: 'Orange petroleum dye — behaviour changes documented', safe: false },
-      { dot: 'dot-avoid', name: 'Brilliant Blue (E133)', desc: 'Blue petroleum dye — the full spectrum of synthetic dyes', safe: false },
-    ]},
-
-  // ===== BEVERAGES MORE =====
-  'thums up 300ml': { name: 'Thums Up Cola (300ml)', grade: 'D', category: 'Beverages',
-    impact: 'India own cola — phosphoric acid erodes tooth enamel within 20 minutes of contact and reduces bone calcium over years. 35g sugar per 300ml (9 teaspoons). Caramel colour 4-MEI is a possible carcinogen. Caffeine content is higher than Pepsi or Coke in India formulation. The strong taste profile conditions the palate away from natural flavours. Occasional adult consumption is acceptable — daily consumption by anyone is not.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Sugar (35g per 300ml)', desc: '9 teaspoons of sugar per can', safe: false },
-      { dot: 'dot-avoid', name: 'Phosphoric Acid', desc: 'Dissolves tooth enamel, leeches bone calcium with daily use', safe: false },
-      { dot: 'dot-caution', name: 'Caramel Colour (E150d)', desc: '4-MEI possible carcinogen — IARC Group 2B', safe: null },
-      { dot: 'dot-caution', name: 'Caffeine', desc: 'Higher than international Coke — not appropriate for children', safe: null },
-    ]},
-
-  'sprite 300ml': { name: 'Sprite Lemon Lime (300ml)', grade: 'D', category: 'Beverages',
-    impact: 'Slightly better profile than cola — no phosphoric acid (uses citric acid instead), no caffeine, no artificial colour. But 30g sugar per 300ml is still 7.5 teaspoons. Citric acid is erosive to tooth enamel though less aggressively than phosphoric acid. Lemon and lime flavour is entirely artificial. Often consumed by people who think it is healthier than cola — it is marginally so but still a D-grade drink.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Sugar (30g per 300ml)', desc: 'Very high — 7.5 teaspoons per can', safe: false },
-      { dot: 'dot-caution', name: 'Citric Acid', desc: 'Less aggressive than phosphoric but still erosive to teeth', safe: null },
-      { dot: 'dot-safe', name: 'No Caffeine', desc: 'Better than cola for children — but sugar remains the issue', safe: true },
-    ]},
-
-  'limca 300ml': { name: 'Limca Lemon Soda (300ml)', grade: 'D', category: 'Beverages',
-    impact: 'India classic lemon drink — 29g sugar per 300ml. Tartrazine gives the characteristic yellow colour serving no taste purpose. Artificial lemon flavour rather than real lemon juice. No phosphoric acid which is a minor positive. The nostalgic summer drink of generations of Indians now has a cleaner competitor in Paperboat Nimbu Pani which uses real lemon. Switch if you can.',
-    ings: [
-      { dot: 'dot-avoid', name: 'Sugar (29g per 300ml)', desc: 'Standard soft drink sugar load', safe: false },
-      { dot: 'dot-avoid', name: 'Tartrazine (E102)', desc: 'Yellow petroleum dye — serves only visual purpose', safe: false },
-      { dot: 'dot-caution', name: 'Artificial Lemon Flavour', desc: 'Synthetic — not real lemon juice', safe: null },
-    ]},
-
-  'maaza mango 250ml': { name: 'Maaza Mango Drink (250ml)', grade: 'D', category: 'Beverages',
-    impact: 'Mango content varies by variant but typically 15-18% — the majority is water, sugar and artificial colour. 30g sugar per 250ml. Children choosing this over fresh mango are getting sugar instead of fibre, vitamins and antioxidants. The Alphonso branding on seasonal variants has meaningful mango content but year-round variants are primarily sugar syrup with mango flavour.',
-    ings: [
-      { dot: 'dot-caution', name: 'Mango Pulp (15-18%)', desc: 'Some real mango but primarily flavouring at this percentage', safe: null },
-      { dot: 'dot-avoid', name: 'Sugar (30g per 250ml)', desc: 'More sugar than the mango benefit justifies', safe: false },
-      { dot: 'dot-caution', name: 'Artificial Colour (Yellow)', desc: 'Tartrazine or Beta-carotene depending on variant', safe: null },
-    ]},
-
-  'real guava juice': { name: 'Real Guava Juice (200ml)', grade: 'C', category: 'Beverages',
-    impact: 'Dabur Real is reconstituted from concentrate — not freshly squeezed. Guava content varies. Added sugar brings total to 21g per 200ml. However guava is genuinely one of the most nutritious tropical fruits — Vitamin C content survives concentrate process partially. The fibre is removed (it is juice not whole guava). Better than Frooti or Maaza but eat the whole guava for 10x the benefit at lower cost.',
-    ings: [
-      { dot: 'dot-caution', name: 'Guava Juice Concentrate', desc: 'Some Vitamin C survives but fibre is lost in juicing', safe: null },
-      { dot: 'dot-avoid', name: 'Added Sugar (21g per 200ml)', desc: 'Raises total glycaemic impact significantly', safe: false },
-      { dot: 'dot-safe', name: 'Vitamin C (partial)', desc: 'Some natural Vitamin C survives the concentrate process', safe: true },
-    ]},
-
-  'tropicana mixed fruit': { name: 'Tropicana Mixed Fruit Juice (200ml)', grade: 'C', category: 'Beverages',
-    impact: 'PepsiCo brand with good quality standards — juice from concentrate with lower added sugar than domestic competitors. However orange and mixed fruit concentrates still deliver 20g sugar per 200ml with fibre removed. The Vitamin C content is genuine. Better than Frooti or local flavoured drinks but eating the actual fruits remains superior. Children drinking juice instead of eating fruit miss the fibre that slows sugar absorption.',
-    ings: [
-      { dot: 'dot-safe', name: 'Mixed Fruit Concentrates', desc: 'Genuine fruit base — better than synthetic flavours', safe: true },
-      { dot: 'dot-caution', name: 'Added Sugar (reduced vs domestic brands)', desc: 'Lower than Frooti but still significant', safe: null },
-      { dot: 'dot-safe', name: 'Vitamin C', desc: 'Meaningful natural Vitamin C content', safe: true },
-    ]},
-
-  'paperboat jaljeera': { name: 'Paper Boat Jaljeera (200ml)', grade: 'B', category: 'Beverages',
-    impact: 'Traditional Indian cooling drink recipe in modern format. Cumin and mint are genuine digestive aids. Black salt provides trace minerals. No artificial colours or flavours. Lower sugar than standard soft drinks. Amchur adds genuine Vitamin C from real raw mango. One of the better packaged beverage options for Indian summer. The authentic recipe translation is reasonably faithful to the traditional version.',
-    ings: [
-      { dot: 'dot-safe', name: 'Cumin and Mint (real)', desc: 'Genuine digestive benefit — carminative compounds', safe: true },
-      { dot: 'dot-safe', name: 'Amchur (dried raw mango)', desc: 'Real ingredient — Vitamin C and digestive aid', safe: true },
-      { dot: 'dot-safe', name: 'No artificial colours', desc: 'Clean label for a packaged drink', safe: true },
-      { dot: 'dot-caution', name: 'Sugar (moderate)', desc: 'Lower than soft drinks but present', safe: null },
-    ]},
-
-  'red bull 250ml': { name: 'Red Bull Energy Drink (250ml)', grade: 'D', category: 'Beverages',
-    impact: '80mg caffeine is safe for adults but dangerous for under-18s. Combined with exercise this can cause cardiac stress — several documented cases in India. Taurine at 1000mg per can — safety at high cumulative doses is being studied. B vitamins are real but available from better sources. Do not mix with alcohol — Red Bull and vodka combinations increase cardiac arrhythmia risk significantly. Adults maximum 2 per day.',
-    ings: [
-      { dot: 'dot-caution', name: 'Caffeine (80mg)', desc: 'Safe for adults — dangerous for under-18s and cardiac patients', safe: null },
-      { dot: 'dot-caution', name: 'Taurine (1000mg)', desc: 'Long-term safety at high doses under investigation', safe: null },
-      { dot: 'dot-avoid', name: 'Sugar (27g per 250ml)', desc: 'High sugar plus stimulant combination', safe: false },
-      { dot: 'dot-safe', name: 'B Vitamins (genuine)', desc: 'Real B6, B12, niacin — but available from better sources', safe: true },
-    ]},
-
-  // ===== READY TO COOK =====
-  'mtr palak paneer': { name: 'MTR Palak Paneer Ready-to-Eat (300g)', grade: 'C', category: 'Ready to Eat',
-    impact: 'Heat-processed ready meal — real spinach and paneer present. Retort processing at high temperature destroys some heat-sensitive vitamins but preserves protein and calcium. Sodium is high at 680mg per serving. Better than instant noodles or chips as a meal. Used as emergency or convenience food when cooking is not possible — a reasonable choice. Not as nutritious as freshly cooked palak paneer but the next best thing.',
-    ings: [
-      { dot: 'dot-safe', name: 'Spinach (real palak)', desc: 'Iron and folate partially survive heat processing', safe: true },
-      { dot: 'dot-safe', name: 'Paneer (real)', desc: 'Protein and calcium survive retort processing', safe: true },
-      { dot: 'dot-avoid', name: 'Sodium (680mg per serving)', desc: 'High — primary concern in otherwise reasonable product', safe: false },
-      { dot: 'dot-safe', name: 'No artificial preservatives', desc: 'Retort process preserves without chemicals', safe: true },
-    ]},
-
-  'gits paneer butter masala': { name: 'Gits Paneer Butter Masala (300g)', grade: 'C', category: 'Ready to Eat',
-    impact: 'Gits has been in the ready meal business since 1963 — one of Indias most established brands. Real paneer, real cream, real tomato base. Spices are genuine. The sodium content (720mg) is the main concern. Better than most ready meals globally for ingredient quality. If you eat ready meals, Gits and MTR are the cleanest options available in India. Still not as good as home-cooked but a legitimate convenience meal.',
-    ings: [
-      { dot: 'dot-safe', name: 'Real Paneer', desc: 'Genuine dairy protein — survives processing well', safe: true },
-      { dot: 'dot-safe', name: 'Real Cream and Tomato', desc: 'Authentic ingredients — not synthetic', safe: true },
-      { dot: 'dot-caution', name: 'Sodium (720mg per serving)', desc: 'Primary concern — account for in daily total', safe: null },
-    ]},
-
-  'maggi masala oats upma': { name: 'Maggi Oats Masala Noodles (75g)', grade: 'C', category: 'Ready to Cook',
-    impact: 'Maggi improvement on their formula — oats replace 25% of maida reducing GI and adding beta-glucan. TBHQ is not present on the updated ingredient list. Sodium is still 780mg but that is lower than original Maggi. This represents a genuine improvement from Nestle responding to consumer demand. Not a health food but a meaningful step up from the classic variant. Best choice if eating Maggi-format products.',
-    ings: [
-      { dot: 'dot-safe', name: 'Oats (25% inclusion)', desc: 'Genuine fibre improvement over pure maida formula', safe: true },
-      { dot: 'dot-caution', name: 'Sodium (780mg)', desc: 'Still high but lower than classic Maggi at 840mg', safe: null },
-      { dot: 'dot-safe', name: 'No TBHQ listed', desc: 'Improvement from original formula', safe: true },
-    ]},
-
-  // ===== HEALTH FOODS & SUPPLEMENTS =====
-  'oziva plant protein vanilla': { name: 'OZiva Plant Protein Vanilla (500g)', grade: 'B', category: 'Protein Supplements',
-    impact: 'Well-formulated Indian plant protein blend. Pea and brown rice protein together provide all 9 essential amino acids in near-complete profile. No artificial sweeteners — uses stevia. No artificial flavours — natural vanilla. No soy (important for thyroid patients). Third-party tested for heavy metals and pesticides. One of the most transparent Indian supplement brands. Good for vegetarians seeking protein supplementation.',
-    ings: [
-      { dot: 'dot-safe', name: 'Pea + Rice Protein Blend', desc: 'Complete amino acid profile — all 9 essential AAs present', safe: true },
-      { dot: 'dot-safe', name: 'Stevia (natural sweetener)', desc: 'Zero GI — no blood sugar impact', safe: true },
-      { dot: 'dot-safe', name: 'Natural Vanilla', desc: 'Real vanilla extract — no synthetic flavour', safe: true },
-      { dot: 'dot-safe', name: 'Third-party tested', desc: 'Heavy metals and pesticides verified clean', safe: true },
-    ]},
-
-  'fast up creatine': { name: 'Fast&Up Creatine Monohydrate (250g)', grade: 'A', category: 'Protein Supplements',
-    impact: 'Most studied sports supplement with 500+ peer-reviewed studies. Creatine monohydrate increases phosphocreatine in muscle cells improving strength output by 5-15% in high-intensity exercise. Completely safe at 3-5g daily per EFSA, FDA and WHO consensus. Beneficial for older adults even without exercise — protects against age-related muscle loss. Fast&Up uses pharmaceutical-grade Creapure which is the gold standard raw material.',
-    ings: [
-      { dot: 'dot-safe', name: 'Creapure Creatine Monohydrate', desc: 'Pharmaceutical-grade raw material — most studied supplement', safe: true },
-      { dot: 'dot-safe', name: 'No fillers or additives', desc: 'Pure creatine — nothing else', safe: true },
-    ]},
-
-  'healthkart whey protein chocolate': { name: 'HealthKart HK Vitals Whey Protein (1kg)', grade: 'B', category: 'Protein Supplements',
-    impact: 'Good quality whey at competitive Indian pricing. Uses concentrate and isolate blend providing 24g protein per serving. Artificial sweetener sucralose is present — some research on gut microbiome disruption at high doses. Artificial chocolate flavour. Tested for banned substances under Informed Sport program. Good entry-level whey for Indian athletes. Serves its purpose well at a fraction of the cost of international brands.',
-    ings: [
-      { dot: 'dot-safe', name: 'Whey Protein (Concentrate + Isolate)', desc: '24g protein per serving — complete amino profile', safe: true },
-      { dot: 'dot-caution', name: 'Sucralose', desc: 'Artificial sweetener — some gut microbiome research concerns at high dose', safe: null },
-      { dot: 'dot-caution', name: 'Artificial Chocolate Flavour', desc: 'Synthetic — no real cocoa benefit', safe: null },
-    ]},
-
-  'ensure gold 400g': { name: 'Abbott Ensure Gold (400g)', grade: 'C', category: 'Nutrition Drinks',
-    impact: 'Medical nutrition drink for elderly or post-surgical recovery. The 26 vitamins and minerals claim is genuine and meaningful for people who cannot eat adequately. However regularly marketed to healthy adults as a health drink which it is not designed for. Maltodextrin (GI 110) is the primary carbohydrate — higher GI than table sugar. Suitable for the medical use case it was designed for. Not a daily supplement for healthy people.',
-    ings: [
-      { dot: 'dot-safe', name: '26 Vitamins and Minerals', desc: 'Medically formulated — genuine nutrition for recovery', safe: true },
-      { dot: 'dot-avoid', name: 'Maltodextrin (GI 110)', desc: 'Primary carb — faster blood sugar spike than glucose', safe: false },
-      { dot: 'dot-caution', name: 'Sucrose', desc: 'Added sugar on top of maltodextrin', safe: null },
-    ]},
-
-  // ===== BABY FOODS =====
-  'nestum wheat stage 1': { name: 'Nestlé Nestum Wheat (Stage 1, 300g)', grade: 'C', category: 'Baby Foods',
-    impact: 'Nestlé has faced regulatory scrutiny for adding excess sugar to Indian baby food formula vs their European products (WHO investigation 2024). Stage 1 for 6-12 months contains more added sugar than equivalent products sold in Europe. Wheat and rice base provides iron fortification critical for Indian infants who are frequently anaemic. Use as directed — do not add additional sugar. Mashed whole foods are nutritionally superior once the baby can handle them.',
-    ings: [
-      { dot: 'dot-caution', name: 'Wheat Flour (iron fortified)', desc: 'Iron critical for Indian babies — genuine benefit', safe: null },
-      { dot: 'dot-avoid', name: 'Added Sugar (WHO complaint)', desc: 'Higher sugar than European equivalent — regulatory concern 2024', safe: false },
-      { dot: 'dot-safe', name: 'Vitamins and Minerals', desc: 'Meaningful micronutrient fortification for infants', safe: true },
-    ]},
-
-  'farex stage 1 rice': { name: 'Farex Baby Rice (Stage 1, 300g)', grade: 'B', category: 'Baby Foods',
-    impact: 'One of the older Indian baby food brands with a cleaner formula than Nestlé. Rice-based first food appropriate for 4-6 months. Iron fortification is essential — WHO notes Indian infants are frequently iron deficient at 6 months. No artificial colours or flavours. Added sugar is lower than Nestum. Prepare with breast milk rather than formula for best nutritional outcome.',
-    ings: [
-      { dot: 'dot-safe', name: 'Rice Flour (fortified)', desc: 'Easy to digest — appropriate first food for infants', safe: true },
-      { dot: 'dot-safe', name: 'Iron and B Vitamin fortification', desc: 'Critical for Indian infant nutrition', safe: true },
-      { dot: 'dot-caution', name: 'Added Sugar (lower than Nestum)', desc: 'Some added — lower than competitor', safe: null },
-    ]},
-
-  // ===== PERSONAL CARE =====
-  'himalaya face wash neem': { name: 'Himalaya Purifying Neem Face Wash (150ml)', grade: 'B', category: 'Personal Care',
-    impact: 'Neem extract clinically validated for acne treatment through nimbidin antibacterial activity against Propionibacterium acnes. Turmeric adds anti-inflammatory benefit. Paraben-free. Mild surfactant system. No SLS. Botanicals are present in meaningful concentrations. One of the most evidence-backed Indian personal care products. Suitable for daily use on oily to normal skin in Indian climate conditions.',
-    ings: [
-      { dot: 'dot-safe', name: 'Neem Extract (Nimbidin)', desc: 'Clinically proven acne antibacterial — genuine active', safe: true },
-      { dot: 'dot-safe', name: 'Turmeric', desc: 'Anti-inflammatory — reduces redness and irritation', safe: true },
-      { dot: 'dot-safe', name: 'SLS-free surfactant', desc: 'Milder than most face washes — scalp safe', safe: true },
-    ]},
-
-  'fair lovely cream': { name: 'Glow & Lovely (formerly Fair & Lovely) Cream (25g)', grade: 'D', category: 'Personal Care',
-    impact: 'Rebranded but formula largely unchanged. Niacinamide is genuinely effective for skin brightening through melanin transfer inhibition — clinical evidence is strong. However the 4-MSK (4-methoxysalicylate) skin lightening agent has raised safety questions. The marketing premise of skin lightening as aspirational is harmful regardless of ingredient safety. The niacinamide alone is beneficial — available in simpler, less problematic formulations.',
-    ings: [
-      { dot: 'dot-safe', name: 'Niacinamide (Vitamin B3)', desc: 'Clinically proven skin barrier and pigmentation benefit', safe: true },
-      { dot: 'dot-caution', name: '4-Methoxysalicylate', desc: 'Skin lightening agent — safety questions remain', safe: null },
-      { dot: 'dot-caution', name: 'Fragrance (undisclosed)', desc: 'May contain allergens not declared on label', safe: null },
-    ]},
-
-  'gillette shaving foam': { name: 'Gillette Sensitive Shaving Foam (418g)', grade: 'C', category: 'Personal Care',
-    impact: 'Isopentane propellant is highly flammable — store and use away from flames. The foam formula provides good lubrication reducing razor cuts. Aloe vera content is minimal at functional level. The fragrance blend is undisclosed. Better shaving option than bar soap which disrupts skin barrier. Choose fragrance-free variant if skin is sensitive. The main safety concern is the pressurised aerosol can — do not pierce or heat.',
-    ings: [
-      { dot: 'dot-safe', name: 'Surfactant blend (lubricating)', desc: 'Effective razor lubricant — reduces cuts', safe: true },
-      { dot: 'dot-caution', name: 'Isopentane (propellant)', desc: 'Highly flammable — keep away from heat and flames', safe: null },
-      { dot: 'dot-caution', name: 'Fragrance (undisclosed)', desc: 'Potential allergens not disclosed', safe: null },
-    ]},
-
-  // ===== FROZEN FOODS =====
-  'mccain french fries': { name: 'McCain French Fries (450g)', grade: 'D', category: 'Frozen Foods',
-    impact: 'Pre-fried and then frozen — cooking at home adds a second frying. The industrial pre-frying uses partially hydrogenated oils in some formulations creating trans fats. Acrylamide forms during potato frying at high temperatures and is a carcinogen. Sodium pyrophosphate preserves colour. These are real potatoes but the processing significantly undermines the potato nutritional value. Occasional treat — not a weekly children food.',
-    ings: [
-      { dot: 'dot-caution', name: 'Potatoes (real)', desc: 'Natural base but nutritional value reduced by double-frying', safe: null },
-      { dot: 'dot-avoid', name: 'Acrylamide (formed during frying)', desc: 'Carcinogen formed at high heat — inherent to fried starch', safe: false },
-      { dot: 'dot-caution', name: 'Sodium Pyrophosphate', desc: 'Colour preservative — generally safe at food doses', safe: null },
-    ]},
-
-  'mccain smileys': { name: 'McCain Smileys (415g)', grade: 'D', category: 'Frozen Foods',
-    impact: 'Children targeted potato shapes — smiley face design maximises appeal to under-12s. Dextrose coating provides extra crunch through caramelisation but adds sugar. More processed than plain french fries — potato content reduced through reformulation. The packaging and format design is specifically engineered to create preference in children. Acrylamide concern same as all potato fries.',
-    ings: [
-      { dot: 'dot-caution', name: 'Potato (reduced content)', desc: 'More processed than plain fries — lower real potato', safe: null },
-      { dot: 'dot-caution', name: 'Dextrose Coating', desc: 'Sugar coating for caramelisation — additional processing', safe: null },
-      { dot: 'dot-avoid', name: 'Acrylamide risk', desc: 'High heat frying of starch creates carcinogenic acrylamide', safe: false },
-    ]},
-
-  'lay chips ready made': { name: "Lay's Classic Salted (26g)", grade: 'D', category: 'Snacks',
-    impact: 'Real potato chips fried in sunflower oil — better than flavoured variants which add TBHQ and artificial colours. However even plain chips form acrylamide during frying. High sodium (180mg per 26g). The classic salted is the cleanest Lay variant — if eating chips choose this over any flavoured variant. Still D-grade because of acrylamide and sodium. A handful monthly is fine. Daily habit is not.',
-    ings: [
-      { dot: 'dot-caution', name: 'Real Potato Slices', desc: 'Natural base — better than processed potato formats', safe: null },
-      { dot: 'dot-caution', name: 'Sunflower Oil', desc: 'Better than palm oil but still high omega-6', safe: null },
-      { dot: 'dot-avoid', name: 'Acrylamide', desc: 'Forms during high-heat frying — carcinogen concern', safe: false },
-      { dot: 'dot-avoid', name: 'High Sodium (180mg per 26g)', desc: 'Accumulates rapidly with multiple servings', safe: false },
-    ]},
-
-
 };
 
 function showIngredient(key) {
@@ -4113,24 +3418,15 @@ function showIngredient(key) {
   `;
 }
 
-function wordBoundary(text, word) {
-  var idx = text.indexOf(word);
-  while (idx >= 0) {
-    var before = (idx === 0) || (!/[a-z0-9]/.test(text[idx-1]));
-    var after = ((idx + word.length) >= text.length) || (!/[a-z0-9]/.test(text[idx+word.length]));
-    if (before && after) return true;
-    idx = text.indexOf(word, idx+1);
-  }
-  return false;
-}
-
 function handleSearch() {
   var q = document.getElementById('searchInput').value.toLowerCase().trim();
   if (!q) return;
 
+  // Direct product key match
   if (products[q]) { showProductModal(products[q]); return; }
 
-  var words = q.split(' ').filter(function(w){ return w.length > 1; });
+  // Score-based product search
+  var words = q.split(' ');
   var scored = [];
   var keys = Object.keys(products);
   for (var i = 0; i < keys.length; i++) {
@@ -4141,105 +3437,97 @@ function handleSearch() {
     var score = 0;
     if (key === q) score += 100;
     if (name === q) score += 100;
-    if (key.indexOf(q) === 0) score += 70;
-    if (name.indexOf(q) === 0) score += 70;
-    if (wordBoundary(key, q)) score += 50;
-    if (wordBoundary(name, q)) score += 50;
-    var allInKey = words.length > 0 && words.every(function(w){ return wordBoundary(key, w); });
-    var allInName = words.length > 0 && words.every(function(w){ return wordBoundary(name, w); });
-    if (allInKey) score += 30;
-    if (allInName) score += 30;
+    if (key.indexOf(q) >= 0) score += 50;
+    if (name.indexOf(q) >= 0) score += 50;
+    var allInKey = true;
+    var allInName = true;
     for (var j = 0; j < words.length; j++) {
-      if (wordBoundary(key, words[j]) || wordBoundary(name, words[j])) score += 5;
+      if (words[j].length < 2) continue;
+      if (key.indexOf(words[j]) < 0) allInKey = false;
+      if (name.indexOf(words[j]) < 0) allInName = false;
     }
-    if (wordBoundary(cat, q)) score += 10;
+    if (allInKey && words.length > 0) score += 30;
+    if (allInName && words.length > 0) score += 30;
+    for (var j = 0; j < words.length; j++) {
+      if (words[j].length < 2) continue;
+      if (key.indexOf(words[j]) >= 0 || name.indexOf(words[j]) >= 0) score += 5;
+    }
+    if (cat.indexOf(q) >= 0) score += 10;
     if (score > 0) scored.push({key: key, product: p, score: score});
   }
   scored.sort(function(a, b) { return b.score - a.score; });
-  if (scored.length === 0) { showNotFound(q); return; }
-  if (scored.length === 1) { 
-    showProductModal(scored[0].product); 
-    saveScan(scored[0].product.name, scored[0].product.grade);
-    return; 
-  }
 
-  // Check ingredient match
+  if (scored.length === 1) { showProductModal(scored[0].product); return; }
+  if (scored.length > 1) { showResultsList(scored, q); return; }
+
+  // Ingredient match
   var ingKeys = Object.keys(ingredients);
   for (var i = 0; i < ingKeys.length; i++) {
     var k = ingKeys[i];
-    if (wordBoundary(k, q) || wordBoundary(ingredients[k].name.toLowerCase(), q)) {
+    var ingName = ingredients[k].name.toLowerCase();
+    if (k.indexOf(q) >= 0 || ingName.indexOf(q) >= 0) {
       showIngredientModal(k); return;
     }
   }
 
-  showResultsList(scored, q);
+  // Not found
+  showNotFound(q);
 }
 
-
-function showResultsList(items, q) {
-  var gradeColors = { A:'score-a', B:'score-b', C:'score-c', D:'score-d', E:'score-e', F:'score-f' };
+function showResultsList(scored, q) {
+  var gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
   var container = document.createElement('div');
 
   var header = document.createElement('div');
   header.style.cssText = 'font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;';
-  header.textContent = items.length + ' result' + (items.length !== 1 ? 's' : '') + ' for ' + q;
+  header.textContent = scored.length + ' result' + (scored.length !== 1 ? 's' : '') + ' for ' + q;
   container.appendChild(header);
 
-  items.slice(0, 12).forEach(function(item) {
-    // Handle both {key,product,score} objects AND [key,product] arrays
-    var p = item.product || (Array.isArray(item) ? item[1] : item);
-    var key = item.key || (Array.isArray(item) ? item[0] : '');
-    if (!p || !p.grade) return;
+  var shown = scored.slice(0, 12);
+  for (var i = 0; i < shown.length; i++) {
+    (function(item) {
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid var(--surface);cursor:pointer;border-radius:8px;';
+      row.onmouseover = function() { this.style.background = 'var(--surface)'; };
+      row.onmouseout = function() { this.style.background = 'transparent'; };
 
-    var row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid var(--surface);cursor:pointer;border-radius:8px;';
-    row.onmouseover = function() { this.style.background = 'var(--surface)'; };
-    row.onmouseout = function() { this.style.background = 'transparent'; };
+      var grade = item.product.grade || 'C';
+      var gradeEl = document.createElement('div');
+      gradeEl.className = 'score-circle ' + (gradeColors[grade] || 'score-c');
+      gradeEl.style.cssText = 'width:40px;height:40px;font-size:15px;flex-shrink:0;';
+      gradeEl.textContent = grade;
 
-    var gradeEl = document.createElement('div');
-    gradeEl.className = 'score-circle ' + (gradeColors[p.grade] || 'score-c');
-    gradeEl.style.cssText = 'width:40px;height:40px;font-size:15px;flex-shrink:0;';
-    gradeEl.textContent = p.grade;
+      var info = document.createElement('div');
+      info.style.cssText = 'flex:1;';
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;';
+      nameEl.textContent = item.product.name;
+      var catEl = document.createElement('div');
+      catEl.style.cssText = 'font-size:12px;color:var(--muted);';
+      catEl.textContent = item.product.category || '';
+      info.appendChild(nameEl);
+      info.appendChild(catEl);
 
-    var info = document.createElement('div');
-    info.style.flex = '1';
+      var arrow = document.createElement('div');
+      arrow.style.cssText = 'color:var(--muted);font-size:20px;padding-right:4px;';
+      arrow.textContent = '›';
 
-    var nameEl = document.createElement('div');
-    nameEl.style.cssText = 'font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;';
-    nameEl.textContent = p.name || '';
+      row.appendChild(gradeEl);
+      row.appendChild(info);
+      row.appendChild(arrow);
 
-    var catEl = document.createElement('div');
-    catEl.style.cssText = 'font-size:12px;color:var(--muted);';
-    catEl.textContent = p.category || '';
-
-    info.appendChild(nameEl);
-    info.appendChild(catEl);
-
-    var arrow = document.createElement('div');
-    arrow.style.cssText = 'color:var(--muted);font-size:20px;padding-right:4px;';
-    arrow.textContent = String.fromCharCode(8250);
-
-    row.appendChild(gradeEl);
-    row.appendChild(info);
-    row.appendChild(arrow);
-
-    row.onclick = (function(prod) {
-      return function() {
+      row.onclick = function() {
         document.getElementById('modalOverlay').classList.remove('open');
-        setTimeout(function() {
-          showProductModal(prod);
-          saveScan(prod.name, prod.grade);
-        }, 120);
+        setTimeout(function() { showProductModal(item.product); }, 120);
       };
-    })(p);
+      container.appendChild(row);
+    })(shown[i]);
+  }
 
-    container.appendChild(row);
-  });
-
-  if (items.length > 12) {
+  if (scored.length > 12) {
     var more = document.createElement('div');
     more.style.cssText = 'font-size:12px;color:var(--muted);margin-top:10px;text-align:center;';
-    more.textContent = '+ ' + (items.length - 12) + ' more. Try a more specific search.';
+    more.textContent = '+ ' + (scored.length - 12) + ' more. Try a more specific search.';
     container.appendChild(more);
   }
 
@@ -4247,7 +3535,6 @@ function showResultsList(items, q) {
   document.getElementById('modalContent').appendChild(container);
   document.getElementById('modalOverlay').classList.add('open');
 }
-
 
 function showNotFound(q) {
   var gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
@@ -4395,666 +3682,6 @@ function subscribeNL() {
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') handleSearch();
 });
-
-// ============================================================
-// V10 — SUPABASE AUTH + SCAN HISTORY
-// SDK is already loaded synchronously in <head>
-// ============================================================
-
-var db = null;
-var currentUser = null;
-var gradeColours = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
-
-// Init on DOM ready
-document.addEventListener('DOMContentLoaded', function() {
-  // createClient is available because SDK loaded synchronously
-  db = window.supabase.createClient(
-    'https://tkmrqsnjcudlkiwmcula.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRrbXJxc25qY3VkbGtpd21jdWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5Mjc5MTksImV4cCI6MjA5MTUwMzkxOX0.zlVuTGgV091ipVnoY1wOG6N3BV5kSodr-6ixqgwrTNE'
-  );
-
-  // Check existing session
-  db.auth.getSession().then(function(res) {
-    if (res.data && res.data.session) {
-      onUserSignedIn(res.data.session.user);
-    }
-  });
-
-  // Listen for auth changes
-  db.auth.onAuthStateChange(function(event, session) {
-    if (session && session.user) {
-      onUserSignedIn(session.user);
-    } else {
-      onUserSignedOut();
-    }
-  });
-});
-
-// ---- AUTH STATE ----
-function onUserSignedIn(user) {
-  currentUser = user;
-  var displayName = (user.user_metadata && user.user_metadata.name)
-    ? user.user_metadata.name : user.email.split('@')[0];
-  var initial = displayName.charAt(0).toUpperCase();
-  var area = document.getElementById('navAuthArea');
-  if (area) {
-    area.innerHTML =
-      '<div style="position:relative;">' +
-      '<button class="nav-avatar-btn" onclick="toggleDrop()" title="' + displayName + '">' + initial +
-      '<div class="nav-dropdown" id="navDrop">' +
-      '<button class="nav-drop-item" onclick="openDash()">My Dashboard</button>' +
-      '<button class="nav-drop-item danger" onclick="doSignOut()">Sign Out</button>' +
-      '</div></button></div>';
-  }
-  closeAuth();
-  loadScans();
-}
-
-function onUserSignedOut() {
-  currentUser = null;
-  var area = document.getElementById('navAuthArea');
-  if (area) {
-    area.innerHTML = '<button class="nav-signin-btn" onclick="openAuth()">Sign In</button>';
-  }
-}
-
-function toggleDrop() {
-  var d = document.getElementById('navDrop');
-  if (d) { d.classList.toggle('open'); }
-  document.addEventListener('click', function close(e) {
-    if (!e.target.closest('.nav-avatar-btn')) {
-      var dr = document.getElementById('navDrop');
-      if (dr) dr.classList.remove('open');
-      document.removeEventListener('click', close);
-    }
-  });
-}
-
-// ---- AUTH MODAL ----
-function openAuth() {
-  document.getElementById('authModal').classList.add('open');
-  clearAuthMessages();
-}
-
-function closeAuth() {
-  document.getElementById('authModal').classList.remove('open');
-}
-
-function switchAuthTab(tab) {
-  var isLogin = tab === 'login';
-  document.getElementById('tabLogin').classList.toggle('active', isLogin);
-  document.getElementById('tabRegister').classList.toggle('active', !isLogin);
-  document.getElementById('authName').style.display = isLogin ? 'none' : 'block';
-  document.getElementById('authSubmitBtn').textContent = isLogin ? 'Sign In' : 'Create Account';
-  document.getElementById('authTitle').textContent = isLogin ? 'Welcome back' : 'Create your account';
-  clearAuthMessages();
-}
-
-function clearAuthMessages() {
-  document.getElementById('authError').style.display = 'none';
-  document.getElementById('authSuccess').style.display = 'none';
-}
-
-function showAuthError(msg) {
-  var el = document.getElementById('authError');
-  el.textContent = msg; el.style.display = 'block';
-  document.getElementById('authSuccess').style.display = 'none';
-}
-
-function showAuthSuccess(msg) {
-  var el = document.getElementById('authSuccess');
-  el.textContent = msg; el.style.display = 'block';
-  document.getElementById('authError').style.display = 'none';
-}
-
-function doAuth() {
-  if (!db) { showAuthError('Not connected. Please refresh.'); return; }
-  var isLogin = document.getElementById('tabLogin').classList.contains('active');
-  var email = document.getElementById('authEmail').value.trim();
-  var password = document.getElementById('authPassword').value;
-  var name = document.getElementById('authName').value.trim();
-  var btn = document.getElementById('authSubmitBtn');
-
-  if (!email || !password) { showAuthError('Please enter email and password.'); return; }
-  if (!isLogin && password.length < 6) { showAuthError('Password must be at least 6 characters.'); return; }
-
-  btn.disabled = true;
-  btn.textContent = isLogin ? 'Signing in...' : 'Creating account...';
-  clearAuthMessages();
-
-  if (isLogin) {
-    db.auth.signInWithPassword({ email: email, password: password })
-      .then(function(res) {
-        if (res.error) {
-          showAuthError(res.error.message);
-          btn.disabled = false; btn.textContent = 'Sign In';
-        }
-        // onAuthStateChange handles the rest
-      });
-  } else {
-    db.auth.signUp({
-      email: email, password: password,
-      options: { data: { name: name || email.split('@')[0] } }
-    }).then(function(res) {
-      btn.disabled = false;
-      if (res.error) {
-        showAuthError(res.error.message);
-        btn.textContent = 'Create Account';
-      } else {
-        btn.textContent = 'Create Account';
-        showAuthSuccess('Account created! Check your email to confirm, then sign in.');
-        switchAuthTab('login');
-      }
-    });
-  }
-}
-
-function doGoogleAuth() {
-  if (!db) return;
-  db.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: 'https://eataware.in' }
-  });
-}
-
-function doSignOut() {
-  if (!db) return;
-  db.auth.signOut();
-  var d = document.getElementById('navDrop');
-  if (d) d.classList.remove('open');
-}
-
-// Close auth modal on overlay click
-document.addEventListener('click', function(e) {
-  var modal = document.getElementById('authModal');
-  if (e.target === modal) closeAuth();
-  var dash = document.getElementById('dashModal');
-  if (e.target === dash) closeDash();
-});
-
-// ---- DASHBOARD ----
-function openDash() {
-  document.getElementById('dashModal').classList.add('open');
-  var d = document.getElementById('navDrop');
-  if (d) d.classList.remove('open');
-  loadScans();
-}
-
-function closeDash() {
-  document.getElementById('dashModal').classList.remove('open');
-}
-
-function loadScans() {
-  if (!currentUser || !db) return;
-  db.from('scan_history')
-    .select('product_name, product_grade, searched_at')
-    .eq('user_id', currentUser.id)
-    .order('searched_at', { ascending: false })
-    .limit(25)
-    .then(function(res) {
-      if (res.error || !res.data) return;
-      var scans = res.data;
-      var good = scans.filter(function(s){ return s.product_grade === 'A' || s.product_grade === 'B'; }).length;
-      var bad  = scans.filter(function(s){ return s.product_grade === 'D' || s.product_grade === 'E' || s.product_grade === 'F'; }).length;
-      document.getElementById('dStatTotal').textContent = scans.length;
-      document.getElementById('dStatGood').textContent  = good;
-      document.getElementById('dStatBad').textContent   = bad;
-
-      var list = document.getElementById('dashScanList');
-      if (!scans.length) {
-        list.innerHTML = '<div class="empty-state">Search any product to start your history.</div>';
-        return;
-      }
-      list.innerHTML = scans.map(function(s) {
-        var col = gradeColours[s.product_grade] || '#888';
-        var when = timeAgo(new Date(s.searched_at));
-        return '<div class="scan-row">' +
-          '<div class="scan-grade-dot" style="background:' + col + '">' + s.product_grade + '</div>' +
-          '<div class="scan-info">' +
-          '<div class="scan-name">' + s.product_name + '</div>' +
-          '<div class="scan-time">' + when + '</div>' +
-          '</div></div>';
-      }).join('');
-    });
-}
-
-function saveScan(productName, productGrade) {
-  if (!currentUser || !db) return;
-  db.from('scan_history').insert({
-    user_id: currentUser.id,
-    product_name: productName,
-    product_grade: productGrade
-  }).then(function() {
-    var el = document.getElementById('dStatTotal');
-    if (el) el.textContent = parseInt(el.textContent || 0) + 1;
-  });
-}
-
-function timeAgo(date) {
-  var s = Math.floor((new Date() - date) / 1000);
-  if (s < 60) return 'just now';
-  if (s < 3600) return Math.floor(s/60) + 'm ago';
-  if (s < 86400) return Math.floor(s/3600) + 'h ago';
-  return Math.floor(s/86400) + 'd ago';
-}
-
-// ---- LOADING BAR ----
-function showLoadingBar() {
-  var b = document.getElementById('loadingBar');
-  if (b) { b.classList.add('active'); }
-}
-function hideLoadingBar() {
-  var b = document.getElementById('loadingBar');
-  if (b) { b.classList.remove('active'); }
-}
-
-// ---- PATCH showProductModal to save scan ----
-var _origShowProductModal = showProductModal;
-showProductModal = function(product) {
-  _origShowProductModal(product);
-  if (product && product.name && product.grade) {
-    saveScan(product.name, product.grade);
-  }
-};
-
-// ============================================================
-// CHEMICAL PLAIN ENGLISH DECODER
-// Feedback: People don't understand chemical names
-// ============================================================
-var chemicalNames = {
-  'tbhq': {
-    full: 'Tertiary Butylhydroquinone',
-    simple: 'Petroleum Preservative',
-    plain: 'A preservative made from petroleum (same source as petrol). Added to oils and fried foods to stop them going rancid. Your body stores it in fat tissue.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'msg': {
-    full: 'Monosodium Glutamate',
-    simple: 'Flavour Booster Salt',
-    plain: 'A sodium salt that makes food taste intensely savoury. Found naturally in tomatoes and mushrooms but synthetic MSG is used in 10-100x higher concentrations. Tricks your brain into thinking food is more nutritious than it is.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'e102': {
-    full: 'Tartrazine',
-    simple: 'Yellow Petroleum Dye',
-    plain: 'A bright yellow dye made from coal tar — a petroleum byproduct. Added purely for colour. Has zero taste or nutrition. Linked to hyperactivity in children. Banned in Norway and Austria.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'tartrazine': {
-    full: 'Tartrazine (E102)',
-    simple: 'Yellow Petroleum Dye',
-    plain: 'A bright yellow dye made from coal tar — a petroleum byproduct. Added purely for colour. Zero nutrition. Linked to hyperactivity in children. Banned in Norway.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'e129': {
-    full: 'Allura Red',
-    simple: 'Red Petroleum Dye',
-    plain: 'Synthetic red dye from petroleum. Used in sweets, drinks and snacks for visual appeal only. Part of the Southampton Six dyes linked to ADHD in children.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'e110': {
-    full: 'Sunset Yellow',
-    simple: 'Orange Petroleum Dye',
-    plain: 'Synthetic orange dye. Combined with Tartrazine and Allura Red it creates the cocktail of colours proven to cause hyperactivity in children in the UK Southampton Study.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'pgpr': {
-    full: 'Polyglycerol Polyricinoleate',
-    simple: 'Castor Oil Emulsifier',
-    plain: 'A cheap emulsifier made from castor oil. Used in cheap chocolate to replace cocoa butter — it makes the chocolate flow more easily while reducing the amount of expensive cocoa butter used. When you see PGPR on chocolate, quality has been reduced.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'sodium benzoate': {
-    full: 'Sodium Benzoate (E211)',
-    simple: 'Chemical Preservative',
-    plain: 'A preservative that prevents bacteria and mould growth. When combined with Vitamin C (ascorbic acid) in the same product it can form Benzene, a known carcinogen. Check if your drink has both.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'carrageenan': {
-    full: 'Carrageenan (E407)',
-    simple: 'Seaweed Thickener',
-    plain: 'Extracted from red seaweed. Makes dairy and plant-based products thicker and creamier. Research shows it can cause gut inflammation with daily consumption. Common in ice cream, plant milks and dairy desserts.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'sodium lauryl sulfate': {
-    full: 'Sodium Lauryl Sulfate (SLS)',
-    simple: 'Harsh Foaming Agent',
-    plain: 'A surfactant that creates foam in toothpaste and shampoo. Strips natural oils from scalp and mouth. The main trigger for mouth ulcers in 8% of users. If you get frequent mouth ulcers, switch to SLS-free toothpaste.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'bha': {
-    full: 'Butylated Hydroxyanisole',
-    simple: 'Petroleum Antioxidant',
-    plain: 'A synthetic antioxidant derived from petroleum. Added to fats and oils to prevent rancidity. Listed as a possible carcinogen by IARC (Group 2B). Similar to TBHQ in origin and use.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'bht': {
-    full: 'Butylated Hydroxytoluene',
-    simple: 'Petroleum Antioxidant',
-    plain: 'Similar to BHA — a petroleum-based antioxidant preserving fats from going rancid. Used in cereals, chips and packaged snacks. Some animal studies suggest hormonal disruption.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'maltodextrin': {
-    full: 'Maltodextrin',
-    simple: 'Ultra-processed Starch Filler',
-    plain: 'Made from processed corn, wheat or potato starch. Has a glycaemic index of 110 — higher than table sugar (100). Your blood sugar spikes faster from maltodextrin than from eating pure glucose. Used as a filler in protein powders, diet foods and "healthy" snacks.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'acesulfame k': {
-    full: 'Acesulfame Potassium (E950)',
-    simple: 'Artificial Sweetener',
-    plain: 'A synthetic sweetener 200x sweeter than sugar. Passes through the body largely unchanged but some research suggests it may alter gut bacteria composition. Common in diet drinks combined with aspartame.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'aspartame': {
-    full: 'Aspartame (E951)',
-    simple: 'Artificial Sweetener',
-    plain: 'Chemical sweetener 200x sweeter than sugar. WHO classified it as possibly carcinogenic (Group 2B) in 2023 — but this is based on limited evidence. People with phenylketonuria must avoid it completely as they cannot process phenylalanine.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'high fructose corn syrup': {
-    full: 'High Fructose Corn Syrup (HFCS)',
-    simple: 'Industrial Sugar from Corn',
-    plain: 'Corn starch chemically converted to sugar — primarily fructose. Fructose is metabolised only in the liver and excess converts directly to triglycerides. Strongly linked to fatty liver disease and obesity. Rare in Indian products but increasingly used as it is cheaper than cane sugar.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'calcium propionate': {
-    full: 'Calcium Propionate (E282)',
-    simple: 'Bread Preservative',
-    plain: 'The most common bread preservative — prevents mould for weeks. Research from Macquarie University links it to irritability, restlessness, sleep disturbance and inattention in children with frequent bread consumption.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'disodium phosphate': {
-    full: 'Disodium Phosphate (E339)',
-    simple: 'Emulsifying Salt in Processed Cheese',
-    plain: 'Used to make real cheese melt smoothly into processed cheese products. Phosphate accumulates in kidneys with daily use — particularly concerning for people with kidney disease. Healthy kidneys handle it fine in normal amounts.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'monosodium glutamate': {
-    full: 'Monosodium Glutamate (MSG)',
-    simple: 'Flavour Booster Salt',
-    plain: 'The sodium salt of glutamic acid. Creates umami (savoury) taste. Occurs naturally in tomatoes, mushrooms and parmesan cheese. Synthetic MSG added at 10-100x natural concentrations creates addictive palatability — food companies use it to make you eat more.',
-    colour: '#d97706',
-    avoid: false
-  },
-  'acrylamide': {
-    full: 'Acrylamide',
-    simple: 'Frying Carcinogen',
-    plain: 'Not an additive — forms naturally when starchy foods (potato, bread, cereals) are cooked above 120C. IARC Group 2A probable carcinogen. Every fried or baked starchy food contains some. Reduce by cooking at lower temperatures and avoiding burning.',
-    colour: '#dc2626',
-    avoid: true
-  },
-  'erythritol': {
-    full: 'Erythritol (E968)',
-    simple: 'Natural Sugar Alcohol',
-    plain: 'Naturally occurring sugar alcohol found in fruits. Zero calories, zero GI — does not raise blood sugar. 70% as sweet as sugar. Extremely well tolerated — does not cause digestive distress like other sugar alcohols. FDA GRAS. One of the safest sugar replacements available.',
-    colour: '#16a34a',
-    avoid: false
-  },
-  'stevia': {
-    full: 'Steviol Glycosides (Stevia)',
-    simple: 'Natural Plant Sweetener',
-    plain: 'Extracted from the stevia plant leaf. 200-300x sweeter than sugar with zero calories and zero GI impact. Over 200 studies confirm safety. Anti-hypertensive properties documented. The best natural zero-calorie sweetener available. Only concern is slight bitter aftertaste at high concentrations.',
-    colour: '#16a34a',
-    avoid: false
-  },
-  'hydrogenated vegetable oil': {
-    full: 'Hydrogenated Vegetable Oil',
-    simple: 'Industrial Trans Fat',
-    plain: 'Liquid vegetable oil forced to become solid by pumping hydrogen through it at high pressure. This creates trans fats — the most harmful dietary fat known to science. Even 2g daily increases heart disease risk by 23%. WHO has called for global elimination. No safe level exists.',
-    colour: '#dc2626',
-    avoid: true
-  }
-};
-
-function getChemicalInfo(name) {
-  var key = name.toLowerCase().trim();
-  if (chemicalNames[key]) return chemicalNames[key];
-  // Partial match
-  for (var k in chemicalNames) {
-    if (key.includes(k) || k.includes(key)) return chemicalNames[k];
-  }
-  return null;
-}
-
-function renderChemicalDecoder(ingName, ingDesc) {
-  var info = getChemicalInfo(ingName);
-  if (!info) return '';
-  return '<div style="margin-top:8px;padding:10px 12px;background:' +
-    (info.avoid ? '#fef2f2' : '#fffbeb') +
-    ';border-radius:8px;border-left:3px solid ' + info.colour + ';">' +
-    '<div style="font-size:10px;font-weight:700;color:' + info.colour + ';text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;">' +
-    info.simple + '</div>' +
-    '<div style="font-size:11px;color:#374151;line-height:1.5;">' + info.plain + '</div>' +
-    '</div>';
-}
-
-
-// ============================================================
-// INTAKE REPORT + DISEASE SCALE
-// Feedback: Show daily/monthly/yearly impact
-// Where are you on the disease scale if you continue
-// ============================================================
-
-var intakeLog = JSON.parse(localStorage.getItem('eataware_intake') || '[]');
-
-function logIntake(productName, productGrade, productData) {
-  var entry = {
-    name: productName,
-    grade: productGrade,
-    timestamp: new Date().toISOString(),
-    date: new Date().toDateString()
-  };
-  intakeLog.push(entry);
-  // Keep last 90 days only
-  var cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - 90);
-  intakeLog = intakeLog.filter(function(e) { return new Date(e.timestamp) > cutoff; });
-  localStorage.setItem('eataware_intake', JSON.stringify(intakeLog));
-}
-
-function getIntakeReport() {
-  var today = new Date().toDateString();
-  var thisWeek = new Date(); thisWeek.setDate(thisWeek.getDate() - 7);
-  var thisMonth = new Date(); thisMonth.setDate(thisMonth.getDate() - 30);
-
-  var daily = intakeLog.filter(function(e){ return e.date === today; });
-  var weekly = intakeLog.filter(function(e){ return new Date(e.timestamp) > thisWeek; });
-  var monthly = intakeLog.filter(function(e){ return new Date(e.timestamp) > thisMonth; });
-
-  var gradeScore = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
-
-  function avgScore(arr) {
-    if (!arr.length) return 0;
-    var total = arr.reduce(function(s,e){ return s + (gradeScore[e.grade] || 0); }, 0);
-    return total / arr.length;
-  }
-
-  function getDiseaseRisk(score) {
-    if (score <= 1) return { level: 'Low', colour: '#16a34a', message: 'Excellent food choices. Disease risk from diet is minimal. Keep this up for decades of healthy life.', emoji: 'Healthy' };
-    if (score <= 2) return { level: 'Moderate', colour: '#65a30d', message: 'Generally good with some processed food. Occasional D-grade products are fine. Maintain balance.', emoji: 'Good' };
-    if (score <= 3) return { level: 'Elevated', colour: '#d97706', message: 'Regular consumption of C-D grade foods. After 5-10 years this pattern raises risk of Type 2 diabetes, hypertension and fatty liver.', emoji: 'Caution' };
-    if (score <= 4) return { level: 'High', colour: '#dc2626', message: 'Frequent D-E grade food choices. Clinical research shows this intake pattern leads to metabolic syndrome within 3-7 years. Reduce processed food immediately.', emoji: 'High Risk' };
-    return { level: 'Very High', colour: '#7f1d1d', message: 'Daily consumption of E-F grade foods. This is the dietary pattern that leads to early-onset diabetes, cardiovascular disease and liver damage. Change needed today.', emoji: 'Critical' };
-  }
-
-  var monthScore = avgScore(monthly);
-  var risk = getDiseaseRisk(monthScore);
-
-  // Project future risk
-  function projectRisk(currentScore, years) {
-    var projected = currentScore + (years * 0.3);
-    return getDiseaseRisk(Math.min(projected, 5));
-  }
-
-  return {
-    daily: daily,
-    weekly: weekly,
-    monthly: monthly,
-    monthScore: monthScore,
-    currentRisk: risk,
-    risk1yr: projectRisk(monthScore, 1),
-    risk5yr: projectRisk(monthScore, 5),
-    risk10yr: projectRisk(monthScore, 10),
-    topBad: monthly.filter(function(e){ return ['D','E','F'].includes(e.grade); })
-              .reduce(function(acc, e) { acc[e.name] = (acc[e.name]||0)+1; return acc; }, {}),
-    topGood: monthly.filter(function(e){ return ['A','B'].includes(e.grade); })
-              .reduce(function(acc, e) { acc[e.name] = (acc[e.name]||0)+1; return acc; }, {})
-  };
-}
-
-function openIntakeReport() {
-  var r = getIntakeReport();
-  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
-
-  // Risk level to plain English disease names
-  var diseaseMap = {
-    'Low':       { diseases: [], advice: 'Your food choices are excellent. Keep eating this way and your risk of lifestyle diseases stays very low.' },
-    'Moderate':  { diseases: ['Mild blood sugar fluctuations'], advice: 'Good overall but some processed foods. Small improvements now prevent big problems later.' },
-    'Elevated':  { diseases: ['Pre-diabetes risk', 'Early high blood pressure', 'Digestive inflammation'], advice: 'Your current diet is building up risk. Reducing D and E grade foods 3 days a week makes a big difference.' },
-    'High':      { diseases: ['Type 2 Diabetes', 'Hypertension', 'Fatty Liver', 'High Cholesterol'], advice: 'These are the exact diseases linked to your current food pattern. Change is urgent — start by removing one bad habit this week.' },
-    'Very High': { diseases: ['Type 2 Diabetes (likely)', 'Cardiovascular Disease', 'Non-alcoholic Fatty Liver Disease', 'Chronic Kidney Strain', 'Metabolic Syndrome'], advice: 'This food pattern causes serious disease. Talk to a doctor and start replacing one meal per day with Grade A or B foods.' }
-  };
-
-  var risk = r.currentRisk;
-  var diseaseInfo = diseaseMap[risk.level] || diseaseMap['Moderate'];
-
-  // Grade distribution pie
-  var grades = {A:0,B:0,C:0,D:0,E:0,F:0};
-  r.monthly.forEach(function(s){ grades[s.product_grade] = (grades[s.product_grade]||0)+1; });
-  var total = r.monthly.length || 1;
-  var goodPct = Math.round(((grades.A||0)+(grades.B||0))/total*100);
-  var badPct = Math.round(((grades.D||0)+(grades.E||0)+(grades.F||0))/total*100);
-  var okPct = 100 - goodPct - badPct;
-
-  var html = '';
-
-  // ---- HEADER ----
-  html += '<div style="text-align:center;padding:0 0 20px;">';
-  html += '<div style="font-size:32px;margin-bottom:8px;">'+
-    (risk.level==='Low'?'Healthy':risk.level==='Moderate'?'Good':risk.level==='Elevated'?'Caution':risk.level==='High'?'High Risk':'Critical')+'</div>';
-  html += '<div style="font-size:22px;font-weight:700;color:'+risk.colour+';margin-bottom:6px;">Your Diet is '+risk.level+' Risk</div>';
-  html += '<div style="font-size:14px;color:#6b7280;line-height:1.6;max-width:400px;margin:0 auto;">'+risk.message+'</div>';
-  html += '</div>';
-
-  // ---- SUMMARY STATS ----
-  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">';
-  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">'+r.daily.length+'</div><div style="font-size:11px;color:#6b7280;">Checked Today</div></div>';
-  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">'+r.weekly.length+'</div><div style="font-size:11px;color:#6b7280;">This Week</div></div>';
-  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">'+r.monthly.length+'</div><div style="font-size:11px;color:#6b7280;">This Month</div></div>';
-  html += '</div>';
-
-  if (r.monthly.length >= 3) {
-    // ---- YOUR FOOD BALANCE ----
-    html += '<div style="background:#f9fafb;border-radius:14px;padding:16px;margin-bottom:16px;">';
-    html += '<div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Your Food Balance This Month</div>';
-
-    // Progress bar showing grade distribution
-    html += '<div style="height:16px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:10px;">';
-    if (goodPct > 0) html += '<div style="width:'+goodPct+'%;background:#16a34a;" title="Good (A+B)"></div>';
-    if (okPct > 0)   html += '<div style="width:'+okPct+'%;background:#d97706;" title="Moderate (C)"></div>';
-    if (badPct > 0)  html += '<div style="width:'+badPct+'%;background:#dc2626;" title="Concern (D-F)"></div>';
-    html += '</div>';
-    html += '<div style="display:flex;gap:16px;font-size:12px;">';
-    html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#16a34a;margin-right:4px;"></span>'+goodPct+'% Healthy (A & B)</span>';
-    html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#d97706;margin-right:4px;"></span>'+okPct+'% Moderate (C)</span>';
-    html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc2626;margin-right:4px;"></span>'+badPct+'% Concerning (D-F)</span>';
-    html += '</div>';
-    html += '</div>';
-
-    // ---- DISEASE RISK IF YOU CONTINUE ----
-    html += '<div style="background:'+risk.colour+'15;border:1.5px solid '+risk.colour+'40;border-radius:14px;padding:16px;margin-bottom:16px;">';
-    html += '<div style="font-size:13px;font-weight:700;color:'+risk.colour+';margin-bottom:10px;">If You Continue This Pattern...</div>';
-    var yrs = [{y:'1 year',r:r.risk1yr},{y:'5 years',r:r.risk5yr},{y:'10 years',r:r.risk10yr}];
-    yrs.forEach(function(yr) {
-      var pct = {Low:10,Moderate:30,Elevated:55,High:75,'Very High':95}[yr.r.level]||50;
-      html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">';
-      html += '<div style="font-size:12px;color:#374151;width:60px;flex-shrink:0;">'+yr.y+'</div>';
-      html += '<div style="flex:1;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;">';
-      html += '<div style="width:'+pct+'%;height:100%;background:'+yr.r.colour+';border-radius:4px;transition:width 0.5s;"></div>';
-      html += '</div>';
-      html += '<div style="font-size:11px;font-weight:600;color:'+yr.r.colour+';width:65px;text-align:right;">'+yr.r.level+'</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-
-    // ---- HEALTH CONDITIONS AT RISK ----
-    if (diseaseInfo.diseases.length > 0) {
-      html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:16px;">';
-      html += '<div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:10px;">Health Conditions This Diet Can Lead To</div>';
-      diseaseInfo.diseases.forEach(function(d) {
-        html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151;">';
-        html += '<div style="width:8px;height:8px;border-radius:50%;background:'+risk.colour+';flex-shrink:0;"></div>';
-        html += d + '</div>';
-      });
-      html += '<div style="font-size:12px;color:#6b7280;margin-top:10px;line-height:1.6;">'+diseaseInfo.advice+'</div>';
-      html += '</div>';
-    }
-
-    // ---- REDUCE THESE FOODS ----
-    var badFoods = Object.keys(r.topBad).sort(function(a,b){ return r.topBad[b]-r.topBad[a]; }).slice(0,4);
-    if (badFoods.length) {
-      html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:16px;">';
-      html += '<div style="font-size:13px;font-weight:700;color:#dc2626;margin-bottom:10px;">Reduce These First</div>';
-      badFoods.forEach(function(name) {
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;">';
-        html += '<div style="font-size:13px;color:#1a1a1a;">'+name+'</div>';
-        html += '<div style="font-size:11px;color:#dc2626;font-weight:600;">'+r.topBad[name]+'x this month</div>';
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-    // ---- KEEP EATING THESE ----
-    var goodFoods = Object.keys(r.topGood).sort(function(a,b){ return r.topGood[b]-r.topGood[a]; }).slice(0,4);
-    if (goodFoods.length) {
-      html += '<div style="background:#f0f7f2;border:1px solid #e2ebe5;border-radius:14px;padding:16px;margin-bottom:16px;">';
-      html += '<div style="font-size:13px;font-weight:700;color:#1a4a2e;margin-bottom:10px;">Keep Eating These</div>';
-      goodFoods.forEach(function(name) {
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #e2ebe5;">';
-        html += '<div style="font-size:13px;color:#1a1a1a;">'+name+'</div>';
-        html += '<div style="font-size:11px;color:#16a34a;font-weight:600;">'+r.topGood[name]+'x this month</div>';
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-  } else {
-    // Not enough data
-    html += '<div style="text-align:center;padding:24px;background:#f9fafb;border-radius:14px;">';
-    html += '<div style="font-size:32px;margin-bottom:12px;">Search</div>';
-    html += '<div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:8px;">Search '+(3-r.monthly.length)+' more products</div>';
-    html += '<div style="font-size:13px;color:#6b7280;line-height:1.6;">Search products you eat every day — Maggi, Bournvita, your biscuits, your oil. We will show you exactly where your diet stands and what diseases it leads to.</div>';
-    html += '<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">';
-    var quickBtns = ['Maggi','Bournvita','Kurkure','Lays','Parle-G'];
-    for (var qi = 0; qi < quickBtns.length; qi++) {
-      var qn = quickBtns[qi];
-      html += '<button onclick="document.getElementById(\"searchInput\").value=\"' + qn + '\";closeModalDirect();handleSearch();" style="font-size:12px;font-weight:600;padding:7px 14px;background:#1a4a2e;color:#fff;border:none;border-radius:20px;cursor:pointer;">' + qn + '</button>';
-    };
-    html += '</div>';
-    html += '</div>';
-  }
-
-  document.getElementById('modalContent').innerHTML = html;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-
+</script>
+</body>
+</html>
