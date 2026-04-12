@@ -5044,9 +5044,11 @@ function openIntakeReport() {
     html += '<div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:8px;">Search '+(3-r.monthly.length)+' more products</div>';
     html += '<div style="font-size:13px;color:#6b7280;line-height:1.6;">Search products you eat every day — Maggi, Bournvita, your biscuits, your oil. We will show you exactly where your diet stands and what diseases it leads to.</div>';
     html += '<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">';
-    ['Maggi','Bournvita','Kurkure','Lay's','Parle-G'].forEach(function(s){
-      html += '<button onclick="closeDash();closeModalDirect();document.getElementById('searchInput').value=''+s+'';handleSearch();" style="font-size:12px;font-weight:600;padding:7px 14px;background:#1a4a2e;color:#fff;border:none;border-radius:20px;cursor:pointer;">'+s+'</button>';
-    });
+    var quickBtns = ['Maggi','Bournvita','Kurkure','Lays','Parle-G'];
+    for (var qi = 0; qi < quickBtns.length; qi++) {
+      var qn = quickBtns[qi];
+      html += '<button onclick="document.getElementById(\"searchInput\").value=\"' + qn + '\";closeModalDirect();handleSearch();" style="font-size:12px;font-weight:600;padding:7px 14px;background:#1a4a2e;color:#fff;border:none;border-radius:20px;cursor:pointer;">' + qn + '</button>';
+    };
     html += '</div>';
     html += '</div>';
   }
