@@ -72,7 +72,14 @@
     text-decoration: none; transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--green); }
-  .nav-cta {
+  .nav-signin {
+  font-size: 13px; font-weight: 600; padding: 9px 20px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+  color: var(--white); border-radius: 20px; cursor: pointer;
+  font-family: var(--body-font, inherit); transition: background 0.2s;
+}
+.nav-signin:hover { background: rgba(255,255,255,0.2); }
+.nav-cta {
     background: var(--green); color: white;
     padding: 9px 22px; border-radius: 100px;
     font-size: 13px; font-weight: 600;
@@ -682,7 +689,12 @@
     <a href="#learn">Learn</a>
     <a href="#about">About</a>
   </div>
-  <a href="#search" class="nav-cta">Search a Product</a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div id="navAuthBtn">
+      <button class="btn-primary" onclick="openAuth()" style="font-size:13px;padding:9px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;cursor:pointer;font-family:inherit;font-weight:600;">Sign In</button>
+    </div>
+    <a href="#search" class="nav-cta">Search a Product</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1195,48 +1207,48 @@ function saveScan(productName, productGrade) {
 var productCache = {};
 
 function handleSearch() {
-  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  var inputEl = document.getElementById('searchInput');
+  var q = inputEl.value.toLowerCase().trim();
   if (!q) return;
 
-  if (!supabase || SUPABASE_URL === 'YOUR_SUPABASE_URL') {
-    showNotFound(q);
-    return;
-  }
+  if (!supabase) { showNotFound(q); return; }
 
-  // Show loading in modal
-  document.getElementById('modalContent').innerHTML =
-    '<div style="padding:20px;">' +
-    '<div class="skeleton" style="height:20px;width:60%;margin-bottom:12px;"></div>' +
-    '<div class="skeleton" style="height:60px;margin-bottom:8px;"></div>' +
-    '<div class="skeleton" style="height:60px;margin-bottom:8px;"></div>' +
-    '<div class="skeleton" style="height:60px;"></div>' +
-    '</div>';
+  // Show skeleton loading
+  var mc = document.getElementById('modalContent');
+  var sk = document.createElement('div');
+  sk.style.padding = '20px';
+  var s1 = document.createElement('div'); s1.className = 'skeleton'; s1.style.cssText = 'height:20px;width:60%;margin-bottom:12px;';
+  var s2 = document.createElement('div'); s2.className = 'skeleton'; s2.style.cssText = 'height:60px;margin-bottom:8px;';
+  var s3 = document.createElement('div'); s3.className = 'skeleton'; s3.style.cssText = 'height:60px;margin-bottom:8px;';
+  var s4 = document.createElement('div'); s4.className = 'skeleton'; s4.style.cssText = 'height:60px;';
+  sk.appendChild(s1); sk.appendChild(s2); sk.appendChild(s3); sk.appendChild(s4);
+  mc.innerHTML = ''; mc.appendChild(sk);
   document.getElementById('modalOverlay').classList.add('open');
 
-  // Search in Supabase
+  // Build OR filter for Supabase
+  var filter = 'key.ilike.*' + q + '*,name.ilike.*' + q + '*,category.ilike.*' + q + '*';
+
   supabase.from('products')
-    .select('*, ingredients(*)')
-    .or('key.ilike.%' + q + '%,name.ilike.%' + q + '%,category.ilike.%' + q + '%')
-    .order('grade', { ascending: true })
+    .select('id,key,name,grade,category,impact,ingredients(id,name,description,safety,sort_order)')
+    .or(filter)
     .limit(20)
     .then(function(res) {
       if (res.error || !res.data || res.data.length === 0) {
-        searchIngredients(q);
+        doIngredientSearch(q);
         return;
       }
       var results = res.data;
-      // Score results for relevance
       results.sort(function(a, b) {
-        var scoreA = 0; var scoreB = 0;
-        if (a.key === q) scoreA += 100;
-        if (b.key === q) scoreB += 100;
-        if (a.name.toLowerCase() === q) scoreA += 100;
-        if (b.name.toLowerCase() === q) scoreB += 100;
-        if (a.key.indexOf(q) >= 0) scoreA += 50;
-        if (b.key.indexOf(q) >= 0) scoreB += 50;
-        if (a.name.toLowerCase().indexOf(q) >= 0) scoreA += 30;
-        if (b.name.toLowerCase().indexOf(q) >= 0) scoreB += 30;
-        return scoreB - scoreA;
+        var sa = 0; var sb = 0;
+        if (a.key === q) sa += 100;
+        if (b.key === q) sb += 100;
+        if (a.name.toLowerCase() === q) sa += 100;
+        if (b.name.toLowerCase() === q) sb += 100;
+        if (a.key.indexOf(q) >= 0) sa += 50;
+        if (b.key.indexOf(q) >= 0) sb += 50;
+        if (a.name.toLowerCase().indexOf(q) >= 0) sa += 30;
+        if (b.name.toLowerCase().indexOf(q) >= 0) sb += 30;
+        return sb - sa;
       });
       if (results.length === 1) {
         showProductModal(results[0]);
@@ -1247,16 +1259,18 @@ function handleSearch() {
     });
 }
 
-function searchIngredients(q) {
+function doIngredientSearch(q) {
   supabase.from('ingredients')
-    .select('*, products(*)')
-    .ilike('name', '%' + q + '%')
+    .select('name,description,safety,products(id,key,name,grade,category,impact)')
+    .ilike('name', '*' + q + '*')
     .limit(1)
     .then(function(res) {
       if (res.error || !res.data || res.data.length === 0) {
         showNotFound(q);
       } else {
-        showIngredientModal(res.data[0]);
+        var ing = res.data[0];
+        if (ing.products) { showProductModal(ing.products); }
+        else { showNotFound(q); }
       }
     });
 }
