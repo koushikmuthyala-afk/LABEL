@@ -583,16 +583,20 @@
 }
 .auth-divider::before{left:0} .auth-divider::after{right:0}
 .nav-auth-wrap {
-  display:flex; align-items:center; gap:10px;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
 }
 .nav-signin-btn {
-  font-size:13px; font-weight:600; padding:9px 20px;
-  background:rgba(255,255,255,0.12);
-  border:1px solid rgba(255,255,255,0.25);
-  color:var(--white); border-radius:20px; cursor:pointer;
-  font-family:inherit; transition:background 0.2s;
+  font-size: 13px; font-weight: 700; padding: 9px 20px;
+  background: #1a4a2e;
+  border: 2px solid #1a4a2e;
+  color: #ffffff;
+  border-radius: 20px; cursor: pointer;
+  font-family: inherit; transition: all 0.2s;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
-.nav-signin-btn:hover { background:rgba(255,255,255,0.22); }
+.nav-signin-btn:hover { background: #2d6a4f; border-color: #2d6a4f; }
 .nav-avatar-btn {
   width:34px; height:34px; border-radius:50%;
   background:var(--green-light); color:var(--green);
@@ -755,7 +759,7 @@
 
 
 <!-- NAV -->
-<nav>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;">
   <div class="nav-logo">Eat<span>Aware</span></div>
   <div class="nav-links">
     <a href="#ingredients">Ingredients</a>
@@ -767,7 +771,6 @@
     <div id="navAuthArea">
       <button class="nav-signin-btn" onclick="openAuth()">Sign In</button>
     </div>
-    <button onclick="openIntakeReport()" style="font-size:12px;font-weight:600;padding:8px 16px;background:transparent;border:1px solid var(--green);color:var(--green);border-radius:20px;cursor:pointer;font-family:inherit;" title="My Health Report">My Report</button>
     <a href="#search" class="nav-cta">Search a Product</a>
   </div>
 </nav>
@@ -4920,92 +4923,136 @@ function getIntakeReport() {
 
 function openIntakeReport() {
   var r = getIntakeReport();
-  var gradeColMap = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
+  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
 
-  var html = '<div style="max-width:540px;margin:0 auto;">';
+  // Risk level to plain English disease names
+  var diseaseMap = {
+    'Low':       { diseases: [], advice: 'Your food choices are excellent. Keep eating this way and your risk of lifestyle diseases stays very low.' },
+    'Moderate':  { diseases: ['Mild blood sugar fluctuations'], advice: 'Good overall but some processed foods. Small improvements now prevent big problems later.' },
+    'Elevated':  { diseases: ['Pre-diabetes risk', 'Early high blood pressure', 'Digestive inflammation'], advice: 'Your current diet is building up risk. Reducing D and E grade foods 3 days a week makes a big difference.' },
+    'High':      { diseases: ['Type 2 Diabetes', 'Hypertension', 'Fatty Liver', 'High Cholesterol'], advice: 'These are the exact diseases linked to your current food pattern. Change is urgent — start by removing one bad habit this week.' },
+    'Very High': { diseases: ['Type 2 Diabetes (likely)', 'Cardiovascular Disease', 'Non-alcoholic Fatty Liver Disease', 'Chronic Kidney Strain', 'Metabolic Syndrome'], advice: 'This food pattern causes serious disease. Talk to a doctor and start replacing one meal per day with Grade A or B foods.' }
+  };
 
-  // Header stats
-  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;">';
-  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:24px;font-weight:700;color:#1a4a2e;">' + r.daily.length + '</div><div style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Today</div></div>';
-  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:24px;font-weight:700;color:#1a4a2e;">' + r.weekly.length + '</div><div style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">This Week</div></div>';
-  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:24px;font-weight:700;color:#1a4a2e;">' + r.monthly.length + '</div><div style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">This Month</div></div>';
+  var risk = r.currentRisk;
+  var diseaseInfo = diseaseMap[risk.level] || diseaseMap['Moderate'];
+
+  // Grade distribution pie
+  var grades = {A:0,B:0,C:0,D:0,E:0,F:0};
+  r.monthly.forEach(function(s){ grades[s.product_grade] = (grades[s.product_grade]||0)+1; });
+  var total = r.monthly.length || 1;
+  var goodPct = Math.round(((grades.A||0)+(grades.B||0))/total*100);
+  var badPct = Math.round(((grades.D||0)+(grades.E||0)+(grades.F||0))/total*100);
+  var okPct = 100 - goodPct - badPct;
+
+  var html = '';
+
+  // ---- HEADER ----
+  html += '<div style="text-align:center;padding:0 0 20px;">';
+  html += '<div style="font-size:32px;margin-bottom:8px;">'+
+    (risk.level==='Low'?'Healthy':risk.level==='Moderate'?'Good':risk.level==='Elevated'?'Caution':risk.level==='High'?'High Risk':'Critical')+'</div>';
+  html += '<div style="font-size:22px;font-weight:700;color:'+risk.colour+';margin-bottom:6px;">Your Diet is '+risk.level+' Risk</div>';
+  html += '<div style="font-size:14px;color:#6b7280;line-height:1.6;max-width:400px;margin:0 auto;">'+risk.message+'</div>';
   html += '</div>';
 
-  // Disease scale
-  html += '<div style="font-size:13px;font-weight:600;color:#6b7280;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Your Disease Risk Scale</div>';
-  html += '<div style="background:' + r.currentRisk.colour + '20;border:1.5px solid ' + r.currentRisk.colour + ';border-radius:14px;padding:16px;margin-bottom:16px;">';
-  html += '<div style="font-size:18px;font-weight:700;color:' + r.currentRisk.colour + ';margin-bottom:6px;">' + r.currentRisk.level + ' Risk — Based on your recent searches</div>';
-  html += '<div style="font-size:13px;color:#374151;line-height:1.6;">' + r.currentRisk.message + '</div>';
+  // ---- SUMMARY STATS ----
+  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">';
+  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">'+r.daily.length+'</div><div style="font-size:11px;color:#6b7280;">Checked Today</div></div>';
+  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">'+r.weekly.length+'</div><div style="font-size:11px;color:#6b7280;">This Week</div></div>';
+  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">'+r.monthly.length+'</div><div style="font-size:11px;color:#6b7280;">This Month</div></div>';
   html += '</div>';
 
-  // Future projection
-  if (r.monthly.length >= 5) {
-    html += '<div style="font-size:13px;font-weight:600;color:#6b7280;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">If You Continue This Pattern</div>';
-    html += '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">';
-    var years = [{label:'In 1 year', risk: r.risk1yr}, {label:'In 5 years', risk: r.risk5yr}, {label:'In 10 years', risk: r.risk10yr}];
-    years.forEach(function(y) {
-      html += '<div style="display:flex;align-items:center;gap:12px;padding:12px;background:#f9fafb;border-radius:10px;">';
-      html += '<div style="font-size:13px;color:#6b7280;width:80px;flex-shrink:0;">' + y.label + '</div>';
+  if (r.monthly.length >= 3) {
+    // ---- YOUR FOOD BALANCE ----
+    html += '<div style="background:#f9fafb;border-radius:14px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Your Food Balance This Month</div>';
+
+    // Progress bar showing grade distribution
+    html += '<div style="height:16px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:10px;">';
+    if (goodPct > 0) html += '<div style="width:'+goodPct+'%;background:#16a34a;" title="Good (A+B)"></div>';
+    if (okPct > 0)   html += '<div style="width:'+okPct+'%;background:#d97706;" title="Moderate (C)"></div>';
+    if (badPct > 0)  html += '<div style="width:'+badPct+'%;background:#dc2626;" title="Concern (D-F)"></div>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:16px;font-size:12px;">';
+    html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#16a34a;margin-right:4px;"></span>'+goodPct+'% Healthy (A & B)</span>';
+    html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#d97706;margin-right:4px;"></span>'+okPct+'% Moderate (C)</span>';
+    html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc2626;margin-right:4px;"></span>'+badPct+'% Concerning (D-F)</span>';
+    html += '</div>';
+    html += '</div>';
+
+    // ---- DISEASE RISK IF YOU CONTINUE ----
+    html += '<div style="background:'+risk.colour+'15;border:1.5px solid '+risk.colour+'40;border-radius:14px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="font-size:13px;font-weight:700;color:'+risk.colour+';margin-bottom:10px;">If You Continue This Pattern...</div>';
+    var yrs = [{y:'1 year',r:r.risk1yr},{y:'5 years',r:r.risk5yr},{y:'10 years',r:r.risk10yr}];
+    yrs.forEach(function(yr) {
+      var pct = {Low:10,Moderate:30,Elevated:55,High:75,'Very High':95}[yr.r.level]||50;
+      html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">';
+      html += '<div style="font-size:12px;color:#374151;width:60px;flex-shrink:0;">'+yr.y+'</div>';
       html += '<div style="flex:1;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden;">';
-      var pct = Math.min(100, (y.risk.level === 'Low' ? 15 : y.risk.level === 'Moderate' ? 35 : y.risk.level === 'Elevated' ? 55 : y.risk.level === 'High' ? 75 : 95));
-      html += '<div style="width:' + pct + '%;height:100%;background:' + y.risk.colour + ';border-radius:4px;"></div>';
+      html += '<div style="width:'+pct+'%;height:100%;background:'+yr.r.colour+';border-radius:4px;transition:width 0.5s;"></div>';
       html += '</div>';
-      html += '<div style="font-size:12px;font-weight:600;color:' + y.risk.colour + ';width:80px;text-align:right;">' + y.risk.level + '</div>';
+      html += '<div style="font-size:11px;font-weight:600;color:'+yr.r.colour+';width:65px;text-align:right;">'+yr.r.level+'</div>';
       html += '</div>';
     });
     html += '</div>';
+
+    // ---- HEALTH CONDITIONS AT RISK ----
+    if (diseaseInfo.diseases.length > 0) {
+      html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:16px;">';
+      html += '<div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:10px;">Health Conditions This Diet Can Lead To</div>';
+      diseaseInfo.diseases.forEach(function(d) {
+        html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151;">';
+        html += '<div style="width:8px;height:8px;border-radius:50%;background:'+risk.colour+';flex-shrink:0;"></div>';
+        html += d + '</div>';
+      });
+      html += '<div style="font-size:12px;color:#6b7280;margin-top:10px;line-height:1.6;">'+diseaseInfo.advice+'</div>';
+      html += '</div>';
+    }
+
+    // ---- REDUCE THESE FOODS ----
+    var badFoods = Object.keys(r.topBad).sort(function(a,b){ return r.topBad[b]-r.topBad[a]; }).slice(0,4);
+    if (badFoods.length) {
+      html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:16px;">';
+      html += '<div style="font-size:13px;font-weight:700;color:#dc2626;margin-bottom:10px;">Reduce These First</div>';
+      badFoods.forEach(function(name) {
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;">';
+        html += '<div style="font-size:13px;color:#1a1a1a;">'+name+'</div>';
+        html += '<div style="font-size:11px;color:#dc2626;font-weight:600;">'+r.topBad[name]+'x this month</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    // ---- KEEP EATING THESE ----
+    var goodFoods = Object.keys(r.topGood).sort(function(a,b){ return r.topGood[b]-r.topGood[a]; }).slice(0,4);
+    if (goodFoods.length) {
+      html += '<div style="background:#f0f7f2;border:1px solid #e2ebe5;border-radius:14px;padding:16px;margin-bottom:16px;">';
+      html += '<div style="font-size:13px;font-weight:700;color:#1a4a2e;margin-bottom:10px;">Keep Eating These</div>';
+      goodFoods.forEach(function(name) {
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #e2ebe5;">';
+        html += '<div style="font-size:13px;color:#1a1a1a;">'+name+'</div>';
+        html += '<div style="font-size:11px;color:#16a34a;font-weight:600;">'+r.topGood[name]+'x this month</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
   } else {
-    html += '<div style="background:#f0f7f2;border-radius:12px;padding:16px;text-align:center;margin-bottom:20px;font-size:13px;color:#6b7280;">Search ' + (5 - r.monthly.length) + ' more products to see your personalised disease risk projection.</div>';
-  }
-
-  // Top foods to reduce
-  var badKeys = Object.keys(r.topBad);
-  if (badKeys.length) {
-    html += '<div style="font-size:13px;font-weight:600;color:#6b7280;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Reduce These First</div>';
-    html += '<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">';
-    badKeys.sort(function(a,b){ return r.topBad[b]-r.topBad[a]; }).slice(0,5).forEach(function(name) {
-      html += '<div style="display:flex;justify-content:space-between;padding:10px 14px;background:#fef2f2;border-radius:8px;">';
-      html += '<span style="font-size:13px;color:#1a1a1a;">' + name + '</span>';
-      html += '<span style="font-size:12px;color:#dc2626;">' + r.topBad[name] + 'x this month</span>';
-      html += '</div>';
+    // Not enough data
+    html += '<div style="text-align:center;padding:24px;background:#f9fafb;border-radius:14px;">';
+    html += '<div style="font-size:32px;margin-bottom:12px;">Search</div>';
+    html += '<div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:8px;">Search '+(3-r.monthly.length)+' more products</div>';
+    html += '<div style="font-size:13px;color:#6b7280;line-height:1.6;">Search products you eat every day — Maggi, Bournvita, your biscuits, your oil. We will show you exactly where your diet stands and what diseases it leads to.</div>';
+    html += '<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">';
+    ['Maggi','Bournvita','Kurkure','Lay's','Parle-G'].forEach(function(s){
+      html += '<button onclick="closeDash();closeModalDirect();document.getElementById('searchInput').value=''+s+'';handleSearch();" style="font-size:12px;font-weight:600;padding:7px 14px;background:#1a4a2e;color:#fff;border:none;border-radius:20px;cursor:pointer;">'+s+'</button>';
     });
     html += '</div>';
+    html += '</div>';
   }
-
-  html += '</div>';
 
   document.getElementById('modalContent').innerHTML = html;
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 
-// ============================================================
-// PATCH: Add chemical decoder to ingredient display
-// and log every product view to intake report
-// ============================================================
-var _origModal = typeof showProductModal === 'function' ? showProductModal : null;
-if (_origModal) {
-  showProductModal = function(product) {
-    _origModal(product);
-    logIntake(product.name, product.grade, product);
-    // Add chemical decoder to each ingredient
-    setTimeout(function() {
-      var ingRows = document.querySelectorAll('.modal-ing-row');
-      ingRows.forEach(function(row) {
-        var nameEl = row.querySelector('.modal-ing-name');
-        if (!nameEl) return;
-        var ingName = nameEl.textContent;
-        var decoded = renderChemicalDecoder(ingName, '');
-        if (decoded) {
-          var div = document.createElement('div');
-          div.innerHTML = decoded;
-          row.appendChild(div.firstChild);
-        }
-      });
-    }, 100);
-  };
-}
-
-</script>
-</body>
-</html>
