@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EatAware — Share Your Feedback</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1a4a2e;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #f0f7f2;
+    --amber: #d4852a;
+    --amber-pale: #fef3e2;
+    --ink: #1a1a1a;
+    --muted: #6b7280;
+    --surface: #f8faf9;
+    --border: #e2ebe5;
+    --white: #ffffff;
+    --red: #dc2626;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--green-pale);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--green);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+  }
+  .logo span { color: var(--amber); }
+  .header-tag {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--green);
+    padding: 48px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: var(--green-pale);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.85);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero-badge::before { content: '●'; color: var(--green-light); font-size: 8px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .hero h1 em { font-style: italic; color: var(--green-light); }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+
+  /* FORM CARD */
+  .form-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px 32px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 24px rgba(26,74,46,0.06);
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .section-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+
+  /* STAR RATING */
+  .star-group { display: flex; gap: 8px; flex-direction: row-reverse; justify-content: flex-end; }
+  .star-group input { display: none; }
+  .star-group label {
+    font-size: 32px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.15s, transform 0.1s;
+    line-height: 1;
+  }
+  .star-group input:checked ~ label,
+  .star-group label:hover,
+  .star-group label:hover ~ label {
+    color: #f59e0b;
+  }
+  .star-group label:active { transform: scale(1.2); }
+
+  /* RADIO PILLS */
+  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill-group input { display: none; }
+  .pill-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .pill-group input:checked + label {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .pill-group label:hover {
+    border-color: var(--green-mid);
+    color: var(--green);
+  }
+
+  /* CHECKBOX GRID */
+  .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .check-item input { display: none; }
+  .check-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .check-item label::before {
+    content: '';
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .check-item input:checked + label {
+    background: var(--green-pale);
+    border-color: var(--green-light);
+    color: var(--green);
+    font-weight: 500;
+  }
+  .check-item input:checked + label::before {
+    background: var(--green);
+    border-color: var(--green);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px;
+  }
+
+  /* SCALE RATING */
+  .scale-wrap { overflow-x: auto; }
+  .scale-group { display: flex; gap: 6px; min-width: 360px; }
+  .scale-group input { display: none; }
+  .scale-group label {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    padding: 10px 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .scale-group input:checked + label {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* TEXTAREA */
+  textarea {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  textarea:focus { border-color: var(--green-light); background: #fff; }
+  textarea::placeholder { color: #b0b8c0; }
+
+  /* TEXT INPUT */
+  .text-input {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { border-color: var(--green-light); background: #fff; }
+  .text-input::placeholder { color: #b0b8c0; }
+
+  /* SUBLABEL */
+  .sublabel {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .optional {
+    font-size: 11px;
+    color: #adb5bd;
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  /* SUBMIT */
+  .submit-wrap { margin-top: 28px; }
+  .submit-btn {
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+  .submit-btn:hover { background: var(--green-mid); }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+  .privacy-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .privacy-note a { color: var(--green-mid); text-decoration: none; }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+  }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    border: 2px solid var(--green-light);
+  }
+  .success-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .success-screen p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 340px;
+    margin: 0 auto 24px;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-pale);
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--green-light);
+    border-radius: 12px;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .share-btn:hover { background: #dff0e6; }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-light), var(--green));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  /* SITE PREVIEW */
+  .site-preview {
+    background: var(--green-pale);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    text-decoration: none;
+  }
+  .site-preview-icon {
+    width: 36px; height: 36px;
+    background: var(--green);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .site-preview-text { font-size: 13px; }
+  .site-preview-name { font-weight: 600; color: var(--ink); }
+  .site-preview-url { color: var(--green-mid); font-size: 12px; }
+  .site-preview-arrow { margin-left: auto; color: var(--muted); font-size: 18px; }
+
+  @media (max-width: 520px) {
+    .form-card { padding: 24px 18px; }
+    .check-grid { grid-template-columns: 1fr; }
+    .hero { padding: 36px 16px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="logo" href="https://eataware.in" target="_blank">Eat<span>Aware</span></a>
+  <span class="header-tag">Beta Feedback</span>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">You were invited to try EatAware</div>
+  <h1>Help us build India's<br/><em>ingredient intelligence</em> platform</h1>
+  <p>Takes 3 minutes. Your honest feedback shapes what we build next.</p>
+</div>
+
+<div class="main">
+
+  <a class="site-preview" href="https://eataware.in" target="_blank">
+    <div class="site-preview-icon">🥗</div>
+    <div class="site-preview-text">
+      <div class="site-preview-name">eataware.in</div>
+      <div class="site-preview-url">Try the site before filling this form →</div>
+    </div>
+    <div class="site-preview-arrow">›</div>
+  </a>
+
+  <div class="form-card">
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <form id="feedbackForm">
+
+      <!-- SECTION 1: OVERALL -->
+      <div class="section">
+        <div class="section-num">01 — Overall</div>
+        <div class="section-title">How would you rate EatAware overall?</div>
+        <div class="star-group">
+          <input type="radio" name="overall_rating" id="s5" value="5" required/>
+          <label for="s5" title="5 stars">★</label>
+          <input type="radio" name="overall_rating" id="s4" value="4"/>
+          <label for="s4" title="4 stars">★</label>
+          <input type="radio" name="overall_rating" id="s3" value="3"/>
+          <label for="s3" title="3 stars">★</label>
+          <input type="radio" name="overall_rating" id="s2" value="2"/>
+          <label for="s2" title="2 stars">★</label>
+          <input type="radio" name="overall_rating" id="s1" value="1"/>
+          <label for="s1" title="1 star">★</label>
+        </div>
+      </div>
+
+      <!-- SECTION 2: FIRST IMPRESSION -->
+      <div class="section">
+        <div class="section-num">02 — First impression</div>
+        <div class="section-title">What was your first reaction when you opened the site?</div>
+        <div class="pill-group">
+          <input type="radio" name="first_impression" id="fi1" value="Impressed — looks professional" required/>
+          <label for="fi1">Impressed — looks professional</label>
+          <input type="radio" name="first_impression" id="fi2" value="Useful — I immediately knew what to do"/>
+          <label for="fi2">Useful — I immediately knew what to do</label>
+          <input type="radio" name="first_impression" id="fi3" value="Confused — did not understand it"/>
+          <label for="fi3">Confused — did not understand it</label>
+          <input type="radio" name="first_impression" id="fi4" value="Interesting — wanted to explore more"/>
+          <label for="fi4">Interesting — wanted to explore more</label>
+          <input type="radio" name="first_impression" id="fi5" value="Overwhelming — too much information"/>
+          <label for="fi5">Overwhelming — too much information</label>
+          <input type="radio" name="first_impression" id="fi6" value="Simple — easy to understand"/>
+          <label for="fi6">Simple — easy to understand</label>
+        </div>
+      </div>
+
+      <!-- SECTION 3: SEARCH -->
+      <div class="section">
+        <div class="section-num">03 — Search experience</div>
+        <div class="section-title">Did you try searching for a product? How was it?</div>
+        <div class="sublabel">Which product(s) did you search for? <span class="optional">(optional)</span></div>
+        <input type="text" name="searched_products" class="text-input" placeholder="e.g. Maggi, Bournvita, Lay's..." style="margin-bottom:16px;"/>
+        <div class="sublabel">How was the search experience?</div>
+        <div class="pill-group">
+          <input type="radio" name="search_experience" id="se1" value="Found what I was looking for instantly" required/>
+          <label for="se1">Found it instantly</label>
+          <input type="radio" name="search_experience" id="se2" value="Found it but took some time"/>
+          <label for="se2">Found it, took some time</label>
+          <input type="radio" name="search_experience" id="se3" value="Product I searched was not there"/>
+          <label for="se3">Product not in database</label>
+          <input type="radio" name="search_experience" id="se4" value="Did not try searching"/>
+          <label for="se4">Did not try</label>
+        </div>
+      </div>
+
+      <!-- SECTION 4: HEALTH GRADES -->
+      <div class="section">
+        <div class="section-num">04 — Health grades (A–F)</div>
+        <div class="section-title">Did the A–F health grade system make sense to you?</div>
+        <div class="pill-group">
+          <input type="radio" name="grade_clarity" id="gc1" value="Yes — completely clear" required/>
+          <label for="gc1">Yes — completely clear</label>
+          <input type="radio" name="grade_clarity" id="gc2" value="Mostly clear, minor confusion"/>
+          <label for="gc2">Mostly clear</label>
+          <input type="radio" name="grade_clarity" id="gc3" value="Confusing — needs explanation"/>
+          <label for="gc3">Confusing</label>
+          <input type="radio" name="grade_clarity" id="gc4" value="Did not notice the grades"/>
+          <label for="gc4">Did not notice the grades</label>
+        </div>
+      </div>
+
+      <!-- SECTION 5: MOST VALUABLE -->
+      <div class="section">
+        <div class="section-num">05 — What matters most</div>
+        <div class="section-title">Which parts of EatAware did you find most useful?</div>
+        <div class="sublabel">Select all that apply</div>
+        <div class="check-grid">
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu1" value="Product health grade"/><label for="mu1">Product health grade</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu2" value="Ingredient breakdown"/><label for="mu2">Ingredient breakdown</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu3" value="Body impact text"/><label for="mu3">Body impact text</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu4" value="Ingredient explainer (TBHQ etc)"/><label for="mu4">Ingredient explainer</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu5" value="Education articles"/><label for="mu5">Education articles</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu6" value="Quick search tags"/><label for="mu6">Quick search tags</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu7" value="Grade A-F colour system"/><label for="mu7">Grade A–F colours</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu8" value="Singapore products section"/><label for="mu8">Singapore products</label></div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: MISSING PRODUCTS -->
+      <div class="section">
+        <div class="section-num">06 — Missing products</div>
+        <div class="section-title">Which products did you expect to find but could not?</div>
+        <textarea name="missing_products" placeholder="e.g. Pedigree dog food, Cadbury Gems, Lijjat Papad, Aashirvaad Atta..."></textarea>
+      </div>
+
+      <!-- SECTION 7: NPS -->
+      <div class="section">
+        <div class="section-num">07 — Recommend</div>
+        <div class="section-title">How likely are you to share EatAware with family or friends?</div>
+        <div class="scale-wrap">
+          <div class="scale-group">
+            <input type="radio" name="nps" id="nps0" value="0" required/><label for="nps0">0</label>
+            <input type="radio" name="nps" id="nps1" value="1"/><label for="nps1">1</label>
+            <input type="radio" name="nps" id="nps2" value="2"/><label for="nps2">2</label>
+            <input type="radio" name="nps" id="nps3" value="3"/><label for="nps3">3</label>
+            <input type="radio" name="nps" id="nps4" value="4"/><label for="nps4">4</label>
+            <input type="radio" name="nps" id="nps5" value="5"/><label for="nps5">5</label>
+            <input type="radio" name="nps" id="nps6" value="6"/><label for="nps6">6</label>
+            <input type="radio" name="nps" id="nps7" value="7"/><label for="nps7">7</label>
+            <input type="radio" name="nps" id="nps8" value="8"/><label for="nps8">8</label>
+            <input type="radio" name="nps" id="nps9" value="9"/><label for="nps9">9</label>
+            <input type="radio" name="nps" id="nps10" value="10"/><label for="nps10">10</label>
+          </div>
+          <div class="scale-labels"><span>Would not share</span><span>Definitely sharing</span></div>
+        </div>
+      </div>
+
+      <!-- SECTION 8: MISSING FEATURE -->
+      <div class="section">
+        <div class="section-num">08 — What is missing</div>
+        <div class="section-title">What one feature would make you use EatAware every week?</div>
+        <div class="pill-group" style="margin-bottom:14px;">
+          <input type="radio" name="wanted_feature" id="wf1" value="Barcode scanner (camera scan in shop)"/>
+          <label for="wf1">Barcode scanner</label>
+          <input type="radio" name="wanted_feature" id="wf2" value="Personal health profile (diabetes, BP etc)"/>
+          <label for="wf2">Personal health profile</label>
+          <input type="radio" name="wanted_feature" id="wf3" value="Healthier swap suggestions"/>
+          <label for="wf3">Healthier swap suggestions</label>
+          <input type="radio" name="wanted_feature" id="wf4" value="Weekly diet report"/>
+          <label for="wf4">Weekly diet report</label>
+          <input type="radio" name="wanted_feature" id="wf5" value="FSSAI recall alerts"/>
+          <label for="wf5">FSSAI recall alerts</label>
+          <input type="radio" name="wanted_feature" id="wf6" value="Save scan history with login"/>
+          <label for="wf6">Save scan history</label>
+          <input type="radio" name="wanted_feature" id="wf7" value="Mobile app"/>
+          <label for="wf7">Mobile app</label>
+          <input type="radio" name="wanted_feature" id="wf8" value="Something else"/>
+          <label for="wf8">Something else</label>
+        </div>
+        <textarea name="feature_detail" placeholder="Tell us more about what you want..." style="min-height:80px;"></textarea>
+      </div>
+
+      <!-- SECTION 9: FREE TEXT -->
+      <div class="section">
+        <div class="section-num">09 — Honest feedback</div>
+        <div class="section-title">Anything else? Be as brutal as you like 🙂</div>
+        <textarea name="open_feedback" placeholder="What did you love? What annoyed you? What made no sense? What would make this a 5-star app?" style="min-height:120px;"></textarea>
+      </div>
+
+      <!-- SECTION 10: ABOUT YOU -->
+      <div class="section">
+        <div class="section-num">10 — About you <span class="optional">(optional)</span></div>
+        <div class="section-title">Help us understand who gave this feedback</div>
+        <div class="sublabel">Your name <span class="optional">optional</span></div>
+        <input type="text" name="respondent_name" class="text-input" placeholder="First name is fine" style="margin-bottom:14px;"/>
+        <div class="sublabel">Your email <span class="optional">optional — only if you want a reply</span></div>
+        <input type="email" name="respondent_email" class="text-input" placeholder="your@email.com" style="margin-bottom:14px;"/>
+        <div class="sublabel">You are a</div>
+        <div class="pill-group">
+          <input type="radio" name="respondent_type" id="rt1" value="Parent (buying food for children)"/>
+          <label for="rt1">Parent</label>
+          <input type="radio" name="respondent_type" id="rt2" value="Health conscious individual"/>
+          <label for="rt2">Health conscious</label>
+          <input type="radio" name="respondent_type" id="rt3" value="Diabetic or managing a condition"/>
+          <label for="rt3">Managing a condition</label>
+          <input type="radio" name="respondent_type" id="rt4" value="Fitness / gym person"/>
+          <label for="rt4">Fitness person</label>
+          <input type="radio" name="respondent_type" id="rt5" value="Just curious"/>
+          <label for="rt5">Just curious</label>
+          <input type="radio" name="respondent_type" id="rt6" value="Student"/>
+          <label for="rt6">Student</label>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submitBtn">Send my feedback →</button>
+        <p class="privacy-note">Your response goes directly to <a href="mailto:koushik@eataware.in">koushik@eataware.in</a>.<br/>No spam, no sharing. Just building a better product.</p>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✓</div>
+      <h2>Thank you so much!</h2>
+      <p>Your feedback has been sent to Koushik at EatAware. It will directly shape what gets built in the next version.</p>
+      <a class="share-btn" href="https://eataware.in" target="_blank">
+        🥗 Go back to EatAware
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ============================================================
+// PROGRESS BAR — updates as user fills in the form
+// ============================================================
+var totalSections = 9;
+function updateProgress() {
+  var filled = 0;
+  if (document.querySelector('input[name="overall_rating"]:checked')) filled++;
+  if (document.querySelector('input[name="first_impression"]:checked')) filled++;
+  if (document.querySelector('input[name="search_experience"]:checked')) filled++;
+  if (document.querySelector('input[name="grade_clarity"]:checked')) filled++;
+  if (document.querySelector('input[name="most_useful"]:checked')) filled++;
+  if (document.querySelector('textarea[name="missing_products"]').value.trim()) filled++;
+  if (document.querySelector('input[name="nps"]:checked')) filled++;
+  if (document.querySelector('input[name="wanted_feature"]:checked')) filled++;
+  if (document.querySelector('textarea[name="open_feedback"]').value.trim()) filled++;
+  var pct = Math.round((filled / totalSections) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+document.querySelectorAll('input, textarea').forEach(function(el) {
+  el.addEventListener('change', updateProgress);
+  el.addEventListener('input', updateProgress);
+});
+
+// ============================================================
+// FORM SUBMIT — sends to Formspree
+// ============================================================
+document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // Collect checkbox values
+  var usefulChecked = Array.from(document.querySelectorAll('input[name="most_useful"]:checked')).map(function(el){ return el.value; }).join(', ');
+
+  // Build data object
+  var data = {
+    _subject: 'EatAware Feedback from ' + (document.querySelector('input[name="respondent_name"]').value || 'Anonymous'),
+    overall_rating: (document.querySelector('input[name="overall_rating"]:checked') || {}).value || 'Not answered',
+    first_impression: (document.querySelector('input[name="first_impression"]:checked') || {}).value || 'Not answered',
+    searched_products: document.querySelector('input[name="searched_products"]').value || 'Not provided',
+    search_experience: (document.querySelector('input[name="search_experience"]:checked') || {}).value || 'Not answered',
+    grade_clarity: (document.querySelector('input[name="grade_clarity"]:checked') || {}).value || 'Not answered',
+    most_useful_features: usefulChecked || 'None selected',
+    missing_products: document.querySelector('textarea[name="missing_products"]').value || 'None mentioned',
+    likelihood_to_recommend_NPS: (document.querySelector('input[name="nps"]:checked') || {}).value || 'Not answered',
+    wanted_feature: (document.querySelector('input[name="wanted_feature"]:checked') || {}).value || 'Not answered',
+    feature_detail: document.querySelector('textarea[name="feature_detail"]').value || 'None',
+    open_feedback: document.querySelector('textarea[name="open_feedback"]').value || 'None',
+    respondent_name: document.querySelector('input[name="respondent_name"]').value || 'Anonymous',
+    respondent_email: document.querySelector('input[name="respondent_email"]').value || 'Not provided',
+    respondent_type: (document.querySelector('input[name="respondent_type"]:checked') || {}).value || 'Not answered',
+    submitted_at: new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})
+  };
+
+  // REPLACE YOUR_FORM_ID with your Formspree form ID
+  fetch('https://formspree.io/f/mwvaeekg', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(data)
+  }).then(function(r) {
+    if (r.ok) {
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      document.getElementById('progressFill').style.width = '100%';
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  }).catch(function() {
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+    alert('Connection error. Please check your internet and try again.');
+  });
+});
+</script>
+
+</body>
+</html>
