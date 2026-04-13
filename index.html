@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform — A–F Grading · 351 Products · Singapore Nutri-Grade Adapted</title>
+<title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform — A–F Grading · 400+ Products · Singapore Nutri-Grade Adapted</title>
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="Search any Indian packaged product or ingredient and instantly see what it does to your body — short-term and long-term. Powered by FSSAI data. 100% free."/>
@@ -39,6 +39,7 @@
   gtag('config', 'G-T58J68VG4K');
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -493,9 +494,85 @@
     .articles-grid { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr 1fr; }
   }
+
+/* V10 Auth & Dashboard */
+.auth-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.auth-overlay.open{display:flex;}
+.auth-box{background:#fff;border-radius:20px;padding:32px;width:90%;max-width:400px;position:relative;animation:slideUp 0.2s ease;}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.auth-x{position:absolute;top:14px;right:16px;font-size:20px;color:#9ca3af;cursor:pointer;background:none;border:none;line-height:1;}
+.auth-logo{font-size:18px;font-weight:700;color:#1a4a2e;margin-bottom:4px;}
+.auth-logo span{color:#f59e0b;}
+.auth-h{font-size:18px;font-weight:700;color:#111;margin-bottom:4px;}
+.auth-sub{font-size:13px;color:#6b7280;margin-bottom:16px;line-height:1.5;}
+.auth-tabs{display:flex;gap:4px;background:#f3f4f6;border-radius:10px;padding:4px;margin-bottom:14px;}
+.auth-tab{flex:1;text-align:center;font-size:13px;font-weight:600;padding:7px;border-radius:8px;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s;}
+.auth-inp{width:100%;font-family:inherit;font-size:14px;color:#111;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:10px;padding:11px 13px;margin-bottom:10px;outline:none;box-sizing:border-box;}
+.auth-inp:focus{border-color:#1a4a2e;background:#fff;}
+.auth-btn-main{width:100%;background:#1a4a2e;color:#fff;font-family:inherit;font-size:14px;font-weight:700;border:none;border-radius:10px;padding:12px;cursor:pointer;margin-bottom:10px;}
+.auth-btn-main:disabled{background:#9ca3af;cursor:not-allowed;}
+.auth-or{text-align:center;font-size:12px;color:#9ca3af;margin:8px 0;}
+.auth-google{width:100%;background:#fff;color:#111;font-family:inherit;font-size:13px;font-weight:600;border:1.5px solid #e5e7eb;border-radius:10px;padding:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+.auth-err{font-size:12px;color:#dc2626;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 12px;margin-bottom:8px;display:none;}
+.auth-ok{font-size:12px;color:#16a34a;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-bottom:8px;display:none;}
+.dash-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
+.dash-overlay.open{display:flex;}
+.dash-box{background:#fff;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;}
+.dash-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.dash-title{font-size:18px;font-weight:700;color:#111;}
+.dash-x{font-size:22px;color:#9ca3af;cursor:pointer;background:none;border:none;}
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.dash-stat{background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;}
+.dash-stat-n{font-size:24px;font-weight:700;color:#1a4a2e;}
+.dash-stat-l{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;}
+.nav-auth-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+
 </style>
 </head>
 <body>
+
+<!-- V10 Auth Modal -->
+<div class="auth-overlay" id="authModal" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-box">
+    <button class="auth-x" onclick="closeAuthModal()">&#x2715;</button>
+    <div class="auth-logo">Eat<span>Aware</span></div>
+    <div class="auth-h" id="authHead">Welcome back</div>
+    <div class="auth-sub">Sign in to save your scan history and track your health.</div>
+    <div class="auth-tabs">
+      <button class="auth-tab" id="authTabLogin" onclick="switchAuthTab('login')" style="background:#fff;color:#1a4a2e;">Sign In</button>
+      <button class="auth-tab" id="authTabReg" onclick="switchAuthTab('register')" style="background:transparent;color:#6b7280;">Register</button>
+    </div>
+    <div class="auth-err" id="authErr"></div>
+    <div class="auth-ok" id="authOk"></div>
+    <div id="authNameWrap" style="display:none;"><input type="text" class="auth-inp" id="authName" placeholder="Your name"/></div>
+    <input type="email" class="auth-inp" id="authEmail" placeholder="Email address"/>
+    <input type="password" class="auth-inp" id="authPw" placeholder="Password (min 6 characters)"/>
+    <button class="auth-btn-main" id="authSubmit" onclick="doAuth()">Sign In</button>
+    <div class="auth-or">or</div>
+    <button class="auth-google" onclick="doGoogleAuth()">
+      <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+    <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:12px;">Your data is private and never sold.</p>
+  </div>
+</div>
+
+<!-- V10 Dashboard Modal -->
+<div class="dash-overlay" id="dashModal" onclick="if(event.target===this)closeDash()">
+  <div class="dash-box">
+    <div class="dash-h">
+      <div class="dash-title">My EatAware</div>
+      <button class="dash-x" onclick="closeDash()">&#x2715;</button>
+    </div>
+    <div class="dash-stats">
+      <div class="dash-stat"><div class="dash-stat-n" id="dTotal">0</div><div class="dash-stat-l">Scanned</div></div>
+      <div class="dash-stat"><div class="dash-stat-n" id="dGood">0</div><div class="dash-stat-l">A or B Grade</div></div>
+      <div class="dash-stat"><div class="dash-stat-n" id="dBad">0</div><div class="dash-stat-l">D or E Grade</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Recent Scans</div>
+    <div id="dashList"><div style="text-align:center;padding:20px;color:#9ca3af;font-size:14px;">Search products to start tracking.</div></div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -506,13 +583,19 @@
     <a href="#learn">Learn</a>
     <a href="#about">About</a>
   </div>
-  <a href="#search" class="nav-cta">Search a Product</a>
+  <div class="nav-auth-wrap">
+    <div id="navAuthArea">
+      <button onclick="openAuthModal()" style="font-size:13px;font-weight:700;padding:9px 18px;background:#1a4a2e;border:2px solid #1a4a2e;color:#fff;border-radius:20px;cursor:pointer;font-family:inherit;">Sign In</button>
+    </div>
+    <button onclick="openMyReport()" style="font-size:12px;font-weight:600;padding:8px 14px;background:transparent;border:1.5px solid #1a4a2e;color:#1a4a2e;border-radius:20px;cursor:pointer;font-family:inherit;">My Report</button>
+    <a href="#search" class="nav-cta">Search a Product</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero" id="home">
   <div class="hero-bg"></div>
-  <div class="hero-badge">India's Ingredient Intelligence Platform — A–F Grading · 351 Products · Singapore Nutri-Grade Adapted</div>
+  <div class="hero-badge">India's Ingredient Intelligence Platform — A–F Grading · 400+ Products · Singapore Nutri-Grade Adapted</div>
   <h1>Know <em>exactly</em> what's inside your food</h1>
   <p class="hero-sub">Search any packaged product, understand every ingredient, and discover what it does to your body — today and over time.</p>
   <div class="hero-actions">
@@ -3682,6 +3765,372 @@ function subscribeNL() {
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') handleSearch();
 });
+
+// ============================================================
+// V10 ADDITIONS — Supabase Auth + Sign In + My Report
+// Added safely to V9 base — all var, no const, no template literals
+// ============================================================
+
+var SUPA_URL = 'https://tkmrqsnjcudlkiwmcula.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRrbXJxc25qY3VkbGtpd21jdWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5Mjc5MTksImV4cCI6MjA5MTUwMzkxOX0.zlVuTGgV091ipVnoY1wOG6N3BV5kSodr-6ixqgwrTNE';
+var db = null;
+var currentUser = null;
+var intakeLog = [];
+
+// Load intake log from localStorage safely
+try {
+  var saved = localStorage.getItem('ea_intake');
+  if (saved) intakeLog = JSON.parse(saved);
+} catch(e) { intakeLog = []; }
+
+// ---- INIT on page load ----
+document.addEventListener('DOMContentLoaded', function() {
+  // Init Supabase
+  try {
+    db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+    db.auth.getSession().then(function(res) {
+      if (res.data && res.data.session) {
+        onSignedIn(res.data.session.user);
+      }
+    });
+    db.auth.onAuthStateChange(function(event, session) {
+      if (session) { onSignedIn(session.user); }
+      else { onSignedOut(); }
+    });
+  } catch(e) {
+    console.warn('Supabase init failed:', e.message);
+  }
+});
+
+// ---- AUTH STATE ----
+function onSignedIn(user) {
+  currentUser = user;
+  var name = (user.user_metadata && user.user_metadata.name) ? user.user_metadata.name : user.email.split('@')[0];
+  var initial = name.charAt(0).toUpperCase();
+  var area = document.getElementById('navAuthArea');
+  if (!area) return;
+  area.innerHTML =
+    '<div style="position:relative;">' +
+    '<button onclick="toggleUserDrop()" style="width:34px;height:34px;border-radius:50%;background:#e8f5ee;color:#1a4a2e;font-size:13px;font-weight:700;border:2px solid #1a4a2e;cursor:pointer;font-family:inherit;">' + initial +
+    '<div id="userDrop" style="display:none;position:absolute;top:40px;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:6px;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:500;">' +
+    '<button onclick="openDash()" style="display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;color:#111;border-radius:8px;cursor:pointer;border:none;background:none;font-family:inherit;">My Dashboard</button>' +
+    '<button onclick="doSignOut()" style="display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;color:#dc2626;border-radius:8px;cursor:pointer;border:none;background:none;font-family:inherit;">Sign Out</button>' +
+    '</div></button></div>';
+  closeAuthModal();
+  loadScans();
+}
+
+function onSignedOut() {
+  currentUser = null;
+  var area = document.getElementById('navAuthArea');
+  if (area) {
+    area.innerHTML = '<button onclick="openAuthModal()" style="font-size:13px;font-weight:700;padding:9px 18px;background:#1a4a2e;border:2px solid #1a4a2e;color:#fff;border-radius:20px;cursor:pointer;font-family:inherit;">Sign In</button>';
+  }
+}
+
+function toggleUserDrop() {
+  var d = document.getElementById('userDrop');
+  if (!d) return;
+  d.style.display = d.style.display === 'none' ? 'block' : 'none';
+}
+
+// ---- AUTH MODAL ----
+function openAuthModal() {
+  var m = document.getElementById('authModal');
+  if (m) m.style.display = 'flex';
+  clearAuthMsg();
+}
+
+function closeAuthModal() {
+  var m = document.getElementById('authModal');
+  if (m) m.style.display = 'none';
+}
+
+function switchAuthTab(tab) {
+  var isLogin = tab === 'login';
+  document.getElementById('authTabLogin').style.background = isLogin ? '#fff' : 'transparent';
+  document.getElementById('authTabLogin').style.color = isLogin ? '#1a4a2e' : '#6b7280';
+  document.getElementById('authTabReg').style.background = isLogin ? 'transparent' : '#fff';
+  document.getElementById('authTabReg').style.color = isLogin ? '#6b7280' : '#1a4a2e';
+  document.getElementById('authNameWrap').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('authSubmit').textContent = isLogin ? 'Sign In' : 'Create Account';
+  clearAuthMsg();
+}
+
+function clearAuthMsg() {
+  var e = document.getElementById('authErr');
+  var s = document.getElementById('authOk');
+  if (e) e.style.display = 'none';
+  if (s) s.style.display = 'none';
+}
+
+function showAuthErr(msg) {
+  var e = document.getElementById('authErr');
+  if (e) { e.textContent = msg; e.style.display = 'block'; }
+}
+
+function showAuthOk(msg) {
+  var s = document.getElementById('authOk');
+  if (s) { s.textContent = msg; s.style.display = 'block'; }
+}
+
+function doAuth() {
+  if (!db) { showAuthErr('Not connected. Please refresh.'); return; }
+  var isLogin = document.getElementById('authTabLogin').style.background === 'rgb(255, 255, 255)' ||
+                document.getElementById('authTabLogin').style.color === 'rgb(26, 74, 46)';
+  var email = document.getElementById('authEmail').value.trim();
+  var pw = document.getElementById('authPw').value;
+  if (!email || !pw) { showAuthErr('Please enter email and password.'); return; }
+  var btn = document.getElementById('authSubmit');
+  btn.disabled = true;
+  clearAuthMsg();
+
+  if (isLogin) {
+    btn.textContent = 'Signing in...';
+    db.auth.signInWithPassword({ email: email, password: pw }).then(function(res) {
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+      if (res.error) showAuthErr(res.error.message);
+    });
+  } else {
+    btn.textContent = 'Creating account...';
+    var name = document.getElementById('authName').value.trim() || email.split('@')[0];
+    db.auth.signUp({ email: email, password: pw, options: { data: { name: name } } }).then(function(res) {
+      btn.disabled = false;
+      btn.textContent = 'Create Account';
+      if (res.error) showAuthErr(res.error.message);
+      else { showAuthOk('Account created! Check your email to confirm, then sign in.'); }
+    });
+  }
+}
+
+function doGoogleAuth() {
+  if (!db) return;
+  db.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: 'https://eataware.in' } });
+}
+
+function doSignOut() {
+  if (db) db.auth.signOut();
+  var d = document.getElementById('userDrop');
+  if (d) d.style.display = 'none';
+}
+
+// ---- DASHBOARD ----
+function openDash() {
+  var d = document.getElementById('userDrop');
+  if (d) d.style.display = 'none';
+  var m = document.getElementById('dashModal');
+  if (m) m.style.display = 'flex';
+  loadScans();
+}
+
+function closeDash() {
+  var m = document.getElementById('dashModal');
+  if (m) m.style.display = 'none';
+}
+
+function loadScans() {
+  if (!currentUser || !db) return;
+  db.from('scan_history')
+    .select('product_name,product_grade,searched_at')
+    .eq('user_id', currentUser.id)
+    .order('searched_at', { ascending: false })
+    .limit(20)
+    .then(function(res) {
+      if (res.error || !res.data) return;
+      var scans = res.data;
+      var good = 0; var bad = 0;
+      scans.forEach(function(s) {
+        if (s.product_grade === 'A' || s.product_grade === 'B') good++;
+        if (s.product_grade === 'D' || s.product_grade === 'E' || s.product_grade === 'F') bad++;
+      });
+      var el = document.getElementById('dTotal'); if (el) el.textContent = scans.length;
+      var el2 = document.getElementById('dGood'); if (el2) el2.textContent = good;
+      var el3 = document.getElementById('dBad'); if (el3) el3.textContent = bad;
+      var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
+      var list = document.getElementById('dashList');
+      if (!list) return;
+      if (!scans.length) {
+        list.innerHTML = '<div style="text-align:center;padding:24px;color:#6b7280;font-size:14px;">Search a product to start your history.</div>';
+        return;
+      }
+      list.innerHTML = scans.map(function(s) {
+        var col = gc[s.product_grade] || '#888';
+        var ago = timeAgo(new Date(s.searched_at));
+        return '<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f3f4f6;">' +
+          '<div style="width:36px;height:36px;border-radius:10px;background:' + col + ';display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;">' + s.product_grade + '</div>' +
+          '<div><div style="font-size:14px;font-weight:600;color:#111;">' + s.product_name + '</div><div style="font-size:11px;color:#9ca3af;">' + ago + '</div></div>' +
+          '</div>';
+      }).join('');
+    });
+}
+
+function saveScanDB(name, grade) {
+  if (!currentUser || !db) return;
+  db.from('scan_history').insert({ user_id: currentUser.id, product_name: name, product_grade: grade }).then(function(){});
+}
+
+function timeAgo(date) {
+  var s = Math.floor((new Date() - date) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.floor(s/60) + 'm ago';
+  if (s < 86400) return Math.floor(s/3600) + 'h ago';
+  return Math.floor(s/86400) + 'd ago';
+}
+
+// ---- INTAKE LOG & MY REPORT ----
+function logIntake(name, grade) {
+  intakeLog.push({ name: name, grade: grade, date: new Date().toDateString(), ts: new Date().toISOString() });
+  var cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 90);
+  intakeLog = intakeLog.filter(function(e) { return new Date(e.ts) > cutoff; });
+  try { localStorage.setItem('ea_intake', JSON.stringify(intakeLog)); } catch(e) {}
+}
+
+function openMyReport() {
+  var gradeScore = {A:0, B:1, C:2, D:3, E:4, F:5};
+  var gc = {A:'#16a34a', B:'#65a30d', C:'#d97706', D:'#dc2626', E:'#7f1d1d', F:'#1c1917'};
+  var now = new Date();
+  var today = now.toDateString();
+  var week = new Date(); week.setDate(week.getDate()-7);
+  var month = new Date(); month.setDate(month.getDate()-30);
+
+  var daily = intakeLog.filter(function(e){ return e.date === today; });
+  var weekly = intakeLog.filter(function(e){ return new Date(e.ts) > week; });
+  var monthly = intakeLog.filter(function(e){ return new Date(e.ts) > month; });
+
+  var monthScore = monthly.length ? monthly.reduce(function(s,e){ return s + (gradeScore[e.grade]||0); },0) / monthly.length : 0;
+
+  function riskLabel(score) {
+    if (score <= 1) return { level:'Low', colour:'#16a34a', msg:'Excellent food choices. Your risk of lifestyle diseases from diet is minimal.' };
+    if (score <= 2) return { level:'Moderate', colour:'#65a30d', msg:'Generally good with some processed food. Small improvements now prevent big problems later.' };
+    if (score <= 3) return { level:'Elevated', colour:'#d97706', msg:'Regular D-grade foods are building risk. After 5-10 years this pattern raises risk of diabetes and blood pressure.' };
+    if (score <= 4) return { level:'High', colour:'#dc2626', msg:'Frequent harmful food choices. This pattern leads to Type 2 Diabetes, Hypertension and Fatty Liver within 3-7 years.' };
+    return { level:'Very High', colour:'#7f1d1d', msg:'Critical dietary pattern. Serious disease risk. Replace one meal daily with Grade A or B foods immediately.' };
+  }
+
+  var risk = riskLabel(monthScore);
+  var r1 = riskLabel(Math.min(5, monthScore + 0.3));
+  var r5 = riskLabel(Math.min(5, monthScore + 1.5));
+  var r10 = riskLabel(Math.min(5, monthScore + 3));
+
+  var grades = {A:0,B:0,C:0,D:0,E:0,F:0};
+  monthly.forEach(function(e){ grades[e.grade] = (grades[e.grade]||0)+1; });
+  var tot = monthly.length || 1;
+  var goodPct = Math.round(((grades.A||0)+(grades.B||0))/tot*100);
+  var badPct = Math.round(((grades.D||0)+(grades.E||0)+(grades.F||0))/tot*100);
+  var okPct = 100 - goodPct - badPct;
+
+  var badFoods = {};
+  var goodFoods = {};
+  monthly.forEach(function(e) {
+    if (e.grade === 'D' || e.grade === 'E' || e.grade === 'F') badFoods[e.name] = (badFoods[e.name]||0)+1;
+    if (e.grade === 'A' || e.grade === 'B') goodFoods[e.name] = (goodFoods[e.name]||0)+1;
+  });
+  var badKeys = Object.keys(badFoods).sort(function(a,b){ return badFoods[b]-badFoods[a]; }).slice(0,4);
+  var goodKeys = Object.keys(goodFoods).sort(function(a,b){ return goodFoods[b]-goodFoods[a]; }).slice(0,4);
+
+  var html = '';
+
+  // Stats
+  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">';
+  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">' + daily.length + '</div><div style="font-size:11px;color:#6b7280;">Today</div></div>';
+  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">' + weekly.length + '</div><div style="font-size:11px;color:#6b7280;">This Week</div></div>';
+  html += '<div style="background:#f0f7f2;border-radius:12px;padding:14px;text-align:center;"><div style="font-size:26px;font-weight:700;color:#1a4a2e;">' + monthly.length + '</div><div style="font-size:11px;color:#6b7280;">This Month</div></div>';
+  html += '</div>';
+
+  if (monthly.length < 3) {
+    // Not enough data
+    html += '<div style="background:#f9fafb;border-radius:14px;padding:20px;text-align:center;">';
+    html += '<div style="font-size:28px;margin-bottom:10px;">Search</div>';
+    html += '<div style="font-size:15px;font-weight:600;color:#111;margin-bottom:8px;">Search ' + (3 - monthly.length) + ' more products to see your health report</div>';
+    html += '<div style="font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:16px;">Search products you eat daily — Maggi, Bournvita, your biscuits, your cooking oil — and we will show you exactly where your diet stands and what diseases it leads to.</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">';
+    var suggestions = ['Maggi', 'Bournvita', 'Kurkure', 'Lays', 'Parle-G'];
+    for (var si = 0; si < suggestions.length; si++) {
+      var sug = suggestions[si];
+      html += '<button onclick="closeMyReport();document.getElementById(\'searchInput\').value=\'' + sug + '\';handleSearch();" style="font-size:12px;font-weight:600;padding:7px 14px;background:#1a4a2e;color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;">' + sug + '</button>';
+    }
+    html += '</div></div>';
+  } else {
+    // Risk level
+    html += '<div style="background:' + risk.colour + '18;border:1.5px solid ' + risk.colour + '60;border-radius:14px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="font-size:18px;font-weight:700;color:' + risk.colour + ';margin-bottom:6px;">Your Diet: ' + risk.level + ' Risk</div>';
+    html += '<div style="font-size:13px;color:#374151;line-height:1.6;">' + risk.msg + '</div>';
+    html += '</div>';
+
+    // Food balance bar
+    html += '<div style="background:#f9fafb;border-radius:14px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Your Food Balance This Month</div>';
+    html += '<div style="height:16px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:8px;">';
+    if (goodPct > 0) html += '<div style="width:' + goodPct + '%;background:#16a34a;"></div>';
+    if (okPct > 0)   html += '<div style="width:' + okPct + '%;background:#d97706;"></div>';
+    if (badPct > 0)  html += '<div style="width:' + badPct + '%;background:#dc2626;"></div>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:12px;font-size:12px;color:#6b7280;">';
+    html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#16a34a;display:inline-block;"></span>' + goodPct + '% Healthy</span>';
+    html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#d97706;display:inline-block;"></span>' + okPct + '% Moderate</span>';
+    html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#dc2626;display:inline-block;"></span>' + badPct + '% Harmful</span>';
+    html += '</div></div>';
+
+    // Disease projection
+    html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">If You Continue This Pattern</div>';
+    var projections = [{label:'In 1 year', r:r1},{label:'In 5 years', r:r5},{label:'In 10 years', r:r10}];
+    var pctMap = {Low:10,Moderate:30,Elevated:55,High:75,'Very High':95};
+    for (var pi = 0; pi < projections.length; pi++) {
+      var proj = projections[pi];
+      var pct = pctMap[proj.r.level] || 50;
+      html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">';
+      html += '<div style="font-size:12px;color:#6b7280;width:70px;flex-shrink:0;">' + proj.label + '</div>';
+      html += '<div style="flex:1;height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden;">';
+      html += '<div style="width:' + pct + '%;height:100%;background:' + proj.r.colour + ';border-radius:4px;"></div>';
+      html += '</div>';
+      html += '<div style="font-size:11px;font-weight:600;color:' + proj.r.colour + ';width:60px;text-align:right;">' + proj.r.level + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+
+    // Reduce these
+    if (badKeys.length) {
+      html += '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:16px;">';
+      html += '<div style="font-size:12px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Reduce These First</div>';
+      for (var bi = 0; bi < badKeys.length; bi++) {
+        html += '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f9fafb;font-size:13px;">';
+        html += '<span style="color:#111;">' + badKeys[bi] + '</span>';
+        html += '<span style="color:#dc2626;font-weight:600;">' + badFoods[badKeys[bi]] + 'x this month</span></div>';
+      }
+      html += '</div>';
+    }
+
+    // Keep eating these
+    if (goodKeys.length) {
+      html += '<div style="background:#f0f7f2;border:1px solid #d1e8d8;border-radius:14px;padding:16px;">';
+      html += '<div style="font-size:12px;font-weight:700;color:#1a4a2e;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Keep Eating These</div>';
+      for (var gi = 0; gi < goodKeys.length; gi++) {
+        html += '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2ebe5;font-size:13px;">';
+        html += '<span style="color:#111;">' + goodKeys[gi] + '</span>';
+        html += '<span style="color:#16a34a;font-weight:600;">' + goodFoods[goodKeys[gi]] + 'x this month</span></div>';
+      }
+      html += '</div>';
+    }
+  }
+
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeMyReport() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// Patch showProductModal to log intake and save to DB
+var _origSPM = showProductModal;
+showProductModal = function(product) {
+  _origSPM(product);
+  logIntake(product.name, product.grade);
+  saveScanDB(product.name, product.grade);
+};
+
 </script>
 </body>
 </html>
