@@ -527,16 +527,26 @@
 .dash-stat-l{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;}
 .nav-auth-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 
+
+@media (max-width: 768px) {
+  #about-us .grid-2col,
+  #about-us [style*="grid-template-columns:1fr 1fr"],
+  #methodology [style*="grid-template-columns"],
+  #partner [style*="grid-template-columns:repeat(3"],
+  #contact [style*="grid-template-columns:repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 </style>
 </head>
 <body>
 
-<!-- V10 Auth Modal -->
 <div class="auth-overlay" id="authModal" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-box">
     <button class="auth-x" onclick="closeAuthModal()">&#x2715;</button>
     <div class="auth-logo">Eat<span>Aware</span></div>
-    <div class="auth-h" id="authHead">Welcome back</div>
+    <div class="auth-h">Welcome back</div>
     <div class="auth-sub">Sign in to save your scan history and track your health.</div>
     <div class="auth-tabs">
       <button class="auth-tab" id="authTabLogin" onclick="switchAuthTab('login')" style="background:#fff;color:#1a4a2e;">Sign In</button>
@@ -556,8 +566,6 @@
     <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:12px;">Your data is private and never sold.</p>
   </div>
 </div>
-
-<!-- V10 Dashboard Modal -->
 <div class="dash-overlay" id="dashModal" onclick="if(event.target===this)closeDash()">
   <div class="dash-box">
     <div class="dash-h">
@@ -581,7 +589,7 @@
     <a href="#ingredients">Ingredients</a>
     <a href="#products">Products</a>
     <a href="#learn">Learn</a>
-    <a href="#about">About</a>
+    <a href="#about-us">About</a>
   </div>
   <div class="nav-auth-wrap">
     <div id="navAuthArea">
@@ -843,6 +851,271 @@
 </div>
 
 <!-- FOOTER -->
+
+<!-- ============================================================
+     ABOUT EATAWARE SECTION
+     ============================================================ -->
+<section id="about-us" style="padding:80px 24px;background:#fff;border-top:1px solid #e8f0e9;">
+  <div style="max-width:900px;margin:0 auto;">
+
+    <div style="text-align:center;margin-bottom:60px;">
+      <div style="display:inline-block;background:#f0f7f2;color:#1a4a2e;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;">About EatAware</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:#1a1a1a;margin-bottom:16px;line-height:1.2;">We Decode What India Eats</h2>
+      <p style="font-size:17px;color:#6b7280;line-height:1.7;max-width:620px;margin:0 auto;">EatAware is India's first Ingredient Intelligence Platform — built so that every Indian consumer can understand exactly what is inside their food and what it does to their body, today and over time.</p>
+    </div>
+
+    <!-- Story -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:60px;align-items:center;">
+      <div>
+        <h3 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:14px;">Why We Built This</h3>
+        <p style="font-size:15px;color:#4b5563;line-height:1.8;margin-bottom:14px;">India has over 1.4 billion consumers who pick up packaged food every day — biscuits, noodles, chips, health drinks — and read nothing on the label beyond the brand name and price.</p>
+        <p style="font-size:15px;color:#4b5563;line-height:1.8;margin-bottom:14px;">Yet the ingredients list on the back of every product tells the complete story — which oils were used, which preservatives were added, which dyes colour the product, and what long-term effects daily consumption creates in the body.</p>
+        <p style="font-size:15px;color:#4b5563;line-height:1.8;">EatAware exists to translate that ingredient list from chemical jargon into plain English — and to give every product a single honest grade that tells you where it stands.</p>
+      </div>
+      <div style="background:#f0f7f2;border-radius:20px;padding:32px;">
+        <div style="margin-bottom:24px;">
+          <div style="font-size:36px;font-weight:900;color:#1a4a2e;">400+</div>
+          <div style="font-size:14px;color:#6b7280;margin-top:4px;">Indian packaged products rated A to F</div>
+        </div>
+        <div style="margin-bottom:24px;">
+          <div style="font-size:36px;font-weight:900;color:#1a4a2e;">120+</div>
+          <div style="font-size:14px;color:#6b7280;margin-top:4px;">Unique ingredients decoded in plain English</div>
+        </div>
+        <div style="margin-bottom:24px;">
+          <div style="font-size:36px;font-weight:900;color:#1a4a2e;">FSSAI</div>
+          <div style="font-size:14px;color:#6b7280;margin-top:4px;">India's food safety authority as our regulatory reference</div>
+        </div>
+        <div>
+          <div style="font-size:36px;font-weight:900;color:#1a4a2e;">100%</div>
+          <div style="font-size:14px;color:#6b7280;margin-top:4px;">Free — no ads, no sponsored grades, ever</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div style="padding:24px;background:#f9fafb;border-radius:16px;border-top:3px solid #1a4a2e;">
+        <div style="font-size:28px;margin-bottom:12px;">Independent</div>
+        <div style="font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">No Brand Influence</div>
+        <div style="font-size:13px;color:#6b7280;line-height:1.6;">We accept no payment from food brands. Our grades are based purely on ingredients and research — never on who pays us.</div>
+      </div>
+      <div style="padding:24px;background:#f9fafb;border-radius:16px;border-top:3px solid #1a4a2e;">
+        <div style="font-size:28px;margin-bottom:12px;">Evidence-Based</div>
+        <div style="font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">Peer-Reviewed Research</div>
+        <div style="font-size:13px;color:#6b7280;line-height:1.6;">Every ingredient effect we describe is sourced from published clinical research, FSSAI standards, and WHO guidelines — not opinion.</div>
+      </div>
+      <div style="padding:24px;background:#f9fafb;border-radius:16px;border-top:3px solid #1a4a2e;">
+        <div style="font-size:28px;margin-bottom:12px;">Plain Language</div>
+        <div style="font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">No Jargon</div>
+        <div style="font-size:13px;color:#6b7280;line-height:1.6;">We translate "Tertiary Butylhydroquinone" into "Petroleum Preservative" so a 50-year-old parent understands it as clearly as a nutritionist.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR METHODOLOGY SECTION
+     ============================================================ -->
+<section id="methodology" style="padding:80px 24px;background:#f0f7f2;">
+  <div style="max-width:900px;margin:0 auto;">
+
+    <div style="text-align:center;margin-bottom:56px;">
+      <div style="display:inline-block;background:#1a4a2e;color:#fff;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;">Our Methodology</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:#1a1a1a;margin-bottom:16px;line-height:1.2;">How We Grade Every Product A to F</h2>
+      <p style="font-size:17px;color:#6b7280;line-height:1.7;max-width:640px;margin:0 auto;">Our grading system is adapted from Singapore's Nutri-Grade — the world's most evidence-based food labelling system — and calibrated for Indian dietary patterns and FSSAI regulations.</p>
+    </div>
+
+    <!-- Step-by-step process -->
+    <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:56px;">
+
+      <div style="display:flex;gap:24px;background:#fff;border-radius:16px;padding:24px;align-items:flex-start;">
+        <div style="width:48px;height:48px;background:#1a4a2e;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;">1</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">We read the back of the product label</div>
+          <div style="font-size:14px;color:#6b7280;line-height:1.7;">Every rating starts with the ingredients list on the back of the actual physical product — not marketing claims on the front. We look at the full ingredient declaration as mandated by FSSAI for all packaged foods sold in India. Ingredients are listed in descending order of weight — so whatever appears first is present in the highest quantity.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;background:#fff;border-radius:16px;padding:24px;align-items:flex-start;">
+        <div style="width:48px;height:48px;background:#1a4a2e;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;">2</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">We identify every ingredient's health impact</div>
+          <div style="font-size:14px;color:#6b7280;line-height:1.7;">Each ingredient is cross-referenced against WHO classifications, IARC carcinogen listings, FSSAI permitted additive lists, and peer-reviewed nutritional research. We classify each ingredient as Safe (green), Caution (amber) or Avoid (red). Chemical names are translated — TBHQ becomes "Petroleum Preservative", Tartrazine becomes "Yellow Petroleum Dye" — so the risk is immediately understood.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;background:#fff;border-radius:16px;padding:24px;align-items:flex-start;">
+        <div style="width:48px;height:48px;background:#1a4a2e;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;">3</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">We assess nutritional quality — sugar, sodium, fat, fibre</div>
+          <div style="font-size:14px;color:#6b7280;line-height:1.7;">Beyond additives, we evaluate the nutritional composition: total sugar per serving, sodium content, type of fat (saturated, trans, or healthy), and fibre content. High sodium above 600mg per serving, added sugar above 10g per serving, or trans fats in any quantity all negatively impact the grade. Fibre above 3g, protein above 5g, or natural whole ingredients improve it.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;background:#fff;border-radius:16px;padding:24px;align-items:flex-start;">
+        <div style="width:48px;height:48px;background:#1a4a2e;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;">4</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">We score long-term body impact — not just today</div>
+          <div style="font-size:14px;color:#6b7280;line-height:1.7;">A product eaten once is different from a product eaten daily for 10 years. Our body impact text specifically addresses what daily or weekly consumption does to the body over 1, 5 and 10 years — based on clinical longitudinal studies. A D-grade product eaten monthly has different implications than a D-grade product in a child's lunchbox every day.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;background:#fff;border-radius:16px;padding:24px;align-items:flex-start;">
+        <div style="width:48px;height:48px;background:#1a4a2e;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;">5</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">We assign a single honest A–F grade</div>
+          <div style="font-size:14px;color:#6b7280;line-height:1.7;">All factors combine into one grade. No product can buy a better grade — no brand has ever paid EatAware, and none ever will. The grade is our honest assessment of what this product does to an Indian body that consumes it regularly. Grades are reviewed and updated when formulations change.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Grade guide -->
+    <div style="background:#fff;border-radius:20px;padding:32px;">
+      <h3 style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:20px;text-align:center;">What Each Grade Means</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f0fdf4;border-radius:10px;">
+          <div style="width:40px;height:40px;background:#16a34a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;">A</div>
+          <div><span style="font-weight:700;color:#1a1a1a;">Excellent</span> <span style="color:#6b7280;font-size:14px;">— Whole food, clean ingredients, no harmful additives. Safe for daily consumption by all ages.</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f7fee7;border-radius:10px;">
+          <div style="width:40px;height:40px;background:#65a30d;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;">B</div>
+          <div><span style="font-weight:700;color:#1a1a1a;">Good</span> <span style="color:#6b7280;font-size:14px;">— Minor concerns but safe for daily consumption. Small improvements would move it to A.</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#fffbeb;border-radius:10px;">
+          <div style="width:40px;height:40px;background:#d97706;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;">C</div>
+          <div><span style="font-weight:700;color:#1a1a1a;">Moderate</span> <span style="color:#6b7280;font-size:14px;">— Acceptable occasionally. Not for daily consumption by children. Better options exist.</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#fef2f2;border-radius:10px;">
+          <div style="width:40px;height:40px;background:#dc2626;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;">D</div>
+          <div><span style="font-weight:700;color:#1a1a1a;">High Concern</span> <span style="color:#6b7280;font-size:14px;">— Harmful additives or very high sugar/sodium. Monthly consumption for adults only. Avoid for children.</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#fff1f2;border-radius:10px;">
+          <div style="width:40px;height:40px;background:#7f1d1d;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;">E</div>
+          <div><span style="font-weight:700;color:#1a1a1a;">Very Poor</span> <span style="color:#6b7280;font-size:14px;">— Significant health risk from additives or nutrition profile. Once a month maximum for adults.</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f9fafb;border-radius:10px;">
+          <div style="width:40px;height:40px;background:#1c1917;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;">F</div>
+          <div><span style="font-weight:700;color:#1a1a1a;">Avoid</span> <span style="color:#6b7280;font-size:14px;">— Severe health risk. Contains confirmed harmful substances. No safe consumption frequency.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     PARTNER WITH US SECTION
+     ============================================================ -->
+<section id="partner" style="padding:80px 24px;background:#1a4a2e;">
+  <div style="max-width:900px;margin:0 auto;">
+
+    <div style="text-align:center;margin-bottom:56px;">
+      <div style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;">Partner With Us</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:#fff;margin-bottom:16px;line-height:1.2;">Let's Make India Eat Better — Together</h2>
+      <p style="font-size:17px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:620px;margin:0 auto;">EatAware is open to partnerships that genuinely serve Indian consumers. We work with organisations that share our mission — transparency, health and honest food information.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;">
+
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;">
+        <div style="font-size:32px;margin-bottom:16px;">Hospital & Clinics</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;">Healthcare Partners</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;">Dietitians, hospitals and wellness clinics can embed EatAware product search into patient education. Help your patients make informed choices at the grocery store.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;">
+        <div style="font-size:32px;margin-bottom:16px;">School & Colleges</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;">Educational Partners</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;">Schools and colleges can use EatAware in nutrition education programmes. Teach students to read labels before they develop lifelong habits.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;">
+        <div style="font-size:32px;margin-bottom:16px;">Media & Press</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;">Media Partners</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;">Journalists, food writers and health publications can cite EatAware grades and methodology. We provide data, expert commentary and product analysis for your stories.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;">
+        <div style="font-size:32px;margin-bottom:16px;">Corporates</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;">Employee Wellness</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;">HR and wellness teams can integrate EatAware into employee health programmes. Help your workforce make better canteen and grocery choices.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;">
+        <div style="font-size:32px;margin-bottom:16px;">NGOs</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;">Community Health</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;">Non-profits working on nutrition, child health or consumer rights can partner with us to bring ingredient intelligence to underserved communities across India.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;">
+        <div style="font-size:32px;margin-bottom:16px;">Food Brands</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;">Honest Brands Only</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;">If your brand genuinely makes clean, healthy products that deserve a Grade A or B — we would love to help consumers discover you. We never charge for grades. We only feature brands whose products earn it.</div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;">
+      <a href="mailto:koushik@eataware.in?subject=Partnership%20Enquiry%20-%20EatAware" style="display:inline-block;background:#fff;color:#1a4a2e;font-size:16px;font-weight:700;padding:16px 40px;border-radius:50px;text-decoration:none;margin-right:16px;">Start a Partnership</a>
+      <a href="mailto:koushik@eataware.in" style="display:inline-block;background:transparent;color:#fff;font-size:16px;font-weight:600;padding:16px 40px;border-radius:50px;text-decoration:none;border:2px solid rgba(255,255,255,0.4);">General Enquiry</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT SECTION
+     ============================================================ -->
+<section id="contact" style="padding:80px 24px;background:#fff;">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+
+    <div style="display:inline-block;background:#f0f7f2;color:#1a4a2e;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;">Contact</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:#1a1a1a;margin-bottom:16px;">Get in Touch</h2>
+    <p style="font-size:16px;color:#6b7280;line-height:1.7;margin-bottom:48px;">We read every email personally. Whether you want to report a product, suggest an ingredient, point out an error, or simply share feedback — we want to hear from you.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;">
+
+      <a href="mailto:koushik@eataware.in?subject=Report%20a%20Product%20Error" style="display:block;text-decoration:none;padding:24px;background:#f9fafb;border-radius:16px;border:1.5px solid #e5e7eb;transition:border-color 0.2s;">
+        <div style="font-size:28px;margin-bottom:10px;">Report Error</div>
+        <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:6px;">Wrong Grade?</div>
+        <div style="font-size:12px;color:#6b7280;line-height:1.5;">Found an error in our grading or ingredient information? Tell us and we will fix it.</div>
+        <div style="margin-top:12px;font-size:13px;color:#1a4a2e;font-weight:600;">koushik@eataware.in</div>
+      </a>
+
+      <a href="mailto:koushik@eataware.in?subject=Product%20Suggestion%20-%20EatAware" style="display:block;text-decoration:none;padding:24px;background:#f9fafb;border-radius:16px;border:1.5px solid #e5e7eb;">
+        <div style="font-size:28px;margin-bottom:10px;">Suggest Product</div>
+        <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:6px;">Missing a product?</div>
+        <div style="font-size:12px;color:#6b7280;line-height:1.5;">Tell us which product to rate next. We add new products every week based on user requests.</div>
+        <div style="margin-top:12px;font-size:13px;color:#1a4a2e;font-weight:600;">koushik@eataware.in</div>
+      </a>
+
+      <a href="mailto:koushik@eataware.in?subject=Partnership%20Enquiry%20-%20EatAware" style="display:block;text-decoration:none;padding:24px;background:#f9fafb;border-radius:16px;border:1.5px solid #e5e7eb;">
+        <div style="font-size:28px;margin-bottom:10px;">Partner</div>
+        <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:6px;">Work with us</div>
+        <div style="font-size:12px;color:#6b7280;line-height:1.5;">Schools, hospitals, media, NGOs, wellness brands — reach out to discuss how we can work together.</div>
+        <div style="margin-top:12px;font-size:13px;color:#1a4a2e;font-weight:600;">koushik@eataware.in</div>
+      </a>
+
+    </div>
+
+    <div style="background:#f0f7f2;border-radius:20px;padding:32px;">
+      <div style="font-size:22px;font-weight:700;color:#1a1a1a;margin-bottom:8px;">koushik@eataware.in</div>
+      <div style="font-size:14px;color:#6b7280;margin-bottom:20px;">We respond to every email within 48 hours.</div>
+      <a href="mailto:koushik@eataware.in" style="display:inline-block;background:#1a4a2e;color:#fff;font-size:15px;font-weight:700;padding:14px 36px;border-radius:50px;text-decoration:none;">Send us an Email</a>
+    </div>
+
+    <div style="margin-top:32px;">
+      <a href="https://instagram.com/eataware.in" target="_blank" style="display:inline-flex;align-items:center;gap:8px;color:#1a4a2e;font-size:14px;font-weight:600;text-decoration:none;padding:10px 20px;border:1.5px solid #1a4a2e;border-radius:50px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @eataware.in on Instagram
+      </a>
+    </div>
+
+  </div>
+</section>
+
 <footer id="about">
   <div class="footer-top">
     <div>
@@ -869,11 +1142,11 @@
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="#about">About EatAware</a>
-      <a href="#about">Our Methodology</a>
-      <a href="mailto:koushik@eataware.in">Partner with us</a>
-      <a href="mailto:koushik@eataware.in">Contact</a>
-      <a href="#about">Privacy Policy</a>
+      <a href="#about-us">About EatAware</a>
+      <a href="#methodology">Our Methodology</a>
+      <a href="#partner">Partner with Us</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#contact">Privacy Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -891,6 +1164,7 @@
 </div>
 
 <script>
+
 const ingredients = {
   tbhq: {
     name: 'TBHQ (Tertiary Butylhydroquinone)',
@@ -3472,6 +3746,401 @@ const products = {
       { dot: 'dot-caution', name: 'Refined Semolina (Suji)', desc: 'Medium GI 65 — better than maida, worse than atta', safe: null },
       { dot: 'dot-safe', name: 'No additives', desc: 'Pure semolina — the grain is the only concern', safe: true },
       { dot: 'dot-caution', name: 'Bran removed', desc: 'Lower fibre than whole wheat — add vegetables to compensate', safe: null },
+    ]},
+
+
+
+
+
+  // ============================================================
+  // FIX: Lay's Classic Salted — proper entry with category
+  // ============================================================
+  'lays classic salted': { name: "Lay's Classic Salted (26g)", grade: 'D', category: 'Unhealthy Snacks',
+    impact: "India's most popular chip. Real potato slices fried in sunflower oil — better than flavoured variants but acrylamide forms during high-heat frying and is a Group 2A carcinogen. High sodium at 180mg per small 26g pack. The problem is portion size — one pack becomes two. A monthly treat is fine. Weekly habit starts accumulating real risk over years. Children eating these daily face compounding acrylamide and sodium load.",
+    ings: [
+      { dot: 'dot-caution', name: 'Potato Slices (real)', desc: 'Whole potato — but acrylamide forms at high frying temperatures', safe: null },
+      { dot: 'dot-caution', name: 'Sunflower Oil', desc: 'Better than palm oil — but high omega-6 content when consumed daily', safe: null },
+      { dot: 'dot-avoid', name: 'Acrylamide (formed during frying)', desc: 'IARC Group 2A probable carcinogen — formed in all fried starch foods', safe: false },
+      { dot: 'dot-avoid', name: 'High Sodium (180mg per 26g)', desc: 'Accumulates fast when eating multiple packets', safe: false }
+    ]},
+
+  // ============================================================
+  // UNHEALTHY SNACKS — full category
+  // ============================================================
+  'haldirams aloo bhujia': { name: 'Haldiram\'s Aloo Bhujia (200g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'Traditional namkeen with very high sodium at 820mg per 30g serving. Palm oil base. Eaten throughout the day in Indian households — the cumulative sodium is the primary concern. Spices are real which is a positive. But the ultra-high salt content combined with daily munching habit makes this a significant cardiovascular risk product over years.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sodium (820mg per 30g)', desc: 'Extremely high — 41% of daily limit in a small handful', safe: false },
+      { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat frying medium', safe: false },
+      { dot: 'dot-safe', name: 'Real Spices (chilli, turmeric)', desc: 'Genuine anti-inflammatory benefit', safe: true },
+      { dot: 'dot-caution', name: 'Refined Chickpea Flour', desc: 'Lower GI than wheat but still refined', safe: null }
+    ]},
+
+  'haldirams mixture': { name: 'Haldiram\'s Mixture (200g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'Mixed namkeen with multiple fried components. Total sodium per sitting can easily reach 1000mg when eaten casually from the pack. Palm oil throughout. The variety of textures makes it extremely easy to overeat. A small bowl becomes a large bowl. Real spices and lentils are present but completely outweighed by sodium and refined ingredients.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Very High Sodium', desc: 'Multiple components each high in salt — compounds rapidly', safe: false },
+      { dot: 'dot-avoid', name: 'Palm Oil (multiple frying)', desc: 'Each component fried separately in palm oil', safe: false },
+      { dot: 'dot-caution', name: 'Mixed Lentils and Nuts', desc: 'Protein and fibre — positive elements in otherwise poor product', safe: null }
+    ]},
+
+  'uncle chips spicy treat': { name: 'Uncle Chips Spicy Treat (26g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'Classic Indian potato chip brand. TBHQ preservative present in the flavouring oil. Artificial spice flavour rather than real chilli. Sodium 210mg per 26g pack. Popular at school canteens — children eating these daily get TBHQ accumulation in addition to sodium. The spicy flavour desensitises taste receptors making plain food taste bland.',
+    ings: [
+      { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative — accumulates in fat tissue', safe: false },
+      { dot: 'dot-avoid', name: 'Artificial Spice Flavour', desc: 'Synthetic — not real chilli or spice', safe: false },
+      { dot: 'dot-avoid', name: 'Sodium (210mg per 26g)', desc: 'High for a small pack', safe: false }
+    ]},
+
+  'bingo mad angles': { name: 'Bingo Mad Angles (30g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'ITC\'s triangular corn-based snack. MSG and artificial flavour combination creates intense palatability. Sold aggressively to children and teenagers through digital advertising. The bold flavour profile leads to high consumption — rarely eaten one packet at a time. Maida and corn base with zero fibre. Better to eat a handful of roasted chana which gives protein and fibre at the same price.',
+    ings: [
+      { dot: 'dot-avoid', name: 'MSG (flavour enhancer)', desc: 'High glutamate hit — addictive palatability', safe: false },
+      { dot: 'dot-avoid', name: 'Artificial Flavour', desc: 'Multiple synthetic compounds', safe: false },
+      { dot: 'dot-caution', name: 'Corn and Maida base', desc: 'High GI — rapid blood sugar spike', safe: null }
+    ]},
+
+  'pringles original': { name: 'Pringles Original (107g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'Only 42% potato — the rest is wheat starch, corn flour and oil. This is technically not a chip but a fabricated potato snack. The uniform shape is engineered for maximum consumption — the curved tube design lets you eat without looking. Sodium is 160mg per 30g. TBHQ in the oil. The main risk is the quantity consumed — a tube is designed to be finished in one sitting.',
+    ings: [
+      { dot: 'dot-caution', name: 'Dehydrated Potato (42%)', desc: 'Less than half is real potato — rest is processed starch', safe: null },
+      { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative in oil component', safe: false },
+      { dot: 'dot-avoid', name: 'Engineered for overconsumption', desc: 'Shape and tube format designed to prevent stopping', safe: false }
+    ]},
+
+  'doritos nacho cheese': { name: 'Doritos Nacho Cheese (45g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'Corn-based triangular chip with intense artificial cheese flavour. The nacho cheese powder contains MSG, artificial colours and flavours. Sodium 280mg per 45g bag. The flavour intensity is engineered to keep eating — food scientists call this "vanishing caloric density" where the crunch disappears fast encouraging more consumption. No real cheese in any meaningful quantity.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Artificial Cheese Flavour powder', desc: 'No real cheese — synthetic flavour compounds', safe: false },
+      { dot: 'dot-avoid', name: 'MSG and flavour enhancers', desc: 'Multiple glutamate compounds combined', safe: false },
+      { dot: 'dot-avoid', name: 'Sodium (280mg per bag)', desc: 'Very high for the small portion', safe: false }
+    ]},
+
+  'bikaji khatta meetha': { name: 'Bikaji Khatta Meetha (200g)', grade: 'D', category: 'Unhealthy Snacks',
+    impact: 'Sweet and sour namkeen — the sweet component adds sugar to the already high sodium. Dual concern product. Palm oil frying. Artificial colours for the visual appeal. The sweet-salty combination is particularly difficult to stop eating — it hits multiple taste receptors simultaneously. Popular across all age groups. Monthly consumption is acceptable — regular snacking is not.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Added Sugar + High Sodium', desc: 'Both sugar and salt — dual metabolic concern', safe: false },
+      { dot: 'dot-avoid', name: 'Artificial Colour', desc: 'Synthetic dyes for visual appeal', safe: false },
+      { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat frying', safe: false }
+    ]},
+
+  'too yumm multigrain': { name: 'Too Yumm! Multigrain Chips (30g)', grade: 'C', category: 'Unhealthy Snacks',
+    impact: 'ITC\'s "better for you" snack uses real multigrain base — ragi, jowar, bajra. Lower fat than fried chips because it is baked. Sodium is significantly lower at 120mg per 30g. No TBHQ. The multigrain claim is genuine — not a marketing trick. A meaningful improvement over regular chips for daily snackers. Still processed food but the best choice in the savoury snack category.',
+    ings: [
+      { dot: 'dot-safe', name: 'Multigrain Base (ragi, jowar, bajra)', desc: 'Real millet grains — lower GI than maida chips', safe: true },
+      { dot: 'dot-safe', name: 'Baked not fried', desc: 'Lower fat and no acrylamide risk from frying', safe: true },
+      { dot: 'dot-caution', name: 'Sodium (120mg per 30g)', desc: 'Lower than competitors but still present', safe: null }
+    ]},
+
+  'act ii popcorn butter': { name: 'Act II Butter Popcorn (30g)', grade: 'C', category: 'Unhealthy Snacks',
+    impact: 'Whole grain corn is genuinely nutritious — high fibre, low GI. The butter flavouring is artificial diacetyl compound. Sodium is moderate at 200mg per bag. Better than chips because whole grain corn retains fibre. The artificial butter flavour is the main concern — diacetyl has been linked to lung inflammation in industrial workers. Home-popped plain popcorn with real butter is significantly better.',
+    ings: [
+      { dot: 'dot-safe', name: 'Whole Grain Corn', desc: 'Real fibre — genuinely better than refined snacks', safe: true },
+      { dot: 'dot-caution', name: 'Artificial Butter Flavour (diacetyl)', desc: 'Synthetic — lung inflammation concern at high exposure', safe: null },
+      { dot: 'dot-caution', name: 'Sodium (200mg per bag)', desc: 'Moderate — account for in daily total', safe: null }
+    ]},
+
+  // ============================================================
+  // BISCUITS — comprehensive
+  // ============================================================
+  'parle g biscuits': { name: 'Parle-G Original Glucose Biscuits (200g)', grade: 'D', category: 'Biscuits',
+    impact: 'India\'s best-selling biscuit and one of the world\'s most consumed. Glucose biscuit means high GI — rapid blood sugar spike. Refined wheat flour base. 20g sugar per 100g. Used as a meal replacement by millions of Indians — especially children — which is a significant public health concern. The glucose provides quick energy but no sustained nutrition. Better alternatives: Marie Gold for adults, ragi-based biscuits for children.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Refined Wheat Flour (primary)', desc: 'High GI maida base', safe: false },
+      { dot: 'dot-avoid', name: 'Sugar (20g per 100g)', desc: 'Significant — marketed as glucose energy but this is just sugar', safe: false },
+      { dot: 'dot-avoid', name: 'Vanaspati (partially hydrogenated fat)', desc: 'Contains trans fats — most harmful dietary fat', safe: false }
+    ]},
+
+  'britannia marie gold': { name: 'Britannia Marie Gold (250g)', grade: 'C', category: 'Biscuits',
+    impact: 'Lower sugar than most biscuits at 16g per 100g. Lower fat. Often considered a diet biscuit but this is relative — it is less bad than Bourbon or Oreo, not genuinely healthy. The refined maida base is still high GI. A reasonable choice when a biscuit is needed — not a health food. Better with tea than glucose biscuits for blood sugar management.',
+    ings: [
+      { dot: 'dot-caution', name: 'Refined Wheat Flour', desc: 'Maida base — high GI but lower than glucose biscuits', safe: null },
+      { dot: 'dot-caution', name: 'Sugar (16g per 100g)', desc: 'Lower than most biscuits — relatively better choice', safe: null },
+      { dot: 'dot-caution', name: 'Vegetable Oil (non-hydrogenated)', desc: 'No trans fats — better than vanaspati', safe: null }
+    ]},
+
+  'oreo original': { name: 'Oreo Original Sandwich Cookies (120g)', grade: 'D', category: 'Biscuits',
+    impact: 'Global biscuit brand with predictably poor nutrition. 45g sugar per 100g — nearly half the product is sugar. The cream filling is primarily hydrogenated vegetable fat and sugar. Artificial flavours. Marketed heavily to children. Three cookies (34g) contain 14g sugar — close to WHO daily limit for children. The dark colour is cocoa with minimal cocoa benefit at this concentration.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sugar (45g per 100g)', desc: 'Almost half the product by weight', safe: false },
+      { dot: 'dot-avoid', name: 'Hydrogenated Vegetable Fat (cream)', desc: 'Trans fats in the cream filling', safe: false },
+      { dot: 'dot-caution', name: 'Cocoa Powder (small amount)', desc: 'Minimal — primarily for colour and slight flavour', safe: null }
+    ]},
+
+  'sunfeast dark fantasy': { name: 'Sunfeast Dark Fantasy Choco Fills (75g)', grade: 'D', category: 'Biscuits',
+    impact: 'Premium positioning hides D-grade nutrition. The chocolate filling is primarily palm oil and sugar — not real chocolate. 38g sugar per 100g. PGPR emulsifier replaces cocoa butter. Marketed as an indulgent treat which it is — but the price premium buys marketing not nutrition. A plain dark chocolate square provides far more cocoa benefit at the same price.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sugar (38g per 100g)', desc: 'Primary ingredient in the filling', safe: false },
+      { dot: 'dot-avoid', name: 'Palm Oil', desc: 'Base fat for both biscuit and filling', safe: false },
+      { dot: 'dot-avoid', name: 'PGPR emulsifier', desc: 'Replaces cocoa butter — reduces quality', safe: false }
+    ]},
+
+  'mcvities digestive': { name: 'McVitie\'s Digestive Biscuits (250g)', grade: 'C', category: 'Biscuits',
+    impact: 'The "digestive" name is historically based on sodium bicarbonate content — not a digestive aid as commonly believed. Uses wholemeal wheat which adds genuine fibre (2.5g per 2 biscuits). Lower sugar than most Indian biscuits at 18g per 100g. Vegetable oil not hydrogenated. The best mainstream biscuit available in India for everyday consumption. Still a biscuit — not a health food — but genuinely better than the alternatives.',
+    ings: [
+      { dot: 'dot-safe', name: 'Wholemeal Wheat Flour', desc: 'Genuine fibre content — not refined maida', safe: true },
+      { dot: 'dot-caution', name: 'Sugar (18g per 100g)', desc: 'Moderate — lower than most competitors', safe: null },
+      { dot: 'dot-safe', name: 'Non-hydrogenated Vegetable Oil', desc: 'No trans fats', safe: true }
+    ]},
+
+  'horlicks biscuits': { name: 'Horlicks Biscuits (250g)', grade: 'C', category: 'Biscuits',
+    impact: 'Malt-based biscuit using barley malt which provides some B vitamins. Calcium fortification is genuine and meaningful for Indian children. Lower sugar than glucose biscuits. The Horlicks brand adds a health halo but this is still a refined flour product. Better than Parle-G for children but not a substitute for real food meals.',
+    ings: [
+      { dot: 'dot-safe', name: 'Barley Malt', desc: 'Real malt — B vitamins present', safe: true },
+      { dot: 'dot-safe', name: 'Calcium fortification', desc: 'Meaningful for Indian children with calcium gap', safe: true },
+      { dot: 'dot-caution', name: 'Refined Wheat Flour', desc: 'Still maida base despite health positioning', safe: null }
+    ]},
+
+  // ============================================================
+  // BREAKFAST CEREALS — expanded
+  // ============================================================
+  'bagrry white oats': { name: 'Bagrrys White Oats (1kg)', grade: 'A', category: 'Breakfast Cereals',
+    impact: 'Plain rolled oats — one of the best breakfast choices available in India at any price point. Beta-glucan fibre reduces LDL cholesterol by 5-10% with regular consumption. Low GI (55) — blood sugar stable for 3-4 hours. Zero sugar. Zero artificial anything. Cook with water or milk, add fresh fruit, nuts. One of the few packaged foods that genuinely delivers on its health promise.',
+    ings: [
+      { dot: 'dot-safe', name: 'Whole Grain Rolled Oats', desc: 'Beta-glucan fibre — cholesterol and blood sugar proven benefit', safe: true },
+      { dot: 'dot-safe', name: 'Nothing else', desc: 'Single ingredient — zero additives', safe: true }
+    ]},
+
+  'saffola oats': { name: 'Saffola Oats (500g)', grade: 'A', category: 'Breakfast Cereals',
+    impact: 'Same whole grain oats base as Bagrrys but Saffola adds a heart health certification. Marico brand with strong quality standards. Beta-glucan content is verified. A reliable everyday breakfast. The plain variant is excellent — avoid the masala variants which add sodium. Any plain oats brand is interchangeable nutritionally — choose the cheapest.',
+    ings: [
+      { dot: 'dot-safe', name: 'Whole Grain Oats (100%)', desc: 'Pure oats — clinically proven cholesterol benefit', safe: true }
+    ]},
+
+  'kelloggs special k': { name: "Kellogg's Special K (300g)", grade: 'C', category: 'Breakfast Cereals',
+    impact: 'Marketed for weight management but rice and wheat base with 17g sugar per 100g tells the real story. The low calorie claim is accurate per serving but the serving size (30g) is unrealistically small. Vitamins and iron fortification are genuine. Protein content (15g per 100g) is higher than Corn Flakes — a meaningful positive. Moderate choice when eaten with portion control.',
+    ings: [
+      { dot: 'dot-caution', name: 'Rice and Wheat (refined)', desc: 'Mixed grain base — higher GI than oats', safe: null },
+      { dot: 'dot-caution', name: 'Sugar (17g per 100g)', desc: 'Moderate but adds up with large servings', safe: null },
+      { dot: 'dot-safe', name: 'Higher Protein (15g per 100g)', desc: 'Better than Corn Flakes for satiety', safe: true }
+    ]},
+
+  'muesli true elements': { name: 'True Elements Rolled Oats Muesli (500g)', grade: 'A', category: 'Breakfast Cereals',
+    impact: 'Clean label muesli with real ingredients — whole oats, seeds, dried fruit without added sugar. True Elements is one of the most transparent Indian health food brands. Low sugar — relies on dried fruit for sweetness. High fibre from oats and seeds. Seeds add omega-3 from flaxseed and zinc from pumpkin seeds. Best packaged breakfast cereal option for health-conscious consumers.',
+    ings: [
+      { dot: 'dot-safe', name: 'Whole Rolled Oats (primary)', desc: 'Beta-glucan — cholesterol and blood sugar benefit', safe: true },
+      { dot: 'dot-safe', name: 'Seeds (flax, pumpkin, sunflower)', desc: 'Omega-3, zinc, magnesium — real nutrition', safe: true },
+      { dot: 'dot-safe', name: 'No added sugar', desc: 'Sweetness only from dried fruit', safe: true }
+    ]},
+
+  // ============================================================
+  // DAIRY — expanded
+  // ============================================================
+  'amul dahi 400g': { name: 'Amul Dahi Plain Curd (400g)', grade: 'A', category: 'Dairy',
+    impact: 'Plain curd is one of India\'s most nutritious everyday foods. Live cultures (Lactobacillus) improve gut microbiome diversity — directly linked to immune function, mood and digestion. Protein 3.5g per 100g. Calcium highly bioavailable. No sugar. No additives. The probiotic benefit requires the cultures to be live — check that the product has not been heat-treated after fermentation. Traditional homemade dahi is equally nutritious.',
+    ings: [
+      { dot: 'dot-safe', name: 'Pasteurised Milk', desc: 'Clean dairy base', safe: true },
+      { dot: 'dot-safe', name: 'Live Cultures (Lactobacillus)', desc: 'Genuine probiotic — gut microbiome and immunity', safe: true },
+      { dot: 'dot-safe', name: 'No additives or sugar', desc: 'Pure fermented dairy', safe: true }
+    ]},
+
+  'epigamia greek yogurt': { name: 'Epigamia Greek Yogurt Plain (85g)', grade: 'A', category: 'Dairy',
+    impact: 'Strained yogurt with double the protein of regular curd — 9-10g per 85g cup. Greek yogurt straining removes whey, concentrating protein and reducing lactose. Probiotics survive the straining process. Excellent post-workout protein source for vegetarians. The plain variant has zero added sugar. Sweetened and fruit variants add significant sugar — always choose plain.',
+    ings: [
+      { dot: 'dot-safe', name: 'Strained Whole Milk Yogurt', desc: 'Double protein vs regular curd — 10g per cup', safe: true },
+      { dot: 'dot-safe', name: 'Live Active Cultures', desc: 'Probiotic benefit preserved through straining', safe: true },
+      { dot: 'dot-safe', name: 'No added sugar (plain variant)', desc: 'Zero sugar — extremely clean label', safe: true }
+    ]},
+
+  'nestle milkmaid condensed': { name: 'Nestlé Milkmaid Condensed Milk (400g)', grade: 'E', category: 'Dairy',
+    impact: 'Evaporated and sweetened milk — 55g sugar per 100g. Used extensively in Indian desserts, halwa, payasam. The dairy protein and calcium are present but completely outweighed by the sugar load. Fine as a baking ingredient in small quantities — the problem is direct consumption from the tin which is common. One tablespoon (20g) contains 11g sugar. Not a dairy food — it is a sugar syrup with milk.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sugar (55g per 100g)', desc: 'Primary ingredient — this is sugar syrup with milk', safe: false },
+      { dot: 'dot-caution', name: 'Milk Solids', desc: 'Protein and calcium present but sugar dominates', safe: null }
+    ]},
+
+  'amul cheese slices': { name: 'Amul Processed Cheese Slices (200g)', grade: 'D', category: 'Dairy',
+    impact: 'Processed cheese using emulsifying salts (disodium phosphate) to make natural cheese melt uniformly. The phosphate accumulates in kidneys with daily use. Sodium is high at 480mg per slice. Children eating cheese slices on bread daily get significant phosphate and sodium loads. Real cheese (paneer, mozzarella) is nutritionally superior. Use processed cheese occasionally not daily.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Disodium Phosphate (emulsifier)', desc: 'Kidney phosphate accumulation with daily consumption', safe: false },
+      { dot: 'dot-avoid', name: 'Very High Sodium (480mg per slice)', desc: 'One slice uses 24% of daily sodium limit', safe: false },
+      { dot: 'dot-caution', name: 'Processed Cheese Base', desc: 'Real cheese modified for melting — reduced nutrition', safe: null }
+    ]},
+
+  // ============================================================
+  // BEVERAGES — expanded
+  // ============================================================
+  'nescafe classic': { name: 'Nescafé Classic Instant Coffee (50g)', grade: 'B', category: 'Beverages',
+    impact: 'Instant coffee provides real caffeine (60-80mg per cup) and genuine antioxidants from the coffee bean. Research strongly supports 2-4 cups of black coffee daily reducing Parkinson\'s, Type 2 Diabetes and liver disease risk. The concern is what Indians add — 3 teaspoons of sugar and full cream milk converts a health drink into a sugar delivery system. Drink black or with minimal sugar for benefit.',
+    ings: [
+      { dot: 'dot-safe', name: 'Spray-dried Coffee', desc: 'Real coffee — antioxidants and caffeine preserved', safe: true },
+      { dot: 'dot-safe', name: 'Caffeine (60-80mg per cup)', desc: 'Alertness, metabolism, liver protection at this dose', safe: true }
+    ]},
+
+  'bru instant coffee': { name: 'Bru Instant Coffee Chicory Blend (200g)', grade: 'C', category: 'Beverages',
+    impact: 'South India favourite — chicory extends the coffee with a bitter earthy note. Chicory root (inulin) is actually a prebiotic fibre that feeds beneficial gut bacteria. The coffee content is lower (typically 70:30 coffee:chicory ratio) so caffeine is reduced. A genuine South Indian cultural staple. The addition of chicory is nutritionally neutral to slightly positive — not a negative as commonly assumed.',
+    ings: [
+      { dot: 'dot-safe', name: 'Coffee (70%)', desc: 'Real coffee with antioxidants and caffeine', safe: true },
+      { dot: 'dot-safe', name: 'Chicory Root (30%)', desc: 'Prebiotic inulin fibre — feeds gut bacteria', safe: true }
+    ]},
+
+  'lipton green tea': { name: 'Lipton Green Tea Bags (25 bags)', grade: 'A', category: 'Beverages',
+    impact: 'Green tea contains EGCG — the most studied plant compound in nutrition. Clinical evidence for cancer prevention, cardiovascular protection and metabolic enhancement. 25-35mg caffeine per cup — alertness without coffee anxiety. Theanine creates calm focus. L-theanine reduces cortisol which coffee raises. Drink without milk (milk binds catechins reducing benefit) and without sugar. 2-4 cups daily is the therapeutic dose.',
+    ings: [
+      { dot: 'dot-safe', name: 'Green Tea Leaves (EGCG)', desc: 'Most studied plant antioxidant — cancer, heart, metabolism', safe: true },
+      { dot: 'dot-safe', name: 'L-Theanine', desc: 'Calm focus — reduces cortisol, pairs with caffeine', safe: true },
+      { dot: 'dot-safe', name: 'Low Caffeine (25-35mg)', desc: 'Alertness benefit without anxiety', safe: true }
+    ]},
+
+  'monster energy drink': { name: 'Monster Energy Drink (500ml)', grade: 'E', category: 'Beverages',
+    impact: 'Double the caffeine (160mg) and double the sugar (54g) of Red Bull in a 500ml can. Dangerous for anyone under 18, pregnant women, cardiac patients or those sensitive to caffeine. The B vitamin content is real but meaningless when paired with 54g sugar. Multiple documented hospitalisations from Monster consumption in India. The 500ml can is designed to look like a single serving but contains 2 servings nutritionally. Completely avoid for under-18s.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Caffeine (160mg per can)', desc: 'Double Red Bull — dangerous for under-18s and cardiac patients', safe: false },
+      { dot: 'dot-avoid', name: 'Sugar (54g per 500ml)', desc: '13.5 teaspoons of sugar in one can', safe: false },
+      { dot: 'dot-caution', name: 'Taurine (2000mg)', desc: 'Double Red Bull dose — long-term safety being studied', safe: null }
+    ]},
+
+  'appy fizz': { name: 'Appy Fizz Apple Drink (300ml)', grade: 'D', category: 'Beverages',
+    impact: 'Apple-flavoured carbonated drink with minimal real apple content. 28g sugar per 300ml. The apple health halo is marketing — real apple has fibre that slows sugar absorption, this has none. Carbonation adds no nutritional benefit. Sulphur dioxide preservative. Very popular with children at parties and schools. A full apple provides vitamins, fibre and polyphenols that this drink cannot replicate.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sugar (28g per 300ml)', desc: '7 teaspoons — standard soft drink sugar load', safe: false },
+      { dot: 'dot-caution', name: 'Apple Flavour (minimal real apple)', desc: 'The apple benefit is in the whole fruit — not this', safe: null },
+      { dot: 'dot-caution', name: 'Sulphur Dioxide (preservative)', desc: 'Can trigger asthma in sensitive individuals', safe: null }
+    ]},
+
+  'amul kool chocolate milk': { name: 'Amul Kool Chocolate Milk (200ml)', grade: 'C', category: 'Beverages',
+    impact: 'Flavoured milk using real Amul milk base — protein and calcium are genuine. The chocolate flavouring adds sugar (22g per 200ml). Cocoa content is low. Better than a soft drink or juice for children because the dairy protein and calcium are real. A reasonable post-school drink if you don\'t add more sugar. The sugar content means it shouldn\'t replace plain milk daily.',
+    ings: [
+      { dot: 'dot-safe', name: 'Real Milk (protein + calcium)', desc: 'Genuine dairy nutrition — protein and calcium present', safe: true },
+      { dot: 'dot-caution', name: 'Sugar (22g per 200ml)', desc: 'High for a milk drink — reduces daily benefit', safe: null },
+      { dot: 'dot-caution', name: 'Chocolate Flavouring', desc: 'Low cocoa content — primarily flavouring', safe: null }
+    ]},
+
+  // ============================================================
+  // INSTANT NOODLES — expanded
+  // ============================================================
+  'ching secret hakka noodles': { name: "Ching's Secret Hakka Noodles (240g)", grade: 'C', category: 'Instant Noodles',
+    impact: 'Dry noodles (not instant cup format) — cooked fresh each time. This is important because they absorb less oil and sodium than pre-cooked instant noodles. Refined wheat flour base. No TBHQ in the noodles themselves — TBHQ concern applies only if you add Ching\'s schezwan sauce. A reasonable base for home cooking. Add real vegetables, egg or tofu and use less of the seasoning sachet.',
+    ings: [
+      { dot: 'dot-caution', name: 'Refined Wheat Flour', desc: 'High GI but fresh-cooked so no pre-frying in oil', safe: null },
+      { dot: 'dot-safe', name: 'No pre-frying (dry noodles)', desc: 'Better than instant fried noodles — cook fresh', safe: true },
+      { dot: 'dot-caution', name: 'Seasoning Sachet (use half)', desc: 'High sodium — use sparingly or skip', safe: null }
+    ]},
+
+  'top ramen curry': { name: 'Top Ramen Curry Noodles (70g)', grade: 'D', category: 'Instant Noodles',
+    impact: 'Nissin\'s Indian variant. Fried noodle cake with sodium 890mg per pack — higher than Maggi. TBHQ present. Palm oil. The curry flavour is entirely artificial. Competing with Maggi for the lowest health grade in this category. No meaningful nutritional redeeming feature. This is pure convenience food — the occasional meal replacement is acceptable but not a weekly habit.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sodium (890mg per pack)', desc: 'Higher than Maggi — 44% of daily limit in one meal', safe: false },
+      { dot: 'dot-avoid', name: 'TBHQ', desc: 'Petroleum preservative', safe: false },
+      { dot: 'dot-avoid', name: 'Artificial Curry Flavour', desc: 'No real spice benefit', safe: false }
+    ]},
+
+  // ============================================================
+  // SAUCES — expanded
+  // ============================================================
+  'tabasco original': { name: 'Tabasco Original Red Sauce (60ml)', grade: 'A', category: 'Sauces & Condiments',
+    impact: 'Three ingredients — red pepper, distilled vinegar, salt. Nothing else. The capsaicin in tabasco has genuine anti-inflammatory and metabolic benefits. Vinegar helps post-meal blood sugar management. Extremely low calorie. Sodium per drop is negligible. One of the cleanest condiments available. Use liberally without concern. The heat encourages smaller servings naturally.',
+    ings: [
+      { dot: 'dot-safe', name: 'Red Pepper (capsaicin)', desc: 'Anti-inflammatory, metabolism boost, pain relief', safe: true },
+      { dot: 'dot-safe', name: 'Distilled Vinegar', desc: 'Blood sugar management post-meal', safe: true },
+      { dot: 'dot-safe', name: 'Salt (minimal per use)', desc: 'Negligible sodium per drop', safe: true }
+    ]},
+
+  'maggi tastemaker masala': { name: 'Maggi Masala-ae-Magic (72g)', grade: 'D', category: 'Sauces & Condiments',
+    impact: 'The seasoning that Maggi sells separately for use in any cooking. This is concentrated MSG and sodium — one packet has 1800mg sodium. Used by home cooks as a "secret ingredient" in vegetables, eggs and rice. The hidden sodium load in home cooking from this product is significant — users don\'t count it as sodium because it feels like a spice. Real spices do everything this does nutritionally at zero sodium cost.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sodium (1800mg per 72g packet)', desc: 'Entire daily limit in one seasoning packet', safe: false },
+      { dot: 'dot-avoid', name: 'MSG (very high)', desc: 'High glutamate — disguises food quality', safe: false },
+      { dot: 'dot-caution', name: 'Some Real Spices', desc: 'Spice content exists but overwhelmed by sodium', safe: null }
+    ]},
+
+  'american garden mustard': { name: 'American Garden Yellow Mustard (227g)', grade: 'B', category: 'Sauces & Condiments',
+    impact: 'Genuine mustard with real mustard seeds — isothiocyanates provide anti-cancer benefit. Very low calorie (5 kcal per teaspoon). Turmeric for colour adds curcumin. Vinegar helps blood sugar. Relatively low sodium compared to ketchup or mayo. One of the better condiment choices. Choose over mayonnaise or ketchup wherever possible. The heat comes from real mustard not capsaicin.',
+    ings: [
+      { dot: 'dot-safe', name: 'Mustard Seeds (real)', desc: 'Isothiocyanates — anti-cancer compounds', safe: true },
+      { dot: 'dot-safe', name: 'Turmeric (colour)', desc: 'Curcumin — anti-inflammatory', safe: true },
+      { dot: 'dot-safe', name: 'Low calorie (5 kcal per tsp)', desc: 'Essentially calorie-free condiment', safe: true }
+    ]},
+
+  // ============================================================
+  // HEALTH FOODS — expanded
+  // ============================================================
+  'true elements seeds mix': { name: 'True Elements Seeds Mix (250g)', grade: 'A', category: 'Health Foods',
+    impact: 'Mixed seeds — sunflower, pumpkin, watermelon, flax. Each seed provides distinct micronutrients. Pumpkin seeds are the richest dietary source of zinc — critical for Indian men and children who are commonly zinc deficient. Flaxseeds provide ALA omega-3 (plant form). Watermelon seeds have magnesium. One tablespoon (15g) daily covers significant micronutrient gaps. Better than any supplement at a fraction of the cost.',
+    ings: [
+      { dot: 'dot-safe', name: 'Pumpkin Seeds (zinc)', desc: 'Richest zinc source — immune function and testosterone', safe: true },
+      { dot: 'dot-safe', name: 'Flaxseeds (ALA omega-3)', desc: 'Plant omega-3 — reduces inflammation', safe: true },
+      { dot: 'dot-safe', name: 'Sunflower Seeds (Vitamin E)', desc: 'Skin and immune protection', safe: true }
+    ]},
+
+  'yoga bar protein bar': { name: 'Yoga Bar Protein Bar Chocolate (38g)', grade: 'B', category: 'Health Foods',
+    impact: 'Indian protein bar with 10g protein per bar using pea and brown rice protein. No artificial sweeteners — uses dates and jaggery for sweetness. Sugar at 14g is moderate for a bar. Real ingredients. One of the cleanest protein bars available in India without importing. A reasonable meal replacement when travelling or skipping meals. Not a substitute for whole food protein sources but far better than a chocolate bar.',
+    ings: [
+      { dot: 'dot-safe', name: 'Pea + Rice Protein (10g)', desc: 'Complete amino acid profile — plant-based', safe: true },
+      { dot: 'dot-safe', name: 'Dates and Jaggery (natural sweetener)', desc: 'Real food sweetener with trace minerals', safe: true },
+      { dot: 'dot-caution', name: 'Sugar (14g per bar)', desc: 'Moderate — better than synthetic sweetener bars', safe: null }
+    ]},
+
+  'millet amma foxtail millet': { name: 'Millet Amma Foxtail Millet (1kg)', grade: 'A', category: 'Millets',
+    impact: 'Foxtail millet (kangni) has GI of only 50 — lower than rice (72) or wheat (70). Protein 12% — higher than rice. Iron content addresses anaemia. Used traditionally in South India and now being rediscovered. Cooks like upma, khichdi or rice. Excellent for diabetics — the low GI combined with fibre means blood sugar rises slowly. Swap white rice for foxtail millet 3 days a week for measurable metabolic improvement.',
+    ings: [
+      { dot: 'dot-safe', name: 'Foxtail Millet (whole grain)', desc: 'GI 50 — significantly lower than rice or wheat', safe: true },
+      { dot: 'dot-safe', name: 'Iron and B vitamins', desc: 'Natural micronutrients addressing common Indian deficiencies', safe: true },
+      { dot: 'dot-safe', name: 'High Protein for a grain (12%)', desc: 'Better protein than rice at 7%', safe: true }
+    ]},
+
+  // ============================================================
+  // READY TO EAT — expanded
+  // ============================================================
+  'mtr ready vermicelli upma': { name: 'MTR Vermicelli Upma Mix (180g)', grade: 'C', category: 'Ready to Cook',
+    impact: 'Convenience cooking mix using real semolina vermicelli. Real spice tadka with mustard seeds, curry leaves and chilli. Sodium is 540mg per serving — moderate. Better than instant noodles because the vermicelli is not pre-fried. The mix requires fresh water cooking rather than just rehydration. A reasonable weekday breakfast for time-poor urban families. Add fresh vegetables when cooking for a nutritional upgrade.',
+    ings: [
+      { dot: 'dot-caution', name: 'Semolina Vermicelli', desc: 'Refined but not pre-fried — moderate GI', safe: null },
+      { dot: 'dot-safe', name: 'Real Spice Tadka (mustard, curry leaf)', desc: 'Genuine anti-inflammatory spices', safe: true },
+      { dot: 'dot-caution', name: 'Sodium (540mg per serving)', desc: 'Moderate — lower than most convenience foods', safe: null }
+    ]},
+
+  'tasty nibbles poha': { name: 'Tasty Nibbles Ready Poha (80g)', grade: 'C', category: 'Ready to Cook',
+    impact: 'Flattened rice (poha) is a genuinely nutritious grain — iron-fortified and easily digestible. The ready mix format uses real tempering spices. Lower GI than regular white rice. Sodium in the packet is 420mg — lower than most ready meals. Poha is one of the best traditional Indian breakfasts — this format makes it accessible without significant nutritional compromise.',
+    ings: [
+      { dot: 'dot-safe', name: 'Flattened Rice (Poha)', desc: 'Lower GI than white rice — easier to digest', safe: true },
+      { dot: 'dot-safe', name: 'Real Tempering Spices', desc: 'Mustard, turmeric, curry leaf — genuine anti-inflammatory', safe: true },
+      { dot: 'dot-caution', name: 'Sodium (420mg per packet)', desc: 'Moderate — lower than most convenience foods', safe: null }
+    ]},
+
+  // ============================================================
+  // FROZEN FOODS — expanded
+  // ============================================================
+  'sumeru veg momos': { name: 'Sumeru Frozen Veg Momos (300g)', grade: 'C', category: 'Frozen Foods',
+    impact: 'Maida-based dumpling with vegetable filling — cabbage, carrot, onion. The vegetable filling provides some fibre and vitamins. Sodium is moderate at 380mg per 100g. No preservatives — kept frozen. Significantly better than processed meat momos from street stalls where filling quality is unknown. A reasonable convenience food. Steam rather than fry — steaming keeps the nutrition and avoids additional fat.',
+    ings: [
+      { dot: 'dot-caution', name: 'Refined Wheat Flour (maida skin)', desc: 'High GI wrapper — the vegetable filling partially compensates', safe: null },
+      { dot: 'dot-safe', name: 'Vegetable Filling (cabbage, carrot)', desc: 'Real vegetables — fibre and vitamins', safe: true },
+      { dot: 'dot-safe', name: 'No preservatives (frozen)', desc: 'Freezing as preservation — clean label', safe: true }
+    ]},
+
+  'iqf green peas': { name: 'Mother Dairy Frozen Green Peas (500g)', grade: 'A', category: 'Frozen Foods',
+    impact: 'Flash-frozen within hours of harvest — retains more Vitamin C than fresh peas that travel days to markets. Protein 5g per 100g. Fibre 5g per 100g. Natural sugars not added. IQF (individually quick frozen) technology preserves cell structure. One of the cleanest convenience foods available. Use in curries, pulao, salads. Nutritionally superior to canned peas which lose vitamins in the canning process.',
+    ings: [
+      { dot: 'dot-safe', name: 'Green Peas (100%)', desc: 'Single ingredient — frozen at peak nutrition', safe: true },
+      { dot: 'dot-safe', name: 'Flash frozen (IQF)', desc: 'More Vitamin C than fresh market peas', safe: true }
+    ]},
+
+  // ============================================================
+  // CHOCOLATES — expanded
+  // ============================================================
+  'kitkat original': { name: 'KitKat Original 4-Finger (41.5g)', grade: 'D', category: 'Chocolate & Candy',
+    impact: 'Wafer and chocolate bar with 45g sugar per 100g. The wafer (refined wheat) adds nothing nutritionally. PGPR replaces cocoa butter. Cocoa content is low — primarily sugar, refined flour and vegetable fat. Nestle\'s best-selling global product. One bar has 21g sugar — a child\'s full day sugar allowance from WHO guidelines. The "Have a break" marketing is clever but doesn\'t change the nutrition.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sugar (45g per 100g)', desc: 'Almost half the product by weight', safe: false },
+      { dot: 'dot-avoid', name: 'PGPR (emulsifier)', desc: 'Replaces cocoa butter — reduces chocolate quality', safe: false },
+      { dot: 'dot-caution', name: 'Refined Wafer (maida)', desc: 'Empty calories in the crispy layer', safe: null }
+    ]},
+
+  'ferrero rocher 3pc': { name: 'Ferrero Rocher (3-piece pack)', grade: 'C', category: 'Chocolate & Candy',
+    impact: 'Premium chocolate with real hazelnuts (8% per piece). Hazelnuts provide genuine vitamin E, healthy fats and folate. The milk chocolate shell and wafer are high sugar. But the hazelnut content adds real nutrition. Better quality than Munch or Gems — the premium price does reflect better ingredients. As an occasional treat (once a week) the hazelnut benefit partially offsets the sugar concern.',
+    ings: [
+      { dot: 'dot-safe', name: 'Real Hazelnuts (8%)', desc: 'Vitamin E, healthy fat, folate — genuine nutrition', safe: true },
+      { dot: 'dot-avoid', name: 'Sugar (44g per 100g)', desc: 'High — premium positioning does not fix sugar content', safe: false },
+      { dot: 'dot-caution', name: 'Milk Chocolate Shell', desc: 'Better quality than most mass market chocolate', safe: null }
+    ]},
+
+  '5 star chocolate': { name: 'Cadbury 5 Star (40g)', grade: 'D', category: 'Chocolate & Candy',
+    impact: 'Caramel and nougat with chocolate coating. The caramel and nougat layers add more sugar on top of the chocolate sugar. 52g sugar per 100g — over half the product is sugar. The stretchy texture is engineered to slow eating which paradoxically makes people eat more. No redeeming nutritional features beyond the minimal cocoa in the chocolate coating.',
+    ings: [
+      { dot: 'dot-avoid', name: 'Sugar (52g per 100g)', desc: 'Over half the product — caramel adds more sugar to chocolate', safe: false },
+      { dot: 'dot-avoid', name: 'Caramel and Nougat layers', desc: 'Both are primarily sugar and hydrogenated fat', safe: false },
+      { dot: 'dot-caution', name: 'Minimal cocoa coating', desc: 'Some cocoa present but low concentration', safe: null }
     ]},
 
 
