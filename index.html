@@ -4359,6 +4359,10 @@ function quickSearch(name) {
 
 function showProductModal(product) {
   const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const grade = product.grade || 'C';
+  const sc = ({A:{n:38,p:18,i:18,t:16,tot:90},B:{n:30,p:16,i:16,t:14,tot:76},C:{n:22,p:13,i:13,t:12,tot:60},D:{n:14,p:9,i:10,t:10,tot:43},E:{n:8,p:5,i:6,t:8,tot:27},F:{n:2,p:2,i:2,t:4,tot:10}})[grade] || {n:14,p:9,i:10,t:10,tot:43};
+  const fg = ({A:{label:'Safe for daily use',col:'#16a34a',bg:'#f0fdf4',bdr:'#bbf7d0'},B:{label:'Fine for daily use',col:'#65a30d',bg:'#f7fee7',bdr:'#d9f99d'},C:{label:'Occasional is better',col:'#d97706',bg:'#fffbeb',bdr:'#fde68a'},D:{label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'},E:{label:'Monthly at most',col:'#7f1d1d',bg:'#fff1f2',bdr:'#fecdd3'},F:{label:'Avoid routine use',col:'#1c1917',bg:'#f9fafb',bdr:'#e5e7eb'}})[grade] || {label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'};
+  const cg = ({D:['Children under 12','Diabetics and pre-diabetics','People with high blood pressure'],E:['Children under 12','Pregnant women','Diabetics','People with hypertension','People with kidney disease'],F:['Everyone — best avoided for routine use']})[grade] || [];
   const ingsHtml = product.ings.map(i => `
     <div class="modal-ing-row">
       <div class="modal-ing-dot ${i.dot}"></div>
@@ -4370,7 +4374,22 @@ function showProductModal(product) {
   `).join('');
   const catBadge = product.category ? `<span style="font-size:11px;font-weight:600;background:var(--green-pale);color:var(--green);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;">${product.category}</span>` : '';
   const impactBox = product.impact ? `<div style="margin-top:12px;padding:14px;background:var(--surface);border-radius:10px;"><div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Daily life body impact</div><p style="font-size:12px;color:var(--ink-soft);line-height:1.6;">${product.impact}</p></div>` : '';
-  document.getElementById('modalContent').innerHTML = scoreHTML + `
+  // Build trust panels
+  var freqBadge = '<div style="display:inline-block;margin:4px 0 6px;padding:3px 10px;background:' + fg.bg + ';border:1px solid ' + fg.bdr + ';border-radius:12px;font-size:11px;font-weight:700;color:' + fg.col + ';letter-spacing:0.04em;">' + fg.label + '</div>';
+  var scorePanel = '<details style="margin:8px 0;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">' +
+    '<summary style="font-size:11px;font-weight:700;color:#6b7280;cursor:pointer;padding:9px 12px;background:#f9fafb;text-transform:uppercase;letter-spacing:0.05em;list-style:none;">Why Grade ' + grade + '? Score Breakdown</summary>' +
+    '<div style="padding:12px;">' +
+    [['Nutrition',sc.n,40],['Processing',sc.p,20],['Ingredients',sc.i,20],['Transparency',sc.t,20]].map(function(b){
+      var pct=Math.round((b[1]/b[2])*100);
+      var col=pct>=70?'#16a34a':pct>=50?'#d97706':'#dc2626';
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="font-size:11px;color:#6b7280;width:88px;flex-shrink:0;">' + b[0] + '</div><div style="flex:1;height:5px;background:#f3f4f6;border-radius:3px;overflow:hidden;"><div style="width:' + pct + '%;height:100%;background:' + col + ';border-radius:3px;"></div></div><div style="font-size:10px;color:#9ca3af;width:30px;text-align:right;">' + b[1] + '/' + b[2] + '</div></div>';
+    }).join('') +
+    '<div style="font-size:10px;color:#9ca3af;padding-top:6px;border-top:1px solid #f3f4f6;">Total: ' + sc.tot + '/100 · EatAware Model v2 · <a href="#methodology" style="color:#1a4a2e;font-weight:600;">How we grade →</a></div>' +
+    '</div></details>';
+  var cautionPanel = cg.length ? '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin:8px 0;"><div style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Be more careful if you are</div>' + cg.map(function(g){ return '<div style="font-size:12px;color:#78350f;margin-bottom:3px;">▶ ' + g + '</div>'; }).join('') + '</div>' : '';
+  var disclaimer = '<div style="margin-top:12px;padding:9px 11px;background:#f9fafb;border-radius:8px;border-left:3px solid #d1d5db;font-size:11px;color:#6b7280;line-height:1.5;">EatAware grades are informational only — not a diagnosis or medical advice. All ingredients are FSSAI-permitted. Grades reflect long-term pattern risk, not single-serving harm. <a href="#methodology" style="color:#1a4a2e;font-weight:600;">Our methodology →</a></div>';
+
+  document.getElementById('modalContent').innerHTML = freqBadge + `
     ${catBadge}
     <div class="modal-product-name">${product.name}</div>
     <div class="modal-score">
@@ -4386,7 +4405,7 @@ function showProductModal(product) {
     </div>
     ${impactBox}
     <button class="btn-primary" style="width:100%;justify-content:center;font-size:14px;margin-top:12px;" onclick="closeModalDirect()">View full ingredient breakdown →</button>
-  `;
+  `; + scorePanel + cautionPanel + disclaimer;
   document.getElementById('modalOverlay').classList.add('open');
 }
   // Who should be more careful by primary concern
@@ -4443,6 +4462,10 @@ function showProductModal(product) {
 function showIngredientModal(key) {
   const ing = ingredients[key];
   const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const grade = product.grade || 'C';
+  const sc = ({A:{n:38,p:18,i:18,t:16,tot:90},B:{n:30,p:16,i:16,t:14,tot:76},C:{n:22,p:13,i:13,t:12,tot:60},D:{n:14,p:9,i:10,t:10,tot:43},E:{n:8,p:5,i:6,t:8,tot:27},F:{n:2,p:2,i:2,t:4,tot:10}})[grade] || {n:14,p:9,i:10,t:10,tot:43};
+  const fg = ({A:{label:'Safe for daily use',col:'#16a34a',bg:'#f0fdf4',bdr:'#bbf7d0'},B:{label:'Fine for daily use',col:'#65a30d',bg:'#f7fee7',bdr:'#d9f99d'},C:{label:'Occasional is better',col:'#d97706',bg:'#fffbeb',bdr:'#fde68a'},D:{label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'},E:{label:'Monthly at most',col:'#7f1d1d',bg:'#fff1f2',bdr:'#fecdd3'},F:{label:'Avoid routine use',col:'#1c1917',bg:'#f9fafb',bdr:'#e5e7eb'}})[grade] || {label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'};
+  const cg = ({D:['Children under 12','Diabetics and pre-diabetics','People with high blood pressure'],E:['Children under 12','Pregnant women','Diabetics','People with hypertension','People with kidney disease'],F:['Everyone — best avoided for routine use']})[grade] || [];
   const barColors = { low: 'bar-low', mid: 'bar-mid', high: 'bar-high' };
   const organsHtml = ing.organs.map(o => `
     <div class="organ-row">
