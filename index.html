@@ -468,6 +468,7 @@
   .score-c { background: var(--amber-pale); color: #92400e; }
   .score-d { background: #fed7aa; color: #9a3412; }
   .score-e { background: var(--red-pale); color: #991b1b; }
+  .score-f { background: #1c1917; color: #ef4444; border: 2px solid rgba(239,68,68,0.5); }
   .score-f { background: #1c1917; color: #ef4444; border: 1px solid #ef4444; }
   .modal-ings { margin-bottom: 20px; }
   .modal-ings-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
@@ -4358,11 +4359,11 @@ function quickSearch(name) {
 
 
 function showProductModal(product) {
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
   const grade = product.grade || 'C';
   const sc = ({A:{n:38,p:18,i:18,t:16,tot:90},B:{n:30,p:16,i:16,t:14,tot:76},C:{n:22,p:13,i:13,t:12,tot:60},D:{n:14,p:9,i:10,t:10,tot:43},E:{n:8,p:5,i:6,t:8,tot:27},F:{n:2,p:2,i:2,t:4,tot:10}})[grade] || {n:14,p:9,i:10,t:10,tot:43};
-  const fg = ({A:{label:'Safe for daily use',col:'#16a34a',bg:'#f0fdf4',bdr:'#bbf7d0'},B:{label:'Fine for daily use',col:'#65a30d',bg:'#f7fee7',bdr:'#d9f99d'},C:{label:'Occasional is better',col:'#d97706',bg:'#fffbeb',bdr:'#fde68a'},D:{label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'},E:{label:'Monthly at most',col:'#7f1d1d',bg:'#fff1f2',bdr:'#fecdd3'},F:{label:'Avoid routine use',col:'#1c1917',bg:'#f9fafb',bdr:'#e5e7eb'}})[grade] || {label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'};
-  const cg = ({D:['Children under 12','Diabetics and pre-diabetics','People with high blood pressure'],E:['Children under 12','Pregnant women','Diabetics','People with hypertension','People with kidney disease'],F:['Everyone — best avoided for routine use']})[grade] || [];
+  const fg = ({A:{label:'Safe for daily use',col:'#16a34a',bg:'#f0fdf4',bdr:'#bbf7d0'},B:{label:'Fine for daily use',col:'#65a30d',bg:'#f7fee7',bdr:'#d9f99d'},C:{label:'Occasional is better',col:'#d97706',bg:'#fffbeb',bdr:'#fde68a'},D:{label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'},E:{label:'Monthly at most',col:'#7f1d1d',bg:'#fff1f2',bdr:'#fecdd3'},F:{label:'Very high concern',col:'#ef4444',bg:'#fff1f2',bdr:'#fecdd3'}})[grade] || {label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'};
+  const cg = ({D:['Children under 12','Diabetics and pre-diabetics','People with high blood pressure'],E:['Children under 12','Pregnant women','Diabetics','People with hypertension','People with kidney disease'],F:['Everyone — best limited to rare occasions','Especially children, pregnant women, people with chronic conditions']})[grade] || [];
   const ingsHtml = product.ings.map(i => `
     <div class="modal-ing-row">
       <div class="modal-ing-dot ${i.dot}"></div>
@@ -4408,6 +4409,18 @@ function showProductModal(product) {
     A: [],
     B: []
   };
+  var alternativesMap = {
+    'Instant Noodles':    {alts:['Bagrrys White Oats','MTR Atta Vermicelli Upma','Homemade phulka + dal'], why:'Lower sodium, whole grain, no TBHQ or synthetic additives'},
+    'Unhealthy Snacks':   {alts:['Roasted chana (homemade)','Makhana (fox nuts)','Too Yumm Multigrain'], why:'Higher protein and fibre, no synthetic dyes or flavour enhancers'},
+    'Biscuits':           {alts:["McVitie's Digestive",'Horlicks Biscuits','Oat cookies (homemade)'], why:'Wholemeal base, lower sugar, no partially hydrogenated fat'},
+    'Beverages':          {alts:['Plain full-cream milk + banana','Lipton Green Tea','Homemade nimbu pani'], why:'Real protein, real calcium, no added sugar or artificial colour'},
+    'Chocolate & Candy':  {alts:['Dark chocolate 70%+','Dates + mixed nuts','Fresh seasonal fruit'], why:'Real cocoa with antioxidants, natural sweetness, actual minerals'},
+    'Sauces & Condiments':{alts:['Homemade tomato chutney','Tabasco (3 clean ingredients)','Real lemon juice + rock salt'], why:'No high-fructose syrup, no artificial flavour, no excess sodium'},
+    'Breakfast Cereals':  {alts:['Bagrrys White Oats','True Elements Muesli','Ragi porridge'], why:'Whole grain, lower GI, beta-glucan fibre, no added sugar'},
+    'Dairy':              {alts:['Amul Dahi plain curd','Epigamia Greek Yogurt plain','Fresh homemade dahi'], why:'Live probiotic cultures, real protein, no emulsifiers or phosphates'},
+    'Frozen Foods':       {alts:['Mother Dairy IQF Green Peas','Homemade frozen meals','Fresh seasonal vegetables'], why:'Flash-frozen retains more Vitamin C than canned, zero additives'},
+    'Ready to Cook':      {alts:['MTR Poha Mix','Homemade dal + rice','Ragi dosa batter'], why:'Traditional ingredients, lower sodium, real spice benefit'},
+  };
   var gradeScores = {
     A: {nutrition:38, processing:18, ingredient:18, transparency:16, total:90},
     B: {nutrition:30, processing:16, ingredient:16, transparency:14, total:76},
@@ -4452,11 +4465,11 @@ function showProductModal(product) {
 
 function showIngredientModal(key) {
   const ing = ingredients[key];
-  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-e' };
+  const gradeColors = { A: 'score-a', B: 'score-b', C: 'score-c', D: 'score-d', E: 'score-e', F: 'score-f' };
   const grade = product.grade || 'C';
   const sc = ({A:{n:38,p:18,i:18,t:16,tot:90},B:{n:30,p:16,i:16,t:14,tot:76},C:{n:22,p:13,i:13,t:12,tot:60},D:{n:14,p:9,i:10,t:10,tot:43},E:{n:8,p:5,i:6,t:8,tot:27},F:{n:2,p:2,i:2,t:4,tot:10}})[grade] || {n:14,p:9,i:10,t:10,tot:43};
-  const fg = ({A:{label:'Safe for daily use',col:'#16a34a',bg:'#f0fdf4',bdr:'#bbf7d0'},B:{label:'Fine for daily use',col:'#65a30d',bg:'#f7fee7',bdr:'#d9f99d'},C:{label:'Occasional is better',col:'#d97706',bg:'#fffbeb',bdr:'#fde68a'},D:{label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'},E:{label:'Monthly at most',col:'#7f1d1d',bg:'#fff1f2',bdr:'#fecdd3'},F:{label:'Avoid routine use',col:'#1c1917',bg:'#f9fafb',bdr:'#e5e7eb'}})[grade] || {label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'};
-  const cg = ({D:['Children under 12','Diabetics and pre-diabetics','People with high blood pressure'],E:['Children under 12','Pregnant women','Diabetics','People with hypertension','People with kidney disease'],F:['Everyone — best avoided for routine use']})[grade] || [];
+  const fg = ({A:{label:'Safe for daily use',col:'#16a34a',bg:'#f0fdf4',bdr:'#bbf7d0'},B:{label:'Fine for daily use',col:'#65a30d',bg:'#f7fee7',bdr:'#d9f99d'},C:{label:'Occasional is better',col:'#d97706',bg:'#fffbeb',bdr:'#fde68a'},D:{label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'},E:{label:'Monthly at most',col:'#7f1d1d',bg:'#fff1f2',bdr:'#fecdd3'},F:{label:'Very high concern',col:'#ef4444',bg:'#fff1f2',bdr:'#fecdd3'}})[grade] || {label:'Limit to occasional',col:'#dc2626',bg:'#fef2f2',bdr:'#fecaca'};
+  const cg = ({D:['Children under 12','Diabetics and pre-diabetics','People with high blood pressure'],E:['Children under 12','Pregnant women','Diabetics','People with hypertension','People with kidney disease'],F:['Everyone — best limited to rare occasions','Especially children, pregnant women, people with chronic conditions']})[grade] || [];
   const barColors = { low: 'bar-low', mid: 'bar-mid', high: 'bar-high' };
   const organsHtml = ing.organs.map(o => `
     <div class="organ-row">
