@@ -4376,16 +4376,7 @@ function showProductModal(product) {
   const impactBox = product.impact ? `<div style="margin-top:12px;padding:14px;background:var(--surface);border-radius:10px;"><div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Daily life body impact</div><p style="font-size:12px;color:var(--ink-soft);line-height:1.6;">${product.impact}</p></div>` : '';
   // Build trust panels
   var freqBadge = '<div style="display:inline-block;margin:4px 0 6px;padding:3px 10px;background:' + fg.bg + ';border:1px solid ' + fg.bdr + ';border-radius:12px;font-size:11px;font-weight:700;color:' + fg.col + ';letter-spacing:0.04em;">' + fg.label + '</div>';
-  var scorePanel = '<details style="margin:8px 0;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">' +
-    '<summary style="font-size:11px;font-weight:700;color:#6b7280;cursor:pointer;padding:9px 12px;background:#f9fafb;text-transform:uppercase;letter-spacing:0.05em;list-style:none;">Why Grade ' + grade + '? Score Breakdown</summary>' +
-    '<div style="padding:12px;">' +
-    [['Nutrition',sc.n,40],['Processing',sc.p,20],['Ingredients',sc.i,20],['Transparency',sc.t,20]].map(function(b){
-      var pct=Math.round((b[1]/b[2])*100);
-      var col=pct>=70?'#16a34a':pct>=50?'#d97706':'#dc2626';
-      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="font-size:11px;color:#6b7280;width:88px;flex-shrink:0;">' + b[0] + '</div><div style="flex:1;height:5px;background:#f3f4f6;border-radius:3px;overflow:hidden;"><div style="width:' + pct + '%;height:100%;background:' + col + ';border-radius:3px;"></div></div><div style="font-size:10px;color:#9ca3af;width:30px;text-align:right;">' + b[1] + '/' + b[2] + '</div></div>';
-    }).join('') +
-    '<div style="font-size:10px;color:#9ca3af;padding-top:6px;border-top:1px solid #f3f4f6;">Total: ' + sc.tot + '/100 · EatAware Model v2 · <a href="#methodology" style="color:#1a4a2e;font-weight:600;">How we grade →</a></div>' +
-    '</div></details>';
+  var scorePanel = (typeof ScoringEngine !== 'undefined') ? ScoringEngine.renderScoreCard(product) : '';
   var cautionPanel = cg.length ? '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin:8px 0;"><div style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Be more careful if you are</div>' + cg.map(function(g){ return '<div style="font-size:12px;color:#78350f;margin-bottom:3px;">▶ ' + g + '</div>'; }).join('') + '</div>' : '';
   var disclaimer = '<div style="margin-top:12px;padding:9px 11px;background:#f9fafb;border-radius:8px;border-left:3px solid #d1d5db;font-size:11px;color:#6b7280;line-height:1.5;">EatAware grades are informational only — not a diagnosis or medical advice. All ingredients are FSSAI-permitted. Grades reflect long-term pattern risk, not single-serving harm. <a href="#methodology" style="color:#1a4a2e;font-weight:600;">Our methodology →</a></div>';
 
@@ -4514,6 +4505,306 @@ function subscribeNL() {
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') handleSearch();
 });
+
+// ============================================================
+// EATAWARE SCORING ENGINE v2 — Calibrated
+// Start: 100. Grade bands calibrated against real products.
+// Sources cited on every penalty/bonus.
+// ============================================================
+var ScoringEngine = (function() {
+
+  var RULES = [
+    // ── HARD PENALTIES ──
+    { id:'trans_fat', label:'Trans fat / hydrogenated oil', points:-40, cat:'fat',
+      source:'WHO: trans fat raises coronary heart disease risk. No known health benefit at any level.',
+      match:function(p,i){ return i.some(function(x){ return /hydrogenat|vanaspati|partially hydro/i.test(x.name+x.desc); }); }
+    },
+    { id:'tbhq', label:'TBHQ — synthetic antioxidant (INS 319)', points:-15, cat:'additive',
+      source:'FSSAI Appendix A: permitted in specified categories. WHO: caution with high repeated intake.',
+      match:function(p,i){ return i.some(function(x){ return /tbhq|ins.?319/i.test(x.name+x.desc); }); }
+    },
+    { id:'tartrazine', label:'Tartrazine / synthetic colour (INS 102)', points:-10, cat:'colour',
+      source:'Southampton Study (2007, UK FSA): linked to hyperactivity in children. FSSAI permitted.',
+      match:function(p,i){ return i.some(function(x){ return /tartrazine|ins.?102|\be102\b|allura red|ins.?129|sunset yellow/i.test(x.name+x.desc); }); }
+    },
+    { id:'art_colour', label:'Artificial colour (caramel / synthetic)', points:-6, cat:'colour',
+      source:'Caramel colour E150: some processing methods produce 4-MEI. FSSAI permitted with limits.',
+      match:function(p,i){ return i.some(function(x){ return /artificial colou|caramel colou|e150|synthetic colou/i.test(x.name+x.desc) && !/tartrazine|ins.?102/i.test(x.name); }); }
+    },
+    { id:'msg_enhancer', label:'MSG / glutamate flavour enhancers', points:-5, cat:'additive',
+      source:'FSSAI: mandatory declaration required. High palatability drives overconsumption.',
+      match:function(p,i){ return i.some(function(x){ return /\bmsg\b|monosodium glutamate|disodium inosinate|e631|ins.?631|flavour enhancer/i.test(x.name+x.desc); }); }
+    },
+    { id:'art_flavour', label:'Artificial / nature identical flavouring', points:-5, cat:'additive',
+      source:'FSSAI: must declare. "Nature identical" = synthetic compounds. Undisclosed compound mix.',
+      match:function(p,i){ return i.some(function(x){ return /nature identical|artificial flavou|synthetic flavou/i.test(x.name+x.desc); }); }
+    },
+    { id:'palm_oil', label:'Palm oil / palmolein (high saturated fat)', points:-7, cat:'fat',
+      source:'WHO: limit saturated fat to <10% of energy. Palm oil ~50% saturated. LDL cholesterol risk.',
+      match:function(p,i){ return i.some(function(x){ return /palm oil|palmolein|palm fat/i.test(x.name); }); }
+    },
+
+    // ── NUTRITION PENALTIES ──
+    { id:'very_high_sodium', label:'Very high sodium (>800mg per serving)', points:-18, cat:'nutrition',
+      source:'WHO: adults <2000mg/day. >800mg per serving = 40%+ of daily limit in a single product.',
+      match:function(p,i){
+        var t = (p.impact||'')+' '+i.map(function(x){return x.name+' '+x.desc;}).join(' ');
+        var m = t.match(/sodium\D{0,10}(\d{3,4})\s*mg|(\d{3,4})\s*mg\D{0,10}sodium/i);
+        var flagged = i.some(function(x){ return /very high sodium/i.test(x.name); });
+        return flagged || (m && parseInt(m[1]||m[2]) > 800);
+      }
+    },
+    { id:'high_sodium', label:'High sodium (400–800mg per serving)', points:-10, cat:'nutrition',
+      source:'WHO sodium guidance: <2000mg/day. 400–800mg per serving is a significant contribution.',
+      match:function(p,i){
+        var t = (p.impact||'')+' '+i.map(function(x){return x.name+' '+x.desc;}).join(' ');
+        var m = t.match(/sodium\D{0,10}(\d{3,4})\s*mg|(\d{3,4})\s*mg\D{0,10}sodium/i);
+        var vHigh = i.some(function(x){ return /very high sodium/i.test(x.name); });
+        if (vHigh) return false;
+        var val = m ? parseInt(m[1]||m[2]) : 0;
+        var modFlag = i.some(function(x){ return /high sodium/i.test(x.name) && !/very high/i.test(x.name); });
+        return modFlag || (val >= 400 && val <= 800);
+      }
+    },
+    { id:'very_high_sugar', label:'Very high sugar (>30g per 100g)', points:-25, cat:'sugar',
+      source:'WHO: free sugars <10% of energy (~50g/day). >30g/100g makes it mostly sugar by weight.',
+      match:function(p,i){
+        var t = (p.impact||'');
+        var m = t.match(/(\d{2,3})[g%\s.]*(?:gram|g|%)?\s*(?:of\s+)?sugar|sugar\D{0,15}(\d{2,3})[g%\s]/i);
+        return m && parseInt(m[1]||m[2]) >= 30;
+      }
+    },
+    { id:'high_sugar', label:'Sugar as primary ingredient (diet quality concern)', points:-10, cat:'sugar',
+      source:'WHO: added sugar raises obesity, dental caries and metabolic disease risk. No nutritional benefit.',
+      match:function(p,i){
+        // Only fire if sugar is listed as a named avoid ingredient (not just numerically caught above)
+        var hasAvoidSugar = i.some(function(x){ return /^sugar$/i.test(x.name) && x.dot==='dot-avoid'; });
+        var t = (p.impact||'');
+        var m = t.match(/(\d{2})g?\s*sugar|sugar[^0-9]*(\d{2})g/i);
+        var vHighFired = m && parseInt(m[1]||m[2]) >= 30;
+        // Fire only for ingredient signal, OR mid-range numeric (15-29g) without vHigh
+        return hasAvoidSugar && !vHighFired;
+      }
+    },
+    { id:'maltodextrin', label:'Maltodextrin (GI 110 — higher than table sugar)', points:-6, cat:'sugar',
+      source:'International GI Database (Univ. Sydney): maltodextrin GI ~110. Rapid blood glucose spike.',
+      match:function(p,i){ return i.some(function(x){ return /maltodextrin/i.test(x.name+x.desc); }); }
+    },
+    { id:'refined_flour', label:'Refined wheat flour / Maida (high GI, no fibre)', points:-5, cat:'nutrition',
+      source:'International GI Database: white flour GI 70–85. Rapid blood sugar spike. Zero dietary fibre.',
+      match:function(p,i){ return i.some(function(x){ return /\bmaida\b|refined wheat|refined flour/i.test(x.name+x.desc); }); }
+    },
+
+    // ── BONUSES ──
+    { id:'live_cultures', label:'Live probiotic cultures (Lactobacillus)', points:+12, cat:'positive',
+      source:'Clinical evidence: Lactobacillus improves gut microbiome. Immune and digestive benefit.',
+      match:function(p,i){ return i.some(function(x){ return /lactobacillus|probiotic|live culture|live active/i.test(x.name+x.desc); }); }
+    },
+    { id:'whole_grain', label:'Whole grain / millet base (beta-glucan fibre)', points:+10, cat:'positive',
+      source:'WHO: whole grains reduce cardiovascular risk. Higher fibre, lower GI than refined grains.',
+      match:function(p,i){ return i.some(function(x){ return /whole grain|whole wheat|ragi|bajra|jowar|foxtail|rolled oat|millet/i.test(x.name) && x.dot==='dot-safe'; }); }
+    },
+    { id:'clean_label', label:'Clean ingredient list (3 or fewer, all safe)', points:+10, cat:'positive',
+      source:'NOVA classification: minimal processing = lowest long-term health risk category.',
+      match:function(p,i){ return i.length<=3 && i.every(function(x){ return x.dot==='dot-safe'; }); }
+    },
+    { id:'real_protein', label:'Real protein source (dairy / legume / egg)', points:+6, cat:'positive',
+      source:'WHO: adequate protein supports growth and metabolism. Whole-food sources preferred.',
+      match:function(p,i){ return i.some(function(x){ return /pea protein|whey protein|casein|paneer|soy protein/i.test(x.name+x.desc) && x.dot==='dot-safe'; }); }
+    },
+    { id:'omega3', label:'Omega-3 source (ALA / EPA / DHA)', points:+6, cat:'positive',
+      source:'WHO: omega-3 reduces cardiovascular risk. ALA from flaxseed, EPA/DHA from fish.',
+      match:function(p,i){ return i.some(function(x){ return /omega.?3|flaxseed|chia seed|walnut/i.test(x.name+x.desc) && x.dot==='dot-safe'; }); }
+    },
+    { id:'real_spices', label:'Real spices (anti-inflammatory benefit)', points:+4, cat:'positive',
+      source:'Turmeric (curcumin), mustard seeds, curry leaf — clinically studied anti-inflammatory compounds.',
+      match:function(p,i){ return i.some(function(x){ return /real spice|turmeric|mustard seed|curry leaf/i.test(x.name+x.desc) && x.dot==='dot-safe'; }); }
+    },
+    { id:'no_sugar', label:'No added sugar', points:+6, cat:'positive',
+      source:'WHO: reducing free sugar intake reduces risk of obesity, dental caries and metabolic disease.',
+      match:function(p,i){
+        var claim = /(no|zero)\s+(added\s+)?sugar/i.test(p.impact||'');
+        var noAvoidSugar = !i.some(function(x){ return /^sugar$/i.test(x.name) && x.dot==='dot-avoid'; });
+        return claim && noAvoidSugar;
+      }
+    },
+  ];
+
+  // Grade bands (out of 100, starting from 100 with deductions)
+  var GRADE_BANDS = [
+    {grade:'A',min:82},{grade:'B',min:67},{grade:'C',min:52},
+    {grade:'D',min:32},{grade:'E',min:12},{grade:'F',min:0}
+  ];
+
+  // Hard caps
+  var HARD_CAPS = [
+    { label:'Trans fat confirmed → Grade F',
+      source:'WHO: no known health benefit. Industrial trans fat = strongest dietary avoid signal.',
+      check:function(p,i){ return i.some(function(x){ return /partially hydrogenat|vanaspati/i.test(x.name+x.desc); }); },
+      forceGrade:'F'
+    },
+    { label:'Sugar-sweetened beverage → max Grade D',
+      source:'WHO sugary drinks guidance. Singapore Nutri-Grade anchor for beverages.',
+      check:function(p,i){
+        var isBev=/beverage|drink|juice|soda|cola/i.test((p.category||p.name||''));
+        return isBev && i.some(function(x){ return /^sugar$/i.test(x.name) && x.dot==='dot-avoid'; });
+      },
+      maxGrade:'D'
+    },
+  ];
+
+  var GRADE_ORDER = ['A','B','C','D','E','F'];
+
+  function extractSodium(p) {
+    var t = (p.impact||'')+' '+(p.ings||[]).map(function(x){return x.name+' '+x.desc;}).join(' ');
+    var m = t.match(/sodium\D{0,10}(\d{3,4})\s*mg|(\d{3,4})\s*mg\D{0,10}sodium/i);
+    return m ? parseInt(m[1]||m[2]) : null;
+  }
+
+  function scoreProduct(product) {
+    var ings = product.ings || [];
+    var triggered = [];
+    var score = 100;
+
+    RULES.forEach(function(rule) {
+      if (rule.match(product, ings)) {
+        triggered.push({label:rule.label, points:rule.points, cat:rule.cat, source:rule.source});
+        score += rule.points;
+      }
+    });
+
+    // Additive stack penalty
+    var avoidCount = ings.filter(function(i){ return i.dot==='dot-avoid'; }).length;
+    if (avoidCount >= 3) {
+      var sp = -(avoidCount-2)*4;
+      triggered.push({label:avoidCount+' avoid-level ingredients (combined burden)', points:sp, cat:'additive',
+        source:'Combined additive burden amplifies health risk beyond individual ingredient signals.'});
+      score += sp;
+    }
+
+    score = Math.max(0, Math.min(100, score));
+
+    var computedGrade = 'F';
+    for (var i=0; i<GRADE_BANDS.length; i++) {
+      if (score >= GRADE_BANDS[i].min) { computedGrade = GRADE_BANDS[i].grade; break; }
+    }
+
+    var hardCapTriggered = null;
+    HARD_CAPS.forEach(function(cap) {
+      if (cap.check(product, ings)) {
+        if (cap.forceGrade) { computedGrade = cap.forceGrade; hardCapTriggered = cap; }
+        else if (GRADE_ORDER.indexOf(computedGrade) < GRADE_ORDER.indexOf(cap.maxGrade)) {
+          computedGrade = cap.maxGrade; hardCapTriggered = cap;
+        }
+      }
+    });
+
+    return {
+      score:score, computedGrade:computedGrade, displayedGrade:product.grade,
+      gradeMatch:computedGrade===product.grade, rules:triggered,
+      hardCap:hardCapTriggered, avoidCount:avoidCount,
+      cautionCount:ings.filter(function(i){ return i.dot==='dot-caution'; }).length,
+      safeCount:ings.filter(function(i){ return i.dot==='dot-safe'; }).length,
+      sodiumMg:extractSodium(product)
+    };
+  }
+
+  function renderScoreCard(product) {
+    var result = scoreProduct(product);
+    var grade = product.grade;
+    var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'}[grade]||'#888';
+    var neg = result.rules.filter(function(r){ return r.points<0; });
+    var pos = result.rules.filter(function(r){ return r.points>0; });
+    var penSum = neg.reduce(function(s,r){return s+r.points;},0);
+    var bonSum = pos.reduce(function(s,r){return s+r.points;},0);
+
+    var h = '<details style="margin:10px 0;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">';
+    h += '<summary style="cursor:pointer;padding:11px 14px;background:#f9fafb;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none;">';
+    h += '<span style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.05em;">Why Grade '+grade+'? · Score: '+result.score+'/100</span>';
+    h += '<span style="font-size:11px;color:#9ca3af;">▾ tap to expand</span></summary>';
+    h += '<div style="padding:14px;">';
+
+    // Score bar
+    h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">';
+    h += '<span style="font-size:10px;color:#9ca3af;">0</span>';
+    h += '<div style="flex:1;height:7px;background:#f3f4f6;border-radius:4px;overflow:hidden;">';
+    h += '<div style="width:'+result.score+'%;height:100%;background:'+gc+';border-radius:4px;"></div></div>';
+    h += '<span style="font-size:10px;color:#9ca3af;">100</span>';
+    h += '<div style="width:28px;height:28px;background:'+gc+';border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;">'+grade+'</div></div>';
+
+    h += '<div style="font-size:11px;color:#6b7280;padding-bottom:8px;border-bottom:1px solid #f3f4f6;margin-bottom:10px;">Start: <strong>100</strong> (perfect score — deductions applied below)</div>';
+
+    // Penalties
+    if (neg.length) {
+      h += '<div style="font-size:10px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;">Penalties</div>';
+      neg.forEach(function(r) {
+        h += '<div style="padding:6px 0;border-bottom:1px solid #fafafa;">';
+        h += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
+        h += '<span style="font-size:12px;color:#111;flex:1;">'+r.label+'</span>';
+        h += '<span style="font-size:12px;font-weight:700;color:#dc2626;flex-shrink:0;">'+r.points+'</span></div>';
+        h += '<div style="font-size:10px;color:#9ca3af;margin-top:2px;line-height:1.4;">'+r.source+'</div></div>';
+      });
+      h += '<div style="display:flex;justify-content:space-between;padding:5px 0 8px;">';
+      h += '<span style="font-size:11px;color:#6b7280;">Subtotal penalties</span>';
+      h += '<span style="font-size:11px;font-weight:700;color:#dc2626;">'+penSum+'</span></div>';
+    }
+
+    // Bonuses
+    if (pos.length) {
+      h += '<div style="font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;">Bonuses</div>';
+      pos.forEach(function(r) {
+        h += '<div style="padding:6px 0;border-bottom:1px solid #fafafa;">';
+        h += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
+        h += '<span style="font-size:12px;color:#111;flex:1;">'+r.label+'</span>';
+        h += '<span style="font-size:12px;font-weight:700;color:#16a34a;flex-shrink:0;">+'+r.points+'</span></div>';
+        h += '<div style="font-size:10px;color:#9ca3af;margin-top:2px;line-height:1.4;">'+r.source+'</div></div>';
+      });
+      h += '<div style="display:flex;justify-content:space-between;padding:5px 0 8px;">';
+      h += '<span style="font-size:11px;color:#6b7280;">Subtotal bonuses</span>';
+      h += '<span style="font-size:11px;font-weight:700;color:#16a34a;">+'+bonSum+'</span></div>';
+    }
+
+    // Total
+    h += '<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#f9fafb;border-radius:8px;margin-top:4px;">';
+    h += '<span style="font-size:12px;font-weight:700;color:#111;">Final score</span>';
+    h += '<span style="font-size:13px;font-weight:800;color:'+gc+';">'+result.score+'/100 → Grade '+grade+'</span></div>';
+
+    // Editorial override
+    if (!result.gradeMatch) {
+      h += '<div style="margin-top:8px;padding:8px 10px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:11px;color:#78350f;">';
+      h += '<strong>Editorial note:</strong> Engine computed Grade '+result.computedGrade+'. ';
+      h += 'Displayed Grade '+grade+' reflects overall formulation quality, consumption pattern context and category benchmarks — not just individual ingredient signals.</div>';
+    }
+
+    // Hard cap
+    if (result.hardCap) {
+      h += '<div style="margin-top:8px;padding:7px 10px;background:#fef2f2;border-radius:8px;">';
+      h += '<div style="font-size:11px;font-weight:700;color:#dc2626;">⚠ Hard cap: '+result.hardCap.label+'</div>';
+      h += '<div style="font-size:10px;color:#9ca3af;margin-top:2px;">'+result.hardCap.source+'</div></div>';
+    }
+
+    // Sodium callout
+    if (result.sodiumMg) {
+      var pct = Math.round((result.sodiumMg/2000)*100);
+      var sdCol = result.sodiumMg > 800 ? '#dc2626' : '#d97706';
+      h += '<div style="margin-top:8px;padding:7px 10px;background:#f9fafb;border-radius:8px;font-size:11px;color:'+sdCol+';">';
+      h += '🧂 Sodium: <strong>'+result.sodiumMg+'mg per serving</strong> — '+pct+'% of WHO daily limit (2000mg)</div>';
+    }
+
+    // Ingredient counts
+    h += '<div style="margin-top:8px;display:flex;gap:8px;">';
+    h += '<span style="font-size:11px;padding:3px 8px;background:#fef2f2;border-radius:6px;color:#dc2626;font-weight:600;">'+result.avoidCount+' avoid</span>';
+    h += '<span style="font-size:11px;padding:3px 8px;background:#fffbeb;border-radius:6px;color:#d97706;font-weight:600;">'+result.cautionCount+' caution</span>';
+    h += '<span style="font-size:11px;padding:3px 8px;background:#f0fdf4;border-radius:6px;color:#16a34a;font-weight:600;">'+result.safeCount+' safe</span></div>';
+
+    h += '<div style="margin-top:10px;font-size:10px;color:#9ca3af;line-height:1.5;padding-top:8px;border-top:1px solid #f3f4f6;">Scoring based on FSSAI label data, WHO guidelines, IARC classifications and peer-reviewed evidence. <a href="#methodology" style="color:#1a4a2e;font-weight:600;">Full EatAware methodology →</a></div>';
+    h += '</div></details>';
+    return h;
+  }
+
+  return {scoreProduct:scoreProduct, renderScoreCard:renderScoreCard};
+})();
+
 
 // ============================================================
 // V10 ADDITIONS — Supabase Auth + Sign In + My Report
