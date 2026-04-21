@@ -676,7 +676,7 @@
   <span style="font-size:12px;font-weight:700;background:#ef4444;color:#fff;padding:3px 12px;border-radius:20px;">D High concern</span>
   <span style="font-size:12px;font-weight:700;background:#991b1b;color:#fff;padding:3px 12px;border-radius:20px;">E Very poor</span>
   <span style="font-size:12px;font-weight:700;background:#1c1917;color:#ef4444;border:1px solid #ef4444;padding:3px 12px;border-radius:20px;">F Avoid</span>
-  <span style="font-size:11px;color:rgba(255,255,255,0.4);">Adapted from Singapore Nutri-Grade · FSSAI Standards</span>
+  <span style="font-size:11px;color:rgba(255,255,255,0.4);">EatAware Editorial Model · FSSAI & WHO Referenced</span>
 </div>
 <div class="stats-strip">
   <div class="stat"><div class="stat-num">400+</div><div class="stat-lbl">Products rated A–F</div></div>
@@ -728,7 +728,7 @@
         <div class="card-icon icon-green">🛒</div>
         <div class="card-title">Healthier Alternatives</div>
         <div class="card-desc">For every product rated C, D, or E, we name a cleaner alternative you can find on BigBasket or Amazon — so you can swap without guessing.</div>
-        <span class="card-tag" style="background:var(--amber-pale);color:var(--amber);">Coming in V10</span>
+        <span class="card-tag" style="background:var(--amber-pale);color:var(--amber);">Live now</span>
       </div>
     </div>
   </div>
@@ -1253,14 +1253,14 @@ const ingredients = {
 };
 
 const products = {
-  'maggi noodles': { name: 'Maggi 2-Minute Noodles', grade: 'D',     impact: 'Daily consumption linked to elevated TBHQ accumulation in liver. High sodium (840mg per serving) raises blood pressure over time. Refined maida spikes blood sugar rapidly. Fine as occasional once-weekly meal for adults. Children eating daily face compounding health risks from TBHQ plus refined flour plus excess sodium.',
+  'maggi noodles': { name: 'Maggi 2-Minute Noodles', grade: 'D', category: 'Instant Noodles',     impact: 'Daily consumption linked to elevated TBHQ accumulation in liver. High sodium (840mg per serving) raises blood pressure over time. Refined maida spikes blood sugar rapidly. Fine as occasional once-weekly meal for adults. Children eating daily face compounding health risks from TBHQ plus refined flour plus excess sodium.',
     ings: [
     { dot: 'dot-avoid', name: 'TBHQ', desc: 'Synthetic antioxidant (INS 319). Permitted by FSSAI in specified categories. WHO: caution with high repeated intake. Source: FSSAI Appendix A — concerns with repeated daily use', safe: false },
     { dot: 'dot-caution', name: 'MSG', desc: 'Flavour enhancer — fine in moderation, high sodium', safe: null },
     { dot: 'dot-caution', name: 'Refined Wheat Flour (Maida)', desc: 'High glycaemic index — blood sugar spikes', safe: null },
     { dot: 'dot-avoid', name: 'Palm Oil', desc: 'High saturated fat — raises LDL cholesterol over time', safe: false },
   ]},
-  "lay's chips": { name: "Lay's Classic Salted", grade: 'D', ings: [
+  "lay's chips": { name: "Lay's Classic Salted", grade: 'D', category: 'Unhealthy Snacks', ings: [
     { dot: 'dot-avoid', name: 'TBHQ', desc: 'Present to preserve oil — linked to immune disruption', safe: false },
     { dot: 'dot-caution', name: 'Palm Oil', desc: 'Saturated fat, LDL risk with daily consumption', safe: null },
     { dot: 'dot-safe', name: 'Potatoes', desc: 'Natural base ingredient — no concern', safe: true },
@@ -1340,14 +1340,14 @@ const products = {
     { dot: 'dot-caution', name: 'Cocoa Powder', desc: 'Small amount — some antioxidant benefit', safe: null },
     { dot: 'dot-avoid', name: 'Emulsifier 322', desc: 'Soy lecithin — generally safe but undisclosed source', safe: false },
   ]},
-  'bournvita': { name: 'Cadbury Bournvita', grade: 'D',     impact: '37.5% sugar by weight means one cup of Bournvita in milk adds 7.5g pure sugar on top of lactose in milk. Marketed to children as health drink. Clinical review found no evidence Bournvita improves growth or athletic performance. The vitamins and minerals are genuine but entirely outweighed by the sugar content. Plain whole milk with a banana provides superior nutrition.',
+  'bournvita': { name: 'Cadbury Bournvita', grade: 'D', category: 'Beverages',     impact: '37.5% sugar by weight means one cup of Bournvita in milk adds 7.5g pure sugar on top of lactose in milk. Marketed to children as health drink. Clinical review found no evidence Bournvita improves growth or athletic performance. The vitamins and minerals are genuine but entirely outweighed by the sugar content. Plain whole milk with a banana provides superior nutrition.',
     ings: [
     { dot: 'dot-avoid', name: 'Added Sugar', desc: '7.5g sugar per 20g serving — 37.5% sugar by weight', safe: false },
     { dot: 'dot-caution', name: 'Cocoa Solids', desc: 'Some antioxidant benefit — outweighed by sugar content', safe: null },
     { dot: 'dot-safe', name: 'Vitamins & Minerals', desc: 'B vitamins, calcium, iron — genuinely beneficial', safe: true },
     { dot: 'dot-caution', name: 'Caramel Colour (E150)', desc: 'Artificial colouring — some forms linked to health concerns', safe: null },
   ]},
-  'horlicks': { name: 'Horlicks Original Health Drink', grade: 'C',     impact: 'Better than Bournvita on sugar content (27% vs 37.5%). Malt base provides some B vitamins. 34 nutrients claim is genuine but quantities are small. Suitable as occasional supplement for picky eaters or elderly. Not a meal replacement. Plain milk with whole grain foods provides equivalent or superior nutrition for healthy children.',
+  'horlicks': { name: 'Horlicks Original Health Drink', grade: 'C', category: 'Beverages',     impact: 'Better than Bournvita on sugar content (27% vs 37.5%). Malt base provides some B vitamins. 34 nutrients claim is genuine but quantities are small. Suitable as occasional supplement for picky eaters or elderly. Not a meal replacement. Plain milk with whole grain foods provides equivalent or superior nutrition for healthy children.',
     ings: [
     { dot: 'dot-caution', name: 'Malted Barley & Wheat', desc: 'Natural grain base — contains gluten', safe: null },
     { dot: 'dot-avoid', name: 'Added Sugar', desc: '5.4g sugar per 27g serving', safe: false },
@@ -1550,7 +1550,7 @@ const products = {
     { dot: 'dot-caution', name: 'Caffeine (57mg/cup)', desc: 'Moderate — limit to 2–3 cups/day max', safe: null },
     { dot: 'dot-safe', name: 'No Sugar Added', desc: 'Plain coffee — sweeteners up to consumer', safe: true },
   ]},
-  'boost health drink': { name: 'Boost Chocolate Health Drink', grade: 'D', ings: [
+  'boost health drink': { name: 'Boost Chocolate Health Drink', grade: 'D', category: 'Beverages', ings: [
     { dot: 'dot-avoid', name: 'Added Sugar', desc: '8.4g per 22g serving — 38% sugar by weight', safe: false },
     { dot: 'dot-caution', name: 'Cocoa Solids', desc: 'Some benefit but outweighed by sugar content', safe: null },
     { dot: 'dot-safe', name: 'Vitamins & Minerals', desc: 'Fortified with iron, calcium, B vitamins — beneficial', safe: true },
@@ -1658,7 +1658,7 @@ const products = {
     { dot: 'dot-caution', name: 'Carrageenan', desc: 'Thickener — gut inflammation concern', safe: null },
   ]},
 
-  'complan': { name: 'Complan Chocolate Growth Drink', grade: 'D', ings: [
+  'complan': { name: 'Complan Chocolate Growth Drink', grade: 'D', category: 'Beverages', ings: [
     { dot: 'dot-avoid', name: 'Added Sugar', desc: '9g per 33g serving — 27% sugar', safe: false },
     { dot: 'dot-safe', name: '34 Nutrients', desc: 'Comprehensive vitamin and mineral fortification', safe: true },
     { dot: 'dot-caution', name: 'Skimmed Milk Powder', desc: 'Processed dairy — lower fat-soluble vitamin content', safe: null },
@@ -1891,7 +1891,7 @@ const products = {
     { dot: 'dot-safe', name: 'Whey Protein', desc: 'High quality complete protein source', safe: true },
   ]},
 
-  'milo': { name: 'Nestlé Milo Activ-Go (400g)', grade: 'D', ings: [
+  'milo': { name: 'Nestlé Milo Activ-Go (400g)', grade: 'D', category: 'Beverages', ings: [
     { dot: 'dot-avoid', name: 'Added Sugar', desc: '7.8g per 20g serving — 39% sugar by weight', safe: false },
     { dot: 'dot-caution', name: 'Malted Barley', desc: 'Natural grain base — some nutrition', safe: null },
     { dot: 'dot-safe', name: 'Cocoa Extract', desc: 'Some antioxidant benefit', safe: true },
@@ -3867,7 +3867,7 @@ const products = {
       { dot: 'dot-caution', name: 'Vegetable Oil (non-hydrogenated)', desc: 'No trans fats — better than vanaspati', safe: null }
     ]},
 
-  'oreo original': { name: 'Oreo Original Sandwich Cookies (120g)', grade: 'D', category: 'Biscuits',
+  'oreo original': { name: 'Oreo Original Sandwich Cookies (120g)', grade: 'D', category: 'Biscuits', category: 'Biscuits',
     impact: 'Global biscuit brand with predictably poor nutrition. 45g sugar per 100g — nearly half the product is sugar. The cream filling is primarily hydrogenated vegetable fat and sugar. Artificial flavours. Marketed heavily to children. Three cookies (34g) contain 14g sugar — close to WHO daily limit for children. The dark colour is cocoa with minimal cocoa benefit at this concentration.',
     ings: [
       { dot: 'dot-avoid', name: 'Sugar (45g per 100g)', desc: 'Almost half the product by weight', safe: false },
@@ -4127,7 +4127,7 @@ const products = {
   // ============================================================
   // CHOCOLATES — expanded
   // ============================================================
-  'kitkat original': { name: 'KitKat Original 4-Finger (41.5g)', grade: 'D', category: 'Chocolate & Candy',
+  'kitkat original': { name: 'KitKat Original 4-Finger (41.5g)', grade: 'D', category: 'Chocolate & Candy', category: 'Chocolate & Candy',
     impact: 'Wafer and chocolate bar with 45g sugar per 100g. The wafer (refined wheat) adds nothing nutritionally. PGPR replaces cocoa butter. Cocoa content is low — primarily sugar, refined flour and vegetable fat. Nestle\'s best-selling global product. One bar has 21g sugar — a child\'s full day sugar allowance from WHO guidelines. The "Have a break" marketing is clever but doesn\'t change the nutrition.',
     ings: [
       { dot: 'dot-avoid', name: 'Sugar (45g per 100g)', desc: 'Almost half the product by weight', safe: false },
@@ -4409,18 +4409,7 @@ function showProductModal(product) {
     A: [],
     B: []
   };
-  var alternativesMap = {
-    'Instant Noodles':    {alts:['Bagrrys White Oats','MTR Atta Vermicelli Upma','Homemade phulka + dal'], why:'Lower sodium, whole grain, no TBHQ or synthetic additives'},
-    'Unhealthy Snacks':   {alts:['Roasted chana (homemade)','Makhana (fox nuts)','Too Yumm Multigrain'], why:'Higher protein and fibre, no synthetic dyes or flavour enhancers'},
-    'Biscuits':           {alts:["McVitie's Digestive",'Horlicks Biscuits','Oat cookies (homemade)'], why:'Wholemeal base, lower sugar, no partially hydrogenated fat'},
-    'Beverages':          {alts:['Plain full-cream milk + banana','Lipton Green Tea','Homemade nimbu pani'], why:'Real protein, real calcium, no added sugar or artificial colour'},
-    'Chocolate & Candy':  {alts:['Dark chocolate 70%+','Dates + mixed nuts','Fresh seasonal fruit'], why:'Real cocoa with antioxidants, natural sweetness, actual minerals'},
-    'Sauces & Condiments':{alts:['Homemade tomato chutney','Tabasco (3 clean ingredients)','Real lemon juice + rock salt'], why:'No high-fructose syrup, no artificial flavour, no excess sodium'},
-    'Breakfast Cereals':  {alts:['Bagrrys White Oats','True Elements Muesli','Ragi porridge'], why:'Whole grain, lower GI, beta-glucan fibre, no added sugar'},
-    'Dairy':              {alts:['Amul Dahi plain curd','Epigamia Greek Yogurt plain','Fresh homemade dahi'], why:'Live probiotic cultures, real protein, no emulsifiers or phosphates'},
-    'Frozen Foods':       {alts:['Mother Dairy IQF Green Peas','Homemade frozen meals','Fresh seasonal vegetables'], why:'Flash-frozen retains more Vitamin C than canned, zero additives'},
-    'Ready to Cook':      {alts:['MTR Poha Mix','Homemade dal + rice','Ragi dosa batter'], why:'Traditional ingredients, lower sodium, real spice benefit'},
-  };
+  
   var gradeScores = {
     A: {nutrition:38, processing:18, ingredient:18, transparency:16, total:90},
     B: {nutrition:30, processing:16, ingredient:16, transparency:14, total:76},
