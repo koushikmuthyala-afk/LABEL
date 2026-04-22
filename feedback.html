@@ -4,450 +4,278 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EatAware — Share Your Feedback</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #1a4a2e;
+  --green-mid: #2d6a4f;
+  --green-light: #52b788;
+  --green-pale: #eef7f2;
+  --amber: #c97a1a;
+  --amber-pale: #fef3e2;
+  --ink: #111a11;
+  --muted: #607060;
+  --surface: #f5faf6;
+  --border: #dce9dc;
+  --white: #ffffff;
+  --red: #c92020;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--green-pale);
+  color: var(--ink);
+  min-height: 100vh;
+}
 
-  :root {
-    --green: #1a4a2e;
-    --green-mid: #2d6a4f;
-    --green-light: #52b788;
-    --green-pale: #f0f7f2;
-    --amber: #d4852a;
-    --amber-pale: #fef3e2;
-    --ink: #1a1a1a;
-    --muted: #6b7280;
-    --surface: #f8faf9;
-    --border: #e2ebe5;
-    --white: #ffffff;
-    --red: #dc2626;
-  }
+/* ── HEADER ── */
+.header {
+  background: var(--green);
+  padding: 18px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
+.logo span { color: var(--amber); }
+.header-tag {
+  font-size: 11px; color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.1); padding: 4px 12px;
+  border-radius: 20px; letter-spacing: 0.04em;
+}
 
-  html { scroll-behavior: smooth; }
+/* ── HERO ── */
+.hero {
+  background: var(--green);
+  padding: 48px 24px 64px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 48px;
+  background: var(--green-pale);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+  font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+}
+.hero-badge::before { content: '●'; color: var(--green-light); font-size: 8px; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 5vw, 40px);
+  color: #fff; line-height: 1.15; margin-bottom: 12px;
+}
+.hero h1 em { font-style: italic; color: var(--green-light); }
+.hero p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 420px; margin: 0 auto; line-height: 1.65; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--green-pale);
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 0;
-  }
+/* ── MAIN ── */
+.main { max-width: 620px; margin: 0 auto; padding: 32px 16px 72px; }
 
-  /* HEADER */
-  .header {
-    background: var(--green);
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-  }
-  .logo span { color: var(--amber); }
-  .header-tag {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.1);
-    padding: 4px 12px;
-    border-radius: 20px;
-  }
+/* ── SITE PREVIEW LINK ── */
+.site-preview {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 22px; text-decoration: none;
+  transition: border-color 0.2s;
+}
+.site-preview:hover { border-color: var(--green); }
+.site-preview-icon {
+  width: 36px; height: 36px; background: var(--green);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.site-preview-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.site-preview-url  { font-size: 11px; color: var(--green-mid); margin-top: 1px; }
+.site-preview-arrow { margin-left: auto; color: var(--muted); font-size: 20px; }
 
-  /* HERO */
-  .hero {
-    background: var(--green);
-    padding: 48px 24px 56px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40px;
-    background: var(--green-pale);
-    clip-path: ellipse(55% 100% at 50% 100%);
-  }
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.85);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-  }
-  .hero-badge::before { content: '●'; color: var(--green-light); font-size: 8px; }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 5vw, 42px);
-    color: #fff;
-    line-height: 1.2;
-    margin-bottom: 14px;
-  }
-  .hero h1 em { font-style: italic; color: var(--green-light); }
-  .hero p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.7);
-    max-width: 460px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
+/* ── FORM CARD ── */
+.form-card {
+  background: var(--white); border-radius: 20px; padding: 32px 28px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 20px rgba(26,74,46,0.06);
+}
 
-  /* MAIN */
-  .main {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 32px 16px 64px;
-  }
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  height: 3px; background: var(--border); border-radius: 2px;
+  margin-bottom: 28px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-light), var(--green));
+  border-radius: 2px; width: 0%; transition: width 0.4s ease;
+}
 
-  /* FORM CARD */
-  .form-card {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 36px 32px;
-    border: 1px solid var(--border);
-    box-shadow: 0 2px 24px rgba(26,74,46,0.06);
-  }
+/* ── SECTION ── */
+.section {
+  margin-bottom: 30px; padding-bottom: 30px;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.section-num {
+  font-size: 10px; font-weight: 600; color: var(--green-light);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px;
+}
+.section-title {
+  font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 16px; line-height: 1.4;
+}
 
-  /* SECTION */
-  .section {
-    margin-bottom: 32px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  .section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .section-num {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--green-light);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .section-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 18px;
-  }
+/* ── STAR RATING ── */
+.star-group { display: flex; gap: 6px; flex-direction: row-reverse; justify-content: flex-end; }
+.star-group input { display: none; }
+.star-group label {
+  font-size: 30px; color: #ddd; cursor: pointer;
+  transition: color 0.12s, transform 0.1s; line-height: 1;
+}
+.star-group input:checked ~ label,
+.star-group label:hover,
+.star-group label:hover ~ label { color: #f59e0b; }
+.star-group label:active { transform: scale(1.2); }
 
-  /* STAR RATING */
-  .star-group { display: flex; gap: 8px; flex-direction: row-reverse; justify-content: flex-end; }
-  .star-group input { display: none; }
-  .star-group label {
-    font-size: 32px;
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.15s, transform 0.1s;
-    line-height: 1;
-  }
-  .star-group input:checked ~ label,
-  .star-group label:hover,
-  .star-group label:hover ~ label {
-    color: #f59e0b;
-  }
-  .star-group label:active { transform: scale(1.2); }
+/* ── PILL RADIO ── */
+.pill-group { display: flex; flex-wrap: wrap; gap: 7px; }
+.pill-group input { display: none; }
+.pill-group label {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  background: var(--surface); border: 1.5px solid var(--border);
+  padding: 7px 15px; border-radius: 24px; cursor: pointer;
+  transition: all 0.14s; user-select: none;
+}
+.pill-group input:checked + label {
+  background: var(--green); color: #fff; border-color: var(--green);
+}
+.pill-group label:hover { border-color: var(--green-mid); color: var(--green); }
 
-  /* RADIO PILLS */
-  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pill-group input { display: none; }
-  .pill-group label {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    padding: 8px 16px;
-    border-radius: 24px;
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-  }
-  .pill-group input:checked + label {
-    background: var(--green);
-    color: #fff;
-    border-color: var(--green);
-  }
-  .pill-group label:hover {
-    border-color: var(--green-mid);
-    color: var(--green);
-  }
+/* ── CHECKBOX GRID ── */
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.check-item input { display: none; }
+.check-item label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--muted);
+  background: var(--surface); border: 1.5px solid var(--border);
+  padding: 9px 13px; border-radius: 11px; cursor: pointer;
+  transition: all 0.14s; user-select: none;
+}
+.check-item label::before {
+  content: ''; width: 15px; height: 15px;
+  border: 2px solid var(--border); border-radius: 4px;
+  flex-shrink: 0; transition: all 0.14s;
+}
+.check-item input:checked + label {
+  background: var(--green-pale); border-color: var(--green-light); color: var(--green); font-weight: 500;
+}
+.check-item input:checked + label::before {
+  background: var(--green); border-color: var(--green);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center; background-size: 10px;
+}
 
-  /* CHECKBOX GRID */
-  .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .check-item input { display: none; }
-  .check-item label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--muted);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    padding: 10px 14px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-  }
-  .check-item label::before {
-    content: '';
-    width: 16px; height: 16px;
-    border: 2px solid var(--border);
-    border-radius: 4px;
-    flex-shrink: 0;
-    transition: all 0.15s;
-  }
-  .check-item input:checked + label {
-    background: var(--green-pale);
-    border-color: var(--green-light);
-    color: var(--green);
-    font-weight: 500;
-  }
-  .check-item input:checked + label::before {
-    background: var(--green);
-    border-color: var(--green);
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 10px;
-  }
+/* ── NPS SCALE ── */
+.scale-wrap { overflow-x: auto; }
+.scale-group { display: flex; gap: 5px; min-width: 340px; }
+.scale-group input { display: none; }
+.scale-group label {
+  flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted);
+  background: var(--surface); border: 1.5px solid var(--border);
+  padding: 9px 4px; border-radius: 9px; cursor: pointer; transition: all 0.14s;
+}
+.scale-group input:checked + label {
+  background: var(--green); color: #fff; border-color: var(--green);
+}
+.scale-labels { display: flex; justify-content: space-between; margin-top: 5px; font-size: 10px; color: var(--muted); }
 
-  /* SCALE RATING */
-  .scale-wrap { overflow-x: auto; }
-  .scale-group { display: flex; gap: 6px; min-width: 360px; }
-  .scale-group input { display: none; }
-  .scale-group label {
-    flex: 1;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    padding: 10px 4px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .scale-group input:checked + label {
-    background: var(--green);
-    color: #fff;
-    border-color: var(--green);
-  }
-  .scale-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-    font-size: 11px;
-    color: var(--muted);
-  }
+/* ── TEXTAREA ── */
+textarea {
+  width: 100%; font-family: inherit; font-size: 13px; color: var(--ink);
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 11px; padding: 12px 14px; resize: vertical; min-height: 96px;
+  line-height: 1.65; transition: border-color 0.2s; outline: none;
+}
+textarea:focus { border-color: var(--green-light); background: #fff; }
+textarea::placeholder { color: #b0b8c0; }
 
-  /* TEXTAREA */
-  textarea {
-    width: 100%;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    resize: vertical;
-    min-height: 100px;
-    line-height: 1.6;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  textarea:focus { border-color: var(--green-light); background: #fff; }
-  textarea::placeholder { color: #b0b8c0; }
+/* ── TEXT INPUT ── */
+.text-input {
+  width: 100%; font-family: inherit; font-size: 13px; color: var(--ink);
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 11px; padding: 11px 14px; outline: none;
+  transition: border-color 0.2s;
+}
+.text-input:focus { border-color: var(--green-light); background: #fff; }
+.text-input::placeholder { color: #b0b8c0; }
 
-  /* TEXT INPUT */
-  .text-input {
-    width: 100%;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 16px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .text-input:focus { border-color: var(--green-light); background: #fff; }
-  .text-input::placeholder { color: #b0b8c0; }
+/* ── SUBLABEL ── */
+.sublabel { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+.optional { font-size: 10px; color: #adb5bd; font-weight: 400; margin-left: 4px; }
 
-  /* SUBLABEL */
-  .sublabel {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 12px;
-    line-height: 1.5;
-  }
-  .optional {
-    font-size: 11px;
-    color: #adb5bd;
-    font-weight: 400;
-    margin-left: 4px;
-  }
+/* ── SUBMIT ── */
+.submit-wrap { margin-top: 26px; }
+.submit-btn {
+  width: 100%; background: var(--green); color: #fff;
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  border: none; border-radius: 13px; padding: 15px; cursor: pointer;
+  transition: background 0.2s, transform 0.1s; letter-spacing: 0.02em;
+}
+.submit-btn:hover { background: var(--green-mid); }
+.submit-btn:active { transform: scale(0.99); }
+.submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+.privacy-note {
+  text-align: center; font-size: 11px; color: var(--muted); margin-top: 11px; line-height: 1.55;
+}
+.privacy-note a { color: var(--green-mid); text-decoration: none; }
 
-  /* SUBMIT */
-  .submit-wrap { margin-top: 28px; }
-  .submit-btn {
-    width: 100%;
-    background: var(--green);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    border: none;
-    border-radius: 14px;
-    padding: 16px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    letter-spacing: 0.02em;
-  }
-  .submit-btn:hover { background: var(--green-mid); }
-  .submit-btn:active { transform: scale(0.99); }
-  .submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
-  .privacy-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 12px;
-    line-height: 1.5;
-  }
-  .privacy-note a { color: var(--green-mid); text-decoration: none; }
+/* ── SUCCESS ── */
+.success-screen { display: none; text-align: center; padding: 48px 24px; }
+.success-icon {
+  width: 68px; height: 68px; background: var(--green-pale);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 30px; margin: 0 auto 18px; border: 2px solid var(--green-light);
+}
+.success-screen h2 {
+  font-family: 'Playfair Display', serif; font-size: 24px;
+  color: var(--green); margin-bottom: 9px;
+}
+.success-screen p { font-size: 13px; color: var(--muted); line-height: 1.65; max-width: 320px; margin: 0 auto 22px; }
+.share-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--green-pale); color: var(--green);
+  font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--green-light); border-radius: 11px;
+  padding: 11px 22px; cursor: pointer; text-decoration: none;
+  transition: background 0.14s;
+}
+.share-btn:hover { background: #d5ecde; }
 
-  /* SUCCESS */
-  .success-screen {
-    display: none;
-    text-align: center;
-    padding: 48px 24px;
-  }
-  .success-icon {
-    width: 72px; height: 72px;
-    background: var(--green-pale);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    margin: 0 auto 20px;
-    border: 2px solid var(--green-light);
-  }
-  .success-screen h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    color: var(--green);
-    margin-bottom: 10px;
-  }
-  .success-screen p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 340px;
-    margin: 0 auto 24px;
-  }
-  .share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--green-pale);
-    color: var(--green);
-    font-size: 14px;
-    font-weight: 600;
-    border: 1.5px solid var(--green-light);
-    border-radius: 12px;
-    padding: 12px 24px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.15s;
-  }
-  .share-btn:hover { background: #dff0e6; }
-
-  /* PROGRESS BAR */
-  .progress-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    margin-bottom: 28px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--green-light), var(--green));
-    border-radius: 2px;
-    width: 0%;
-    transition: width 0.4s ease;
-  }
-
-  /* SITE PREVIEW */
-  .site-preview {
-    background: var(--green-pale);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    text-decoration: none;
-  }
-  .site-preview-icon {
-    width: 36px; height: 36px;
-    background: var(--green);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .site-preview-text { font-size: 13px; }
-  .site-preview-name { font-weight: 600; color: var(--ink); }
-  .site-preview-url { color: var(--green-mid); font-size: 12px; }
-  .site-preview-arrow { margin-left: auto; color: var(--muted); font-size: 18px; }
-
-  @media (max-width: 520px) {
-    .form-card { padding: 24px 18px; }
-    .check-grid { grid-template-columns: 1fr; }
-    .hero { padding: 36px 16px 48px; }
-  }
+@media (max-width: 520px) {
+  .form-card { padding: 22px 16px; }
+  .check-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <a class="logo" href="https://eataware.in" target="_blank">Eat<span>Aware</span></a>
-  <span class="header-tag">Beta Feedback</span>
+  <a class="logo" href="index.html">Eat<span>Aware</span></a>
+  <span class="header-tag">Share Feedback</span>
 </div>
 
 <div class="hero">
   <div class="hero-badge">You were invited to try EatAware</div>
-  <h1>Help us build India's<br/><em>ingredient intelligence</em> platform</h1>
-  <p>Takes 3 minutes. Your honest feedback shapes what we build next.</p>
+  <h1>Your feedback<br/>shapes what we <em>build next</em></h1>
+  <p>3 minutes. 10 questions. Every answer goes directly to the founding team and influences our next release.</p>
 </div>
 
 <div class="main">
 
-  <a class="site-preview" href="https://eataware.in" target="_blank">
+  <a class="site-preview" href="index.html" target="_blank">
     <div class="site-preview-icon">🥗</div>
-    <div class="site-preview-text">
+    <div>
       <div class="site-preview-name">eataware.in</div>
-      <div class="site-preview-url">Try the site before filling this form →</div>
+      <div class="site-preview-url">Try the product search before filling this form →</div>
     </div>
     <div class="site-preview-arrow">›</div>
   </a>
@@ -458,104 +286,85 @@
 
     <form id="feedbackForm">
 
-      <!-- SECTION 1: OVERALL -->
+      <!-- 01 OVERALL RATING -->
       <div class="section">
         <div class="section-num">01 — Overall</div>
         <div class="section-title">How would you rate EatAware overall?</div>
         <div class="star-group">
-          <input type="radio" name="overall_rating" id="s5" value="5" required/>
-          <label for="s5" title="5 stars">★</label>
-          <input type="radio" name="overall_rating" id="s4" value="4"/>
-          <label for="s4" title="4 stars">★</label>
-          <input type="radio" name="overall_rating" id="s3" value="3"/>
-          <label for="s3" title="3 stars">★</label>
-          <input type="radio" name="overall_rating" id="s2" value="2"/>
-          <label for="s2" title="2 stars">★</label>
-          <input type="radio" name="overall_rating" id="s1" value="1"/>
-          <label for="s1" title="1 star">★</label>
+          <input type="radio" name="overall_rating" id="s5" value="5" required/><label for="s5" title="5 stars">★</label>
+          <input type="radio" name="overall_rating" id="s4" value="4"/><label for="s4" title="4 stars">★</label>
+          <input type="radio" name="overall_rating" id="s3" value="3"/><label for="s3" title="3 stars">★</label>
+          <input type="radio" name="overall_rating" id="s2" value="2"/><label for="s2" title="2 stars">★</label>
+          <input type="radio" name="overall_rating" id="s1" value="1"/><label for="s1" title="1 star">★</label>
         </div>
       </div>
 
-      <!-- SECTION 2: FIRST IMPRESSION -->
+      <!-- 02 FIRST IMPRESSION -->
       <div class="section">
         <div class="section-num">02 — First impression</div>
-        <div class="section-title">What was your first reaction when you opened the site?</div>
+        <div class="section-title">What was your first reaction when you opened EatAware?</div>
         <div class="pill-group">
-          <input type="radio" name="first_impression" id="fi1" value="Impressed — looks professional" required/>
-          <label for="fi1">Impressed — looks professional</label>
-          <input type="radio" name="first_impression" id="fi2" value="Useful — I immediately knew what to do"/>
-          <label for="fi2">Useful — I immediately knew what to do</label>
-          <input type="radio" name="first_impression" id="fi3" value="Confused — did not understand it"/>
-          <label for="fi3">Confused — did not understand it</label>
-          <input type="radio" name="first_impression" id="fi4" value="Interesting — wanted to explore more"/>
-          <label for="fi4">Interesting — wanted to explore more</label>
-          <input type="radio" name="first_impression" id="fi5" value="Overwhelming — too much information"/>
-          <label for="fi5">Overwhelming — too much information</label>
-          <input type="radio" name="first_impression" id="fi6" value="Simple — easy to understand"/>
-          <label for="fi6">Simple — easy to understand</label>
+          <input type="radio" name="first_impression" id="fi1" value="Impressed — looks professional" required/><label for="fi1">Impressed — looks professional</label>
+          <input type="radio" name="first_impression" id="fi2" value="Useful — knew what to do instantly"/><label for="fi2">Useful — knew what to do instantly</label>
+          <input type="radio" name="first_impression" id="fi3" value="Confused — didn't understand it"/><label for="fi3">Confused — didn't understand it</label>
+          <input type="radio" name="first_impression" id="fi4" value="Interesting — wanted to explore more"/><label for="fi4">Interesting — wanted to explore more</label>
+          <input type="radio" name="first_impression" id="fi5" value="Overwhelming — too much information"/><label for="fi5">Overwhelming — too much at once</label>
+          <input type="radio" name="first_impression" id="fi6" value="Simple — easy to understand"/><label for="fi6">Simple — easy to understand</label>
         </div>
       </div>
 
-      <!-- SECTION 3: SEARCH -->
+      <!-- 03 SEARCH -->
       <div class="section">
         <div class="section-num">03 — Search experience</div>
-        <div class="section-title">Did you try searching for a product? How was it?</div>
+        <div class="section-title">Did you try searching for a product? How did it go?</div>
         <div class="sublabel">Which product(s) did you search for? <span class="optional">(optional)</span></div>
-        <input type="text" name="searched_products" class="text-input" placeholder="e.g. Maggi, Bournvita, Lay's..." style="margin-bottom:16px;"/>
-        <div class="sublabel">How was the search experience?</div>
+        <input type="text" name="searched_products" class="text-input" placeholder="e.g. Maggi, Bournvita, Lay's…" style="margin-bottom:14px;"/>
+        <div class="sublabel">How was the experience?</div>
         <div class="pill-group">
-          <input type="radio" name="search_experience" id="se1" value="Found what I was looking for instantly" required/>
-          <label for="se1">Found it instantly</label>
-          <input type="radio" name="search_experience" id="se2" value="Found it but took some time"/>
-          <label for="se2">Found it, took some time</label>
-          <input type="radio" name="search_experience" id="se3" value="Product I searched was not there"/>
-          <label for="se3">Product not in database</label>
-          <input type="radio" name="search_experience" id="se4" value="Did not try searching"/>
-          <label for="se4">Did not try</label>
+          <input type="radio" name="search_experience" id="se1" value="Found it instantly" required/><label for="se1">Found it instantly</label>
+          <input type="radio" name="search_experience" id="se2" value="Found it, took some time"/><label for="se2">Found it, took some time</label>
+          <input type="radio" name="search_experience" id="se3" value="Product not in database"/><label for="se3">Product not in database</label>
+          <input type="radio" name="search_experience" id="se4" value="Did not try"/><label for="se4">Did not try</label>
         </div>
       </div>
 
-      <!-- SECTION 4: HEALTH GRADES -->
+      <!-- 04 GRADES -->
       <div class="section">
         <div class="section-num">04 — Health grades (A–F)</div>
         <div class="section-title">Did the A–F health grade system make sense to you?</div>
         <div class="pill-group">
-          <input type="radio" name="grade_clarity" id="gc1" value="Yes — completely clear" required/>
-          <label for="gc1">Yes — completely clear</label>
-          <input type="radio" name="grade_clarity" id="gc2" value="Mostly clear, minor confusion"/>
-          <label for="gc2">Mostly clear</label>
-          <input type="radio" name="grade_clarity" id="gc3" value="Confusing — needs explanation"/>
-          <label for="gc3">Confusing</label>
-          <input type="radio" name="grade_clarity" id="gc4" value="Did not notice the grades"/>
-          <label for="gc4">Did not notice the grades</label>
+          <input type="radio" name="grade_clarity" id="gc1" value="Yes — completely clear" required/><label for="gc1">Yes — completely clear</label>
+          <input type="radio" name="grade_clarity" id="gc2" value="Mostly clear"/><label for="gc2">Mostly clear</label>
+          <input type="radio" name="grade_clarity" id="gc3" value="Confusing — needs explanation"/><label for="gc3">Confusing</label>
+          <input type="radio" name="grade_clarity" id="gc4" value="Did not notice the grades"/><label for="gc4">Didn't notice the grades</label>
         </div>
       </div>
 
-      <!-- SECTION 5: MOST VALUABLE -->
+      <!-- 05 MOST USEFUL -->
       <div class="section">
-        <div class="section-num">05 — What matters most</div>
+        <div class="section-num">05 — Most useful</div>
         <div class="section-title">Which parts of EatAware did you find most useful?</div>
         <div class="sublabel">Select all that apply</div>
         <div class="check-grid">
           <div class="check-item"><input type="checkbox" name="most_useful" id="mu1" value="Product health grade"/><label for="mu1">Product health grade</label></div>
           <div class="check-item"><input type="checkbox" name="most_useful" id="mu2" value="Ingredient breakdown"/><label for="mu2">Ingredient breakdown</label></div>
-          <div class="check-item"><input type="checkbox" name="most_useful" id="mu3" value="Body impact text"/><label for="mu3">Body impact text</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu3" value="Body impact information"/><label for="mu3">Body impact info</label></div>
           <div class="check-item"><input type="checkbox" name="most_useful" id="mu4" value="Ingredient explainer (TBHQ etc)"/><label for="mu4">Ingredient explainer</label></div>
           <div class="check-item"><input type="checkbox" name="most_useful" id="mu5" value="Education articles"/><label for="mu5">Education articles</label></div>
           <div class="check-item"><input type="checkbox" name="most_useful" id="mu6" value="Quick search tags"/><label for="mu6">Quick search tags</label></div>
           <div class="check-item"><input type="checkbox" name="most_useful" id="mu7" value="Grade A-F colour system"/><label for="mu7">Grade A–F colours</label></div>
-          <div class="check-item"><input type="checkbox" name="most_useful" id="mu8" value="Singapore products section"/><label for="mu8">Singapore products</label></div>
+          <div class="check-item"><input type="checkbox" name="most_useful" id="mu8" value="Singapore products"/><label for="mu8">Singapore products</label></div>
         </div>
       </div>
 
-      <!-- SECTION 6: MISSING PRODUCTS -->
+      <!-- 06 MISSING PRODUCTS -->
       <div class="section">
         <div class="section-num">06 — Missing products</div>
-        <div class="section-title">Which products did you expect to find but could not?</div>
-        <textarea name="missing_products" placeholder="e.g. Pedigree dog food, Cadbury Gems, Lijjat Papad, Aashirvaad Atta..."></textarea>
+        <div class="section-title">Which products did you expect to find but couldn't?</div>
+        <textarea name="missing_products" placeholder="e.g. Pedigree dog food, Cadbury Gems, Lijjat Papad, Aashirvaad Atta…"></textarea>
       </div>
 
-      <!-- SECTION 7: NPS -->
+      <!-- 07 NPS -->
       <div class="section">
         <div class="section-num">07 — Recommend</div>
         <div class="section-title">How likely are you to share EatAware with family or friends?</div>
@@ -573,70 +382,56 @@
             <input type="radio" name="nps" id="nps9" value="9"/><label for="nps9">9</label>
             <input type="radio" name="nps" id="nps10" value="10"/><label for="nps10">10</label>
           </div>
-          <div class="scale-labels"><span>Would not share</span><span>Definitely sharing</span></div>
+          <div class="scale-labels"><span>Wouldn't share</span><span>Would definitely share</span></div>
         </div>
       </div>
 
-      <!-- SECTION 8: MISSING FEATURE -->
+      <!-- 08 MISSING FEATURE -->
       <div class="section">
-        <div class="section-num">08 — What is missing</div>
+        <div class="section-num">08 — What would bring you back</div>
         <div class="section-title">What one feature would make you use EatAware every week?</div>
-        <div class="pill-group" style="margin-bottom:14px;">
-          <input type="radio" name="wanted_feature" id="wf1" value="Barcode scanner (camera scan in shop)"/>
-          <label for="wf1">Barcode scanner</label>
-          <input type="radio" name="wanted_feature" id="wf2" value="Personal health profile (diabetes, BP etc)"/>
-          <label for="wf2">Personal health profile</label>
-          <input type="radio" name="wanted_feature" id="wf3" value="Healthier swap suggestions"/>
-          <label for="wf3">Healthier swap suggestions</label>
-          <input type="radio" name="wanted_feature" id="wf4" value="Weekly diet report"/>
-          <label for="wf4">Weekly diet report</label>
-          <input type="radio" name="wanted_feature" id="wf5" value="FSSAI recall alerts"/>
-          <label for="wf5">FSSAI recall alerts</label>
-          <input type="radio" name="wanted_feature" id="wf6" value="Save scan history with login"/>
-          <label for="wf6">Save scan history</label>
-          <input type="radio" name="wanted_feature" id="wf7" value="Mobile app"/>
-          <label for="wf7">Mobile app</label>
-          <input type="radio" name="wanted_feature" id="wf8" value="Something else"/>
-          <label for="wf8">Something else</label>
+        <div class="pill-group" style="margin-bottom:12px;">
+          <input type="radio" name="wanted_feature" id="wf1" value="Barcode scanner (camera scan in shop)"/><label for="wf1">Barcode scanner</label>
+          <input type="radio" name="wanted_feature" id="wf2" value="Personal health profile (diabetes, BP etc)"/><label for="wf2">Personal health profile</label>
+          <input type="radio" name="wanted_feature" id="wf3" value="Healthier swap suggestions"/><label for="wf3">Healthier swap suggestions</label>
+          <input type="radio" name="wanted_feature" id="wf4" value="Weekly diet report"/><label for="wf4">Weekly diet report</label>
+          <input type="radio" name="wanted_feature" id="wf5" value="FSSAI recall alerts"/><label for="wf5">FSSAI recall alerts</label>
+          <input type="radio" name="wanted_feature" id="wf6" value="Save scan history with login"/><label for="wf6">Scan history</label>
+          <input type="radio" name="wanted_feature" id="wf7" value="Mobile app"/><label for="wf7">Mobile app</label>
+          <input type="radio" name="wanted_feature" id="wf8" value="Something else"/><label for="wf8">Something else</label>
         </div>
-        <textarea name="feature_detail" placeholder="Tell us more about what you want..." style="min-height:80px;"></textarea>
+        <textarea name="feature_detail" placeholder="Tell us more about what you'd like…" style="min-height:76px;"></textarea>
       </div>
 
-      <!-- SECTION 9: FREE TEXT -->
+      <!-- 09 OPEN FEEDBACK -->
       <div class="section">
         <div class="section-num">09 — Honest feedback</div>
-        <div class="section-title">Anything else? Be as brutal as you like 🙂</div>
-        <textarea name="open_feedback" placeholder="What did you love? What annoyed you? What made no sense? What would make this a 5-star app?" style="min-height:120px;"></textarea>
+        <div class="section-title">What else? Be as honest — or as brutal — as you like.</div>
+        <textarea name="open_feedback" placeholder="What worked? What frustrated you? What made no sense? What would make this a 5-star app?" style="min-height:116px;"></textarea>
       </div>
 
-      <!-- SECTION 10: ABOUT YOU -->
+      <!-- 10 ABOUT YOU -->
       <div class="section">
         <div class="section-num">10 — About you <span class="optional">(optional)</span></div>
-        <div class="section-title">Help us understand who gave this feedback</div>
+        <div class="section-title">Help us understand who's giving us feedback</div>
         <div class="sublabel">Your name <span class="optional">optional</span></div>
-        <input type="text" name="respondent_name" class="text-input" placeholder="First name is fine" style="margin-bottom:14px;"/>
+        <input type="text" name="respondent_name" class="text-input" placeholder="First name is fine" style="margin-bottom:12px;"/>
         <div class="sublabel">Your email <span class="optional">optional — only if you want a reply</span></div>
-        <input type="email" name="respondent_email" class="text-input" placeholder="your@email.com" style="margin-bottom:14px;"/>
-        <div class="sublabel">You are a</div>
+        <input type="email" name="respondent_email" class="text-input" placeholder="your@email.com" style="margin-bottom:12px;"/>
+        <div class="sublabel">I am a</div>
         <div class="pill-group">
-          <input type="radio" name="respondent_type" id="rt1" value="Parent (buying food for children)"/>
-          <label for="rt1">Parent</label>
-          <input type="radio" name="respondent_type" id="rt2" value="Health conscious individual"/>
-          <label for="rt2">Health conscious</label>
-          <input type="radio" name="respondent_type" id="rt3" value="Diabetic or managing a condition"/>
-          <label for="rt3">Managing a condition</label>
-          <input type="radio" name="respondent_type" id="rt4" value="Fitness / gym person"/>
-          <label for="rt4">Fitness person</label>
-          <input type="radio" name="respondent_type" id="rt5" value="Just curious"/>
-          <label for="rt5">Just curious</label>
-          <input type="radio" name="respondent_type" id="rt6" value="Student"/>
-          <label for="rt6">Student</label>
+          <input type="radio" name="respondent_type" id="rt1" value="Parent buying food for children"/><label for="rt1">Parent</label>
+          <input type="radio" name="respondent_type" id="rt2" value="Health conscious individual"/><label for="rt2">Health conscious</label>
+          <input type="radio" name="respondent_type" id="rt3" value="Diabetic or managing a condition"/><label for="rt3">Managing a condition</label>
+          <input type="radio" name="respondent_type" id="rt4" value="Fitness / gym person"/><label for="rt4">Fitness person</label>
+          <input type="radio" name="respondent_type" id="rt5" value="Just curious"/><label for="rt5">Just curious</label>
+          <input type="radio" name="respondent_type" id="rt6" value="Student"/><label for="rt6">Student</label>
         </div>
       </div>
 
       <div class="submit-wrap">
         <button type="submit" class="submit-btn" id="submitBtn">Send my feedback →</button>
-        <p class="privacy-note">Your response goes directly to <a href="mailto:koushik@eataware.in">koushik@eataware.in</a>.<br/>No spam, no sharing. Just building a better product.</p>
+        <p class="privacy-note">Your response goes directly to <a href="/cdn-cgi/l/email-protection#a1caced4d2c9c8cae1c4c0d5c0d6c0d3c48fc8cf"><span class="__cf_email__" data-cfemail="610a0e141209080a2104001500160013044f080f">[email&#160;protected]</span></a>.<br/>No spam. No sharing. Just building a better product.</p>
       </div>
 
     </form>
@@ -646,18 +441,16 @@
       <div class="success-icon">✓</div>
       <h2>Thank you so much!</h2>
       <p>Your feedback has been sent to Koushik at EatAware. It will directly shape what gets built in the next version.</p>
-      <a class="share-btn" href="https://eataware.in" target="_blank">
-        🥗 Go back to EatAware
+      <a class="share-btn" href="index.html">
+        🥗 Back to EatAware
       </a>
     </div>
 
   </div>
 </div>
 
-<script>
-// ============================================================
-// PROGRESS BAR — updates as user fills in the form
-// ============================================================
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Progress bar
 var totalSections = 9;
 function updateProgress() {
   var filled = 0;
@@ -670,29 +463,22 @@ function updateProgress() {
   if (document.querySelector('input[name="nps"]:checked')) filled++;
   if (document.querySelector('input[name="wanted_feature"]:checked')) filled++;
   if (document.querySelector('textarea[name="open_feedback"]').value.trim()) filled++;
-  var pct = Math.round((filled / totalSections) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.width = Math.round((filled / totalSections) * 100) + '%';
 }
-
 document.querySelectorAll('input, textarea').forEach(function(el) {
   el.addEventListener('change', updateProgress);
   el.addEventListener('input', updateProgress);
 });
 
-// ============================================================
-// FORM SUBMIT — sends to Formspree
-// ============================================================
+// Form submit
 document.getElementById('feedbackForm').addEventListener('submit', function(e) {
   e.preventDefault();
-
   var btn = document.getElementById('submitBtn');
-  btn.textContent = 'Sending...';
+  btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // Collect checkbox values
   var usefulChecked = Array.from(document.querySelectorAll('input[name="most_useful"]:checked')).map(function(el){ return el.value; }).join(', ');
 
-  // Build data object
   var data = {
     _subject: 'EatAware Feedback from ' + (document.querySelector('input[name="respondent_name"]').value || 'Anonymous'),
     overall_rating: (document.querySelector('input[name="overall_rating"]:checked') || {}).value || 'Not answered',
@@ -712,7 +498,6 @@ document.getElementById('feedbackForm').addEventListener('submit', function(e) {
     submitted_at: new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})
   };
 
-  // REPLACE mwvaeekg with your Formspree form ID
   fetch('https://formspree.io/f/mwvaeekg', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -734,6 +519,5 @@ document.getElementById('feedbackForm').addEventListener('submit', function(e) {
   });
 });
 </script>
-
 </body>
 </html>
