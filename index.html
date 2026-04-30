@@ -15,7 +15,60 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T58J68VG4K"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T58J68VG4K');</script>
+<script>
+
+var altMap = {
+  "Instant Noodles":        {cs:{n:"Maggi Masala Noodles (Atta)",g:"C",r:"Whole wheat base, less sodium, no TBHQ"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Single ingredient, beta-glucan fibre, 5 min prep"}},
+  "Unhealthy Snacks":       {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Ragi+jowar+bajra, baked not fried, no TBHQ"},bs:{n:"Roasted Chana",g:"A",r:"High protein, high fibre, zero additives"}},
+  "Snacks":                 {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked multigrain — better than fried chips"},bs:{n:"Mother Dairy Set Dahi",g:"A",r:"Real protein, live cultures, zero additives"}},
+  "Biscuits":               {cs:{n:"McVitie's Digestive Biscuits",g:"C",r:"Wholemeal wheat, only biscuit in India with real fibre"},bs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit — actual nutrition vs empty calories"}},
+  "Kids Biscuits":          {cs:{n:"Britannia Marie Gold",g:"C",r:"Lower sugar, no vanaspati — cleanest mainstream biscuit"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain breakfast — better habit than any biscuit"}},
+  "Kids Snacks":            {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked, lower sodium — much better than fried kids snacks"},bs:{n:"Mother Dairy Set Dahi",g:"A",r:"Real calcium + protein, live cultures"}},
+  "Beverages":              {cs:{n:"Horlicks Original",g:"C",r:"Lower sugar than Bournvita/Boost/Milo"},bs:{n:"Amul Taaza Toned Milk",g:"B",r:"Real protein, real calcium, zero added sugar"}},
+  "Chocolate & Candy":      {cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit satisfies sweet craving"},bs:{n:"70%+ dark chocolate (small piece)",g:"A",r:"Real cocoa flavanols, lower sugar, no PGPR"}},
+  "Condiments":             {cs:{n:"Dabur Honey (500g)",g:"C",r:"Natural sweetener vs refined sugar-based sauces"},bs:{n:"Homemade tomato chutney",g:"A",r:"Fresh tomatoes + spices, zero HFCS or preservatives"}},
+  "Sauces & Condiments":    {cs:{n:"Dabur Honey (500g)",g:"C",r:"Natural alternative to refined sugar sauces"},bs:{n:"Amul Butter (Salted)",g:"C",r:"Real dairy fat, no HFCS"}},
+  "Cooking Fats":           {cs:{n:"Saffola Gold Blended Oil",g:"B",r:"Zero trans fat, better fat profile"},bs:{n:"Patanjali Desi Cow Ghee",g:"B",r:"Pure butterfat, no trans fat, vitamins A/D/K2"}},
+  "Namkeen":                {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Lower sodium, better ingredients than bhujia"},bs:{n:"Roasted Chana",g:"A",r:"Same crunch, high protein, zero additives"}},
+  "Bread & Bakery":         {cs:{n:"McVitie's Digestive Biscuits",g:"C",r:"Wholemeal wheat, real fibre unlike white bread"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain breakfast — healthier than any packaged bread"}},
+  "Instant Foods":          {cs:{n:"MTR Masala Oats",g:"C",r:"Oat base with real spices — same convenience"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Single ingredient, whole grain, 5 min prep"}},
+  "Frozen Desserts":        {cs:{n:"Amul Taaza Toned Milk + banana",g:"B",r:"Real dairy + real fruit — actual nutrition"},bs:{n:"Mother Dairy Set Dahi (plain)",g:"A",r:"Probiotic, real protein, no artificial colour"}},
+  "Sports Drinks":          {cs:{n:"Electral ORS Powder",g:"B",r:"Medical-grade electrolytes, zero artificial colour"},bs:{n:"Coconut water + pinch of salt",g:"A",r:"Natural electrolytes, no dyes or sweeteners"}},
+  "Instant Drinks":         {cs:{n:"Chaayos Instant Masala Chai",g:"C",r:"Real tea base with real spices"},bs:{n:"Lipton Green Tea Bags",g:"A",r:"Zero sugar, EGCG, L-theanine"}},
+  "Dairy":                  {cs:{n:"Amul Butter (Salted)",g:"C",r:"Real dairy, no emulsifiers unlike processed cheese"},bs:{n:"Mother Dairy Set Dahi (plain)",g:"A",r:"Live cultures, real protein, no additives"}},
+  "Protein Supplements":    {cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real whole food protein and fibre"},bs:{n:"Mother Dairy Set Dahi + oats",g:"A",r:"Real dairy protein + whole grain"}},
+  "Street Food Ingredients":{cs:{n:"Fresh whole spices (homemade)",g:"A",r:"Real cumin, coriander — actual benefit vs synthetic masala"},bs:{n:"Homemade atta dough",g:"A",r:"Whole wheat base — real fibre unlike refined maida sheets"}},
+  "Baby Foods":             {cs:{n:"Plain Quaker Oats (ground fine)",g:"A",r:"Whole grain, one ingredient, no added sugar"},bs:{n:"Mother Dairy curd + banana",g:"A",r:"Real protein, calcium, live cultures — ideal first food"}},
+  "Awareness":              {cs:{n:"Saffola Gold Blended Oil",g:"B",r:"Non-hydrogenated, better fat profile"},bs:{n:"Patanjali Desi Cow Ghee",g:"B",r:"Traditional Indian fat, butyrate for gut health"}}
+};
+var altKw = [
+  {re:/noodle|maggi|ramen|yippee|wai.wai|indomie/i,cs:{n:"Maggi Masala Noodles (Atta)",g:"C",r:"Whole wheat base, less sodium, no TBHQ"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain, beta-glucan fibre"}},
+  {re:/chip|crisp|kurkure|bingo|lay|pringles|stax|doritos|cheetos|corntos|balaji|uncle/i,cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked multigrain, no TBHQ, lower sodium"},bs:{n:"Roasted Chana",g:"A",r:"High protein, high fibre, zero additives"}},
+  {re:/biscuit|cookie|bourbon|jim.jam|hide.seek|good.day|parle|oreo|dark.fantasy|tiger|marie|50.50|mom.magic|bounce|fab/i,cs:{n:"McVitie's Digestive Biscuits",g:"C",r:"Wholemeal wheat, real fibre"},bs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit, actual nutrition"}},
+  {re:/cola|pepsi|coke|coca|thums|sprite|7up|limca|mirinda|mountain.dew|frooti|maaza|sting|monster|energy.drink|appy.fizz|gluco/i,cs:{n:"Paper Boat Aamras",g:"C",r:"Real fruit base, fewer additives"},bs:{n:"Lipton Green Tea",g:"A",r:"Zero sugar, EGCG antioxidants"}},
+  {re:/bournvita|boost|milo|complan|health.drink/i,cs:{n:"Horlicks Original",g:"C",r:"Lower sugar than Bournvita/Boost/Milo"},bs:{n:"Plain milk + banana",g:"B",r:"Real protein, real calcium, zero added sugar"}},
+  {re:/chocolate|kitkat|dairy.milk|5.star|munch|gems|kinder|choco.pie|fudge/i,cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit satisfies sweet craving"},bs:{n:"70%+ dark chocolate (small piece)",g:"A",r:"Real cocoa flavanols, lower sugar"}},
+  {re:/vanaspati|dalda|rath|nutralite/i,cs:{n:"Saffola Gold Blended Oil",g:"B",r:"Zero trans fat, better fat profile"},bs:{n:"Patanjali Desi Cow Ghee",g:"B",r:"Pure butterfat, no trans fat, vitamins A/D/K2"}},
+  {re:/jam|ketchup|sauce|pickle|avakaya|chutney/i,cs:{n:"Dabur Honey",g:"C",r:"Natural sweetener, no HFCS"},bs:{n:"Homemade chutney",g:"A",r:"Real ingredients, zero preservatives"}},
+  {re:/juice|frooti|real.juice|maaza|appy|tropicana|nimbu.paani|gluco.plus/i,cs:{n:"B Natural Mixed Fruit Juice",g:"C",r:"Less additives, closer to real fruit"},bs:{n:"Raw Pressery Apple Juice",g:"B",r:"Cold pressed, no concentrate, no added sugar"}},
+  {re:/bread|sandwich.bread/i,cs:{n:"Whole wheat atta bread (100% atta on label)",g:"C",r:"Real fibre vs refined maida white bread"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain breakfast — healthier than any packaged bread"}},
+  {re:/popcorn|act.ii/i,cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked snack, better than microwave popcorn"},bs:{n:"Roasted Chana",g:"A",r:"High protein snack, zero artificial additives"}},
+  {re:/soup|knorr/i,cs:{n:"MTR Masala Oats",g:"C",r:"Real nutrition vs soup powder"},bs:{n:"Homemade dal (lentil soup)",g:"A",r:"Real protein, fibre, zero additives"}},
+  {re:/condensed.milk|milkmaid/i,cs:{n:"Dabur Honey",g:"C",r:"Natural sweetener with fewer additives"},bs:{n:"Mother Dairy Set Dahi",g:"A",r:"Real dairy, live cultures, no added sugar"}},
+  {re:/mass.gainer|muscleblaze|protein.suppl/i,cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real whole food protein"},bs:{n:"Mother Dairy Set Dahi + oats",g:"A",r:"Real dairy protein + whole grain"}},
+  {re:/tastemaker|masala.sachet|seasoning/i,cs:{n:"Fresh whole spices",g:"A",r:"Real anti-inflammatory benefit vs synthetic masala"},bs:{n:"Fresh whole spices",g:"A",r:"Real cumin, coriander, chilli — zero synthetic additives"}},
+];
+function getAlts(product) {
+  var grade = product.grade;
+  if (!grade || 'ABC'.includes(grade)) return null;
+  var cat = product.category || '';
+  var nm = (product.name||'').toLowerCase();
+  if (cat && altMap[cat]) return altMap[cat];
+  for (var i=0;i<altKw.length;i++) { if (altKw[i].re.test(nm)) return altKw[i]; }
+  return null;
+}
+
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T58J68VG4K');</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
@@ -5187,55 +5240,4 @@ document.getElementById('searchInput').addEventListener('keydown', function(e){ 
 // EatAware Alternatives Engine v2 — verified from live DB
 // E/F -> A-C only. D -> C+ preferred. Two swaps always shown.
 // ============================================================
-var altMap = {
-  "Instant Noodles":        {cs:{n:"Maggi Masala Noodles (Atta)",g:"C",r:"Whole wheat base, less sodium, no TBHQ"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Single ingredient, beta-glucan fibre, 5 min prep"}},
-  "Unhealthy Snacks":       {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Ragi+jowar+bajra, baked not fried, no TBHQ"},bs:{n:"Roasted Chana",g:"A",r:"High protein, high fibre, zero additives"}},
-  "Snacks":                 {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked multigrain — better than fried chips"},bs:{n:"Mother Dairy Set Dahi",g:"A",r:"Real protein, live cultures, zero additives"}},
-  "Biscuits":               {cs:{n:"McVitie's Digestive Biscuits",g:"C",r:"Wholemeal wheat, only biscuit in India with real fibre"},bs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit — actual nutrition vs empty calories"}},
-  "Kids Biscuits":          {cs:{n:"Britannia Marie Gold",g:"C",r:"Lower sugar, no vanaspati — cleanest mainstream biscuit"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain breakfast — better habit than any biscuit"}},
-  "Kids Snacks":            {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked, lower sodium — much better than fried kids snacks"},bs:{n:"Mother Dairy Set Dahi",g:"A",r:"Real calcium + protein, live cultures"}},
-  "Beverages":              {cs:{n:"Horlicks Original",g:"C",r:"Lower sugar than Bournvita/Boost/Milo"},bs:{n:"Amul Taaza Toned Milk",g:"B",r:"Real protein, real calcium, zero added sugar"}},
-  "Chocolate & Candy":      {cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit satisfies sweet craving"},bs:{n:"70%+ dark chocolate (small piece)",g:"A",r:"Real cocoa flavanols, lower sugar, no PGPR"}},
-  "Condiments":             {cs:{n:"Dabur Honey (500g)",g:"C",r:"Natural sweetener vs refined sugar-based sauces"},bs:{n:"Homemade tomato chutney",g:"A",r:"Fresh tomatoes + spices, zero HFCS or preservatives"}},
-  "Sauces & Condiments":    {cs:{n:"Dabur Honey (500g)",g:"C",r:"Natural alternative to refined sugar sauces"},bs:{n:"Amul Butter (Salted)",g:"C",r:"Real dairy fat, no HFCS"}},
-  "Cooking Fats":           {cs:{n:"Saffola Gold Blended Oil",g:"B",r:"Zero trans fat, better fat profile"},bs:{n:"Patanjali Desi Cow Ghee",g:"B",r:"Pure butterfat, no trans fat, vitamins A/D/K2"}},
-  "Namkeen":                {cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Lower sodium, better ingredients than bhujia"},bs:{n:"Roasted Chana",g:"A",r:"Same crunch, high protein, zero additives"}},
-  "Bread & Bakery":         {cs:{n:"McVitie's Digestive Biscuits",g:"C",r:"Wholemeal wheat, real fibre unlike white bread"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain breakfast — healthier than any packaged bread"}},
-  "Instant Foods":          {cs:{n:"MTR Masala Oats",g:"C",r:"Oat base with real spices — same convenience"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Single ingredient, whole grain, 5 min prep"}},
-  "Frozen Desserts":        {cs:{n:"Amul Taaza Toned Milk + banana",g:"B",r:"Real dairy + real fruit — actual nutrition"},bs:{n:"Mother Dairy Set Dahi (plain)",g:"A",r:"Probiotic, real protein, no artificial colour"}},
-  "Sports Drinks":          {cs:{n:"Electral ORS Powder",g:"B",r:"Medical-grade electrolytes, zero artificial colour"},bs:{n:"Coconut water + pinch of salt",g:"A",r:"Natural electrolytes, no dyes or sweeteners"}},
-  "Instant Drinks":         {cs:{n:"Chaayos Instant Masala Chai",g:"C",r:"Real tea base with real spices"},bs:{n:"Lipton Green Tea Bags",g:"A",r:"Zero sugar, EGCG, L-theanine"}},
-  "Dairy":                  {cs:{n:"Amul Butter (Salted)",g:"C",r:"Real dairy, no emulsifiers unlike processed cheese"},bs:{n:"Mother Dairy Set Dahi (plain)",g:"A",r:"Live cultures, real protein, no additives"}},
-  "Protein Supplements":    {cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real whole food protein and fibre"},bs:{n:"Mother Dairy Set Dahi + oats",g:"A",r:"Real dairy protein + whole grain"}},
-  "Street Food Ingredients":{cs:{n:"Fresh whole spices (homemade)",g:"A",r:"Real cumin, coriander — actual benefit vs synthetic masala"},bs:{n:"Homemade atta dough",g:"A",r:"Whole wheat base — real fibre unlike refined maida sheets"}},
-  "Baby Foods":             {cs:{n:"Plain Quaker Oats (ground fine)",g:"A",r:"Whole grain, one ingredient, no added sugar"},bs:{n:"Mother Dairy curd + banana",g:"A",r:"Real protein, calcium, live cultures — ideal first food"}},
-  "Awareness":              {cs:{n:"Saffola Gold Blended Oil",g:"B",r:"Non-hydrogenated, better fat profile"},bs:{n:"Patanjali Desi Cow Ghee",g:"B",r:"Traditional Indian fat, butyrate for gut health"}}
-};
-var altKw = [
-  {re:/noodle|maggi|ramen|yippee|wai.wai|indomie/i,cs:{n:"Maggi Masala Noodles (Atta)",g:"C",r:"Whole wheat base, less sodium, no TBHQ"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain, beta-glucan fibre"}},
-  {re:/chip|crisp|kurkure|bingo|lay|pringles|stax|doritos|cheetos|corntos|balaji|uncle/i,cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked multigrain, no TBHQ, lower sodium"},bs:{n:"Roasted Chana",g:"A",r:"High protein, high fibre, zero additives"}},
-  {re:/biscuit|cookie|bourbon|jim.jam|hide.seek|good.day|parle|oreo|dark.fantasy|tiger|marie|50.50|mom.magic|bounce|fab/i,cs:{n:"McVitie's Digestive Biscuits",g:"C",r:"Wholemeal wheat, real fibre"},bs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit, actual nutrition"}},
-  {re:/cola|pepsi|coke|coca|thums|sprite|7up|limca|mirinda|mountain.dew|frooti|maaza|sting|monster|energy.drink|appy.fizz|gluco/i,cs:{n:"Paper Boat Aamras",g:"C",r:"Real fruit base, fewer additives"},bs:{n:"Lipton Green Tea",g:"A",r:"Zero sugar, EGCG antioxidants"}},
-  {re:/bournvita|boost|milo|complan|health.drink/i,cs:{n:"Horlicks Original",g:"C",r:"Lower sugar than Bournvita/Boost/Milo"},bs:{n:"Plain milk + banana",g:"B",r:"Real protein, real calcium, zero added sugar"}},
-  {re:/chocolate|kitkat|dairy.milk|5.star|munch|gems|kinder|choco.pie|fudge/i,cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real oats + fruit satisfies sweet craving"},bs:{n:"70%+ dark chocolate (small piece)",g:"A",r:"Real cocoa flavanols, lower sugar"}},
-  {re:/vanaspati|dalda|rath|nutralite/i,cs:{n:"Saffola Gold Blended Oil",g:"B",r:"Zero trans fat, better fat profile"},bs:{n:"Patanjali Desi Cow Ghee",g:"B",r:"Pure butterfat, no trans fat, vitamins A/D/K2"}},
-  {re:/jam|ketchup|sauce|pickle|avakaya|chutney/i,cs:{n:"Dabur Honey",g:"C",r:"Natural sweetener, no HFCS"},bs:{n:"Homemade chutney",g:"A",r:"Real ingredients, zero preservatives"}},
-  {re:/juice|frooti|real.juice|maaza|appy|tropicana|nimbu.paani|gluco.plus/i,cs:{n:"B Natural Mixed Fruit Juice",g:"C",r:"Less additives, closer to real fruit"},bs:{n:"Raw Pressery Apple Juice",g:"B",r:"Cold pressed, no concentrate, no added sugar"}},
-  {re:/bread|sandwich.bread/i,cs:{n:"Whole wheat atta bread (100% atta on label)",g:"C",r:"Real fibre vs refined maida white bread"},bs:{n:"Quaker Oats (Plain)",g:"A",r:"Whole grain breakfast — healthier than any packaged bread"}},
-  {re:/popcorn|act.ii/i,cs:{n:"Too Yumm! Multigrain Chips",g:"C",r:"Baked snack, better than microwave popcorn"},bs:{n:"Roasted Chana",g:"A",r:"High protein snack, zero artificial additives"}},
-  {re:/soup|knorr/i,cs:{n:"MTR Masala Oats",g:"C",r:"Real nutrition vs soup powder"},bs:{n:"Homemade dal (lentil soup)",g:"A",r:"Real protein, fibre, zero additives"}},
-  {re:/condensed.milk|milkmaid/i,cs:{n:"Dabur Honey",g:"C",r:"Natural sweetener with fewer additives"},bs:{n:"Mother Dairy Set Dahi",g:"A",r:"Real dairy, live cultures, no added sugar"}},
-  {re:/mass.gainer|muscleblaze|protein.suppl/i,cs:{n:"Yoga Bar Oats & Berries Muesli",g:"B",r:"Real whole food protein"},bs:{n:"Mother Dairy Set Dahi + oats",g:"A",r:"Real dairy protein + whole grain"}},
-  {re:/tastemaker|masala.sachet|seasoning/i,cs:{n:"Fresh whole spices",g:"A",r:"Real anti-inflammatory benefit vs synthetic masala"},bs:{n:"Fresh whole spices",g:"A",r:"Real cumin, coriander, chilli — zero synthetic additives"}},
-];
-function getAlts(product) {
-  var grade = product.grade;
-  if (!grade || 'ABC'.includes(grade)) return null;
-  var cat = product.category || '';
-  var nm = (product.name||'').toLowerCase();
-  if (cat && altMap[cat]) return altMap[cat];
-  for (var i=0;i<altKw.length;i++) { if (altKw[i].re.test(nm)) return altKw[i]; }
-  return null;
-}
-
 
