@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EatAware Admin Panel</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#f3f4f6;color:#111;}
+.topbar{background:#1a4a2e;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:Georgia,serif;font-size:18px;font-weight:700;}
+.logo span{color:#f59e0b;}
+#loginScreen{max-width:400px;margin:80px auto;background:#fff;border-radius:16px;padding:36px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+#loginScreen h2{font-size:22px;font-weight:800;margin-bottom:8px;color:#1a4a2e;}
+#loginScreen p{font-size:13px;color:#6b7280;margin-bottom:24px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:12px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:border .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#1a4a2e;}
+.form-group textarea{min-height:80px;resize:vertical;}
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-primary{background:#1a4a2e;color:#fff;}
+.btn-primary:hover{background:#2d6a4f;}
+.btn-danger{background:#dc2626;color:#fff;}
+.btn-sm{padding:6px 12px;font-size:12px;}
+.btn-outline{background:transparent;border:1.5px solid #1a4a2e;color:#1a4a2e;}
+#adminApp{display:none;}
+.sidebar{position:fixed;left:0;top:56px;bottom:0;width:200px;background:#fff;border-right:1px solid #e5e7eb;padding:16px 0;}
+.sidebar a{display:block;padding:10px 20px;font-size:14px;font-weight:600;color:#374151;text-decoration:none;border-left:3px solid transparent;}
+.sidebar a:hover,.sidebar a.active{color:#1a4a2e;background:#f0f7f2;border-left-color:#1a4a2e;}
+.main{margin-left:200px;padding:24px;}
+.page{display:none;}
+.page.active{display:block;}
+.page-title{font-size:22px;font-weight:800;color:#1a1a1a;margin-bottom:6px;}
+.page-sub{font-size:13px;color:#6b7280;margin-bottom:24px;}
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px;}
+.stat-card{background:#fff;border-radius:12px;padding:16px;text-align:center;border:1px solid #e5e7eb;}
+.stat-num{font-size:28px;font-weight:900;}
+.stat-label{font-size:11px;color:#6b7280;margin-top:4px;text-transform:uppercase;letter-spacing:.05em;}
+.gA{color:#16a34a;}.gB{color:#65a30d;}.gC{color:#d97706;}.gD{color:#dc2626;}.gE{color:#7f1d1d;}.gF{color:#1c1917;}
+.card{background:#fff;border-radius:12px;border:1px solid #e5e7eb;margin-bottom:20px;}
+.card-header{padding:16px 20px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;}
+.card-header h3{font-size:15px;font-weight:700;}
+.card-body{padding:20px;}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;padding:8px 12px;border-bottom:2px solid #f3f4f6;}
+td{padding:10px 12px;border-bottom:1px solid #f9fafb;font-size:13px;vertical-align:middle;}
+tr:hover td{background:#f9fafb;}
+.grade-pill{display:inline-block;width:26px;height:26px;border-radius:7px;text-align:center;line-height:26px;font-size:12px;font-weight:900;color:#fff;}
+.pill-A{background:#16a34a;}.pill-B{background:#65a30d;}.pill-C{background:#d97706;}
+.pill-D{background:#dc2626;}.pill-E{background:#7f1d1d;}.pill-F{background:#1c1917;}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-pub{background:#d4edda;color:#155724;}
+.badge-draft{background:#fff3cd;color:#856404;}
+.badge-review{background:#f8d7da;color:#721c24;}
+.search-bar{display:flex;gap:10px;margin-bottom:16px;align-items:center;}
+.search-bar input{flex:1;padding:8px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px;outline:none;}
+.search-bar input:focus{border-color:#1a4a2e;}
+select.filter{padding:8px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;outline:none;background:#fff;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:16px;width:640px;max-height:90vh;overflow-y:auto;padding:28px;}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:20px;}
+.ing-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.ing-row{display:grid;grid-template-columns:1fr 2fr auto auto;gap:8px;align-items:center;}
+.ing-row input,.ing-row select{padding:7px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:13px;outline:none;}
+.dot-avoid{width:10px;height:10px;border-radius:50%;background:#dc2626;display:inline-block;}
+.dot-caution{width:10px;height:10px;border-radius:50%;background:#d97706;display:inline-block;}
+.dot-safe{width:10px;height:10px;border-radius:50%;background:#16a34a;display:inline-block;}
+.score-preview{background:#f9fafb;border-radius:10px;padding:14px;margin-top:12px;font-size:12px;}
+.score-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f3f4f6;}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a4a2e;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:9999;transform:translateY(80px);transition:transform .3s;box-shadow:0 4px 20px rgba(0,0,0,.2);}
+.toast.show{transform:translateY(0);}
+.pagination{display:flex;gap:8px;align-items:center;margin-top:12px;}
+.pagination button{padding:6px 12px;border:1.5px solid #e5e7eb;border-radius:6px;font-size:13px;cursor:pointer;background:#fff;}
+.pagination button.active{background:#1a4a2e;color:#fff;border-color:#1a4a2e;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">Eat<span>Aware</span> <span style="font-size:12px;background:rgba(255,255,255,.15);padding:2px 10px;border-radius:20px;margin-left:8px;font-family:Arial;">Admin Panel</span></div>
+  <div id="userInfo" style="font-size:13px;display:flex;align-items:center;gap:12px;">
+    <span id="userEmail"></span>
+    <button class="btn btn-sm btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff;" onclick="signOut()">Sign Out</button>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <h2>Admin Login</h2>
+  <p>Sign in with your EatAware admin email to access the panel.</p>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" id="loginEmail" placeholder="koushik@eataware.in"/>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" id="loginPwd" placeholder="Your password"/>
+  </div>
+  <button class="btn btn-primary" style="width:100%;padding:12px;" onclick="signIn()">Sign In →</button>
+  <p id="loginError" style="color:#dc2626;font-size:12px;margin-top:10px;display:none;"></p>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <a href="#" class="active" onclick="showPage('dashboard')">📊 Dashboard</a>
+    <a href="#" onclick="showPage('products')">🥗 Products</a>
+    <a href="#" onclick="showPage('add')">➕ Add Product</a>
+    <a href="#" onclick="showPage('submissions')">📬 Submissions</a>
+    <a href="#" onclick="showPage('settings')">⚙️ Settings</a>
+    <div style="margin-top:20px;padding:16px 20px;border-top:1px solid #e5e7eb;">
+      <a href="https://eataware.in" target="_blank" style="font-size:12px;color:#6b7280;">← View Live Site</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Overview of your EatAware product database</div>
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="card">
+        <div class="card-header"><h3>Recent Products</h3><button class="btn btn-sm btn-outline" onclick="showPage('products')">View All</button></div>
+        <div class="card-body" style="padding:0;overflow:hidden;border-radius:0 0 12px 12px;">
+          <table><thead><tr><th>Product</th><th>Grade</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="recentProductsBody"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS LIST -->
+    <div class="page" id="page-products">
+      <div class="page-title">All Products</div>
+      <div class="page-sub">Search, filter, edit or delete products</div>
+      <div class="search-bar">
+        <input type="text" id="productSearch" placeholder="Search products..." oninput="filterProducts()"/>
+        <select class="filter" id="gradeFilter" onchange="filterProducts()">
+          <option value="">All Grades</option>
+          <option value="A">Grade A</option><option value="B">Grade B</option>
+          <option value="C">Grade C</option><option value="D">Grade D</option>
+          <option value="E">Grade E</option><option value="F">Grade F</option>
+        </select>
+        <select class="filter" id="statusFilter" onchange="filterProducts()">
+          <option value="">All Status</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="needs_review">Needs Review</option>
+        </select>
+        <button class="btn btn-primary btn-sm" onclick="showPage('add')">+ Add Product</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table><thead><tr><th>Product Name</th><th>Grade</th><th>Category</th><th>Status</th><th>Ingredients</th><th>Actions</th></tr></thead>
+        <tbody id="productsTableBody"></tbody></table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+    <!-- ADD PRODUCT -->
+    <div class="page" id="page-add">
+      <div class="page-title">Add New Product</div>
+      <div class="page-sub">Fill in the product details. Grade will be auto-calculated — you can override it.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="card">
+          <div class="card-header"><h3>Product Details</h3></div>
+          <div class="card-body">
+            <div class="form-group"><label>Product Name</label><input id="addName" placeholder="e.g. Maggi 2-Minute Noodles"/></div>
+            <div class="form-group"><label>Category</label>
+              <select id="addCategory">
+                <option value="">Select category...</option>
+                <option>Instant Noodles</option><option>Unhealthy Snacks</option>
+                <option>Snacks</option><option>Biscuits</option><option>Kids Biscuits</option>
+                <option>Kids Snacks</option><option>Beverages</option><option>Sugary Drinks</option>
+                <option>Chocolate & Candy</option><option>Condiments</option><option>Sauces & Condiments</option>
+                <option>Cooking Fats</option><option>Namkeen</option><option>Bread & Bakery</option>
+                <option>Instant Foods</option><option>Frozen Desserts</option><option>Sports Drinks</option>
+                <option>Instant Drinks</option><option>Dairy</option><option>Protein Supplements</option>
+                <option>Street Food Ingredients</option><option>Baby Foods</option><option>Awareness</option>
+                <option>Staples</option><option>Breakfast Cereals</option><option>Traditional Snacks</option>
+                <option>Personal Care</option><option>Oral Hygiene</option><option>Functional Drinks</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div class="form-group"><label>Grade (auto or override)</label>
+                <select id="addGrade">
+                  <option value="auto">Auto-calculate</option>
+                  <option value="A">A — Excellent</option><option value="B">B — Good</option>
+                  <option value="C">C — Moderate</option><option value="D">D — High concern</option>
+                  <option value="E">E — Very high concern</option><option value="F">F — Avoid</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Status</label>
+                <select id="addStatus">
+                  <option value="needs_review">Needs Review (safe default)</option>
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label>Body Impact (optional)</label>
+              <textarea id="addImpact" placeholder="What does daily consumption do to the body? Be specific about frequency — avoid exact timelines."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Ingredients</h3>
+            <button class="btn btn-sm btn-outline" onclick="addIngRow()">+ Add Ingredient</button>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px;color:#6b7280;margin-bottom:12px;">Add each ingredient from the back-of-pack label in the order listed.</p>
+            <div class="ing-list" id="ingList"></div>
+            <div class="score-preview" id="scorePreview">
+              <div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Live Score Preview</div>
+              <div id="scoreRows"></div>
+              <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid #e5e7eb;">
+                <span style="font-weight:700;">Calculated Grade:</span>
+                <span id="calcGrade" style="font-size:18px;font-weight:900;color:#1a4a2e;">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:4px;">
+        <button class="btn btn-primary" style="padding:13px 32px;font-size:15px;" onclick="saveProduct()">Save Product →</button>
+        <button class="btn btn-outline" onclick="resetForm()">Clear Form</button>
+      </div>
+    </div>
+
+    <!-- SUBMISSIONS -->
+    <div class="page" id="page-submissions">
+      <div class="page-title">User Submissions</div>
+      <div class="page-sub">Products submitted by users. Review before adding to the database.</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table><thead><tr><th>Product</th><th>Brand</th><th>Category</th><th>Ingredients</th><th>Submitted</th><th>Actions</th></tr></thead>
+        <tbody id="submissionsBody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="page-title">Settings</div>
+      <div class="page-sub">Admin panel configuration</div>
+      <div class="card" style="max-width:500px;">
+        <div class="card-header"><h3>Your Account</h3></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:#374151;margin-bottom:16px;">Signed in as: <strong id="settingsEmail"></strong></p>
+          <button class="btn btn-danger btn-sm" onclick="signOut()">Sign Out</button>
+        </div>
+      </div>
+      <div class="card" style="max-width:500px;margin-top:16px;">
+        <div class="card-header"><h3>Database Stats</h3></div>
+        <div class="card-body" id="dbStats">Loading...</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h3 id="editModalTitle">Edit Product</h3>
+      <button onclick="closeModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#6b7280;">×</button>
+    </div>
+    <div class="form-group"><label>Product Name</label><input id="editName"/></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group"><label>Grade</label>
+        <select id="editGrade">
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Status</label>
+        <select id="editStatus">
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="needs_review">Needs Review</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Category</label><input id="editCategory"/></div>
+    <div class="form-group"><label>Body Impact</label><textarea id="editImpact" style="min-height:100px;"></textarea></div>
+    <input type="hidden" id="editId"/>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button class="btn btn-primary" onclick="updateProduct()">Save Changes</button>
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Supabase init ─────────────────────────────────────────────
+const SUPA_URL = 'https://tkmrqsnjcudlkiwmcula.supabase.co';
+const SUPA_KEY = document.currentScript ? '' : ''; // Set below
+</script>
+<script>
+// Get key from meta tag or hardcode here
+const _KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRrbXJxc25qY3VkbGtpd21jdWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5Mjc5MTksImV4cCI6MjA5MTUwMzkxOX0.zlVuTGgV091ipVnoY1wOG6N3BV5kSodr-6ixqgwrTNE';
+const db = supabase.createClient(SUPA_URL, _KEY);
+
+let currentUser = null;
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 1;
+const PAGE_SIZE = 25;
+let editingId = null;
+
+// ── Auth ──────────────────────────────────────────────────────
+async function signIn() {
+  const email = document.getElementById('loginEmail').value;
+  const pwd   = document.getElementById('loginPwd').value;
+  const { data, error } = await db.auth.signInWithPassword({ email, password: pwd });
+  if (error) {
+    document.getElementById('loginError').textContent = error.message;
+    document.getElementById('loginError').style.display = 'block';
+  } else {
+    currentUser = data.user;
+    showAdmin();
+  }
+}
+
+async function signOut() {
+  await db.auth.signOut();
+  location.reload();
+}
+
+db.auth.onAuthStateChange((event, session) => {
+  if (session) { currentUser = session.user; showAdmin(); }
+});
+
+function showAdmin() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminApp').style.display = 'block';
+  document.getElementById('userEmail').textContent = currentUser.email;
+  document.getElementById('settingsEmail').textContent = currentUser.email;
+  loadDashboard();
+}
+
+// ── Navigation ────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event && event.preventDefault();
+  if (id === 'products') loadProducts();
+  if (id === 'submissions') loadSubmissions();
+  if (id === 'add') { resetForm(); addIngRow(); addIngRow(); }
+  if (id === 'settings') loadSettings();
+}
+
+// ── Dashboard ────────────────────────────────────────────────
+async function loadDashboard() {
+  const { data, error } = await db.from('products').select('grade, status');
+  if (error) { showToast('Error loading dashboard: ' + error.message, true); return; }
+  
+  const grades = {A:0,B:0,C:0,D:0,E:0,F:0};
+  data.forEach(p => { if (grades[p.grade] !== undefined) grades[p.grade]++; });
+  
+  const statsEl = document.getElementById('statsGrid');
+  statsEl.innerHTML = Object.entries(grades).map(([g,c]) => `
+    <div class="stat-card">
+      <div class="stat-num g${g}">${c}</div>
+      <div class="stat-label">Grade ${g}</div>
+    </div>`).join('') + `
+    <div class="stat-card">
+      <div class="stat-num" style="color:#1a4a2e">${data.length}</div>
+      <div class="stat-label">Total</div>
+    </div>`;
+  
+  // Recent products
+  const { data: recent } = await db.from('products').select('*').order('created_at', {ascending:false}).limit(8);
+  const tbody = document.getElementById('recentProductsBody');
+  tbody.innerHTML = (recent || []).map(p => `
+    <tr>
+      <td><strong>${p.name}</strong></td>
+      <td><div class="grade-pill pill-${p.grade}">${p.grade}</div></td>
+      <td style="color:#6b7280">${p.category || '—'}</td>
+      <td><span class="badge badge-${p.status === 'published' ? 'pub' : p.status === 'draft' ? 'draft' : 'review'}">${p.status}</span></td>
+      <td><button class="btn btn-sm btn-outline" onclick="openEdit('${p.id}')">Edit</button></td>
+    </tr>`).join('');
+}
+
+// ── Products List ─────────────────────────────────────────────
+async function loadProducts() {
+  const { data, error } = await db.from('products').select('*').order('name');
+  if (error) { showToast('Error: ' + error.message, true); return; }
+  allProducts = data || [];
+  filteredProducts = [...allProducts];
+  renderProductsTable();
+}
+
+function filterProducts() {
+  const search = document.getElementById('productSearch').value.toLowerCase();
+  const grade  = document.getElementById('gradeFilter').value;
+  const status = document.getElementById('statusFilter').value;
+  filteredProducts = allProducts.filter(p =>
+    (!search || p.name.toLowerCase().includes(search) || (p.category||'').toLowerCase().includes(search)) &&
+    (!grade  || p.grade === grade) &&
+    (!status || p.status === status)
+  );
+  currentPage = 1;
+  renderProductsTable();
+}
+
+function renderProductsTable() {
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const page  = filteredProducts.slice(start, start + PAGE_SIZE);
+  const tbody = document.getElementById('productsTableBody');
+  tbody.innerHTML = page.map(p => `
+    <tr>
+      <td><strong>${p.name}</strong></td>
+      <td><div class="grade-pill pill-${p.grade}">${p.grade}</div></td>
+      <td style="color:#6b7280;font-size:12px">${p.category || '—'}</td>
+      <td><span class="badge badge-${p.status==='published'?'pub':p.status==='draft'?'draft':'review'}">${p.status}</span></td>
+      <td style="color:#6b7280;font-size:12px">${(p.ings||[]).length} items</td>
+      <td style="display:flex;gap:6px;">
+        <button class="btn btn-sm btn-outline" onclick="openEdit('${p.id}')">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Del</button>
+      </td>
+    </tr>`).join('');
+  
+  // Pagination
+  const total = Math.ceil(filteredProducts.length / PAGE_SIZE);
+  const pag = document.getElementById('pagination');
+  pag.innerHTML = `<span style="font-size:13px;color:#6b7280">${filteredProducts.length} products</span>` +
+    Array.from({length:Math.min(total,10)}, (_,i) => i+1)
+      .map(n => `<button class="${n===currentPage?'active':''}" onclick="goPage(${n})">${n}</button>`)
+      .join('');
+}
+
+function goPage(n) { currentPage = n; renderProductsTable(); }
+
+// ── Add Product ───────────────────────────────────────────────
+let ingCount = 0;
+
+function addIngRow(name='', desc='', dot='dot-caution') {
+  const id = ++ingCount;
+  const div = document.createElement('div');
+  div.className = 'ing-row';
+  div.id = 'ing-' + id;
+  div.innerHTML = `
+    <input placeholder="Ingredient name" value="${name}" oninput="calcScore()"/>
+    <input placeholder="Description (optional)" value="${desc}"/>
+    <select onchange="calcScore()">
+      <option value="dot-avoid" ${dot==='dot-avoid'?'selected':''}>🔴 Avoid</option>
+      <option value="dot-caution" ${dot==='dot-caution'?'selected':''}>🟡 Caution</option>
+      <option value="dot-safe" ${dot==='dot-safe'?'selected':''}>🟢 Safe</option>
+    </select>
+    <button style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:18px;" onclick="removeIng(${id})">×</button>`;
+  document.getElementById('ingList').appendChild(div);
+  calcScore();
+}
+
+function removeIng(id) {
+  document.getElementById('ing-' + id).remove();
+  calcScore();
+}
+
+function getIngs() {
+  return Array.from(document.querySelectorAll('.ing-row')).map(row => {
+    const inputs = row.querySelectorAll('input');
+    const dot = row.querySelector('select').value;
+    return { name: inputs[0].value.trim(), desc: inputs[1].value.trim(), dot, safe: dot==='dot-safe' ? true : dot==='dot-avoid' ? false : null };
+  }).filter(i => i.name);
+}
+
+// Simple scoring engine for admin panel
+function calcScore() {
+  const ings = getIngs();
+  let score = 100;
+  const rules = [];
+  
+  const checks = [
+    {re:/tbhq|ins.?319/i, label:'TBHQ', pts:-15},
+    {re:/hydrogenat|vanaspati/i, label:'Trans fat', pts:-40},
+    {re:/tartrazine|ins.?102/i, label:'Tartrazine', pts:-10},
+    {re:/msg|monosodium|e631|ins.?631|flavour enhancer/i, label:'MSG/Enhancer', pts:-5},
+    {re:/palm oil|palmolein/i, label:'Palm oil', pts:-7},
+    {re:/maltodextrin/i, label:'Maltodextrin', pts:-6},
+    {re:/maida|refined wheat|refined flour/i, label:'Refined flour/Maida', pts:-5},
+    {re:/artificial colou|caramel colou|synthetic colou/i, label:'Artificial colour', pts:-6},
+    {re:/nature identical|artificial flavou/i, label:'Artificial flavouring', pts:-5},
+    {re:/lactobacillus|probiotic|live culture/i, label:'Live probiotic cultures', pts:+12},
+    {re:/whole grain|whole wheat|ragi|bajra|jowar|rolled oat/i, label:'Whole grain base', pts:+10},
+    {re:/omega.?3|flaxseed|chia/i, label:'Omega-3 source', pts:+6},
+  ];
+  
+  checks.forEach(c => {
+    if (ings.some(i => c.re.test(i.name + i.desc))) {
+      score += c.pts;
+      rules.push(c);
+    }
+  });
+  
+  const avoidCount = ings.filter(i => i.dot === 'dot-avoid').length;
+  if (avoidCount >= 3) {
+    const sp = -(avoidCount-2)*4;
+    score += sp;
+    rules.push({label: avoidCount + ' avoid ingredients (stack)', pts: sp});
+  }
+  
+  score = Math.max(0, Math.min(100, score));
+  const grade = score >= 82 ? 'A' : score >= 67 ? 'B' : score >= 52 ? 'C' : score >= 32 ? 'D' : score >= 12 ? 'E' : 'F';
+  const gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
+  
+  document.getElementById('scoreRows').innerHTML = rules.map(r =>
+    `<div class="score-row"><span>${r.label}</span><span style="color:${r.pts>0?'#16a34a':'#dc2626'};font-weight:700">${r.pts>0?'+':''}${r.pts}</span></div>`
+  ).join('') || '<div style="color:#9ca3af;font-size:12px;text-align:center;padding:8px">Add ingredients to see score</div>';
+  
+  document.getElementById('calcGrade').textContent = `${grade} (${score}/100)`;
+  document.getElementById('calcGrade').style.color = gc[grade] || '#888';
+  return { score, grade };
+}
+
+async function saveProduct() {
+  const name = document.getElementById('addName').value.trim();
+  if (!name) { showToast('Product name is required', true); return; }
+  
+  const ings = getIngs();
+  const { score, grade } = calcScore();
+  const selectedGrade = document.getElementById('addGrade').value;
+  const finalGrade = selectedGrade === 'auto' ? grade : selectedGrade;
+  
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  
+  const payload = {
+    slug, name,
+    grade: finalGrade,
+    category: document.getElementById('addCategory').value,
+    impact: document.getElementById('addImpact').value.trim(),
+    ings,
+    nutri: {},
+    status: document.getElementById('addStatus').value,
+    label_verified: false
+  };
+  
+  const { error } = await db.from('products').insert([payload]);
+  if (error) { showToast('Error: ' + error.message, true); return; }
+  
+  showToast(`✅ ${name} saved as Grade ${finalGrade}!`);
+  resetForm();
+  addIngRow(); addIngRow();
+}
+
+function resetForm() {
+  ['addName','addImpact'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('addGrade').value = 'auto';
+  document.getElementById('addStatus').value = 'needs_review';
+  document.getElementById('addCategory').value = '';
+  document.getElementById('ingList').innerHTML = '';
+  ingCount = 0;
+  calcScore();
+}
+
+// ── Edit Product ──────────────────────────────────────────────
+async function openEdit(id) {
+  const prod = allProducts.find(p => p.id === id);
+  if (!prod) return;
+  editingId = id;
+  document.getElementById('editId').value = id;
+  document.getElementById('editName').value = prod.name;
+  document.getElementById('editGrade').value = prod.grade;
+  document.getElementById('editStatus').value = prod.status;
+  document.getElementById('editCategory').value = prod.category || '';
+  document.getElementById('editImpact').value = prod.impact || '';
+  document.getElementById('editModalTitle').textContent = 'Edit: ' + prod.name;
+  document.getElementById('editModal').classList.add('open');
+}
+
+async function updateProduct() {
+  const id = document.getElementById('editId').value;
+  const payload = {
+    name:     document.getElementById('editName').value.trim(),
+    grade:    document.getElementById('editGrade').value,
+    status:   document.getElementById('editStatus').value,
+    category: document.getElementById('editCategory').value,
+    impact:   document.getElementById('editImpact').value.trim(),
+  };
+  const { error } = await db.from('products').update(payload).eq('id', id);
+  if (error) { showToast('Error: ' + error.message, true); return; }
+  showToast('✅ Product updated!');
+  closeModal();
+  loadProducts();
+  loadDashboard();
+}
+
+async function deleteProduct(id, name) {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+  const { error } = await db.from('products').delete().eq('id', id);
+  if (error) { showToast('Error: ' + error.message, true); return; }
+  showToast('Product deleted');
+  loadProducts();
+  loadDashboard();
+}
+
+function closeModal() { document.getElementById('editModal').classList.remove('open'); }
+
+// ── Submissions ───────────────────────────────────────────────
+async function loadSubmissions() {
+  const { data, error } = await db.from('submissions').select('*').order('created_at', {ascending:false});
+  if (error) { document.getElementById('submissionsBody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:#dc2626">Error loading: ' + error.message + '</td></tr>'; return; }
+  
+  const tbody = document.getElementById('submissionsBody');
+  if (!data || !data.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#9ca3af;padding:24px">No submissions yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(s => `
+    <tr>
+      <td><strong>${s.product_name}</strong></td>
+      <td>${s.brand || '—'}</td>
+      <td style="font-size:12px;color:#6b7280">${s.category || '—'}</td>
+      <td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.ingredients || '—'}</td>
+      <td style="font-size:12px;color:#9ca3af">${new Date(s.created_at).toLocaleDateString('en-IN')}</td>
+      <td>
+        <button class="btn btn-sm btn-outline" onclick="useSubmission('${s.id}')">Use</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteSubmission('${s.id}')">Del</button>
+      </td>
+    </tr>`).join('');
+}
+
+async function useSubmission(id) {
+  const sub = (await db.from('submissions').select('*').eq('id',id).single()).data;
+  if (!sub) return;
+  showPage('add');
+  document.getElementById('addName').value = sub.product_name + (sub.brand ? ' — ' + sub.brand : '');
+  document.getElementById('addCategory').value = sub.category || '';
+  if (sub.ingredients) {
+    sub.ingredients.split(',').forEach(ing => {
+      addIngRow(ing.trim(), '', 'dot-caution');
+    });
+  }
+  showToast('Submission loaded into Add Product form');
+}
+
+async function deleteSubmission(id) {
+  if (!confirm('Delete this submission?')) return;
+  await db.from('submissions').delete().eq('id', id);
+  loadSubmissions();
+  showToast('Submission deleted');
+}
+
+// ── Settings ──────────────────────────────────────────────────
+async function loadSettings() {
+  const { data } = await db.from('products').select('grade, status');
+  if (!data) return;
+  const grades = {};
+  const statuses = {};
+  data.forEach(p => {
+    grades[p.grade] = (grades[p.grade]||0)+1;
+    statuses[p.status] = (statuses[p.status]||0)+1;
+  });
+  document.getElementById('dbStats').innerHTML =
+    '<p style="font-size:13px;line-height:2;color:#374151">' +
+    Object.entries(grades).map(([g,c]) => `Grade ${g}: <strong>${c}</strong>`).join(' · ') +
+    '<br>' + Object.entries(statuses).map(([s,c]) => `${s}: <strong>${c}</strong>`).join(' · ') +
+    '</p>';
+}
+
+// ── Toast ─────────────────────────────────────────────────────
+function showToast(msg, isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? '#dc2626' : '#1a4a2e';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Enter key on login ────────────────────────────────────────
+document.getElementById('loginPwd').addEventListener('keypress', e => {
+  if (e.key === 'Enter') signIn();
+});
+</script>
+</body>
+</html>
