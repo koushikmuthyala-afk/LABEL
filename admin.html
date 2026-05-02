@@ -363,7 +363,11 @@ function showPage(id) {
 // ── Dashboard ────────────────────────────────────────────────
 async function loadDashboard() {
   const { data, error } = await db.from('products').select('grade, status');
-  if (error) { showToast('Error loading dashboard: ' + error.message, true); return; }
+  if (error) { 
+    console.error('Dashboard error:', error.message, '— Make sure koushik@eataware.in is in admin_users table');
+    showToast('Dashboard error: ' + error.message, true); 
+    return; 
+  }
   
   const grades = {A:0,B:0,C:0,D:0,E:0,F:0};
   data.forEach(p => { if (grades[p.grade] !== undefined) grades[p.grade]++; });
@@ -395,7 +399,11 @@ async function loadDashboard() {
 // ── Products List ─────────────────────────────────────────────
 async function loadProducts() {
   const { data, error } = await db.from('products').select('*').order('name');
-  if (error) { showToast('Error: ' + error.message, true); return; }
+  if (error) { 
+    console.error('loadProducts error:', error);
+    showToast('Error loading products: ' + error.message + ' (Check admin_users table)', true); 
+    return; 
+  }
   allProducts = data || [];
   filteredProducts = [...allProducts];
   renderProductsTable();
@@ -566,13 +574,18 @@ function resetForm() {
 
 // ── Edit Product ──────────────────────────────────────────────
 async function openEdit(id) {
-  const prod = allProducts.find(p => p.id === id);
-  if (!prod) return;
+  // Fetch directly from DB — works from any page, not just products list
+  let prod = allProducts.find(p => p.id === id);
+  if (!prod) {
+    const { data, error } = await db.from('products').select('*').eq('id', id).single();
+    if (error || !data) { showToast('Could not load product: ' + (error ? error.message : 'not found'), true); return; }
+    prod = data;
+  }
   editingId = id;
   document.getElementById('editId').value = id;
   document.getElementById('editName').value = prod.name;
   document.getElementById('editGrade').value = prod.grade;
-  document.getElementById('editStatus').value = prod.status;
+  document.getElementById('editStatus').value = prod.status || 'published';
   document.getElementById('editCategory').value = prod.category || '';
   document.getElementById('editImpact').value = prod.impact || '';
   document.getElementById('editModalTitle').textContent = 'Edit: ' + prod.name;
@@ -590,9 +603,10 @@ async function updateProduct() {
   };
   const { error } = await db.from('products').update(payload).eq('id', id);
   if (error) { showToast('Error: ' + error.message, true); return; }
-  showToast('✅ Product updated!');
+  showToast('✅ Product updated! Grade changed to ' + payload.grade);
   closeModal();
-  loadProducts();
+  // Reload both lists
+  if (allProducts.length > 0) loadProducts();
   loadDashboard();
 }
 
