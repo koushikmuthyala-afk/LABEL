@@ -1128,7 +1128,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
         </div>
         <div style="margin-top:16px;">
           <label style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:5px;">Ingredients (paste from label) *</label>
-          <textarea id="subIngredients" rows="4" placeholder="Paste the full ingredient list from the back of the pack exactly as written. e.g: Refined Wheat Flour, Palmolein (20%), Salt, Spices..." style="width:100%;padding:10px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+          <textarea id="subIngredients" oninput="updateSubGradePreview()" rows="4" placeholder="Paste the full ingredient list from the back of the pack exactly as written. e.g: Refined Wheat Flour, Palmolein (20%), Salt, Spices..." style="width:100%;padding:10px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
         </div>
         <div style="margin-top:16px;">
           <label style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:5px;">Your Email (optional — for updates)</label>
@@ -2879,6 +2879,63 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
+
+
+// ── Phase 4: openScannerTab + submit tab + live grade preview ──
+function openScannerTab(tab) {
+  var m = document.getElementById('scannerModal');
+  if (m) m.style.display = 'flex';
+  setTimeout(function() { switchScanTab(tab); }, 30);
+}
+
+// Extend switchScanTab to handle submit tab
+var _origSwitch = switchScanTab;
+switchScanTab = function(tab) {
+  // Handle original scan/type tabs
+  if (tab === 'scan' || tab === 'type') {
+    _origSwitch(tab);
+    // Hide submit panel when switching away
+    var sp = document.getElementById('panel-submit');
+    var sb = document.getElementById('tab-submit');
+    if (sp) sp.style.display = 'none';
+    if (sb) { sb.style.background = '#fff'; sb.style.color = '#374151'; }
+  } else if (tab === 'submit') {
+    // Show submit panel, hide others
+    ['scan','type'].forEach(function(t) {
+      var p = document.getElementById('panel-' + t);
+      var b = document.getElementById('tab-' + t);
+      if (p) p.style.display = 'none';
+      if (b) { b.style.background = '#fff'; b.style.color = '#374151'; }
+    });
+    var sp = document.getElementById('panel-submit');
+    var sb = document.getElementById('tab-submit');
+    if (sp) sp.style.display = 'block';
+    if (sb) { sb.style.background = 'var(--green)'; sb.style.color = '#fff'; }
+    var res = document.getElementById('scanResult');
+    if (res) res.style.display = 'none';
+  }
+};
+
+// Live grade preview as user types in submit tab
+function updateSubGradePreview() {
+  var el = document.getElementById('subIngredients');
+  var pv = document.getElementById('subGradePreview');
+  var pc = document.getElementById('subGradePreviewContent');
+  if (!el || !pv || !pc || !el.value.trim()) {
+    if (pv) pv.style.display = 'none';
+    return;
+  }
+  if (typeof quickScoreText !== 'function') return;
+  var result = quickScoreText(el.value.trim());
+  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
+  var tf = result.flags.filter(function(f){return f.risk==='h';}).slice(0,3)
+    .map(function(f){return '&#x1F534; ' + f.name;}).join(' &middot; ');
+  pc.innerHTML = '<div style="display:flex;align-items:center;gap:10px;">'
+    + '<div style="width:36px;height:36px;border-radius:10px;background:'+gc[result.grade]+';display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;">'+result.grade+'</div>'
+    + '<div><div style="font-size:13px;font-weight:700;color:var(--ink);">Predicted grade: '+result.grade+' ('+result.score+'/100)</div>'
+    + '<div style="font-size:11px;color:#9ca3af;margin-top:2px;">'+(tf||'No major concerns found')+'</div></div></div>';
+  pv.style.display = 'block';
+}
 
 </script>
 
