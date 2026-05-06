@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EatAware — Know What You Eat | India's Ingredient Intelligence Platform</title>
-<meta name="description" content="Search any Indian packaged product or ingredient and instantly see what it does to your body. Powered by FSSAI data. 100% free."/>
+<meta name="description" content="Search any Indian packaged product or ingredient and instantly see what it does to your body. Based on FSSAI-referenced data. Free to use during beta."/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://eataware.in"/>
 <meta property="og:type" content="website"/>
@@ -727,7 +727,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
       <div class="drawer-head-label" id="drawerLabel">Product</div>
       <div class="drawer-head-title" id="drawerTitle">—</div>
     </div>
-    <button class="drawer-close" onclick="closeDrawer()" title="Close (Esc)">✕</button>
+    <button class="drawer-close" onclick="closeDrawer()" title="Close (Esc)" aria-label="Close panel">✕</button>
   </div>
 
   <!-- SCROLLABLE BODY -->
@@ -778,7 +778,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
   <div class="search-box">
     <div class="search-label">
       Search any product, brand or ingredient
-      <span class="search-count"><span data-product-count>400+</span> products · India + Singapore · A–F graded</span>
+      <span class="search-count"><span data-product-count><span data-product-count>509</span>+</span> products · India + Singapore · A–F graded</span>
     </div>
     <div class="search-row">
       <input class="search-input" id="searchInput" type="text" placeholder="Try Maggi, Bournvita, TBHQ, Palm Oil, Milo SG…"/>
@@ -834,9 +834,9 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">400+</div><div class="stat-lbl">Products rated A–F</div></div>
+  <div class="stat"><div class="stat-num"><span data-product-count>509</span>+</div><div class="stat-lbl">Products rated A–F</div></div>
   <div class="stat"><div class="stat-num">120+</div><div class="stat-lbl">Ingredients decoded</div></div>
-  <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">Verified data sources</div></div>
+  <div class="stat"><div class="stat-num">FSSAI</div><div class="stat-lbl">FSSAI-referenced data</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Free to use</div></div>
 </div>
 
@@ -952,7 +952,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
         <div class="article-body">
           <div class="article-cat">Preservatives</div>
           <div class="article-title">Why TBHQ is in Almost Every Indian Snack — and What It Does to You</div>
-          <div class="article-excerpt">TBHQ extends shelf life by preventing oxidation. But research links it to immune disruption, potential carcinogenicity, and hormone interference at high doses.</div>
+          <div class="article-excerpt">TBHQ extends shelf life by preventing oxidation. But research links it to immune disruption, possible carcinogen association (IARC), and potential endocrine-disrupting effects at high doses.</div>
         </div>
         <div class="article-footer"><span>8 min read</span><span>Preservatives</span></div>
       </div>
@@ -1009,7 +1009,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
         <p style="font-size:14px;color:#4b5563;line-height:1.8;">EatAware exists to translate that ingredient list from chemical jargon into plain, honest English backed by evidence — and to give every product a single honest grade that tells you where it stands.</p>
       </div>
       <div style="background:var(--green-pale);border-radius:18px;padding:28px;">
-        <div style="margin-bottom:20px;"><div style="font-size:34px;font-weight:900;color:var(--green);">400+</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Indian packaged products rated A to F</div></div>
+        <div style="margin-bottom:20px;"><div style="font-size:34px;font-weight:900;color:var(--green);"><span data-product-count>509</span>+</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Indian packaged products rated A–F</div></div>
         <div style="margin-bottom:20px;"><div style="font-size:34px;font-weight:900;color:var(--green);">120+</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Unique ingredients decoded in plain English</div></div>
         <div style="margin-bottom:20px;"><div style="font-size:34px;font-weight:900;color:var(--green);">FSSAI</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">India's food safety authority as our regulatory reference</div></div>
         <div><div style="font-size:34px;font-weight:900;color:var(--green);">100%</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">Free — no ads, no sponsored grades, ever</div></div>
@@ -1037,7 +1037,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
   <div style="max-width:880px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:52px;">
       <div style="display:inline-block;background:var(--green);color:#fff;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:14px;">Our Methodology</div>
-      <h2 style="max-width:100%;margin:0 auto;">How We Grade Every Product A to F</h2>
+      <h2 style="max-width:100%;margin:0 auto;">How We Grade Every Product A–F</h2>
       <p style="font-size:16px;color:var(--muted);line-height:1.75;max-width:620px;margin:16px auto 0;">Our grading system is an <strong>EatAware editorial model</strong> built on FSSAI label data, WHO nutritional guidance, and peer-reviewed public-health evidence — calibrated for Indian dietary patterns.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:48px;">
@@ -1171,7 +1171,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
         <div style="font-size:12px;color:var(--muted);margin-top:2px;">Average review time</div>
       </div>
       <div style="text-align:center;">
-        <div style="font-size:22px;font-weight:900;color:var(--green);" data-product-count>387+</div>
+        <div style="font-size:22px;font-weight:900;color:var(--green);" data-product-count><span data-product-count>509</span>+</div>
         <div style="font-size:12px;color:var(--muted);margin-top:2px;">Products already rated</div>
       </div>
     </div>
@@ -1266,7 +1266,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
 
         <!-- Instagram — still works fine -->
         <div style="margin-top:14px;">
-          <a href="https://instagram.com/eataware.in" target="_blank" style="display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:13px;font-weight:600;text-decoration:none;padding:10px 18px;border:1.5px solid var(--border);border-radius:100px;transition:border-color 0.2s;">
+          <a href="https://instagram.com/eataware.in" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:13px;font-weight:600;text-decoration:none;padding:10px 18px;border:1.5px solid var(--border);border-radius:100px;transition:border-color 0.2s;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
             @eataware.in on Instagram
           </a>
@@ -1387,7 +1387,7 @@ const ingredients = {
       { icon: '⚙️', name: 'Hormones', risk: 65, level: 'high' },
       { icon: '🦠', name: 'Immune system', risk: 78, level: 'high' },
     ],
-    longterm: 'Regular consumption is linked to immune disruption, potential carcinogenicity (IARC Group 3), and endocrine interference. Found in Lay\'s, most fried chips, and instant noodles.'
+    longterm: 'Regular consumption is linked to immune disruption, possible carcinogen association (IARC) (IARC Group 3), and endocrine interference. Found in Lay\'s, most fried chips, and instant noodles.'
   },
   msg: {
     name: 'Monosodium Glutamate (MSG)',
@@ -2169,138 +2169,6 @@ function closeMyReport() {
 // showProductModal patching handled by drawer functions below
 
 
-
-// ─── Phase 4a+4b additions ───────────────────────────────────
-
-function openScannerTab(tab) {
-  openScanner();
-  setTimeout(function() { switchScanTab(tab); }, 30);
-}
-
-// Extend switchScanTab to handle 3rd submit tab
-var _p4_origSwitch = switchScanTab;
-switchScanTab = function(tab) {
-  ['scan','type','submit'].forEach(function(t) {
-    var panel = document.getElementById('panel-' + t);
-    var btn   = document.getElementById('tab-' + t);
-    if (panel) panel.style.display = (t===tab) ? 'block' : 'none';
-    if (btn) { btn.style.background = (t===tab) ? 'var(--green)' : '#fff'; btn.style.color = (t===tab) ? '#fff' : '#374151'; }
-  });
-  var res = document.getElementById('scanResult');
-  if (res) res.style.display = 'none';
-};
-
-// Quick score engine
-var ING_DB = [
-  {re:/partially hydrogenat|vanaspati/i,  name:'Trans fat / PHO',          risk:'harmful', pts:-40},
-  {re:/tbhq|ins.?319/i,                   name:'TBHQ (INS 319)',            risk:'harmful', pts:-15},
-  {re:/tartrazine|ins.?102|e102/i,    name:'Tartrazine (E102)',          risk:'harmful', pts:-10},
-  {re:/sunset yellow|ins.?110/i,          name:'Sunset Yellow (E110)',       risk:'harmful', pts:-8},
-  {re:/allura red|ins.?129/i,             name:'Allura Red (E129)',           risk:'harmful', pts:-8},
-  {re:/sodium benzoate|ins.?211/i,        name:'Sodium Benzoate',            risk:'harmful', pts:-8},
-  {re:/potassium bromate/i,               name:'Potassium Bromate (BANNED)', risk:'harmful', pts:-25},
-  {re:/\bmsg\b|monosodium glutamate|ins.?621/i, name:'MSG (INS 621)',      risk:'caution', pts:-5},
-  {re:/palm oil|palmolein|palm fat/i,     name:'Palm oil',                   risk:'caution', pts:-7},
-  {re:/\bmaida\b|refined wheat|refined flour/i, name:'Refined flour (Maida)', risk:'caution', pts:-5},
-  {re:/maltodextrin/i,                    name:'Maltodextrin (GI 110)',      risk:'caution', pts:-6},
-  {re:/artificial colou|caramel colou|e150/i, name:'Artificial colour',      risk:'caution', pts:-6},
-  {re:/nature identical|artificial flavou/i, name:'Artificial flavouring',   risk:'caution', pts:-5},
-  {re:/high fructose corn syrup|hfcs/i,   name:'HFCS',                       risk:'harmful', pts:-12},
-  {re:/lactobacillus|probiotic|live cultur/i, name:'Live probiotic cultures', risk:'safe',   pts:+12},
-  {re:/whole grain|whole wheat|ragi|bajra|jowar|foxtail|rolled oat/i, name:'Whole grain / millet', risk:'safe', pts:+10},
-  {re:/omega.?3|flaxseed|chia seed/i,     name:'Omega-3 source',             risk:'safe',   pts:+6},
-  {re:/turmeric|curcumin/i,               name:'Turmeric (curcumin)',        risk:'safe',   pts:+6},
-  {re:/no added sugar|unsweetened/i,      name:'No added sugar',             risk:'safe',   pts:+5},
-  {re:/pea protein|whey protein|soy protein/i, name:'Real protein source',   risk:'safe',   pts:+6},
-];
-
-function quickScoreText(text) {
-  var lower = text.toLowerCase(), score = 100, flags = [], used = {};
-  ING_DB.forEach(function(rule) {
-    if (!used[rule.name] && rule.re.test(lower)) {
-      flags.push({name:rule.name, risk:rule.risk, pts:rule.pts});
-      score += rule.pts; used[rule.name] = true;
-    }
-  });
-  score = Math.max(0, Math.min(100, score));
-  var grade = score>=82?'A':score>=67?'B':score>=52?'C':score>=32?'D':score>=12?'E':'F';
-  return {score:score, grade:grade, flags:flags};
-}
-
-// Override scoreIngredients with richer grade card
-scoreIngredients = function() {
-  var textEl = document.getElementById('quickIngInput');
-  if (!textEl || !textEl.value.trim()) { alert('Please paste an ingredient list first.'); return; }
-  var text = textEl.value.trim();
-  var result = quickScoreText(text);
-  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
-  var taglines = {A:'Excellent',B:'Good — mostly safe',C:'Some concerns',D:'High concern',E:'Very high concern',F:'Avoid as routine'};
-  var flagsHtml = result.flags.slice(0,6).map(function(f) {
-    var dot = f.risk==='safe'?'🟢':f.risk==='caution'?'🟡':'🔴';
-    var col = f.risk==='safe'?'#166534':f.risk==='caution'?'#92400e':'#7f1d1d';
-    return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12px;"><span style="color:'+col+';">'+dot+' '+f.name+'</span><span style="font-weight:700;color:'+(f.pts>0?'#16a34a':'#dc2626')+';">'+(f.pts>0?'+':'')+f.pts+'</span></div>';
-  }).join('');
-  var html = '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">'
-    +'<div style="width:52px;height:52px;border-radius:14px;background:'+gc[result.grade]+';display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;flex-shrink:0;">'+result.grade+'</div>'
-    +'<div><div style="font-size:16px;font-weight:800;color:var(--ink);">Grade '+result.grade+'</div>'
-    +'<div style="font-size:12px;color:'+gc[result.grade]+';margin-top:2px;">'+taglines[result.grade]+'</div>'
-    +'<div style="font-size:11px;color:#9ca3af;margin-top:1px;">Score: '+result.score+' / 100</div></div></div>'
-    +(flagsHtml||'<div style="font-size:12px;color:#9ca3af;">No major concerns detected</div>')
-    +'<div style="font-size:10px;color:#9ca3af;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.06);">Preliminary analysis · Verify with official label</div>';
-  document.getElementById('scanResultContent').innerHTML = html;
-  document.getElementById('scanResult').style.display = 'block';
-  var si = document.getElementById('subIngredients');
-  if (si) { si.value = text; updateSubGradePreview(); }
-};
-
-function updateSubGradePreview() {
-  var el = document.getElementById('subIngredients');
-  var pv = document.getElementById('subGradePreview');
-  var pc = document.getElementById('subGradePreviewContent');
-  if (!el || !pv || !pc || !el.value.trim()) { if (pv) pv.style.display = 'none'; return; }
-  var result = quickScoreText(el.value.trim());
-  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
-  var topFlags = result.flags.filter(function(f){return f.risk!=='safe';}).slice(0,3)
-    .map(function(f){return (f.risk==='harmful'?'🔴':'🟡')+' '+f.name;}).join(' · ');
-  pc.innerHTML = '<div style="display:flex;align-items:center;gap:10px;">'
-    +'<div style="width:36px;height:36px;border-radius:10px;background:'+gc[result.grade]+';display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;">'+result.grade+'</div>'
-    +'<div><div style="font-size:13px;font-weight:700;color:var(--ink);">Predicted grade: '+result.grade+' ('+result.score+'/100)</div>'
-    +'<div style="font-size:11px;color:#9ca3af;margin-top:2px;">'+(topFlags||'No major concerns detected')+'</div></div></div>';
-  pv.style.display = 'block';
-}
-
-async function submitProductToSupabase() {
-  var nameEl = document.getElementById('subName');
-  var ingsEl  = document.getElementById('subIngredients');
-  if (!nameEl||!nameEl.value.trim()) { alert('Please enter the product name.'); return; }
-  if (!ingsEl||!ingsEl.value.trim())  { alert('Please paste the ingredient list.'); return; }
-  var btn = document.getElementById('subBtn');
-  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
-  var result = quickScoreText(ingsEl.value.trim());
-  try {
-    var res = await fetch(SUPA_URL + '/rest/v1/submissions', {
-      method:'POST',
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({product_name:nameEl.value.trim(),brand:(document.getElementById('subBrand')||{}).value||'',ingredients:ingsEl.value.trim(),submitter_email:(document.getElementById('subEmail')||{}).value||'',predicted_grade:result.grade,predicted_score:result.score,status:'pending'})
-    });
-    if (res.ok||res.status===201) {
-      var fs=document.getElementById('submitFormState'); if(fs) fs.style.display='none';
-      var ss=document.getElementById('submitSuccessState'); if(ss) ss.style.display='block';
-    } else { throw new Error('HTTP '+res.status); }
-  } catch(e) {
-    if (btn){btn.textContent='Submit for Review →';btn.disabled=false;}
-    alert('Submission failed: '+e.message);
-  }
-}
-
-function resetSubmitPanel() {
-  ['subName','subBrand','subIngredients','subEmail'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  var pv=document.getElementById('subGradePreview'); if(pv) pv.style.display='none';
-  var fs=document.getElementById('submitFormState'); if(fs) fs.style.display='block';
-  var ss=document.getElementById('submitSuccessState'); if(ss) ss.style.display='none';
-  var btn=document.getElementById('subBtn'); if(btn){btn.textContent='Submit for Review →';btn.disabled=false;}
-}
-
 </script>
 
 <script>
@@ -2406,7 +2274,7 @@ function showIngredientModal(key) {
 
   document.getElementById('drawerBody').innerHTML =
     '<p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.65;">' + (ing.short||'') + '</p>'
-    + (organsHtml ? '<div class="impact-block-title" style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;">Long-term organ risk</div>' + organsHtml : '')
+    + (organsHtml ? '<div class="impact-block-title" style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;">Long-term organ health concern</div>' + organsHtml : '')
     + (ing.longterm ? '<div class="impact-block" style="margin-top:16px;"><div class="impact-block-title">Long-term implications</div><p>' + ing.longterm + '</p></div>' : '');
 }
 
@@ -2527,7 +2395,7 @@ function showIngredient(key) {
   }).join('');
   document.getElementById('impactContent').innerHTML =
     '<p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">' + ing.short + '</p>'
-    + '<div class="impact-title" style="margin-bottom:10px;">Long-term organ risk</div>'
+    + '<div class="impact-title" style="margin-bottom:10px;">Long-term organ health concern</div>'
     + organsHtml
     + '<div style="margin-top:14px;padding:13px;background:var(--surface);border-radius:10px;">'
     + '<div style="font-size:10px;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em;">Long-term implications</div>'
@@ -2536,11 +2404,29 @@ function showIngredient(key) {
 
 // ── NEWSLETTER ──
 function subscribeNL() {
-  var input = document.getElementById('nlEmail');
-  if (!input || !input.value.includes('@')) { if (input) input.focus(); return; }
-  input.value = '';
-  input.placeholder = '✓ Subscribed! Welcome to EatAware.';
-  input.style.color = '#22c55e';
+  var inp = document.getElementById('nlEmail');
+  if (!inp) return;
+  var email = inp.value.trim();
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    inp.style.borderColor = '#dc2626';
+    inp.placeholder = 'Please enter a valid email';
+    setTimeout(function(){ inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
+    return;
+  }
+  var btn = inp.nextElementSibling;
+  if (btn) { btn.textContent = 'Subscribing…'; btn.disabled = true; }
+  // Save to Supabase submissions as newsletter signup
+  fetch(SUPA_URL + '/rest/v1/submissions', {
+    method: 'POST',
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+    body: JSON.stringify({ product_name: 'Newsletter signup', submitter_email: email, status: 'newsletter' })
+  }).then(function(r) {
+    inp.value = '';
+    if (btn) { btn.textContent = '✅ Subscribed!'; btn.disabled = false; }
+    setTimeout(function(){ if (btn) btn.textContent = 'Subscribe Free'; }, 3000);
+  }).catch(function() {
+    if (btn) { btn.textContent = 'Try again'; btn.disabled = false; }
+  });
 }
 
 // ── AUTH / DASHBOARD ──
@@ -2708,6 +2594,41 @@ function previewSubmission() {
   document.getElementById('submitPreviewCard').innerHTML = html;
   document.getElementById('submitStep1').style.display = 'none';
   document.getElementById('submitStep2').style.display = 'block';
+}
+
+
+function quickScoreText(text) {
+  var lower = text.toLowerCase(), score = 100, flags = [], used = {};
+  var DB = [
+    {re:/partially hydrogenat|vanaspati/i,  name:'Trans fat',     risk:'h', pts:-40},
+    {re:/tbhq|ins.?319/i,                   name:'TBHQ (INS 319)',risk:'h', pts:-15},
+    {re:/tartrazine|ins.?102/i,             name:'Tartrazine',    risk:'h', pts:-10},
+    {re:/sunset yellow|ins.?110/i,          name:'Sunset Yellow', risk:'h', pts:-8},
+    {re:/allura red|ins.?129/i,             name:'Allura Red',    risk:'h', pts:-8},
+    {re:/sodium benzoate|ins.?211/i,        name:'Sodium Benzoate',risk:'h',pts:-8},
+    {re:/potassium bromate/i,               name:'Potassium Bromate (BANNED)',risk:'h',pts:-25},
+    {re:/msg|monosodium glutamate/i,    name:'MSG',           risk:'c', pts:-5},
+    {re:/palm oil|palmolein/i,              name:'Palm oil',      risk:'c', pts:-7},
+    {re:/maida|refined wheat|refined flour/i,name:'Maida/Refined flour',risk:'c',pts:-5},
+    {re:/maltodextrin/i,                    name:'Maltodextrin',  risk:'c', pts:-6},
+    {re:/artificial colou|caramel colou/i,  name:'Artificial colour',risk:'c',pts:-6},
+    {re:/nature identical|artificial flavou/i,name:'Artificial flavouring',risk:'c',pts:-5},
+    {re:/lactobacillus|probiotic|live cultur/i,name:'Live cultures',risk:'s',pts:+12},
+    {re:/whole grain|whole wheat|ragi|bajra|jowar|foxtail|rolled oat/i,name:'Whole grain',risk:'s',pts:+10},
+    {re:/omega.?3|flaxseed|chia seed/i,     name:'Omega-3',       risk:'s', pts:+6},
+    {re:/turmeric|curcumin/i,               name:'Turmeric',      risk:'s', pts:+6},
+    {re:/no added sugar|unsweetened/i,       name:'No added sugar',risk:'s', pts:+5},
+    {re:/pea protein|whey protein|soy protein/i,name:'Real protein',risk:'s',pts:+6},
+  ];
+  DB.forEach(function(r) {
+    if (!used[r.name] && r.re.test(lower)) {
+      flags.push({name:r.name, risk:r.risk, pts:r.pts});
+      score += r.pts; used[r.name] = true;
+    }
+  });
+  score = Math.max(0, Math.min(100, score));
+  var grade = score>=82?'A':score>=67?'B':score>=52?'C':score>=32?'D':score>=12?'E':'F';
+  return {score:score, grade:grade, flags:flags};
 }
 
 async function confirmSubmission() {
@@ -2944,19 +2865,35 @@ function scoreIngredients() {
   showScanResult(html, true);
 }
 
+
+// Escape key closes drawer and scanner
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    if (document.getElementById('productDrawer') && 
+        document.getElementById('productDrawer').classList.contains('open')) {
+      if (typeof closeDrawer === 'function') closeDrawer();
+    }
+    if (document.getElementById('scannerModal') && 
+        document.getElementById('scannerModal').style.display !== 'none') {
+      if (typeof closeScanner === 'function') closeScanner();
+    }
+  }
+});
+
 </script>
+
 <!-- ═══════════════════════════════════════════════════════
      BARCODE SCANNER — Phase 4
      Floating button → camera scan → instant grade
 ═══════════════════════════════════════════════════════ -->
-<button id="scanBtn" onclick="openScanner()" title="Scan barcode to grade a product" style="position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(26,74,46,.35);font-size:24px;z-index:900;display:flex;align-items:center;justify-content:center;transition:transform .2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+<button id="scanBtn" onclick="openScanner()" aria-label="Scan product barcode" title="Scan barcode to grade a product" style="position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(26,74,46,.35);font-size:24px;z-index:900;display:flex;align-items:center;justify-content:center;transition:transform .2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="4" height="4"/><rect x="17" y="3" width="4" height="4"/><rect x="3" y="17" width="4" height="4"/><line x1="7" y1="5" x2="17" y2="5"/><line x1="7" y1="19" x2="17" y2="19"/><line x1="5" y1="7" x2="5" y2="17"/><line x1="19" y1="7" x2="19" y2="17"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="9" y1="12" x2="21" y2="12"/></svg>
 </button>
 
 <!-- Scanner modal overlay -->
 <div id="scannerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:20px;width:min(480px,94vw);max-height:90vh;overflow-y:auto;padding:28px;position:relative;">
-    <button onclick="closeScanner()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#9ca3af;">×</button>
+    <button onclick="closeScanner()" aria-label="Close scanner" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#9ca3af;">×</button>
 
     <div style="text-align:center;margin-bottom:24px;">
       <div style="font-size:28px;margin-bottom:8px;">📷</div>
@@ -3009,25 +2946,24 @@ function scoreIngredients() {
       </div>
     </div>
 
-    <!-- Submit panel (Phase 4b) -->
     <div id="panel-submit" style="display:none;">
       <div id="submitSuccessState" style="display:none;text-align:center;padding:16px 0;">
         <div style="font-size:40px;margin-bottom:10px;">🎉</div>
         <div style="font-size:18px;font-weight:800;color:var(--green);margin-bottom:6px;">Submitted!</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">We'll review and publish the grade within 48 hours.</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">We'll review and publish within 48 hours.</div>
         <button onclick="resetSubmitPanel()" style="padding:9px 24px;background:var(--green-pale);border:1.5px solid var(--green-mid);color:var(--green);border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Submit another</button>
       </div>
       <div id="submitFormState">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5;">Paste the ingredients from the back of the pack and we'll grade it within 48 hours.</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5;">Paste ingredients from the back of the pack and we'll grade it within 48 hours.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-          <div><label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Product name *</label><input id="subName" placeholder="e.g. Maggi 2-Minute Noodles" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/></div>
-          <div><label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Brand</label><input id="subBrand" placeholder="e.g. Nestlé" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/></div>
+          <div><label style="font-size:10px;font-weight:700;color:#9ca3af;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Product name *</label><input id="subName" placeholder="e.g. Maggi 2-Minute Noodles" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/></div>
+          <div><label style="font-size:10px;font-weight:700;color:#9ca3af;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Brand</label><input id="subBrand" placeholder="e.g. Nestlé" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/></div>
         </div>
-        <div style="margin-bottom:10px;"><label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Ingredients (from back of pack) *</label><textarea id="subIngredients" rows="4" oninput="updateSubGradePreview()" placeholder="Refined Wheat Flour, Palmolein (TBHQ as antioxidant), Salt, Spices..." style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea></div>
+        <div style="margin-bottom:10px;"><label style="font-size:10px;font-weight:700;color:#9ca3af;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Ingredients (from back of pack) *</label><textarea id="subIngredients" rows="4" oninput="p4UpdatePreview()" placeholder="Refined Wheat Flour, Palmolein (TBHQ as antioxidant), Salt, Spices..." style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea></div>
         <div id="subGradePreview" style="display:none;background:var(--green-pale);border:1px solid var(--green-mid);border-radius:10px;padding:12px 14px;margin-bottom:10px;"><div id="subGradePreviewContent"></div></div>
-        <div style="margin-bottom:14px;"><label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Your email (optional)</label><input id="subEmail" type="email" placeholder="Get notified when it's live" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/></div>
-        <button onclick="submitProductToSupabase()" id="subBtn" style="width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Submit for Review →</button>
-        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:8px;">Reviewed by our team · Published within 48 hours</p>
+        <div style="margin-bottom:14px;"><label style="font-size:10px;font-weight:700;color:#9ca3af;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Your email (optional)</label><input id="subEmail" type="email" placeholder="Get notified when it's live" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/></div>
+        <button onclick="p4Submit()" id="subBtn" style="width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Submit for Review &#x2192;</button>
+        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:8px;">Reviewed by our team &#183; Published within 48 hours</p>
       </div>
     </div>
 
@@ -3047,161 +2983,3 @@ function scoreIngredients() {
 </style>
 </body>
 </html>
-// ============================================================
-// EatAware Alternatives Engine v2 — verified from live DB
-// E/F -> A-C only. D -> C+ preferred. Two swaps always shown.
-// ============================================================
-html += '<div style="font-size:11px;color:#9ca3af;margin-top:10px;">Score: '+result.score+'/100 · Data from Open Food Facts</div>';
-        window._prefill = {name:name, brand:brand, ings:ings};
-        html += '<button onclick="prefillFromPending()" style="margin-top:12px;width:100%;padding:10px;background:var(--green);color:#fff;border:none;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Submit to EatAware for full review →</button>';
-
-        showScanResult(html, true);
-      } else {
-        showScanResult('<div style="font-size:13px;color:#374151;text-align:center;padding:8px;"><strong>'+(name||'Product found')+'</strong><br/><span style="color:var(--muted);">No ingredient data on Open Food Facts.<br/>Try the "Type ingredients" tab to paste from the label.</span></div>', false);
-      }
-    } else {
-      showScanResult('<div style="text-align:center;padding:8px;"><div style="font-size:13px;color:#374151;font-weight:600;">Barcode not found</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">Barcode '+code+' is not in Open Food Facts.<br/>Use the "Type ingredients" tab to grade manually.</div></div>', false);
-    }
-  } catch(e) {
-    showScanResult('<div style="text-align:center;font-size:13px;color:#dc2626;">Lookup failed. Check your connection and try again.</div>', false);
-  }
-}
-
-
-<script>
-// ── AUTO-SCORING (type ingredients) ──────────────────────────
-
-function scoreIngredients() {
-  var text = document.getElementById('quickIngInput').value.trim();
-  if (!text) { alert('Please paste an ingredient list first.'); return; }
-
-  var result = quickScore(text);
-  var gc = gradeColor(result.grade);
-  var gradeNames = {A:'Excellent',B:'Good',C:'Moderate concern',D:'High concern',E:'Very high concern',F:'Avoid as routine'};
-
-  var flagsHtml = result.flags.map(function(f) {
-    var dot = f.level==='safe'?'🟢':f.level==='caution'?'🟡':'🔴';
-    var col = f.level==='safe'?'#166534':f.level==='caution'?'#92400e':'#7f1d1d';
-    return '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #d1fae5;font-size:12px;">'
-      +'<span style="color:'+col+';">'+dot+' '+f.label+'</span>'
-      +'<span style="font-weight:700;color:'+(f.pts>0?'#16a34a':'#dc2626')+';">'+(f.pts>0?'+':'')+f.pts+'</span></div>';
-  }).join('');
-
-  var html = '<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">'
-    +'<div style="width:60px;height:60px;border-radius:14px;background:'+gc+';display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;flex-shrink:0;">'+result.grade+'</div>'
-    +'<div><div style="font-size:18px;font-weight:900;color:var(--ink);">Grade '+result.grade+'</div>'
-    +'<div style="font-size:13px;color:var(--muted);">'+(gradeNames[result.grade]||'')+' · '+result.score+'/100</div></div></div>'
-    +(flagsHtml?'<div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">Score breakdown:</div>'+flagsHtml:'')
-    +'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #d1fae5;font-size:11px;color:#9ca3af;">Preliminary AI analysis. Human review recommended for publishing.</div>';
-
-  showScanResult(html, true);
-}
-</script>
-
-
-
-
-<!-- ═══════════════════════════════════════════════════════
-     BARCODE SCANNER — Phase 4
-     Floating button → camera scan → instant grade
-═══════════════════════════════════════════════════════ -->
-<button id="scanBtn" onclick="openScanner()" title="Scan barcode to grade a product" style="position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(26,74,46,.35);font-size:24px;z-index:900;display:flex;align-items:center;justify-content:center;transition:transform .2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="4" height="4"/><rect x="17" y="3" width="4" height="4"/><rect x="3" y="17" width="4" height="4"/><line x1="7" y1="5" x2="17" y2="5"/><line x1="7" y1="19" x2="17" y2="19"/><line x1="5" y1="7" x2="5" y2="17"/><line x1="19" y1="7" x2="19" y2="17"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="9" y1="12" x2="21" y2="12"/></svg>
-</button>
-
-<!-- Scanner modal overlay -->
-<div id="scannerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:20px;width:min(480px,94vw);max-height:90vh;overflow-y:auto;padding:28px;position:relative;">
-    <button onclick="closeScanner()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#9ca3af;">×</button>
-
-    <div style="text-align:center;margin-bottom:24px;">
-      <div style="font-size:28px;margin-bottom:8px;">📷</div>
-      <h3 style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;">Scan or Search</h3>
-      <p style="font-size:13px;color:var(--muted);">Scan a product barcode or type an ingredient list to get an instant grade</p>
-    </div>
-
-    <!-- Tabs -->
-    <div style="display:flex;gap:0;border:1.5px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:20px;">
-      <button id="tab-scan" onclick="switchScanTab('scan')" style="flex:1;padding:10px;border:none;background:var(--green);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Barcode</button>
-      <button id="tab-type" onclick="switchScanTab('type')" style="flex:1;padding:10px;border:none;background:#fff;color:#374151;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">✏️ Type ingredients</button>
-    </div>
-
-    <!-- Barcode scan panel -->
-    <div id="panel-scan">
-      <div id="scanViewport" style="background:#1a1a1a;border-radius:12px;overflow:hidden;position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
-        <video id="scanVideo" style="width:100%;height:100%;object-fit:cover;" autoplay muted playsinline></video>
-        <!-- Scan overlay -->
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-          <div style="width:65%;aspect-ratio:3/2;border:3px solid rgba(255,255,255,.8);border-radius:8px;box-shadow:0 0 0 2000px rgba(0,0,0,.4);"></div>
-        </div>
-        <!-- Scan line animation -->
-        <div id="scanLine" style="position:absolute;left:17.5%;right:17.5%;height:2px;background:linear-gradient(90deg,transparent,#4ade80,transparent);animation:scanAnim 2s linear infinite;pointer-events:none;"></div>
-        <!-- Placeholder when no camera -->
-        <div id="noCameraMsg" style="position:absolute;text-align:center;color:#fff;padding:20px;">
-          <div style="font-size:32px;margin-bottom:8px;">📷</div>
-          <div style="font-size:14px;font-weight:600;">Click below to start camera</div>
-          <div style="font-size:12px;opacity:.7;margin-top:4px;">Allow camera access when prompted</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:12px;">
-        <button id="startCamBtn" onclick="startCamera()" style="flex:1;padding:11px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Start Camera</button>
-        <button onclick="stopCamera()" style="padding:11px 16px;background:#f3f4f6;color:#374151;border:none;border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;">Stop</button>
-      </div>
-      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px;">Point camera at the barcode on the product pack</p>
-      <!-- Manual barcode entry fallback -->
-      <div style="margin-top:14px;display:flex;gap:8px;">
-        <input id="barcodeInput" placeholder="Or type barcode number manually..." style="flex:1;padding:9px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'" onkeydown="if(event.key==='Enter')lookupBarcode()"/>
-        <button onclick="lookupBarcode()" style="padding:9px 16px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Look up</button>
-      </div>
-    </div>
-
-    <!-- Type ingredients panel -->
-    <div id="panel-type" style="display:none;">
-      <div>
-        <label style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:6px;">Paste ingredient list from pack</label>
-        <textarea id="quickIngInput" rows="5" placeholder="Refined Wheat Flour (Maida), Palmolein (TBHQ as antioxidant), Tapioca Starch, Salt, Spices..." style="width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
-        <button onclick="scoreIngredients()" style="width:100%;margin-top:12px;padding:12px;background:var(--green);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Get Instant Grade →</button>
-      </div>
-    </div>
-
-    <!-- Result area (shared by both panels) -->
-    <div id="scanResult" style="display:none;margin-top:20px;background:var(--green-pale);border:1px solid var(--green-mid);border-radius:14px;padding:18px;">
-      <div id="scanResultContent"></div>
-    </div>
-  </div>
-</div>
-
-<style>
-@keyframes scanAnim {
-  0%   { top: 17.5%; }
-  50%  { top: 75%; }
-  100% { top: 17.5%; }
-}
-</style>
-
-<script>
-function prefillFromBtn(btn) {
-  prefillSubmit(btn.dataset.name || '', btn.dataset.brand || '', btn.dataset.ings || '');
-}
-function prefillSubmit(name, brand, ings) {
-  closeScanner();
-  document.getElementById('subName').value = name;
-  document.getElementById('subBrand').value = brand;
-  document.getElementById('subIngredients').value = ings;
-  var el = document.getElementById('submit-product');
-  if (el) el.scrollIntoView({ behavior:'smooth' });
-}
-
-function showScanResult(html, show) {
-  var el = document.getElementById('scanResult');
-  document.getElementById('scanResultContent').innerHTML = html;
-  el.style.display = show===false ? 'block' : 'block';
-}
-
-</script>
-</body>
-</html>
-// ============================================================
-// EatAware Alternatives Engine v2 — verified from live DB
-// E/F -> A-C only. D -> C+ preferred. Two swaps always shown.
-// ============================================================
