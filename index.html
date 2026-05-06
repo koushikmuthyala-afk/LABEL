@@ -812,6 +812,16 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
       <span class="search-tag" onclick="quickSearch('bread')">Bread</span>
       <span class="search-tag" onclick="quickSearch('sourdough')">Sourdough</span>
     </div>
+  <!-- Phase 4: Action buttons — below search tags -->
+  <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+    <button onclick="openScannerTab('type')" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:transparent;border:1.5px solid var(--green-mid);color:var(--green);border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;" onmouseover="this.style.background='var(--green-pale)'" onmouseout="this.style.background='transparent'">
+      ✏️ Grade ingredients
+    </button>
+    <button onclick="openScannerTab('submit')" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:transparent;border:1.5px solid var(--green-mid);color:var(--green);border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;" onmouseover="this.style.background='var(--green-pale)'" onmouseout="this.style.background='transparent'">
+      ➕ Submit a product
+    </button>
+  </div>
+
   </div>
 </div>
 
@@ -1123,7 +1133,7 @@ footer { background: var(--ink); padding: 56px 40px 28px; color: rgba(255,255,25
         </div>
         <div style="margin-top:16px;">
           <label style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:5px;">Ingredients (paste from label) *</label>
-          <textarea id="subIngredients" rows="4" placeholder="Paste the full ingredient list from the back of the pack exactly as written. e.g: Refined Wheat Flour, Palmolein (20%), Salt, Spices..." style="width:100%;padding:10px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+          <textarea id="subIngredients" rows="4" oninput="updateSubGradePreview()" placeholder="Paste the full ingredient list from the back of the pack exactly as written. e.g: Refined Wheat Flour, Palmolein (20%), Salt, Spices..." style="width:100%;padding:10px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
         </div>
         <div style="margin-top:16px;">
           <label style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:5px;">Your Email (optional — for updates)</label>
@@ -2633,6 +2643,11 @@ function resetSubmitForm() {
 var _cameraStream = null;
 var _scanInterval = null;
 
+function openScannerTab(tab) {
+  openScanner();
+  setTimeout(function() { switchScanTab(tab); }, 30);
+}
+
 function openScanner() {
   document.getElementById('scannerModal').style.display = 'flex';
   document.getElementById('scanResult').style.display = 'none';
@@ -2644,13 +2659,27 @@ function closeScanner() {
 }
 
 function switchScanTab(tab) {
-  document.getElementById('panel-scan').style.display = tab==='scan' ? 'block' : 'none';
-  document.getElementById('panel-type').style.display = tab==='type' ? 'block' : 'none';
-  document.getElementById('tab-scan').style.background = tab==='scan' ? 'var(--green)' : '#fff';
-  document.getElementById('tab-scan').style.color = tab==='scan' ? '#fff' : '#374151';
-  document.getElementById('tab-type').style.background = tab==='type' ? 'var(--green)' : '#fff';
-  document.getElementById('tab-type').style.color = tab==='type' ? '#fff' : '#374151';
-  document.getElementById('scanResult').style.display = 'none';
+  var tabs = ['scan','type','submit'];
+  var titles = {
+    scan:   {h:'Scan a Barcode',   s:'Point camera at barcode or type it manually'},
+    type:   {h:'Grade Ingredients', s:'Paste the ingredient list from any pack for an instant A–F grade'},
+    submit: {h:'Submit a Product',  s:"Can't find it? Submit and we'll grade it within 48 hours"}
+  };
+  tabs.forEach(function(t) {
+    var panel = document.getElementById('panel-' + t);
+    var btn   = document.getElementById('tab-' + t);
+    if (panel) panel.style.display = (t === tab) ? 'block' : 'none';
+    if (btn) {
+      btn.style.background = (t === tab) ? 'var(--green)' : '#fff';
+      btn.style.color      = (t === tab) ? '#fff' : '#374151';
+    }
+  });
+  var titleEl = document.getElementById('scannerModalTitle');
+  var subEl   = document.getElementById('scannerModalSub');
+  if (titleEl && titles[tab]) titleEl.textContent = titles[tab].h;
+  if (subEl   && titles[tab]) subEl.textContent   = titles[tab].s;
+  var res = document.getElementById('scanResult');
+  if (res) res.style.display = 'none';
 }
 
 async function startCamera() {
@@ -2784,6 +2813,73 @@ function showScanResult(html, show) {
 function scoreIngredients() {
   var text = document.getElementById('quickIngInput').value.trim();
   if (!text) { alert('Please paste an ingredient list first.'); return; }
+  var result = quickScoreText(text);
+  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
+  var taglines = {A:'Excellent — clean ingredients',B:'Good — mostly safe',C:'Some concerns',D:'High concern — limit use',E:'Very high concern',F:'Avoid as routine'};
+  var flagsHtml = result.flags.slice(0,6).map(function(f) {
+    var dot = f.risk==='safe' ? '🟢' : f.risk==='caution' ? '🟡' : '🔴';
+    var col = f.risk==='safe' ? '#166534' : f.risk==='caution' ? '#92400e' : '#7f1d1d';
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12px;">'
+      + '<span style="color:'+col+';">' + dot + ' ' + f.name + '</span>'
+      + '<span style="font-weight:700;color:'+(f.pts>0?'#16a34a':'#dc2626')+';">'+(f.pts>0?'+':'')+f.pts+'</span></div>';
+  }).join('');
+  var html = '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">'
+    + '<div style="width:52px;height:52px;border-radius:14px;background:'+gc[result.grade]+';display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;flex-shrink:0;">'+result.grade+'</div>'
+    + '<div><div style="font-size:16px;font-weight:800;color:var(--ink);">Grade '+result.grade+'</div>'
+    + '<div style="font-size:12px;color:'+gc[result.grade]+';margin-top:2px;">'+taglines[result.grade]+'</div>'
+    + '<div style="font-size:11px;color:#9ca3af;margin-top:1px;">Score: '+result.score+' / 100</div></div></div>'
+    + (flagsHtml || '<div style="font-size:12px;color:#9ca3af;">No major concerns detected</div>')
+    + '<div style="font-size:10px;color:#9ca3af;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.06);">Preliminary AI analysis · Verify with official label · <a href="#methodology" onclick="closeScanner()" style="color:var(--green);">How we grade</a></div>';
+  document.getElementById('scanResultContent').innerHTML = html;
+  document.getElementById('scanResult').style.display = 'block';
+  // Also pre-fill the submit tab
+  document.getElementById('subIngredients').value = text;
+  updateSubGradePreview();
+}
+
+function quickScoreText(text) {
+  var lower = text.toLowerCase();
+  var score = 100;
+  var flags = [];
+  var used = {};
+  var ING_DB = [
+    {re:/partially hydrogenat|vanaspati/i,  name:'Trans fat / PHO',        risk:'harmful',pts:-40},
+    {re:/tbhq|ins.?319/i,                   name:'TBHQ (INS 319)',          risk:'harmful',pts:-15},
+    {re:/tartrazine|ins.?102|e102/i,    name:'Tartrazine (E102)',        risk:'harmful',pts:-10},
+    {re:/sunset yellow|ins.?110/i,          name:'Sunset Yellow (E110)',     risk:'harmful',pts:-8},
+    {re:/allura red|ins.?129/i,             name:'Allura Red (E129)',         risk:'harmful',pts:-8},
+    {re:/sodium benzoate|ins.?211/i,        name:'Sodium Benzoate',          risk:'harmful',pts:-8},
+    {re:/potassium bromate/i,               name:'Potassium Bromate (BANNED)',risk:'harmful',pts:-25},
+    {re:/msg|monosodium glutamate|ins.?621/i,name:'MSG (INS 621)',       risk:'caution',pts:-5},
+    {re:/palm oil|palmolein|palm fat/i,     name:'Palm oil',                 risk:'caution',pts:-7},
+    {re:/maida|refined wheat|refined flour/i,name:'Refined flour (Maida)',risk:'caution',pts:-5},
+    {re:/maltodextrin/i,                    name:'Maltodextrin (GI 110)',    risk:'caution',pts:-6},
+    {re:/artificial colou|caramel colou|e150|synthetic colou/i,name:'Artificial colour',risk:'caution',pts:-6},
+    {re:/nature identical|artificial flavou|synthetic flavou/i,name:'Artificial flavouring',risk:'caution',pts:-5},
+    {re:/high fructose corn syrup|hfcs/i,   name:'HFCS',                    risk:'harmful',pts:-12},
+    {re:/added sugar|sucrose(?!\s*ester)/i, name:'Added sugar',              risk:'caution',pts:-6},
+    {re:/lactobacillus|probiotic|live cultur/i,name:'Live probiotic cultures',risk:'safe',  pts:+12},
+    {re:/whole grain|whole wheat|ragi|bajra|jowar|foxtail|rolled oat|millet/i,name:'Whole grain / millet',risk:'safe',pts:+10},
+    {re:/omega.?3|flaxseed|chia seed/i,     name:'Omega-3 source',           risk:'safe',  pts:+6},
+    {re:/turmeric|curcumin/i,               name:'Turmeric (curcumin)',      risk:'safe',  pts:+6},
+    {re:/no added sugar|unsweetened/i,      name:'No added sugar',           risk:'safe',  pts:+5},
+    {re:/pea protein|whey protein|soy protein/i,name:'Real protein source',  risk:'safe',  pts:+6},
+  ];
+  ING_DB.forEach(function(rule) {
+    if (!used[rule.name] && rule.re.test(lower)) {
+      flags.push({name:rule.name, risk:rule.risk, pts:rule.pts});
+      score += rule.pts;
+      used[rule.name] = true;
+    }
+  });
+  score = Math.max(0, Math.min(100, score));
+  var grade = score>=82?'A':score>=67?'B':score>=52?'C':score>=32?'D':score>=12?'E':'F';
+  return {score:score, grade:grade, flags:flags};
+}
+
+function scoreIngredients_old_unused() {
+  var text = document.getElementById('quickIngInput').value.trim();
+  if (!text) { alert('Please paste an ingredient list first.'); return; }
 
   var result = quickScore(text);
   var gc = gradeColor(result.grade);
@@ -2808,6 +2904,94 @@ function scoreIngredients() {
 }
 
 </script>
+
+// ── Phase 4b: Submit a Product ────────────────────────────────
+
+function updateSubGradePreview() {
+  var ings = document.getElementById('subIngredients') ? document.getElementById('subIngredients').value.trim() : '';
+  var preview = document.getElementById('subGradePreview');
+  var previewContent = document.getElementById('subGradePreviewContent');
+  if (!preview || !previewContent || !ings) {
+    if (preview) preview.style.display = 'none';
+    return;
+  }
+  var result = quickScoreText(ings);
+  var gc = {A:'#16a34a',B:'#65a30d',C:'#d97706',D:'#dc2626',E:'#7f1d1d',F:'#1c1917'};
+  var topFlags = result.flags.filter(function(f){ return f.risk !== 'safe'; }).slice(0,3)
+    .map(function(f){ return '<span style="font-size:11px;color:#92400e;">🟡 '+f.name+'</span>'; }).join(' · ');
+  previewContent.innerHTML =
+    '<div style="display:flex;align-items:center;gap:10px;">'
+    + '<div style="width:36px;height:36px;border-radius:10px;background:'+gc[result.grade]+';display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;">'+result.grade+'</div>'
+    + '<div><div style="font-size:13px;font-weight:700;color:var(--ink);">Predicted grade: '+result.grade+' ('+result.score+'/100)</div>'
+    + '<div style="font-size:11px;color:#9ca3af;margin-top:2px;">'+( topFlags || 'No major concerns detected')+'</div></div></div>';
+  preview.style.display = 'block';
+}
+
+async function submitProductToSupabase() {
+  var name = (document.getElementById('subName') || {}).value;
+  var ings = (document.getElementById('subIngredients') || {}).value;
+  if (!name || !name.trim()) { alert('Please enter the product name.'); return; }
+  if (!ings  || !ings.trim())  { alert('Please paste the ingredient list.'); return; }
+
+  var btn = document.getElementById('subBtn');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+
+  // Run score prediction before submitting
+  var result = quickScoreText(ings.trim());
+
+  var payload = {
+    product_name:     name.trim(),
+    brand:            (document.getElementById('subBrand') || {}).value || '',
+    ingredients:      ings.trim(),
+    submitter_email:  (document.getElementById('subEmail') || {}).value || '',
+    predicted_grade:  result.grade,
+    predicted_score:  result.score,
+    status:           'pending'
+  };
+
+  try {
+    var res = await fetch(SUPA_URL + '/rest/v1/submissions', {
+      method: 'POST',
+      headers: {
+        'apikey':        SUPA_KEY,
+        'Authorization': 'Bearer ' + SUPA_KEY,
+        'Content-Type':  'application/json',
+        'Prefer':        'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok || res.status === 201) {
+      // Show success state
+      var formState = document.getElementById('submitFormState');
+      var succState = document.getElementById('submitSuccessState');
+      if (formState) formState.style.display = 'none';
+      if (succState) succState.style.display = 'block';
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch(err) {
+    if (btn) { btn.textContent = 'Submit for Review →'; btn.disabled = false; }
+    alert('Submission failed: ' + err.message + '. Please try again.');
+  }
+}
+
+function resetSubmitPanel() {
+  var fields = ['subName','subBrand','subIngredients','subEmail'];
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  var preview = document.getElementById('subGradePreview');
+  if (preview) preview.style.display = 'none';
+  var formState = document.getElementById('submitFormState');
+  var succState = document.getElementById('submitSuccessState');
+  if (formState) formState.style.display = 'block';
+  if (succState) succState.style.display = 'none';
+  var btn = document.getElementById('subBtn');
+  if (btn) { btn.textContent = 'Submit for Review →'; btn.disabled = false; }
+}
+
 </script>
 <!-- ═══════════════════════════════════════════════════════
      BARCODE SCANNER — Phase 4
@@ -2822,16 +3006,16 @@ function scoreIngredients() {
   <div style="background:#fff;border-radius:20px;width:min(480px,94vw);max-height:90vh;overflow-y:auto;padding:28px;position:relative;">
     <button onclick="closeScanner()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#9ca3af;">×</button>
 
-    <div style="text-align:center;margin-bottom:24px;">
-      <div style="font-size:28px;margin-bottom:8px;">📷</div>
-      <h3 style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;">Scan or Search</h3>
-      <p style="font-size:13px;color:var(--muted);">Scan a product barcode or type an ingredient list to get an instant grade</p>
+    <div style="margin-bottom:20px;">
+      <h3 id="scannerModalTitle" style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:2px;">Scan or Search</h3>
+      <p id="scannerModalSub" style="font-size:13px;color:var(--muted);">Scan a barcode or paste ingredients to get an instant grade</p>
     </div>
 
     <!-- Tabs -->
     <div style="display:flex;gap:0;border:1.5px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:20px;">
       <button id="tab-scan" onclick="switchScanTab('scan')" style="flex:1;padding:10px;border:none;background:var(--green);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Barcode</button>
       <button id="tab-type" onclick="switchScanTab('type')" style="flex:1;padding:10px;border:none;background:#fff;color:#374151;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">✏️ Type ingredients</button>
+      <button id="tab-submit" onclick="switchScanTab('submit')" style="flex:1;padding:10px;border:none;background:#fff;color:#374151;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">➕ Submit</button>
     </div>
 
     <!-- Barcode scan panel -->
@@ -2869,6 +3053,43 @@ function scoreIngredients() {
         <label style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:6px;">Paste ingredient list from pack</label>
         <textarea id="quickIngInput" rows="5" placeholder="Refined Wheat Flour (Maida), Palmolein (TBHQ as antioxidant), Tapioca Starch, Salt, Spices..." style="width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
         <button onclick="scoreIngredients()" style="width:100%;margin-top:12px;padding:12px;background:var(--green);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Get Instant Grade →</button>
+      </div>
+    </div>
+
+    <!-- Submit product panel (Phase 4b) -->
+    <div id="panel-submit" style="display:none;">
+      <div id="submitSuccessState" style="display:none;text-align:center;padding:16px 0;">
+        <div style="font-size:40px;margin-bottom:10px;">🎉</div>
+        <div style="font-size:18px;font-weight:800;color:var(--green);margin-bottom:6px;">Submitted!</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">We'll review the label and publish the grade within 48 hours.</div>
+        <button onclick="resetSubmitPanel()" style="padding:9px 24px;background:var(--green-pale);border:1.5px solid var(--green-mid);color:var(--green);border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Submit another</button>
+      </div>
+      <div id="submitFormState">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5;">Can't find a product? Paste the ingredients from the back of the pack — we'll grade it and publish within 48 hours.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          <div>
+            <label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Product name *</label>
+            <input id="subName" placeholder="e.g. Maggi 2-Minute Noodles" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/>
+          </div>
+          <div>
+            <label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Brand</label>
+            <input id="subBrand" placeholder="e.g. Nestlé" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/>
+          </div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Ingredients (from back of pack) *</label>
+          <textarea id="subIngredients" rows="4" placeholder="Refined Wheat Flour, Palmolein (TBHQ as antioxidant), Salt, Spices (2%)..." style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+        </div>
+        <!-- Grade preview — shows when ingredients are pasted -->
+        <div id="subGradePreview" style="display:none;background:var(--green-pale);border:1px solid var(--green-mid);border-radius:10px;padding:12px 14px;margin-bottom:10px;">
+          <div id="subGradePreviewContent"></div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:5px;">Your email (optional)</label>
+          <input id="subEmail" type="email" placeholder="Get notified when it's live" style="width:100%;padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#e5e7eb'"/>
+        </div>
+        <button onclick="submitProductToSupabase()" id="subBtn" style="width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Submit for Review →</button>
+        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:8px;">Reviewed by our team · Published within 48 hours · No spam</p>
       </div>
     </div>
 
